@@ -12,7 +12,8 @@ part of 'purchase.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Purchase _$PurchaseFromJson(Map<String, dynamic> json) {
   return _Purchase.fromJson(json);
@@ -41,12 +42,13 @@ abstract class $PurchaseCopyWith<$Res> {
   factory $PurchaseCopyWith(Purchase value, $Res Function(Purchase) then) =
       _$PurchaseCopyWithImpl<$Res, Purchase>;
   @useResult
-  $Res call(
-      {String id,
-      PurchaseType type,
-      Map<String, dynamic> purchaseData,
-      DateTime createdAt,
-      DateTime updatedAt});
+  $Res call({
+    String id,
+    PurchaseType type,
+    Map<String, dynamic> purchaseData,
+    DateTime createdAt,
+    DateTime updatedAt,
+  });
 }
 
 /// @nodoc
@@ -70,28 +72,36 @@ class _$PurchaseCopyWithImpl<$Res, $Val extends Purchase>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as PurchaseType,
-      purchaseData: null == purchaseData
-          ? _value.purchaseData
-          : purchaseData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            type:
+                null == type
+                    ? _value.type
+                    : type // ignore: cast_nullable_to_non_nullable
+                        as PurchaseType,
+            purchaseData:
+                null == purchaseData
+                    ? _value.purchaseData
+                    : purchaseData // ignore: cast_nullable_to_non_nullable
+                        as Map<String, dynamic>,
+            createdAt:
+                null == createdAt
+                    ? _value.createdAt
+                    : createdAt // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+            updatedAt:
+                null == updatedAt
+                    ? _value.updatedAt
+                    : updatedAt // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -99,16 +109,18 @@ class _$PurchaseCopyWithImpl<$Res, $Val extends Purchase>
 abstract class _$$PurchaseImplCopyWith<$Res>
     implements $PurchaseCopyWith<$Res> {
   factory _$$PurchaseImplCopyWith(
-          _$PurchaseImpl value, $Res Function(_$PurchaseImpl) then) =
-      __$$PurchaseImplCopyWithImpl<$Res>;
+    _$PurchaseImpl value,
+    $Res Function(_$PurchaseImpl) then,
+  ) = __$$PurchaseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      PurchaseType type,
-      Map<String, dynamic> purchaseData,
-      DateTime createdAt,
-      DateTime updatedAt});
+  $Res call({
+    String id,
+    PurchaseType type,
+    Map<String, dynamic> purchaseData,
+    DateTime createdAt,
+    DateTime updatedAt,
+  });
 }
 
 /// @nodoc
@@ -116,8 +128,9 @@ class __$$PurchaseImplCopyWithImpl<$Res>
     extends _$PurchaseCopyWithImpl<$Res, _$PurchaseImpl>
     implements _$$PurchaseImplCopyWith<$Res> {
   __$$PurchaseImplCopyWithImpl(
-      _$PurchaseImpl _value, $Res Function(_$PurchaseImpl) _then)
-      : super(_value, _then);
+    _$PurchaseImpl _value,
+    $Res Function(_$PurchaseImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of Purchase
   /// with the given fields replaced by the non-null parameter values.
@@ -130,42 +143,49 @@ class __$$PurchaseImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_$PurchaseImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as PurchaseType,
-      purchaseData: null == purchaseData
-          ? _value._purchaseData
-          : purchaseData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
+    return _then(
+      _$PurchaseImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        type:
+            null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                    as PurchaseType,
+        purchaseData:
+            null == purchaseData
+                ? _value._purchaseData
+                : purchaseData // ignore: cast_nullable_to_non_nullable
+                    as Map<String, dynamic>,
+        createdAt:
+            null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+        updatedAt:
+            null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$PurchaseImpl extends _Purchase with DiagnosticableTreeMixin {
-  const _$PurchaseImpl(
-      {required this.id,
-      required this.type,
-      required final Map<String, dynamic> purchaseData,
-      required this.createdAt,
-      required this.updatedAt})
-      : _purchaseData = purchaseData,
-        super._();
+  const _$PurchaseImpl({
+    required this.id,
+    required this.type,
+    required final Map<String, dynamic> purchaseData,
+    required this.createdAt,
+    required this.updatedAt,
+  }) : _purchaseData = purchaseData,
+       super._();
 
   factory _$PurchaseImpl.fromJson(Map<String, dynamic> json) =>
       _$$PurchaseImplFromJson(json);
@@ -211,8 +231,10 @@ class _$PurchaseImpl extends _Purchase with DiagnosticableTreeMixin {
             other is _$PurchaseImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.type, type) || other.type == type) &&
-            const DeepCollectionEquality()
-                .equals(other._purchaseData, _purchaseData) &&
+            const DeepCollectionEquality().equals(
+              other._purchaseData,
+              _purchaseData,
+            ) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -221,8 +243,14 @@ class _$PurchaseImpl extends _Purchase with DiagnosticableTreeMixin {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, type,
-      const DeepCollectionEquality().hash(_purchaseData), createdAt, updatedAt);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    type,
+    const DeepCollectionEquality().hash(_purchaseData),
+    createdAt,
+    updatedAt,
+  );
 
   /// Create a copy of Purchase
   /// with the given fields replaced by the non-null parameter values.
@@ -234,19 +262,18 @@ class _$PurchaseImpl extends _Purchase with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PurchaseImplToJson(
-      this,
-    );
+    return _$$PurchaseImplToJson(this);
   }
 }
 
 abstract class _Purchase extends Purchase {
-  const factory _Purchase(
-      {required final String id,
-      required final PurchaseType type,
-      required final Map<String, dynamic> purchaseData,
-      required final DateTime createdAt,
-      required final DateTime updatedAt}) = _$PurchaseImpl;
+  const factory _Purchase({
+    required final String id,
+    required final PurchaseType type,
+    required final Map<String, dynamic> purchaseData,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+  }) = _$PurchaseImpl;
   const _Purchase._() : super._();
 
   factory _Purchase.fromJson(Map<String, dynamic> json) =

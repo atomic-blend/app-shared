@@ -12,7 +12,8 @@ part of 'userRole.entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 UserRoleEntity _$UserRoleEntityFromJson(Map<String, dynamic> json) {
   return _UserRoleEntity.fromJson(json);
@@ -38,11 +39,16 @@ mixin _$UserRoleEntity {
 /// @nodoc
 abstract class $UserRoleEntityCopyWith<$Res> {
   factory $UserRoleEntityCopyWith(
-          UserRoleEntity value, $Res Function(UserRoleEntity) then) =
-      _$UserRoleEntityCopyWithImpl<$Res, UserRoleEntity>;
+    UserRoleEntity value,
+    $Res Function(UserRoleEntity) then,
+  ) = _$UserRoleEntityCopyWithImpl<$Res, UserRoleEntity>;
   @useResult
-  $Res call(
-      {String id, String name, DateTime creation_date, DateTime last_updated});
+  $Res call({
+    String id,
+    String name,
+    DateTime creation_date,
+    DateTime last_updated,
+  });
 }
 
 /// @nodoc
@@ -65,37 +71,49 @@ class _$UserRoleEntityCopyWithImpl<$Res, $Val extends UserRoleEntity>
     Object? creation_date = null,
     Object? last_updated = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      creation_date: null == creation_date
-          ? _value.creation_date
-          : creation_date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      last_updated: null == last_updated
-          ? _value.last_updated
-          : last_updated // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            creation_date:
+                null == creation_date
+                    ? _value.creation_date
+                    : creation_date // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+            last_updated:
+                null == last_updated
+                    ? _value.last_updated
+                    : last_updated // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$UserRoleEntityImplCopyWith<$Res>
     implements $UserRoleEntityCopyWith<$Res> {
-  factory _$$UserRoleEntityImplCopyWith(_$UserRoleEntityImpl value,
-          $Res Function(_$UserRoleEntityImpl) then) =
-      __$$UserRoleEntityImplCopyWithImpl<$Res>;
+  factory _$$UserRoleEntityImplCopyWith(
+    _$UserRoleEntityImpl value,
+    $Res Function(_$UserRoleEntityImpl) then,
+  ) = __$$UserRoleEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id, String name, DateTime creation_date, DateTime last_updated});
+  $Res call({
+    String id,
+    String name,
+    DateTime creation_date,
+    DateTime last_updated,
+  });
 }
 
 /// @nodoc
@@ -103,8 +121,9 @@ class __$$UserRoleEntityImplCopyWithImpl<$Res>
     extends _$UserRoleEntityCopyWithImpl<$Res, _$UserRoleEntityImpl>
     implements _$$UserRoleEntityImplCopyWith<$Res> {
   __$$UserRoleEntityImplCopyWithImpl(
-      _$UserRoleEntityImpl _value, $Res Function(_$UserRoleEntityImpl) _then)
-      : super(_value, _then);
+    _$UserRoleEntityImpl _value,
+    $Res Function(_$UserRoleEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of UserRoleEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -116,35 +135,42 @@ class __$$UserRoleEntityImplCopyWithImpl<$Res>
     Object? creation_date = null,
     Object? last_updated = null,
   }) {
-    return _then(_$UserRoleEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      creation_date: null == creation_date
-          ? _value.creation_date
-          : creation_date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      last_updated: null == last_updated
-          ? _value.last_updated
-          : last_updated // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
+    return _then(
+      _$UserRoleEntityImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        creation_date:
+            null == creation_date
+                ? _value.creation_date
+                : creation_date // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+        last_updated:
+            null == last_updated
+                ? _value.last_updated
+                : last_updated // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$UserRoleEntityImpl implements _UserRoleEntity {
-  _$UserRoleEntityImpl(
-      {required this.id,
-      required this.name,
-      required this.creation_date,
-      required this.last_updated});
+  _$UserRoleEntityImpl({
+    required this.id,
+    required this.name,
+    required this.creation_date,
+    required this.last_updated,
+  });
 
   factory _$UserRoleEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserRoleEntityImplFromJson(json);
@@ -183,22 +209,23 @@ class _$UserRoleEntityImpl implements _UserRoleEntity {
   @pragma('vm:prefer-inline')
   _$$UserRoleEntityImplCopyWith<_$UserRoleEntityImpl> get copyWith =>
       __$$UserRoleEntityImplCopyWithImpl<_$UserRoleEntityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserRoleEntityImplToJson(
-      this,
-    );
+    return _$$UserRoleEntityImplToJson(this);
   }
 }
 
 abstract class _UserRoleEntity implements UserRoleEntity {
-  factory _UserRoleEntity(
-      {required final String id,
-      required final String name,
-      required final DateTime creation_date,
-      required final DateTime last_updated}) = _$UserRoleEntityImpl;
+  factory _UserRoleEntity({
+    required final String id,
+    required final String name,
+    required final DateTime creation_date,
+    required final DateTime last_updated,
+  }) = _$UserRoleEntityImpl;
 
   factory _UserRoleEntity.fromJson(Map<String, dynamic> json) =
       _$UserRoleEntityImpl.fromJson;

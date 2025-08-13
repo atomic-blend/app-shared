@@ -39,8 +39,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
+
+	/// en: 'Atomic Blend'
 	String get app_name => 'Atomic Blend';
+
+	/// en: 'Atomic Blend Cloud'
 	String get app_name_saas => 'Atomic Blend Cloud';
+
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn._(_root);
 	late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
 	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
@@ -111,6 +116,8 @@ class TranslationsNavigationEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Back'
 	String get back => 'Back';
 }
 
@@ -137,8 +144,13 @@ class TranslationsSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Settings'
 	String get title => 'Settings';
+
 	late final TranslationsSettingsAppSettingsEn app_settings = TranslationsSettingsAppSettingsEn._(_root);
+
+	/// en: 'Logout'
 	String get logout => 'Logout';
 }
 
@@ -149,9 +161,16 @@ class TranslationsTagsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Tags'
 	String get title => 'Tags';
+
+	/// en: 'No tags'
 	String get no_tags => 'No tags';
+
+	/// en: 'Assign tags'
 	String get assign_tags => 'Assign tags';
+
 	late final TranslationsTagsAddModalEn add_modal = TranslationsTagsAddModalEn._(_root);
 	late final TranslationsTagsDeleteEn delete = TranslationsTagsDeleteEn._(_root);
 }
@@ -163,30 +182,78 @@ class TranslationsTasksEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Tasks'
 	String get title => 'Tasks';
+
+	/// en: 'Today'
 	String get today => 'Today';
+
+	/// en: 'Overview'
 	String get overview => 'Overview';
+
+	/// en: 'Inbox'
 	String get inbox => 'Inbox';
+
+	/// en: 'Tags'
 	String get tags => 'Tags';
+
+	/// en: 'All tasks'
 	String get all_tasks => 'All tasks';
+
+	/// en: 'Completed tasks'
 	String get completed_tasks => 'Completed tasks';
+
+	/// en: 'My tags'
 	String get my_tags => 'My tags';
+
+	/// en: 'No tags for now'
 	String get no_tags_for_now => 'No tags for now';
+
+	/// en: 'My folders'
 	String get my_folders => 'My folders';
+
 	late final TranslationsTasksFoldersEn folders = TranslationsTasksFoldersEn._(_root);
+
+	/// en: 'Nothing to do for now, enjoy your day!'
 	String get nothing_to_do => 'Nothing to do for now, enjoy your day!';
+
+	/// en: 'You have nothing planned for tomorrow, enjoy your day!'
 	String get day_off => 'You have nothing planned for tomorrow, enjoy your day!';
+
+	/// en: 'You have nothing planned for this week, try and take the time to do the stuff left behind!'
 	String get week_off => 'You have nothing planned for this week, try and take the time to do the stuff left behind!';
+
+	/// en: 'No tasks for now'
 	String get no_tasks_for_now => 'No tasks for now';
+
+	/// en: 'Task Details'
 	String get task_details => 'Task Details';
+
+	/// en: 'Time Log'
 	String get time_log => 'Time Log';
+
+	/// en: 'Log session'
 	String get log_session => 'Log session';
+
+	/// en: 'Timer'
 	String get timer => 'Timer';
+
+	/// en: 'Pomodoro'
 	String get pomodoro => 'Pomodoro';
+
+	/// en: 'Manual'
 	String get manual => 'Manual';
+
+	/// en: 'From'
 	String get from => 'From';
+
+	/// en: 'To'
 	String get to => 'To';
+
+	/// en: 'Priority'
 	String get priority => 'Priority';
+
 	Map<String, String> get priorities => {
 		'none': 'None',
 		'low': 'Low',
@@ -195,8 +262,13 @@ class TranslationsTasksEn {
 	};
 	late final TranslationsTasksDueDatesEn due_dates = TranslationsTasksDueDatesEn._(_root);
 	late final TranslationsTasksAddTaskModalEn add_task_modal = TranslationsTasksAddTaskModalEn._(_root);
+
+	/// en: 'Time spent'
 	String get time_spent => 'Time spent';
+
+	/// en: 'No time entries for now'
 	String get no_time_entries => 'No time entries for now';
+
 	late final TranslationsTasksAddTimeEntryEn add_time_entry = TranslationsTasksAddTimeEntryEn._(_root);
 	late final TranslationsTasksConflictDetectedModalEn conflict_detected_modal = TranslationsTasksConflictDetectedModalEn._(_root);
 }
@@ -208,12 +280,25 @@ class TranslationsCalendarEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Calendar'
 	String get title => 'Calendar';
+
+	/// en: 'Month'
 	String get month => 'Month';
+
+	/// en: 'Day'
 	String get day => 'Day';
+
+	/// en: '3 Days'
 	String get threeDays => '3 Days';
+
+	/// en: 'Week'
 	String get week => 'Week';
+
+	/// en: 'Schedule'
 	String get schedule => 'Schedule';
+
 	late final TranslationsCalendarErrorsEn errors = TranslationsCalendarErrorsEn._(_root);
 	late final TranslationsCalendarEventDetailEn event_detail = TranslationsCalendarEventDetailEn._(_root);
 	late final TranslationsCalendarSettingsEn settings = TranslationsCalendarSettingsEn._(_root);
@@ -226,7 +311,10 @@ class TranslationsAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Edit Profile'
 	String get edit_profile => 'Edit Profile';
+
 	late final TranslationsAccountSectionsEn sections = TranslationsAccountSectionsEn._(_root);
 	late final TranslationsAccountActionsEn actions = TranslationsAccountActionsEn._(_root);
 	late final TranslationsAccountProfileEn profile = TranslationsAccountProfileEn._(_root);
@@ -241,16 +329,34 @@ class TranslationsHabitsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Habits'
 	String get title => 'Habits';
+
+	/// en: 'No habits for now'
 	String get no_habits => 'No habits for now';
+
+	/// en: 'Add your first habit to get started!'
 	String get get_started_now => 'Add your first habit to get started!';
+
 	late final TranslationsHabitsDeleteHabitEn delete_habit = TranslationsHabitsDeleteHabitEn._(_root);
 	late final TranslationsHabitsAddEn add = TranslationsHabitsAddEn._(_root);
+
+	/// en: 'Habits'
 	String get list => 'Habits';
+
+	/// en: 'Overview'
 	String get overview => 'Overview';
+
+	/// en: '${nb} times a day'
 	String times_a_day({required Object nb}) => '${nb} times a day';
+
+	/// en: '${nb} times a week'
 	String times_a_week({required Object nb}) => '${nb} times a week';
+
+	/// en: '${nb} times a month'
 	String times_a_month({required Object nb}) => '${nb} times a month';
+
 	late final TranslationsHabitsHabitDetailEn habit_detail = TranslationsHabitsHabitDetailEn._(_root);
 }
 
@@ -261,7 +367,11 @@ class TranslationsUnderConstructionEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'We're working on it!'
 	String get title => 'We\'re working on it!';
+
+	/// en: 'This feature is not yet available, but we're working hard to bring it to you soon. Stay tuned!'
 	String get description => 'This feature is not yet available, but we\'re working hard to bring it to you soon.\n\nStay tuned!';
 }
 
@@ -272,6 +382,8 @@ class TranslationsMoreEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'More'
 	String get title => 'More';
 }
 
@@ -282,16 +394,38 @@ class TranslationsTimesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Today'
 	String get today => 'Today';
+
+	/// en: 'Tomorrow'
 	String get tomorrow => 'Tomorrow';
+
+	/// en: 'Yesterday'
 	String get yesterday => 'Yesterday';
+
+	/// en: 'This week'
 	String get this_week => 'This week';
+
+	/// en: 'Last week'
 	String get last_week => 'Last week';
+
+	/// en: 'This month'
 	String get this_month => 'This month';
+
+	/// en: 'Last month'
 	String get last_month => 'Last month';
+
+	/// en: 'This year'
 	String get this_year => 'This year';
+
+	/// en: 'Last year'
 	String get last_year => 'Last year';
+
+	/// en: 'All time'
 	String get all_time => 'All time';
+
+	/// en: '(zero) {${nb} minutes} (one) {${nb} minute} (other) {${nb} minutes}'
 	String minutes({required num n, required Object nb}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: '${nb} minutes',
 		one: '${nb} minute',
@@ -306,7 +440,11 @@ class TranslationsDaysBeforeNoneEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '0'
 	String get value => '0';
+
+	/// en: 'None'
 	String get label => 'None';
 }
 
@@ -317,7 +455,11 @@ class TranslationsDaysBeforeSameDayEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'same_day'
 	String get value => 'same_day';
+
+	/// en: 'Same day'
 	String get label => 'Same day';
 }
 
@@ -328,7 +470,11 @@ class TranslationsDaysBeforeOneDayEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-1'
 	String get value => '-1';
+
+	/// en: '1 day before'
 	String get label => '1 day before';
 }
 
@@ -339,7 +485,11 @@ class TranslationsDaysBeforeTwoDaysEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-2'
 	String get value => '-2';
+
+	/// en: '2 days before'
 	String get label => '2 days before';
 }
 
@@ -350,7 +500,11 @@ class TranslationsDaysBeforeThreeDaysEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-3'
 	String get value => '-3';
+
+	/// en: '3 days before'
 	String get label => '3 days before';
 }
 
@@ -361,7 +515,11 @@ class TranslationsDaysBeforeOneWeekEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-7'
 	String get value => '-7';
+
+	/// en: '1 week before'
 	String get label => '1 week before';
 }
 
@@ -372,7 +530,11 @@ class TranslationsDaysBeforeCustomEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'null'
 	String get value => 'null';
+
+	/// en: 'Custom'
 	String get label => 'Custom';
 }
 
@@ -383,7 +545,11 @@ class TranslationsTimeBeforeSameTimeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '0'
 	String get value => '0';
+
+	/// en: 'Same time'
 	String get label => 'Same time';
 }
 
@@ -394,7 +560,11 @@ class TranslationsTimeBeforeFiveMinutesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-5'
 	String get value => '-5';
+
+	/// en: '5 minutes before'
 	String get label => '5 minutes before';
 }
 
@@ -405,7 +575,11 @@ class TranslationsTimeBeforeFifteenMinutesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-15'
 	String get value => '-15';
+
+	/// en: '15 minutes before'
 	String get label => '15 minutes before';
 }
 
@@ -416,7 +590,11 @@ class TranslationsTimeBeforeThirtyMinutesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-30'
 	String get value => '-30';
+
+	/// en: '30 minutes before'
 	String get label => '30 minutes before';
 }
 
@@ -427,7 +605,11 @@ class TranslationsTimeBeforeOneHourEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-60'
 	String get value => '-60';
+
+	/// en: '1 hour before'
 	String get label => '1 hour before';
 }
 
@@ -438,7 +620,11 @@ class TranslationsTimeBeforeTwoHoursEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-120'
 	String get value => '-120';
+
+	/// en: '2 hours before'
 	String get label => '2 hours before';
 }
 
@@ -449,7 +635,11 @@ class TranslationsTimeBeforeOneDayEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '-1440'
 	String get value => '-1440';
+
+	/// en: '1 day before'
 	String get label => '1 day before';
 }
 
@@ -460,7 +650,11 @@ class TranslationsTimeBeforeCustomEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'null'
 	String get value => 'null';
+
+	/// en: 'Custom'
 	String get label => 'Custom';
 }
 
@@ -471,6 +665,8 @@ class TranslationsLoadingEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Loading...'
 	String get simple => 'Loading...';
 }
 
@@ -481,15 +677,35 @@ class TranslationsActionsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Save'
 	String get save => 'Save';
+
+	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Next'
 	String get next => 'Next';
+
+	/// en: 'Back'
 	String get back => 'Back';
+
+	/// en: 'Delete'
 	String get delete => 'Delete';
+
+	/// en: 'Add'
 	String get add => 'Add';
+
+	/// en: 'Edit'
 	String get edit => 'Edit';
+
+	/// en: 'Clear'
 	String get clear => 'Clear';
+
+	/// en: 'Close'
 	String get close => 'Close';
+
+	/// en: 'Subscribe'
 	String get subscribe => 'Subscribe';
 }
 
@@ -500,7 +716,11 @@ class TranslationsValidationEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Required'
 	String get required => 'Required';
+
+	/// en: 'invalid URL'
 	String get invalid_url => 'invalid URL';
 }
 
@@ -511,9 +731,17 @@ class TranslationsNotificationsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'The task is due'
 	String get task_due_now => 'The task is due';
+
+	/// en: 'The task is starting'
 	String get task_starting => 'The task is starting';
+
+	/// en: 'The task is starting in ${time}'
 	String task_starting_in({required Object time}) => 'The task is starting in ${time}';
+
+	/// en: 'Perform the habit now, one less thing to do!'
 	String get habit_due_now => 'Perform the habit now, one less thing to do!';
 }
 
@@ -748,7 +976,11 @@ class TranslationsEisenhowerEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Eisenhower'
 	String get small_title => 'Eisenhower';
+
+	/// en: 'Eisenhower Matrix'
 	String get title => 'Eisenhower Matrix';
 }
 
@@ -759,7 +991,11 @@ class TranslationsFeatureUnderConstructionEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Feature under construction'
 	String get title => 'Feature under construction';
+
+	/// en: 'This feature is not yet available, but we're working hard to bring it to you soon. Stay tuned!'
 	String get description => 'This feature is not yet available, but we\'re working hard to bring it to you soon.\n\nStay tuned!';
 }
 
@@ -770,6 +1006,8 @@ class TranslationsInboxEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Inbox'
 	String get title => 'Inbox';
 }
 
@@ -780,31 +1018,76 @@ class TranslationsTimerEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Timer'
 	String get title => 'Timer';
+
+	/// en: 'Start'
 	String get start => 'Start';
+
+	/// en: 'Stop'
 	String get stop => 'Stop';
+
+	/// en: 'Reset'
 	String get reset => 'Reset';
+
+	/// en: 'Pause'
 	String get pause => 'Pause';
+
+	/// en: 'Resume'
 	String get resume => 'Resume';
+
+	/// en: 'Duration'
 	String get duration => 'Duration';
+
+	/// en: 'Start pomodoro'
 	String get start_pomodoro => 'Start pomodoro';
+
+	/// en: 'Start stopwatch'
 	String get start_stopwatch => 'Start stopwatch';
+
+	/// en: 'Pomodoro running'
 	String get pomo_running => 'Pomodoro running';
+
+	/// en: 'Timer running'
 	String get timer_running => 'Timer running';
+
+	/// en: 'Time left: ${timeLeft}'
 	String time_left({required Object timeLeft}) => 'Time left: ${timeLeft}';
+
+	/// en: 'Start break'
 	String get start_break => 'Start break';
+
+	/// en: 'Elapsed time'
 	String get elapsed_time => 'Elapsed time';
+
+	/// en: 'Remaining time'
 	String get remaining_time => 'Remaining time';
+
+	/// en: 'No timer running'
 	String get no_timer_running => 'No timer running';
+
 	Map<String, String> get modes => {
 		'pomodoro': 'Pomodoro',
 		'stopwatch': 'Stopwatch',
 	};
+
+	/// en: 'Select a task'
 	String get select_task => 'Select a task';
+
+	/// en: 'Select a task to start the timer'
 	String get select_task_to_start_timer => 'Select a task to start the timer';
+
+	/// en: 'Completed!'
 	String get completed => 'Completed!';
+
+	/// en: 'Your pomodoro session has completed! Time for a break.'
 	String get pomodoro_completed_message => 'Your pomodoro session has completed! Time for a break.';
+
+	/// en: 'Your stopwatch session has been completed.'
 	String get stopwatch_completed_message => 'Your stopwatch session has been completed.';
+
+	/// en: 'Task'
 	String get task_label => 'Task';
 }
 
@@ -815,8 +1098,13 @@ class TranslationsPaywallEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Get AtomicBlend Cloud'
 	String get title => 'Get AtomicBlend Cloud';
+
+	/// en: 'Enjoy Atomic Blend without restrictions and help the opensource initiative.'
 	String get subtitle => 'Enjoy Atomic Blend without restrictions and help the opensource initiative.';
+
 	late final TranslationsPaywallAdvantagesEn advantages = TranslationsPaywallAdvantagesEn._(_root);
 	Map<String, dynamic> get pricing => {
 		'\$rc_annual': TranslationsPaywallPricing$rcAnnualEn._(_root),
@@ -824,19 +1112,47 @@ class TranslationsPaywallEn {
 		'cloud_yearly': TranslationsPaywallPricingCloudYearlyEn._(_root),
 		'cloud_monthly': TranslationsPaywallPricingCloudMonthlyEn._(_root),
 	};
+
+	/// en: 'No package selected'
 	String get no_package_selected => 'No package selected';
+
+	/// en: 'Purchase failed'
 	String get purchase_failed => 'Purchase failed';
+
+	/// en: 'Restore Purchase'
 	String get restore_purchase => 'Restore Purchase';
+
+	/// en: 'Terms of Service'
 	String get terms => 'Terms of Service';
+
+	/// en: 'Privacy Policy'
 	String get privacy_policy => 'Privacy Policy';
+
+	/// en: 'Payment in progress'
 	String get payment_in_progress => 'Payment in progress';
+
+	/// en: 'Please wait while we process your payment.'
 	String get payment_in_progress_description => 'Please wait while we process your payment.';
+
+	/// en: 'Purchase successful'
 	String get success => 'Purchase successful';
+
+	/// en: 'Validation failed'
 	String get validation_failed => 'Validation failed';
+
+	/// en: 'Please check your internet connection and restart the app.'
 	String get validation_failed_description => 'Please check your internet connection and restart the app.';
+
+	/// en: 'Mobile app required'
 	String get mobile_app_required => 'Mobile app required';
+
+	/// en: 'To offer you the best experience possible, payment and account configuration is only available on the mobile app'
 	String get payment_on_mobile_for_better_xp => 'To offer you the best experience possible, payment and account configuration is only available on the mobile app';
+
+	/// en: 'iOS'
 	String get ios => 'iOS';
+
+	/// en: 'Android'
 	String get android => 'Android';
 }
 
@@ -847,6 +1163,8 @@ class TranslationsSearchEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '(zero) {No results found} (one) {1 result found} (other) {${n} results found}'
 	String results({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'No results found',
 		one: '1 result found',
@@ -861,19 +1179,37 @@ class TranslationsSyncEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Synchronization'
 	String get title => 'Synchronization';
+
+	/// en: 'Keep your data up to date across all your devices'
 	String get description => 'Keep your data up to date across all your devices';
+
+	/// en: 'Status'
 	String get status => 'Status';
+
+	/// en: 'Loading...'
 	String get loading => 'Loading...';
+
+	/// en: 'Up to date'
 	String get up_to_date => 'Up to date';
+
+	/// en: 'Conflicts'
 	String get conflicts => 'Conflicts';
+
+	/// en: '(zero) {No items have conflicts} (one) {1 item has conflicts} (other) {${n} items have conflicts}'
 	String x_items_have_conflicts({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'No items have conflicts',
 		one: '1 item has conflicts',
 		other: '${n} items have conflicts',
 	);
+
 	late final TranslationsSyncDetailsEn details = TranslationsSyncDetailsEn._(_root);
+
+	/// en: 'Sync now'
 	String get sync_now => 'Sync now';
+
 	late final TranslationsSyncConflictResolverEn conflict_resolver = TranslationsSyncConflictResolverEn._(_root);
 }
 
@@ -884,21 +1220,53 @@ class TranslationsAuthNotLoggedInEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Welcome to Atomic Blend'
 	String get welcome => 'Welcome to Atomic Blend';
+
+	/// en: 'Atomic Blend is the first'
 	String get description_start => 'Atomic Blend is the first';
+
+	/// en: 'end-to-end encrypted app'
 	String get e2e_app => 'end-to-end encrypted app';
+
+	/// en: 'that combines all the tools you need to manage both work and personal life in one place. From task management to note-taking, document writing, time tracking, movie tracking, food tracking, everything stays'
 	String get description_middle => 'that combines all the tools you need to manage both work and personal life in one place.\n\nFrom task management to note-taking, document writing, time tracking, movie tracking, food tracking, everything stays';
+
+	/// en: 'secure and seamless.'
 	String get description_middle_bold => 'secure and seamless.';
+
+	/// en: 'No more juggling multiple apps—Atomic Blend brings it all together with privacy at its core, so you can focus on what truly matters.'
 	String get description_end => 'No more juggling multiple apps—Atomic Blend brings it all together with privacy at its core, so you can focus on what truly matters.';
+
+	/// en: 'Time to set things up!'
 	String get time_to_set_things_up => 'Time to set things up!';
+
+	/// en: 'To use Atomic Blend and sync your data across devices, you can choose between the cloud version or a self-hosted setup. Either way, your data is'
 	String get set_up_start => 'To use Atomic Blend and sync your data across devices, you can choose between the cloud version or a self-hosted setup.\n\nEither way, your data is';
+
+	/// en: 'end-to-end encrypted'
 	String get set_up_middle => 'end-to-end encrypted';
+
+	/// en: ', ensuring that only you have access to your encryption key —'
 	String get set_up_end => ', ensuring that only you have access to your encryption key —';
+
+	/// en: 'not us, not anyone else.'
 	String get set_up_end_bold => 'not us, not anyone else.';
+
+	/// en: 'LifeOS is a personal life management application that helps you organize your life, achieve your goals, and improve your well-being.'
 	String get description => 'LifeOS is a personal life management application that helps you organize your life, achieve your goals, and improve your well-being.';
+
+	/// en: 'We use end-to-end encryption to protect your personal data. Your data is secure and accessible only by you.'
 	String get e2ee => 'We use end-to-end encryption to protect your personal data. Your data is secure and accessible only by you.';
+
+	/// en: 'Get started now'
 	String get get_started_now => 'Get started now';
+
+	/// en: 'I agree to the'
 	String get i_agree_to => 'I agree to the';
+
+	/// en: 'Terms of Service'
 	String get terms_of_service => 'Terms of Service';
 }
 
@@ -909,11 +1277,23 @@ class TranslationsAuthLoginOrRegisterEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Unlock the potential of your life'
 	String get title => 'Unlock the potential of your life';
+
+	/// en: 'Log in or register'
 	String get login_or_register => 'Log in or register';
+
+	/// en: 'Log in'
 	String get login => 'Log in';
+
+	/// en: 'Register'
 	String get register => 'Register';
+
+	/// en: 'or'
 	String get or => 'or';
+
+	/// en: 'Connecting to: '
 	String get connecting_to => 'Connecting to: ';
 }
 
@@ -924,12 +1304,26 @@ class TranslationsAuthLoginEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '👋 Welcome back!'
 	String get title => '👋 Welcome back!';
+
+	/// en: 'Use you email and password to log back in and access your data.'
 	String get description => 'Use you email and password to log back in and access your data.';
+
+	/// en: 'Email'
 	String get email => 'Email';
+
+	/// en: 'Forgot password'
 	String get forgot_password => 'Forgot password';
+
+	/// en: 'Log in'
 	String get login => 'Log in';
+
+	/// en: 'No account?'
 	String get no_account => 'No account?';
+
+	/// en: 'Enter your email address'
 	String get email_hint => 'Enter your email address';
 }
 
@@ -940,16 +1334,38 @@ class TranslationsAuthRegisterEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'What’s your email ?'
 	String get email => 'What’s your email ?';
+
+	/// en: 'Your email is used only for login and password recovery purposes.'
 	String get email_description => 'Your email is used only for login and password recovery purposes.';
+
+	/// en: 'We will never sell your data to third parties.'
 	String get we_never_sell => 'We will never sell your data to third parties.';
+
+	/// en: 'email@example.com'
 	String get email_hint => 'email@example.com';
+
+	/// en: 'Choose a password'
 	String get password => 'Choose a password';
+
+	/// en: 'SuperSecure123!'
 	String get password_hint => 'SuperSecure123!';
+
+	/// en: 'Confirm your password'
 	String get confirmation_hint => 'Confirm your password';
+
+	/// en: 'Passwords do not match'
 	String get password_mismatch => 'Passwords do not match';
+
+	/// en: 'Forgot password'
 	String get forgot_password => 'Forgot password';
+
+	/// en: 'Register'
 	String get register => 'Register';
+
+	/// en: 'No account?'
 	String get no_account => 'No account?';
 }
 
@@ -960,8 +1376,14 @@ class TranslationsAuthDeleteAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Delete your account'
 	String get title => 'Delete your account';
+
+	/// en: 'Are you sure you want to delete your account?'
 	String get description => 'Are you sure you want to delete your account?';
+
+	/// en: 'This action cannot be undone.'
 	String get cannot_be_undone => 'This action cannot be undone.';
 }
 
@@ -972,12 +1394,26 @@ class TranslationsAuthMnemonicKeyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Your recovery key'
 	String get title => 'Your recovery key';
+
+	/// en: 'This is your recovery key.'
 	String get description_start => 'This is your recovery key.';
+
+	/// en: 'Write it down and keep it in a safe place.'
 	String get description_mid => 'Write it down and keep it in a safe place.';
+
+	/// en: 'You will need it to recover access to your data if you forget your password.'
 	String get description_end => 'You will need it to recover access to your data if you forget your password.';
+
+	/// en: 'Enter your recovery key'
 	String get mnemonic_hint => 'Enter your recovery key';
+
+	/// en: 'Invalid recovery key'
 	String get mnemonic_error => 'Invalid recovery key';
+
+	/// en: 'Recovery key copied to clipboard'
 	String get copy_success => 'Recovery key copied to clipboard';
 }
 
@@ -988,46 +1424,128 @@ class TranslationsAuthResetPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Reset your password'
 	String get title => 'Reset your password';
+
+	/// en: 'You don't remember your password?'
 	String get subtitle => 'You don\'t remember your password?';
+
+	/// en: 'Enter your email address to initiate the password reset process.'
 	String get description => 'Enter your email address to initiate the password reset process.';
+
+	/// en: 'You will receive an email with a code to confirm your identity, then you'll need your mnemonic key to get access to your data.'
 	String get warning => 'You will receive an email with a code to confirm your identity, then you\'ll need your mnemonic key to get access to your data.';
+
+	/// en: 'If you don't have your mnemonic key, you will lose access to your previous data.'
 	String get no_mnemonic_data_loss => 'If you don\'t have your mnemonic key, you will lose access to your previous data.';
+
+	/// en: 'Email'
 	String get email => 'Email';
+
+	/// en: 'The email address you used to register.'
 	String get email_description => 'The email address you used to register.';
+
+	/// en: 'atomicblend@gmail.com'
 	String get email_hint => 'atomicblend@gmail.com';
+
+	/// en: 'Email is required'
 	String get email_required => 'Email is required';
+
+	/// en: 'Confirmation code'
 	String get confirmation_code => 'Confirmation code';
+
+	/// en: 'Enter the code you received by email.'
 	String get confirmation_code_description => 'Enter the code you received by email.';
+
+	/// en: 'a1b5c3d4'
 	String get confirmation_code_hint => 'a1b5c3d4';
+
+	/// en: 'Confirmation code is required'
 	String get confirmation_code_required => 'Confirmation code is required';
+
+	/// en: 'Enter the confirmation code'
 	String get enter_the_confirmation_code => 'Enter the confirmation code';
+
+	/// en: 'A confirmation code has been sent to your email address.'
 	String get confirmation_code_sent => 'A confirmation code has been sent to your email address.';
+
+	/// en: 'Please check your inbox and enter the code below.'
 	String get confirmation_code_sent_description => 'Please check your inbox and enter the code below.';
+
+	/// en: 'Do you have your backup key?'
 	String get do_you_have_your_mnemonic_key => 'Do you have your backup key?';
+
+	/// en: 'This is a 12-word key that you received when you registered. It is used as a backup for your data and is required to recover your account.'
 	String get backup_key_description => 'This is a 12-word key that you received when you registered. It is used as a backup for your data and is required to recover your account.';
+
+	/// en: 'Yes, I have it, restore my data'
 	String get yes_i_have => 'Yes, I have it, restore my data';
+
+	/// en: 'No, I don't have it, delete my data'
 	String get no_i_dont => 'No, I don\'t have it, delete my data';
+
+	/// en: 'I understand by selecting this option that all my previous data will be deleted and I will not be able to recover it.'
 	String get reset_data_warning => 'I understand by selecting this option that all my previous data will be deleted and I will not be able to recover it.';
+
+	/// en: 'Mnemonic key'
 	String get mnemonic_key => 'Mnemonic key';
+
+	/// en: 'Enter the backup key you received when you registered.'
 	String get mnemonic_key_description => 'Enter the backup key you received when you registered.';
+
+	/// en: 'business theme rotate together surprise wisdom powder knee view border local runway'
 	String get mnemonic_key_hint => 'business theme rotate together surprise wisdom powder knee view border local runway';
+
+	/// en: 'Mnemonic key is required'
 	String get mnemonic_key_required => 'Mnemonic key is required';
+
+	/// en: 'Select your new password'
 	String get select_your_new_password => 'Select your new password';
+
+	/// en: 'Enter a new password to later access your account.'
 	String get select_your_new_password_description => 'Enter a new password to later access your account.';
+
+	/// en: 'New password'
 	String get new_password => 'New password';
+
+	/// en: 'Enter a new password to access your account.'
 	String get new_password_description => 'Enter a new password to access your account.';
+
+	/// en: 'SuperSecure123!'
 	String get new_password_hint => 'SuperSecure123!';
+
+	/// en: 'New password is required'
 	String get new_password_required => 'New password is required';
+
+	/// en: 'Confirm new password'
 	String get confirm_new_password => 'Confirm new password';
+
+	/// en: 'Confirm your new password.'
 	String get confirm_new_password_description => 'Confirm your new password.';
+
+	/// en: 'Confirm new password is required'
 	String get confirm_new_password_required => 'Confirm new password is required';
+
+	/// en: 'Passwords do not match'
 	String get password_mismatch => 'Passwords do not match';
+
+	/// en: 'Password is required'
 	String get password_missing => 'Password is required';
+
+	/// en: 'Password is too short'
 	String get password_too_short => 'Password is too short';
+
+	/// en: 'Recap of the process'
 	String get recap_subtitle => 'Recap of the process';
+
+	/// en: 'Yes'
 	String get yes => 'Yes';
+
+	/// en: 'No'
 	String get no => 'No';
+
+	/// en: 'Confirm reset'
 	String get confirm_reset => 'Confirm reset';
 }
 
@@ -1038,7 +1556,10 @@ class TranslationsSettingsAppSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'App Settings'
 	String get title => 'App Settings';
+
 	late final TranslationsSettingsAppSettingsSelfHostedUrlEn selfHostedUrl = TranslationsSettingsAppSettingsSelfHostedUrlEn._(_root);
 }
 
@@ -1049,16 +1570,38 @@ class TranslationsTagsAddModalEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Add a new tag'
 	String get title => 'Add a new tag';
+
+	/// en: 'Edit tag'
 	String get edit_title => 'Edit tag';
+
+	/// en: 'Name of the tag'
 	String get name => 'Name of the tag';
+
+	/// en: 'Work'
 	String get name_hint => 'Work';
+
+	/// en: 'Define a name for your tag, this will help you remember what it is about and be shown in notifications.'
 	String get name_description => 'Define a name for your tag, this will help you remember what it is about and be shown in notifications.';
+
+	/// en: 'Name is required'
 	String get name_required => 'Name is required';
+
+	/// en: 'Color'
 	String get color => 'Color';
+
+	/// en: 'Choose a color for your tag, this will help you remember what it is about and be shown in notifications.'
 	String get color_description => 'Choose a color for your tag, this will help you remember what it is about and be shown in notifications.';
+
+	/// en: 'Primary'
 	String get primary => 'Primary';
+
+	/// en: 'Accent'
 	String get accent => 'Accent';
+
+	/// en: 'Color wheel'
 	String get wheel => 'Color wheel';
 }
 
@@ -1069,8 +1612,14 @@ class TranslationsTagsDeleteEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Delete tag'
 	String get title => 'Delete tag';
+
+	/// en: 'Are you sure you want to delete this tag?'
 	String get description => 'Are you sure you want to delete this tag?';
+
+	/// en: 'This action cannot be undone and the tag will be removed from all tags associated.'
 	String get warning => 'This action cannot be undone and the tag will be removed from all tags associated.';
 }
 
@@ -1081,19 +1630,47 @@ class TranslationsTasksFoldersEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Folders'
 	String get title => 'Folders';
+
+	/// en: 'No folders for now'
 	String get no_folders => 'No folders for now';
+
+	/// en: 'Add a folder'
 	String get add_folder => 'Add a folder';
+
+	/// en: 'Edit folder'
 	String get edit_folder => 'Edit folder';
+
+	/// en: 'Delete folder'
 	String get delete_folder => 'Delete folder';
+
+	/// en: 'Are you sure you want to delete this folder?'
 	String get delete_folder_description => 'Are you sure you want to delete this folder?';
+
+	/// en: 'This action cannot be undone and all the tasks will be unlinked'
 	String get delete_folder_warning => 'This action cannot be undone and all the tasks will be unlinked';
+
+	/// en: 'Name of the folder'
 	String get name => 'Name of the folder';
+
+	/// en: 'Work'
 	String get name_hint => 'Work';
+
+	/// en: 'Define a name for your folder, this will help you remember what it is about and be shown in notifications.'
 	String get name_description => 'Define a name for your folder, this will help you remember what it is about and be shown in notifications.';
+
+	/// en: 'Name is required'
 	String get name_required => 'Name is required';
+
+	/// en: 'Color'
 	String get color => 'Color';
+
+	/// en: 'Choose a color for your folder, this will help you remember what it is about and be shown in notifications.'
 	String get color_description => 'Choose a color for your folder, this will help you remember what it is about and be shown in notifications.';
+
+	/// en: 'Select a folder'
 	String get select_a_folder => 'Select a folder';
 }
 
@@ -1104,8 +1681,14 @@ class TranslationsTasksDueDatesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Today'
 	String get today => 'Today';
+
+	/// en: 'Tomorrow'
 	String get tomorrow => 'Tomorrow';
+
+	/// en: 'No due date'
 	String get no_due_date => 'No due date';
 }
 
@@ -1116,32 +1699,78 @@ class TranslationsTasksAddTaskModalEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'What do you need to do?'
 	String get task_title => 'What do you need to do?';
+
+	/// en: 'Description'
 	String get description => 'Description';
+
+	/// en: 'Due Date'
 	String get due_date => 'Due Date';
+
+	/// en: 'Dates'
 	String get dates => 'Dates';
+
+	/// en: 'Notes'
 	String get notes => 'Notes';
+
+	/// en: 'Start Date'
 	String get start_date => 'Start Date';
+
+	/// en: 'End Date'
 	String get end_date => 'End Date';
+
+	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Save'
 	String get save => 'Save';
+
+	/// en: 'Erase'
 	String get erase => 'Erase';
+
+	/// en: 'Task added'
 	String get task_added => 'Task added';
+
+	/// en: 'Your task has been added successfully.'
 	String get task_added_description => 'Your task has been added successfully.';
+
+	/// en: 'Task error'
 	String get task_error => 'Task error';
+
+	/// en: 'Title required'
 	String get title_required => 'Title required';
+
+	/// en: 'Please enter a title for your task'
 	String get title_required_description => 'Please enter a title for your task';
+
+	/// en: '(zero) {Reminder} (one) {Reminder} (other) {Reminders}'
 	String reminders({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'Reminder',
 		one: 'Reminder',
 		other: 'Reminders',
 	);
+
+	/// en: 'Expected time'
 	String get time_planned => 'Expected time';
+
+	/// en: 'None'
 	String get none => 'None';
+
+	/// en: 'No reminders'
 	String get no_reminders => 'No reminders';
+
+	/// en: 'Add a Reminder'
 	String get add_reminder => 'Add a Reminder';
+
+	/// en: 'When would you like to be reminded?'
 	String get when_would_you_like_to_be_reminded => 'When would you like to be reminded?';
+
+	/// en: 'When would you like the task to start?'
 	String get when_would_you_like_the_task_to_start => 'When would you like the task to start?';
+
+	/// en: 'When would you like the task to end?'
 	String get when_would_you_like_the_task_to_end => 'When would you like the task to end?';
 }
 
@@ -1152,11 +1781,23 @@ class TranslationsTasksAddTimeEntryEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Add a time entry'
 	String get title => 'Add a time entry';
+
+	/// en: 'Manually add a time entry for this task.'
 	String get description => 'Manually add a time entry for this task.';
+
+	/// en: 'Start time'
 	String get start_time => 'Start time';
+
+	/// en: 'End time'
 	String get end_time => 'End time';
+
+	/// en: 'Not defined'
 	String get not_defined => 'Not defined';
+
+	/// en: 'Date is required'
 	String get date_required => 'Date is required';
 }
 
@@ -1167,10 +1808,20 @@ class TranslationsTasksConflictDetectedModalEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Conflict Detected'
 	String get title => 'Conflict Detected';
+
+	/// en: 'Previous edits of this task made while offline conflicts with the current version of the task.'
 	String get description => 'Previous edits of this task made while offline conflicts with the current version of the task.';
+
+	/// en: 'You can either resolve the conflicts now or come back later to resolve them.'
 	String get warning => 'You can either resolve the conflicts now or come back later to resolve them.';
+
+	/// en: 'Resolve'
 	String get resolve_now => 'Resolve';
+
+	/// en: 'Later'
 	String get later => 'Later';
 }
 
@@ -1181,9 +1832,17 @@ class TranslationsCalendarErrorsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'You cannot move a device calendar event'
 	String get cannot_move_device_calendar_event => 'You cannot move a device calendar event';
+
+	/// en: 'You cannot move a habit event'
 	String get cannot_move_habit_event => 'You cannot move a habit event';
+
+	/// en: 'You cannot resize a device calendar event'
 	String get cannot_resize_device_calendar_event => 'You cannot resize a device calendar event';
+
+	/// en: 'You cannot resize a habit event'
 	String get cannot_resize_habit_event => 'You cannot resize a habit event';
 }
 
@@ -1194,23 +1853,51 @@ class TranslationsCalendarEventDetailEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Date'
 	String get date => 'Date';
+
+	/// en: 'Time'
 	String get time => 'Time';
+
+	/// en: 'Organizer'
 	String get organizer => 'Organizer';
+
+	/// en: 'Reminder'
 	String get reminders => 'Reminder';
+
+	/// en: 'No reminders'
 	String get no_reminders => 'No reminders';
+
+	/// en: 'Details'
 	String get details => 'Details';
+
+	/// en: 'Join meeting'
 	String get join_meeting => 'Join meeting';
+
+	/// en: 'Google Meet Call'
 	String get google_meet_call => 'Google Meet Call';
+
+	/// en: 'Zoom Call'
 	String get zoom_meet_call => 'Zoom Call';
+
+	/// en: 'MS Teams Call'
 	String get ms_teams_call => 'MS Teams Call';
+
+	/// en: 'Join now'
 	String get join_now => 'Join now';
+
+	/// en: '(zero) {Attendee} (one) {Attendee} (other) {Attendees}'
 	String attendee({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'Attendee',
 		one: 'Attendee',
 		other: 'Attendees',
 	);
+
+	/// en: 'No attendees'
 	String get no_attendees => 'No attendees';
+
+	/// en: 'No notes'
 	String get no_notes => 'No notes';
 }
 
@@ -1221,7 +1908,11 @@ class TranslationsCalendarSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Calendar Settings'
 	String get title => 'Calendar Settings';
+
+	/// en: 'Display habits'
 	String get display_habits => 'Display habits';
 }
 
@@ -1232,6 +1923,8 @@ class TranslationsAccountSectionsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Account'
 	String get account => 'Account';
 }
 
@@ -1242,7 +1935,11 @@ class TranslationsAccountActionsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Security & Privacy'
 	String get security => 'Security & Privacy';
+
+	/// en: 'Delete my Account'
 	String get delete_account => 'Delete my Account';
 }
 
@@ -1253,10 +1950,20 @@ class TranslationsAccountProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'My Profile'
 	String get my_profile => 'My Profile';
+
+	/// en: 'Email'
 	String get email => 'Email';
+
+	/// en: 'Undefined'
 	String get undefined => 'Undefined';
+
+	/// en: 'Email is required'
 	String get email_missing => 'Email is required';
+
+	/// en: 'Email must be different from the current email'
 	String get email_same => 'Email must be different from the current email';
 }
 
@@ -1267,16 +1974,38 @@ class TranslationsAccountSubscriptionPaymentsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Subscription & Payments'
 	String get title => 'Subscription & Payments';
+
+	/// en: '${subName} Subscription'
 	String subscription({required Object subName}) => '${subName} Subscription';
+
+	/// en: 'This is your subscription with the earliest billing date.'
 	String get latest_subscription => 'This is your subscription with the earliest billing date.';
+
+	/// en: 'Billing Cycle'
 	String get billing_cycle => 'Billing Cycle';
+
+	/// en: 'Current Price'
 	String get current_price => 'Current Price';
+
+	/// en: 'Next Billing Date'
 	String get next_billing_date => 'Next Billing Date';
+
+	/// en: 'Payment History'
 	String get payment_history => 'Payment History';
+
+	/// en: 'No payments for now'
 	String get no_payments => 'No payments for now';
+
+	/// en: '$'
 	String get currency_symbol => '\$';
+
+	/// en: 'Manage my subscription'
 	String get manage_my_subscription => 'Manage my subscription';
+
+	/// en: 'You can only manage your subscription from the iOS or Android app.'
 	String get management_url_only_mobile => 'You can only manage your subscription from the iOS or Android app.';
 }
 
@@ -1287,7 +2016,10 @@ class TranslationsAccountSecurityAndPrivacyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Security & Privacy'
 	String get title => 'Security & Privacy';
+
 	late final TranslationsAccountSecurityAndPrivacyChangePasswordEn change_password = TranslationsAccountSecurityAndPrivacyChangePasswordEn._(_root);
 }
 
@@ -1298,8 +2030,14 @@ class TranslationsHabitsDeleteHabitEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Delete habit'
 	String get title => 'Delete habit';
+
+	/// en: 'Are you sure you want to delete this habit?'
 	String get description => 'Are you sure you want to delete this habit?';
+
+	/// en: 'This action cannot be undone and all the related entries will also be deleted.'
 	String get warning => 'This action cannot be undone and all the related entries will also be deleted.';
 }
 
@@ -1310,43 +2048,108 @@ class TranslationsHabitsAddEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'What do you want to achieve?'
 	String get title => 'What do you want to achieve?';
+
+	/// en: 'Habit name*'
 	String get name => 'Habit name*';
+
+	/// en: 'Drink water'
 	String get name_hint => 'Drink water';
+
+	/// en: 'Define a name for your habit, this will help you remember what it is about and be shown in notifications.'
 	String get name_description => 'Define a name for your habit, this will help you remember what it is about and be shown in notifications.';
+
+	/// en: 'Name is required'
 	String get name_required => 'Name is required';
+
+	/// en: 'Citation'
 	String get citation => 'Citation';
+
+	/// en: 'Add a citation to your habit, this will help you remember why you are doing it and motivate you.'
 	String get citation_description => 'Add a citation to your habit, this will help you remember why you are doing it and motivate you.';
+
+	/// en: '“Water is the only drink for a wise man.” — Henry David Thoreau'
 	String get citation_hint => '“Water is the only drink for a wise man.” — Henry David Thoreau';
+
+	/// en: 'Start date'
 	String get start_date => 'Start date';
+
+	/// en: 'End date'
 	String get end_date => 'End date';
+
+	/// en: 'When would you like the habit to start?'
 	String get when_would_you_like_the_habit_to_start => 'When would you like the habit to start?';
+
+	/// en: 'When would you like the habit to end?'
 	String get when_would_you_like_the_habit_to_end => 'When would you like the habit to end?';
+
+	/// en: 'No date selected'
 	String get no_date_selected => 'No date selected';
+
+	/// en: 'Frequency'
 	String get frequency_label => 'Frequency';
+
 	Map<String, String> get frequency => {
 		'daily': 'Daily',
 		'weekly': 'Weekly',
 		'monthly': 'Monthly',
 		'repeatition': 'Repeatition',
 	};
+
+	/// en: 'Number of times'
 	String get number_of_times_label => 'Number of times';
+
+	/// en: 'How many times do you want to do this habit? Each time the frequency is reached, it will be reseted (for example, if you set it to 3 times and a daily frequency, you will have to do it 3 times a day).'
 	String get number_of_times_description => 'How many times do you want to do this habit?\nEach time the frequency is reached, it will be reseted (for example, if you set it to 3 times and a daily frequency, you will have to do it 3 times a day).';
+
+	/// en: 'Days of the week'
 	String get days_of_week_label => 'Days of the week';
+
+	/// en: 'On which days of the week do you want to do this habit?'
 	String get days_of_week_description => 'On which days of the week do you want to do this habit?';
+
+	/// en: 'Search for an emoji'
 	String get search_emoji_hint => 'Search for an emoji';
+
+	/// en: 'Reminders'
 	String get reminders_label => 'Reminders';
+
+	/// en: 'Set a time for your reminders. You will be notified when the time is reached.'
 	String get reminders_description => 'Set a time for your reminders. You will be notified when the time is reached.';
+
+	/// en: 'Add a reminder'
 	String get reminders_add => 'Add a reminder';
+
+	/// en: 'Duration'
 	String get duration_label => 'Duration';
+
+	/// en: 'How long do you want to do this habit?'
 	String get duration_description => 'How long do you want to do this habit?';
+
+	/// en: '5 minutes'
 	String get duration_hint => '5 minutes';
+
+	/// en: 'The name of the habit should be at least 4 characters long'
 	String get name_too_short => 'The name of the habit should be at least 4 characters long';
+
+	/// en: 'You must select the same number of days as the number of times'
 	String get days_of_week_mismatch => 'You must select the same number of days as the number of times';
+
+	/// en: 'Repeatition in days'
 	String get every_number_day_title => 'Repeatition in days';
+
+	/// en: 'How many days do you want to wait before repeating this habit?'
 	String get every_number_day_description => 'How many days do you want to wait before repeating this habit?';
+
+	/// en: 'Days of the month'
 	String get days_of_month_title => 'Days of the month';
+
+	/// en: 'On which days of the month do you want to do this habit?'
 	String get days_of_month_description => 'On which days of the month do you want to do this habit?';
+
+	/// en: 'Select days'
 	String get select_days => 'Select days';
 }
 
@@ -1357,15 +2160,35 @@ class TranslationsHabitsHabitDetailEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'No citation'
 	String get no_citation => 'No citation';
+
+	/// en: 'No end date'
 	String get no_end_date => 'No end date';
+
+	/// en: 'Delete habit'
 	String get delete_habit => 'Delete habit';
+
+	/// en: 'Are you sure you want to delete this habit?'
 	String get delete_habit_description => 'Are you sure you want to delete this habit?';
+
+	/// en: 'This action cannot be undone and all the related entries will also be deleted.'
 	String get delete_habit_warning => 'This action cannot be undone and all the related entries will also be deleted.';
+
+	/// en: 'Entries'
 	String get entries => 'Entries';
+
+	/// en: 'No entries for now'
 	String get no_entries => 'No entries for now';
+
+	/// en: 'Delete entry'
 	String get delete_entry => 'Delete entry';
+
+	/// en: 'Are you sure you want to delete this entry?'
 	String get delete_entry_description => 'Are you sure you want to delete this entry?';
+
+	/// en: 'This action cannot be undone.'
 	String get delete_entry_warning => 'This action cannot be undone.';
 }
 
@@ -1376,8 +2199,14 @@ class TranslationsTimeUnitsShortEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'd'
 	String get day => 'd';
+
+	/// en: 'h'
 	String get hour => 'h';
+
+	/// en: 'm'
 	String get minute => 'm';
 }
 
@@ -1388,16 +2217,22 @@ class TranslationsTimeUnitsLongEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: '(zero) {days} (one) {day} (other) {days}'
 	String day({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'days',
 		one: 'day',
 		other: 'days',
 	);
+
+	/// en: '(zero) {hours} (one) {hour} (other) {hours}'
 	String hour({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'hours',
 		one: 'hour',
 		other: 'hours',
 	);
+
+	/// en: '(zero) {minutes} (one) {minute} (other) {minutes}'
 	String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'minutes',
 		one: 'minute',
@@ -1428,10 +2263,20 @@ class TranslationsPaywallPricing$rcAnnualEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Yearly'
 	String get title => 'Yearly';
+
+	/// en: '\$39.99/year'
 	String get price => '\$39.99/year';
+
+	/// en: '1 month free trial'
 	String get billed => '1 month free trial';
+
+	/// en: '16% off'
 	String get discount => '16% off';
+
+	/// en: 'Start the 1-month free trial'
 	String get start_button => 'Start the 1-month free trial';
 }
 
@@ -1442,10 +2287,20 @@ class TranslationsPaywallPricing$rcMonthlyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Monthly'
 	String get title => 'Monthly';
+
+	/// en: '\$3.99/mo'
 	String get price => '\$3.99/mo';
+
+	/// en: '1 week free trial'
 	String get billed => '1 week free trial';
+
+	/// en: ''
 	String get discount => '';
+
+	/// en: 'Start the 1-week free trial'
 	String get start_button => 'Start the 1-week free trial';
 }
 
@@ -1456,10 +2311,20 @@ class TranslationsPaywallPricingCloudYearlyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Yearly'
 	String get title => 'Yearly';
+
+	/// en: '\$39.99/year'
 	String get price => '\$39.99/year';
+
+	/// en: '= \$3.33/month'
 	String get billed => '= \$3.33/month';
+
+	/// en: '16% off'
 	String get discount => '16% off';
+
+	/// en: 'Start the 1-month free trial'
 	String get start_button => 'Start the 1-month free trial';
 }
 
@@ -1470,10 +2335,20 @@ class TranslationsPaywallPricingCloudMonthlyEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Monthly'
 	String get title => 'Monthly';
+
+	/// en: '\$3.99/mo'
 	String get price => '\$3.99/mo';
+
+	/// en: ''
 	String get billed => '';
+
+	/// en: ''
 	String get discount => '';
+
+	/// en: 'Start the 1-week free trial'
 	String get start_button => 'Start the 1-week free trial';
 }
 
@@ -1484,8 +2359,14 @@ class TranslationsSyncDetailsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Details'
 	String get title => 'Details';
+
+	/// en: 'Tasks'
 	String get tasks => 'Tasks';
+
+	/// en: '(zero) {No tasks} (one) {1 task} (other) {${n} tasks}'
 	String task_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'No tasks',
 		one: '1 task',
@@ -1500,19 +2381,39 @@ class TranslationsSyncConflictResolverEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Conflict Resolver'
 	String get title => 'Conflict Resolver';
+
+	/// en: 'Update date: ${date}'
 	String patch_date({required Object date}) => 'Update date: ${date}';
+
 	Map<String, String> get item_type => {
 		'task': 'Task',
 		'note': 'Note',
 	};
+
+	/// en: 'Choose between accepting or refusing the changes'
 	String get choose_between => 'Choose between accepting or refusing the changes';
+
+	/// en: 'Refuse'
 	String get refuse => 'Refuse';
+
+	/// en: 'Accept'
 	String get accept => 'Accept';
+
+	/// en: 'Upcoming'
 	String get upcoming => 'Upcoming';
+
+	/// en: 'In-app'
 	String get in_app_version => 'In-app';
+
+	/// en: 'Changes to apply'
 	String get changes_to_apply => 'Changes to apply';
+
+	/// en: 'Apply decision to all conflicts'
 	String get apply_to_all => 'Apply decision to all conflicts';
+
 	Map<String, dynamic> get fields => {
 		'title': 'Title',
 		'end_date': 'End date',
@@ -1533,6 +2434,8 @@ class TranslationsSyncConflictResolverEn {
 			other: '${n} tags',
 		),
 	};
+
+	/// en: 'Progress'
 	String get progress => 'Progress';
 }
 
@@ -1543,9 +2446,17 @@ class TranslationsSettingsAppSettingsSelfHostedUrlEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Self-Hosted URL'
 	String get title => 'Self-Hosted URL';
+
+	/// en: 'If you are using a self-hosted instance of Atomic Blend, you can enter the URL here.'
 	String get description => 'If you are using a self-hosted instance of Atomic Blend, you can enter the URL here.';
+
+	/// en: 'Enter the URL of your instance'
 	String get placeholder => 'Enter the URL of your instance';
+
+	/// en: 'Not set'
 	String get not_set => 'Not set';
 }
 
@@ -1556,15 +2467,35 @@ class TranslationsAccountSecurityAndPrivacyChangePasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Change Password'
 	String get title => 'Change Password';
+
+	/// en: 'Old Password'
 	String get old_password => 'Old Password';
+
+	/// en: 'New Password'
 	String get new_password => 'New Password';
+
+	/// en: 'Confirm Password'
 	String get confirm_password => 'Confirm Password';
+
+	/// en: 'Old password is required'
 	String get old_password_required => 'Old password is required';
+
+	/// en: 'New password is required'
 	String get new_password_required => 'New password is required';
+
+	/// en: 'Confirm password is required'
 	String get confirm_password_required => 'Confirm password is required';
+
+	/// en: 'Passwords do not match'
 	String get password_mismatch => 'Passwords do not match';
+
+	/// en: 'SuperSecure123!'
 	String get password_hint => 'SuperSecure123!';
+
+	/// en: 'Changing your password will log you out of the app.'
 	String get warning_changing_pws_will_log_you_out => 'Changing your password will log you out of the app.';
 }
 
@@ -1575,7 +2506,11 @@ class TranslationsPaywallAdvantagesAllAppsOfTheSuiteEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'All Apps of the Suite'
 	String get title => 'All Apps of the Suite';
+
+	/// en: 'Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more.'
 	String get description => 'Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more.';
 }
 
@@ -1586,7 +2521,11 @@ class TranslationsPaywallAdvantagesEndToEndEncryptedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'End-to-End Encryption'
 	String get title => 'End-to-End Encryption';
+
+	/// en: 'Your data is yours, forever.'
 	String get description => 'Your data is yours, forever.';
 }
 
@@ -1597,7 +2536,11 @@ class TranslationsPaywallAdvantagesUnlimitedTasksEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Unlimited Tasks'
 	String get title => 'Unlimited Tasks';
+
+	/// en: 'Create as many tasks as you want, no limits.'
 	String get description => 'Create as many tasks as you want, no limits.';
 }
 
@@ -1608,7 +2551,11 @@ class TranslationsPaywallAdvantagesUnlimitedHabitsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Unlimited Habits'
 	String get title => 'Unlimited Habits';
+
+	/// en: 'Take a step towards a healthier life with unlimited habits.'
 	String get description => 'Take a step towards a healthier life with unlimited habits.';
 }
 
@@ -1619,7 +2566,11 @@ class TranslationsPaywallAdvantagesUnlimitedTagsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Unlimited Tags / Folders'
 	String get title => 'Unlimited Tags / Folders';
+
+	/// en: 'Use as many tags and folders as needed to organize your life.'
 	String get description => 'Use as many tags and folders as needed to organize your life.';
 }
 
@@ -1630,7 +2581,11 @@ class TranslationsPaywallAdvantagesSyncAcrossDevicesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Sync Across Devices'
 	String get title => 'Sync Across Devices';
+
+	/// en: 'Access your data from any device, anywhere.'
 	String get description => 'Access your data from any device, anywhere.';
 }
 
@@ -1641,7 +2596,11 @@ class TranslationsPaywallAdvantagesCommunityBackedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Community Backed'
 	String get title => 'Community Backed';
+
+	/// en: '100% opensource : join a community of users who support the project.'
 	String get description => '100% opensource : join a community of users who support the project.';
 }
 

@@ -12,7 +12,8 @@ part of 'user_device.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 UserDeviceEntity _$UserDeviceEntityFromJson(Map<String, dynamic> json) {
   return _UserDeviceEntity.fromJson(json);
@@ -42,14 +43,16 @@ mixin _$UserDeviceEntity {
 /// @nodoc
 abstract class $UserDeviceEntityCopyWith<$Res> {
   factory $UserDeviceEntityCopyWith(
-          UserDeviceEntity value, $Res Function(UserDeviceEntity) then) =
-      _$UserDeviceEntityCopyWithImpl<$Res, UserDeviceEntity>;
+    UserDeviceEntity value,
+    $Res Function(UserDeviceEntity) then,
+  ) = _$UserDeviceEntityCopyWithImpl<$Res, UserDeviceEntity>;
   @useResult
-  $Res call(
-      {String fcmToken,
-      String deviceName,
-      String deviceId,
-      String? deviceTimezone});
+  $Res call({
+    String fcmToken,
+    String deviceName,
+    String deviceId,
+    String? deviceTimezone,
+  });
 }
 
 /// @nodoc
@@ -72,49 +75,59 @@ class _$UserDeviceEntityCopyWithImpl<$Res, $Val extends UserDeviceEntity>
     Object? deviceId = null,
     Object? deviceTimezone = freezed,
   }) {
-    return _then(_value.copyWith(
-      fcmToken: null == fcmToken
-          ? _value.fcmToken
-          : fcmToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceName: null == deviceName
-          ? _value.deviceName
-          : deviceName // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceId: null == deviceId
-          ? _value.deviceId
-          : deviceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceTimezone: freezed == deviceTimezone
-          ? _value.deviceTimezone
-          : deviceTimezone // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            fcmToken:
+                null == fcmToken
+                    ? _value.fcmToken
+                    : fcmToken // ignore: cast_nullable_to_non_nullable
+                        as String,
+            deviceName:
+                null == deviceName
+                    ? _value.deviceName
+                    : deviceName // ignore: cast_nullable_to_non_nullable
+                        as String,
+            deviceId:
+                null == deviceId
+                    ? _value.deviceId
+                    : deviceId // ignore: cast_nullable_to_non_nullable
+                        as String,
+            deviceTimezone:
+                freezed == deviceTimezone
+                    ? _value.deviceTimezone
+                    : deviceTimezone // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$UserDeviceEntityImplCopyWith<$Res>
     implements $UserDeviceEntityCopyWith<$Res> {
-  factory _$$UserDeviceEntityImplCopyWith(_$UserDeviceEntityImpl value,
-          $Res Function(_$UserDeviceEntityImpl) then) =
-      __$$UserDeviceEntityImplCopyWithImpl<$Res>;
+  factory _$$UserDeviceEntityImplCopyWith(
+    _$UserDeviceEntityImpl value,
+    $Res Function(_$UserDeviceEntityImpl) then,
+  ) = __$$UserDeviceEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String fcmToken,
-      String deviceName,
-      String deviceId,
-      String? deviceTimezone});
+  $Res call({
+    String fcmToken,
+    String deviceName,
+    String deviceId,
+    String? deviceTimezone,
+  });
 }
 
 /// @nodoc
 class __$$UserDeviceEntityImplCopyWithImpl<$Res>
     extends _$UserDeviceEntityCopyWithImpl<$Res, _$UserDeviceEntityImpl>
     implements _$$UserDeviceEntityImplCopyWith<$Res> {
-  __$$UserDeviceEntityImplCopyWithImpl(_$UserDeviceEntityImpl _value,
-      $Res Function(_$UserDeviceEntityImpl) _then)
-      : super(_value, _then);
+  __$$UserDeviceEntityImplCopyWithImpl(
+    _$UserDeviceEntityImpl _value,
+    $Res Function(_$UserDeviceEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of UserDeviceEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -126,36 +139,42 @@ class __$$UserDeviceEntityImplCopyWithImpl<$Res>
     Object? deviceId = null,
     Object? deviceTimezone = freezed,
   }) {
-    return _then(_$UserDeviceEntityImpl(
-      fcmToken: null == fcmToken
-          ? _value.fcmToken
-          : fcmToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceName: null == deviceName
-          ? _value.deviceName
-          : deviceName // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceId: null == deviceId
-          ? _value.deviceId
-          : deviceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      deviceTimezone: freezed == deviceTimezone
-          ? _value.deviceTimezone
-          : deviceTimezone // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$UserDeviceEntityImpl(
+        fcmToken:
+            null == fcmToken
+                ? _value.fcmToken
+                : fcmToken // ignore: cast_nullable_to_non_nullable
+                    as String,
+        deviceName:
+            null == deviceName
+                ? _value.deviceName
+                : deviceName // ignore: cast_nullable_to_non_nullable
+                    as String,
+        deviceId:
+            null == deviceId
+                ? _value.deviceId
+                : deviceId // ignore: cast_nullable_to_non_nullable
+                    as String,
+        deviceTimezone:
+            freezed == deviceTimezone
+                ? _value.deviceTimezone
+                : deviceTimezone // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$UserDeviceEntityImpl extends _UserDeviceEntity {
-  _$UserDeviceEntityImpl(
-      {required this.fcmToken,
-      required this.deviceName,
-      required this.deviceId,
-      this.deviceTimezone})
-      : super._();
+  _$UserDeviceEntityImpl({
+    required this.fcmToken,
+    required this.deviceName,
+    required this.deviceId,
+    this.deviceTimezone,
+  }) : super._();
 
   factory _$UserDeviceEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDeviceEntityImplFromJson(json);
@@ -176,22 +195,23 @@ class _$UserDeviceEntityImpl extends _UserDeviceEntity {
   @pragma('vm:prefer-inline')
   _$$UserDeviceEntityImplCopyWith<_$UserDeviceEntityImpl> get copyWith =>
       __$$UserDeviceEntityImplCopyWithImpl<_$UserDeviceEntityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserDeviceEntityImplToJson(
-      this,
-    );
+    return _$$UserDeviceEntityImplToJson(this);
   }
 }
 
 abstract class _UserDeviceEntity extends UserDeviceEntity {
-  factory _UserDeviceEntity(
-      {required String fcmToken,
-      required String deviceName,
-      required String deviceId,
-      String? deviceTimezone}) = _$UserDeviceEntityImpl;
+  factory _UserDeviceEntity({
+    required String fcmToken,
+    required String deviceName,
+    required String deviceId,
+    String? deviceTimezone,
+  }) = _$UserDeviceEntityImpl;
   _UserDeviceEntity._() : super._();
 
   factory _UserDeviceEntity.fromJson(Map<String, dynamic> json) =

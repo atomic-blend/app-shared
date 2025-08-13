@@ -12,7 +12,8 @@ part of 'user.entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 UserEntity _$UserEntityFromJson(Map<String, dynamic> json) {
   return _UserEntity.fromJson(json);
@@ -61,23 +62,25 @@ mixin _$UserEntity {
 /// @nodoc
 abstract class $UserEntityCopyWith<$Res> {
   factory $UserEntityCopyWith(
-          UserEntity value, $Res Function(UserEntity) then) =
-      _$UserEntityCopyWithImpl<$Res, UserEntity>;
+    UserEntity value,
+    $Res Function(UserEntity) then,
+  ) = _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
-  $Res call(
-      {String? id,
-      String? firebase_id,
-      String? email,
-      List<dynamic> roles,
-      String? firstname,
-      String? lastname,
-      EncryptionKeyEntity keySet,
-      List<UserDeviceEntity>? devices,
-      List<Purchase>? purchases,
-      String? accessToken,
-      String? refreshToken,
-      DateTime? createdAt,
-      DateTime? updatedAt});
+  $Res call({
+    String? id,
+    String? firebase_id,
+    String? email,
+    List<dynamic> roles,
+    String? firstname,
+    String? lastname,
+    EncryptionKeyEntity keySet,
+    List<UserDeviceEntity>? devices,
+    List<Purchase>? purchases,
+    String? accessToken,
+    String? refreshToken,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  });
 
   $EncryptionKeyEntityCopyWith<$Res> get keySet;
 }
@@ -111,60 +114,76 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firebase_id: freezed == firebase_id
-          ? _value.firebase_id
-          : firebase_id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      roles: null == roles
-          ? _value.roles
-          : roles // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      keySet: null == keySet
-          ? _value.keySet
-          : keySet // ignore: cast_nullable_to_non_nullable
-              as EncryptionKeyEntity,
-      devices: freezed == devices
-          ? _value.devices
-          : devices // ignore: cast_nullable_to_non_nullable
-              as List<UserDeviceEntity>?,
-      purchases: freezed == purchases
-          ? _value.purchases
-          : purchases // ignore: cast_nullable_to_non_nullable
-              as List<Purchase>?,
-      accessToken: freezed == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      refreshToken: freezed == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                freezed == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            firebase_id:
+                freezed == firebase_id
+                    ? _value.firebase_id
+                    : firebase_id // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            email:
+                freezed == email
+                    ? _value.email
+                    : email // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            roles:
+                null == roles
+                    ? _value.roles
+                    : roles // ignore: cast_nullable_to_non_nullable
+                        as List<dynamic>,
+            firstname:
+                freezed == firstname
+                    ? _value.firstname
+                    : firstname // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            lastname:
+                freezed == lastname
+                    ? _value.lastname
+                    : lastname // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            keySet:
+                null == keySet
+                    ? _value.keySet
+                    : keySet // ignore: cast_nullable_to_non_nullable
+                        as EncryptionKeyEntity,
+            devices:
+                freezed == devices
+                    ? _value.devices
+                    : devices // ignore: cast_nullable_to_non_nullable
+                        as List<UserDeviceEntity>?,
+            purchases:
+                freezed == purchases
+                    ? _value.purchases
+                    : purchases // ignore: cast_nullable_to_non_nullable
+                        as List<Purchase>?,
+            accessToken:
+                freezed == accessToken
+                    ? _value.accessToken
+                    : accessToken // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            refreshToken:
+                freezed == refreshToken
+                    ? _value.refreshToken
+                    : refreshToken // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            createdAt:
+                freezed == createdAt
+                    ? _value.createdAt
+                    : createdAt // ignore: cast_nullable_to_non_nullable
+                        as DateTime?,
+            updatedAt:
+                freezed == updatedAt
+                    ? _value.updatedAt
+                    : updatedAt // ignore: cast_nullable_to_non_nullable
+                        as DateTime?,
+          )
+          as $Val,
+    );
   }
 
   /// Create a copy of UserEntity
@@ -182,24 +201,26 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
 abstract class _$$UserEntityImplCopyWith<$Res>
     implements $UserEntityCopyWith<$Res> {
   factory _$$UserEntityImplCopyWith(
-          _$UserEntityImpl value, $Res Function(_$UserEntityImpl) then) =
-      __$$UserEntityImplCopyWithImpl<$Res>;
+    _$UserEntityImpl value,
+    $Res Function(_$UserEntityImpl) then,
+  ) = __$$UserEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? id,
-      String? firebase_id,
-      String? email,
-      List<dynamic> roles,
-      String? firstname,
-      String? lastname,
-      EncryptionKeyEntity keySet,
-      List<UserDeviceEntity>? devices,
-      List<Purchase>? purchases,
-      String? accessToken,
-      String? refreshToken,
-      DateTime? createdAt,
-      DateTime? updatedAt});
+  $Res call({
+    String? id,
+    String? firebase_id,
+    String? email,
+    List<dynamic> roles,
+    String? firstname,
+    String? lastname,
+    EncryptionKeyEntity keySet,
+    List<UserDeviceEntity>? devices,
+    List<Purchase>? purchases,
+    String? accessToken,
+    String? refreshToken,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  });
 
   @override
   $EncryptionKeyEntityCopyWith<$Res> get keySet;
@@ -210,8 +231,9 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     extends _$UserEntityCopyWithImpl<$Res, _$UserEntityImpl>
     implements _$$UserEntityImplCopyWith<$Res> {
   __$$UserEntityImplCopyWithImpl(
-      _$UserEntityImpl _value, $Res Function(_$UserEntityImpl) _then)
-      : super(_value, _then);
+    _$UserEntityImpl _value,
+    $Res Function(_$UserEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -232,81 +254,96 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$UserEntityImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firebase_id: freezed == firebase_id
-          ? _value.firebase_id
-          : firebase_id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      roles: null == roles
-          ? _value.roles
-          : roles // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      keySet: null == keySet
-          ? _value.keySet
-          : keySet // ignore: cast_nullable_to_non_nullable
-              as EncryptionKeyEntity,
-      devices: freezed == devices
-          ? _value.devices
-          : devices // ignore: cast_nullable_to_non_nullable
-              as List<UserDeviceEntity>?,
-      purchases: freezed == purchases
-          ? _value.purchases
-          : purchases // ignore: cast_nullable_to_non_nullable
-              as List<Purchase>?,
-      accessToken: freezed == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      refreshToken: freezed == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
+    return _then(
+      _$UserEntityImpl(
+        id:
+            freezed == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        firebase_id:
+            freezed == firebase_id
+                ? _value.firebase_id
+                : firebase_id // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        email:
+            freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        roles:
+            null == roles
+                ? _value.roles
+                : roles // ignore: cast_nullable_to_non_nullable
+                    as List<dynamic>,
+        firstname:
+            freezed == firstname
+                ? _value.firstname
+                : firstname // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        lastname:
+            freezed == lastname
+                ? _value.lastname
+                : lastname // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        keySet:
+            null == keySet
+                ? _value.keySet
+                : keySet // ignore: cast_nullable_to_non_nullable
+                    as EncryptionKeyEntity,
+        devices:
+            freezed == devices
+                ? _value.devices
+                : devices // ignore: cast_nullable_to_non_nullable
+                    as List<UserDeviceEntity>?,
+        purchases:
+            freezed == purchases
+                ? _value.purchases
+                : purchases // ignore: cast_nullable_to_non_nullable
+                    as List<Purchase>?,
+        accessToken:
+            freezed == accessToken
+                ? _value.accessToken
+                : accessToken // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        refreshToken:
+            freezed == refreshToken
+                ? _value.refreshToken
+                : refreshToken // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        createdAt:
+            freezed == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
+        updatedAt:
+            freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$UserEntityImpl extends _UserEntity {
-  _$UserEntityImpl(
-      {this.id,
-      this.firebase_id,
-      required this.email,
-      required this.roles,
-      this.firstname,
-      this.lastname,
-      required this.keySet,
-      this.devices,
-      this.purchases,
-      this.accessToken,
-      this.refreshToken,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$UserEntityImpl({
+    this.id,
+    this.firebase_id,
+    required this.email,
+    required this.roles,
+    this.firstname,
+    this.lastname,
+    required this.keySet,
+    this.devices,
+    this.purchases,
+    this.accessToken,
+    this.refreshToken,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
 
   factory _$UserEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserEntityImplFromJson(json);
@@ -348,27 +385,26 @@ class _$UserEntityImpl extends _UserEntity {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserEntityImplToJson(
-      this,
-    );
+    return _$$UserEntityImplToJson(this);
   }
 }
 
 abstract class _UserEntity extends UserEntity {
-  factory _UserEntity(
-      {String? id,
-      String? firebase_id,
-      required String? email,
-      required List<dynamic> roles,
-      String? firstname,
-      String? lastname,
-      required EncryptionKeyEntity keySet,
-      List<UserDeviceEntity>? devices,
-      List<Purchase>? purchases,
-      String? accessToken,
-      String? refreshToken,
-      DateTime? createdAt,
-      DateTime? updatedAt}) = _$UserEntityImpl;
+  factory _UserEntity({
+    String? id,
+    String? firebase_id,
+    required String? email,
+    required List<dynamic> roles,
+    String? firstname,
+    String? lastname,
+    required EncryptionKeyEntity keySet,
+    List<UserDeviceEntity>? devices,
+    List<Purchase>? purchases,
+    String? accessToken,
+    String? refreshToken,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _$UserEntityImpl;
   _UserEntity._() : super._();
 
   factory _UserEntity.fromJson(Map<String, dynamic> json) =
