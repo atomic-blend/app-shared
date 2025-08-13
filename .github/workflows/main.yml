@@ -185,7 +185,7 @@ jobs:
 
           # Use GitHub's built-in release creation
           gh release create $TAG \
-            --title "v$TAG" \
+            --title "$TAG" \
             --notes "$(cat release_notes.md)" \
             --target ${{ github.sha }}
         env:
