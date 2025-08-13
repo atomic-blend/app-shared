@@ -446,5 +446,10 @@
     "payment_on_mobile_for_better_xp": "Pour vous offrir la meilleure expérience possible, le paiement et la configuration du compte ne sont disponibles que sur l'application mobile.",
     "ios": "iOS",
     "android": "Android"
+  },
+  "color_wheel": {
+    "primary": "Principal",
+    "accent": "Accentué",
+    "wheel": "Roue"
   }
 }

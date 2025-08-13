@@ -52,9 +52,9 @@ class AbColorPicker extends StatelessWidget {
               ColorPickerType.custom: false,
             },
             pickerTypeLabels: <ColorPickerType, String>{
-              ColorPickerType.primary: context.t.tags.add_modal.primary,
-              ColorPickerType.accent: context.t.tags.add_modal.accent,
-              ColorPickerType.wheel: context.t.tags.add_modal.wheel,
+              ColorPickerType.primary: context.t.color_wheel.primary,
+              ColorPickerType.accent: context.t.color_wheel.accent,
+              ColorPickerType.wheel: context.t.color_wheel.wheel,
             },
             onColorChanged: (color) {
               onColorChanged?.call(color);

@@ -59,6 +59,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
+	late final TranslationsColorWheelEn color_wheel = TranslationsColorWheelEn._(_root);
 }
 
 // Path: auth
@@ -435,6 +436,24 @@ class TranslationsPaywallEn {
 
 	/// en: 'Android'
 	String get android => 'Android';
+}
+
+// Path: color_wheel
+class TranslationsColorWheelEn {
+	TranslationsColorWheelEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Primary'
+	String get primary => 'Primary';
+
+	/// en: 'Accent'
+	String get accent => 'Accent';
+
+	/// en: 'Wheel'
+	String get wheel => 'Wheel';
 }
 
 // Path: auth.not_logged_in
@@ -1494,6 +1513,9 @@ extension on Translations {
 			case 'paywall.payment_on_mobile_for_better_xp': return 'To offer you the best experience possible, payment and account configuration is only available on the mobile app';
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
+			case 'color_wheel.primary': return 'Primary';
+			case 'color_wheel.accent': return 'Accent';
+			case 'color_wheel.wheel': return 'Wheel';
 			default: return null;
 		}
 	}

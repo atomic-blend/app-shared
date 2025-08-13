@@ -51,6 +51,7 @@ class TranslationsFr implements Translations {
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
+	@override late final _TranslationsColorWheelFr color_wheel = _TranslationsColorWheelFr._(_root);
 }
 
 // Path: auth
@@ -370,6 +371,18 @@ class _TranslationsPaywallFr implements TranslationsPaywallEn {
 	@override String get payment_on_mobile_for_better_xp => 'Pour vous offrir la meilleure expérience possible, le paiement et la configuration du compte ne sont disponibles que sur l\'application mobile.';
 	@override String get ios => 'iOS';
 	@override String get android => 'Android';
+}
+
+// Path: color_wheel
+class _TranslationsColorWheelFr implements TranslationsColorWheelEn {
+	_TranslationsColorWheelFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get primary => 'Principal';
+	@override String get accent => 'Accentué';
+	@override String get wheel => 'Roue';
 }
 
 // Path: auth.not_logged_in
@@ -1141,6 +1154,9 @@ extension on TranslationsFr {
 			case 'paywall.payment_on_mobile_for_better_xp': return 'Pour vous offrir la meilleure expérience possible, le paiement et la configuration du compte ne sont disponibles que sur l\'application mobile.';
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
+			case 'color_wheel.primary': return 'Principal';
+			case 'color_wheel.accent': return 'Accentué';
+			case 'color_wheel.wheel': return 'Roue';
 			default: return null;
 		}
 	}
