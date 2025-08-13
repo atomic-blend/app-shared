@@ -47,6 +47,7 @@ dependencies:
   animated_toggle_switch: ^0.8.5
   async: ^2.13.0
   qr_flutter: ^4.1.0
+  flex_color_picker: ^3.7.1
 
 dev_dependencies:
   flutter_test:
