@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_age:
-    git:
+    git: # ignore: invalid_dependency
       url: https://github.com/atomic-blend/flutter_age.git
-      ref: v0.0.3
+      ref: v0.0.5
   freezed_annotation: ^2.4.4
   freezed: ^2.5.7
   pointycastle: ^3.9.1
@@ -48,6 +48,7 @@ dependencies:
   async: ^2.13.0
   qr_flutter: ^4.1.0
   flex_color_picker: ^3.7.1
+  timezone: ^0.10.1
 
 dev_dependencies:
   flutter_test:

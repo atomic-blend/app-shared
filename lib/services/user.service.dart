@@ -38,7 +38,7 @@ class UserService {
         return UserRoleEntity.fromJson(role);
       }).toList() as List<UserRoleEntity>;
 
-      prefs?.setString('user', json.encode(user.toJson()));
+      prefs.setString('user', json.encode(user.toJson()));
       Sentry.configureScope(
         (scope) => scope.setUser(SentryUser(id: '${user.id}')),
       );
@@ -53,7 +53,7 @@ class UserService {
     final result = await globalApiClient.put('/users/device', data: device);
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
-      prefs?.setString('user', json.encode(user.toJson()));
+      prefs.setString('user', json.encode(user.toJson()));
       return user;
     } else {
       throw Exception('user_device_update_failed');
@@ -65,7 +65,7 @@ class UserService {
       var result = await globalApiClient.get('/users/profile');
       if (result.statusCode == 200) {
         final newUser = UserEntity.fromJson(result.data["data"]);
-        await prefs?.setString('user', json.encode(newUser.toJson()));
+        await prefs.setString('user', json.encode(newUser.toJson()));
         return newUser;
       }
       return null;
@@ -75,7 +75,7 @@ class UserService {
   }
 
   Future<UserEntity?> checkForLoggedInUser() async {
-    final userRaw = prefs?.getString('accessToken');
+    final userRaw = prefs.getString('accessToken');
     if (userRaw != null) {
       final user = json.decode(userRaw);
       if (user != null) {
@@ -105,12 +105,12 @@ class UserService {
     if (result.statusCode == 200) {
       final userData = result.data['user'];
       final user = UserEntity.fromJson(userData);
-      await prefs?.setString('user', json.encode(user.toJson()));
-      await prefs?.setString('accessToken', result.data["accessToken"]);
-      await prefs?.setString('refreshToken', result.data["refreshToken"]);
+      await prefs.setString('user', json.encode(user.toJson()));
+      await prefs.setString('accessToken', result.data["accessToken"]);
+      await prefs.setString('refreshToken', result.data["refreshToken"]);
 
       // restore data key from password
-      EncryptionService encryptionService = EncryptionService(userSalt: user.keySet.salt, prefs: prefs!, userKey: "", agePublicKey: "");
+      EncryptionService encryptionService = EncryptionService(userSalt: user.keySet.salt, prefs: prefs, userKey: "", agePublicKey: "");
       await encryptionService.restoreDataKey(password, user.keySet);
 
       Sentry.configureScope(
@@ -129,7 +129,7 @@ class UserService {
 
   Future<UserEntity?> register(String email, String password) async {
     // derive and persist key from password
-    EncryptionService encryptionService = EncryptionService(userSalt: "", prefs: prefs!, userKey: "", agePublicKey: "");
+    EncryptionService encryptionService = EncryptionService(userSalt: "", prefs: prefs, userKey: "", agePublicKey: "");
     final keySet = await encryptionService.generateKeySet(password);
 
     final result = await globalApiClient.post('/auth/register', data: {
@@ -142,7 +142,7 @@ class UserService {
       userData['accessToken'] = result.data['accessToken'];
       userData['refreshToken'] = result.data['refreshToken'];
       final user = UserEntity.fromJson(userData);
-      prefs?.setString('user', json.encode(user.toJson()));
+      prefs.setString('user', json.encode(user.toJson()));
       user.keySet = keySet!;
 
       globalApiClient.setIdToken(user.accessToken!);
@@ -189,7 +189,7 @@ class UserService {
         await globalApiClient.put('/users/profile', data: userPayload);
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
-      prefs?.setString('user', json.encode(user.toJson()));
+      prefs.setString('user', json.encode(user.toJson()));
       return user;
     } else {
       throw Exception('user_update_failed');

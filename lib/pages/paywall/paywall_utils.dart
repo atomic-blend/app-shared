@@ -1,5 +1,4 @@
 import 'package:ab_shared/entities/user/user.entity.dart';
-import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/paywall/paywall.dart';
 import 'package:ab_shared/services/revenue_cat_service.dart';
 import 'package:ab_shared/services/user.service.dart';
@@ -13,7 +12,7 @@ class PaywallUtils {
   static resetPaywall({
     required SharedPreferences prefs,
   }) {
-    prefs?.remove("paywall_displayed");
+    prefs.remove("paywall_displayed");
   }
 
   static showPaywall(BuildContext context, {
@@ -21,10 +20,10 @@ class PaywallUtils {
     required SharedPreferences prefs, 
     UserEntity? user, 
     required RevenueCatService revenueCatService,}) async {
-    if (globalApiClient?.getSelfHostedRestApiUrl() != null) {
+    if (globalApiClient.getSelfHostedRestApiUrl() != null) {
       return;
     }
-    final paywallDisplayed = prefs?.getBool("paywall_displayed") ?? false;
+    final paywallDisplayed = prefs.getBool("paywall_displayed") ?? false;
     if (paywallDisplayed) {
       if (kDebugMode) {
         print("Paywall already displayed, skipping...");
@@ -32,10 +31,10 @@ class PaywallUtils {
       return;
     }
 
-    await prefs?.setBool("paywall_displayed", true);
+    await prefs.setBool("paywall_displayed", true);
 
     if (user != null) {
-      if (UserService.isSubscriptionActive(globalApiClient!, user)) {
+      if (UserService.isSubscriptionActive(globalApiClient, user)) {
         return;
       }
     }
@@ -72,6 +71,6 @@ class PaywallUtils {
       );
     }
 
-    await prefs?.setBool("paywall_displayed", false);
+    await prefs.setBool("paywall_displayed", false);
   }
 }

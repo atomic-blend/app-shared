@@ -70,11 +70,11 @@ class EncryptionService {
 
     // Store the data key in the storage
     userKey = utf8.decode(dataKey);
-    prefs?.setString("key", userKey ?? "");
+    prefs.setString("key", userKey ?? "");
 
     // Store the age public key in the storage
     agePublicKey = keySet.publicKey;
-    prefs?.setString("agePublicKey", keySet.publicKey ?? "");
+    prefs.setString("agePublicKey", keySet.publicKey ?? "");
   }
 
   Future<EncryptionKeyEntity?> generateKeySetFromBackupKey({
@@ -227,11 +227,11 @@ class EncryptionService {
 
     // store the data key in the secure storage
     userKey = dataKey.privateKey;
-    await prefs?.setString("key", dataKey.privateKey);
+    await prefs.setString("key", dataKey.privateKey);
 
     // store the age public key in the storage
     agePublicKey = dataKey.publicKey;
-    await prefs?.setString("agePublicKey", dataKey.publicKey);
+    await prefs.setString("agePublicKey", dataKey.publicKey);
 
     return encryptionKey;
   }
@@ -319,7 +319,7 @@ class EncryptionService {
 
   Future<bool?> persistNewUserKey(String agePrivateKey) async {
     userKey = agePrivateKey;
-    return await prefs?.setString("key", agePrivateKey);
+    return await prefs.setString("key", agePrivateKey);
   }
 
   Uint8List generateRandomBytes(int numBytes) {
