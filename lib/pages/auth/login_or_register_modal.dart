@@ -34,103 +34,101 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
   int _step = 0;
   @override
   Widget build(BuildContext context) {
-    return TranslationProvider(
-      child: BlocListener<AuthBloc, AuthState>(
-        listener: (BuildContext context, AuthState state) async {
-          if (state is AuthError) {
-            setState(() {
-              errorMessage = state.message;
-            });
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (BuildContext context, AuthState state) async {
+        if (state is AuthError) {
+          setState(() {
+            errorMessage = state.message;
+          });
+        }
+        if (state is LoggedIn && state.isRegistration == true) {
+          setState(() {
+            _step = 5;
+          });
+        }
+        if (state is LoggedIn && state.isRegistration == false) {
+          widget.onAuthSuccess.call();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pop();
+          });
+        }
+      },
+      child: SizedBox(
+        height: getSize(context).height * 0.9,
+        child: BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
+          if (authState is Loading) {
+            return LoadingAnimated(
+              imageWidth: getSize(context).width * 0.6,
+              title: context.t.loading.simple,
+            );
           }
-          if (state is LoggedIn && state.isRegistration == true) {
-            setState(() {
-              _step = 5;
-            });
-          }
-          if (state is LoggedIn && state.isRegistration == false) {
-            widget.onAuthSuccess.call();
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pop();
-            });
-          }
-        },
-        child: SizedBox(
-          height: getSize(context).height * 0.9,
-          child: BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-            if (authState is Loading) {
-              return LoadingAnimated(
-                imageWidth: getSize(context).width * 0.6,
-                title: context.t.loading.simple,
+          switch (_step) {
+            case 0:
+              return WelcomeScreen(
+                nextStepCallback: () => setState(() => _step = 1),
               );
-            }
-            switch (_step) {
-              case 0:
-                return WelcomeScreen(
-                  nextStepCallback: () => setState(() => _step = 1),
-                );
-              case 1:
-                return LoginOrRegister(
-                  globalApiClient: widget.globalApiClient,
-                  prefs: widget.prefs,
-                  env: widget.env,
-                  backStepCallback: () => setState(() => _step = 0),
-                  loginCallback: () => setState(() => _step = 2),
-                  registerCallback: () => setState(() => _step = 3),
-                );
-              case 2:
-                return Login(
-                  onAuthSuccess: () {
-                    widget.onAuthSuccess.call();
-                  },
-                  cancelCallback: () {
-                    setState(() {
-                      _step = 1;
-                    });
-                  },
-                  errorMessage: errorMessage,
-                  encryptionService: widget.encryptionService,
-                );
-              case 3:
-                return RegisterEmail(
-                  email: email,
-                  nextStepCallback: (String newEmail) {
-                    setState(() {
-                      email = newEmail;
-                      _step = 4;
-                    });
-                  },
-                  cancelCallback: () {
-                    setState(() {
-                      _step = 1;
-                    });
-                  },
-                );
-              case 4:
-                return RegisterPassword(
-                  password: password,
-                  onAuthSuccess: () {
-                    widget.onAuthSuccess();
-                  },
-                  onPasswordUpdate: (newPwd) {
-                    setState(() {
-                      password = newPwd;
-                    });
-                  },
-                  email: email!,
-                  cancelCallback: () {
-                    setState(() {
-                      _step = 3;
-                    });
-                  },
-                );
-              case 5:
-                return MnemonicKey(
-                    onSuccess: () {},
-                    mnemonic: authState.user?.keySet.backupPhrase ?? '');
-            }
-            return Container();
-          }),
-        ),
+            case 1:
+              return LoginOrRegister(
+                globalApiClient: widget.globalApiClient,
+                prefs: widget.prefs,
+                env: widget.env,
+                backStepCallback: () => setState(() => _step = 0),
+                loginCallback: () => setState(() => _step = 2),
+                registerCallback: () => setState(() => _step = 3),
+              );
+            case 2:
+              return Login(
+                onAuthSuccess: () {
+                  widget.onAuthSuccess.call();
+                },
+                cancelCallback: () {
+                  setState(() {
+                    _step = 1;
+                  });
+                },
+                errorMessage: errorMessage,
+                encryptionService: widget.encryptionService,
+              );
+            case 3:
+              return RegisterEmail(
+                email: email,
+                nextStepCallback: (String newEmail) {
+                  setState(() {
+                    email = newEmail;
+                    _step = 4;
+                  });
+                },
+                cancelCallback: () {
+                  setState(() {
+                    _step = 1;
+                  });
+                },
+              );
+            case 4:
+              return RegisterPassword(
+                password: password,
+                onAuthSuccess: () {
+                  widget.onAuthSuccess();
+                },
+                onPasswordUpdate: (newPwd) {
+                  setState(() {
+                    password = newPwd;
+                  });
+                },
+                email: email!,
+                cancelCallback: () {
+                  setState(() {
+                    _step = 3;
+                  });
+                },
+              );
+            case 5:
+              return MnemonicKey(
+                  onSuccess: () {},
+                  mnemonic: authState.user?.keySet.backupPhrase ?? '');
+          }
+          return Container();
+        }),
       ),
     );
   }
