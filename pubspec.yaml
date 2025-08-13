@@ -25,6 +25,11 @@ dependencies:
   device_info_plus: ^11.5.0
   flutter_timezone: ^4.1.1
   purchases_flutter: ^9.2.0
+  dio: ^5.9.0
+  sentry_flutter: ^9.6.0
+  pretty_dio_logger: ^1.4.0
+  injectable: ^2.5.1
+  hydrated_bloc: ^10.1.1
 
 dev_dependencies:
   flutter_test:
