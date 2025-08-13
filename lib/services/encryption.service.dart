@@ -236,7 +236,7 @@ class EncryptionService {
     return encryptionKey;
   }
 
-  static Future<Map<String, String>> refreshUserDataKey(
+  Future<Map<String, String>> refreshUserDataKey(
       EncryptionKeyEntity keySet,
       String currentPassword,
       String newPassword) async {
@@ -322,7 +322,7 @@ class EncryptionService {
     return await prefs?.setString("key", agePrivateKey);
   }
 
-  static Uint8List generateRandomBytes(int numBytes) {
+  Uint8List generateRandomBytes(int numBytes) {
     // Create a seed that's exactly 32 bytes (256 bits) as required by Fortuna
     final Uint8List seed = Uint8List(32);
 
@@ -346,7 +346,7 @@ class EncryptionService {
   }
 
   // Helper method to compare byte arrays
-  static bool bytesEqual(Uint8List a, Uint8List b) {
+  bool bytesEqual(Uint8List a, Uint8List b) {
     if (a.length != b.length) return false;
     for (var i = 0; i < a.length; i++) {
       if (a[i] != b[i]) return false;
