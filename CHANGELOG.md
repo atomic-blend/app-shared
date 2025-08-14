@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.1 - 2025-08-14
+#### Bug Fixes
+- add missing nav section - (8aa475c) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.2.0 [skip ci] - (5d58b92) - GitHub Actions
+
+- - -
+
 ## v0.2.0 - 2025-08-14
 #### Bug Fixes
 - cicd + add new compoents - (2e4a08b) - Brandon Guigo
