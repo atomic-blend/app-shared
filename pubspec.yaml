@@ -49,6 +49,7 @@ dependencies:
   qr_flutter: ^4.1.0
   flex_color_picker: ^3.7.1
   timezone: ^0.10.1
+  syncfusion_flutter_datepicker: ^30.2.5
 
 dev_dependencies:
   flutter_test:
