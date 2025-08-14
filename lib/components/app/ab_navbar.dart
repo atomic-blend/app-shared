@@ -71,6 +71,20 @@ class NavigationItem extends StatelessWidget {
   }
 }
 
+class NavigationSection {
+  const NavigationSection({
+    required this.key,
+    required this.items,
+  });
+
+  /// The key of the section.
+  final Key key;
+
+  /// The list of items in the section.
+  final List<NavigationItem> items;
+}
+
+
 
 class ABNavbar extends StatefulWidget {
   final Function(String key) onPrimaryMenuSelected;
