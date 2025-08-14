@@ -52,6 +52,8 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
 	@override late final _TranslationsColorWheelFr color_wheel = _TranslationsColorWheelFr._(_root);
+	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
+	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
 }
 
 // Path: auth
@@ -385,6 +387,28 @@ class _TranslationsColorWheelFr implements TranslationsColorWheelEn {
 	@override String get wheel => 'Roue';
 }
 
+// Path: dates
+class _TranslationsDatesFr implements TranslationsDatesEn {
+	_TranslationsDatesFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Aujourd\'hui';
+	@override String get tomorrow => 'Demain';
+}
+
+// Path: time_units
+class _TranslationsTimeUnitsFr implements TranslationsTimeUnitsEn {
+	_TranslationsTimeUnitsFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsTimeUnitsShortFr short = _TranslationsTimeUnitsShortFr._(_root);
+	@override late final _TranslationsTimeUnitsLongFr long = _TranslationsTimeUnitsLongFr._(_root);
+}
+
 // Path: auth.not_logged_in
 class _TranslationsAuthNotLoggedInFr implements TranslationsAuthNotLoggedInEn {
 	_TranslationsAuthNotLoggedInFr._(this._root);
@@ -669,6 +693,42 @@ class _TranslationsPaywallPricingCloudMonthlyFr implements TranslationsPaywallPr
 	@override String get billed => '';
 	@override String get discount => '';
 	@override String get start_button => 'Démarrer l\'essai gratuit de 1 semaine';
+}
+
+// Path: time_units.short
+class _TranslationsTimeUnitsShortFr implements TranslationsTimeUnitsShortEn {
+	_TranslationsTimeUnitsShortFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get day => 'j';
+	@override String get hour => 'h';
+	@override String get minute => 'm';
+}
+
+// Path: time_units.long
+class _TranslationsTimeUnitsLongFr implements TranslationsTimeUnitsLongEn {
+	_TranslationsTimeUnitsLongFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String day({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'jours',
+		one: 'jour',
+		other: 'jours',
+	);
+	@override String hour({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'heures',
+		one: 'heure',
+		other: 'heures',
+	);
+	@override String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'minutes',
+		one: 'minute',
+		other: 'minutes',
+	);
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -1157,6 +1217,26 @@ extension on TranslationsFr {
 			case 'color_wheel.primary': return 'Principal';
 			case 'color_wheel.accent': return 'Accentué';
 			case 'color_wheel.wheel': return 'Roue';
+			case 'dates.today': return 'Aujourd\'hui';
+			case 'dates.tomorrow': return 'Demain';
+			case 'time_units.short.day': return 'j';
+			case 'time_units.short.hour': return 'h';
+			case 'time_units.short.minute': return 'm';
+			case 'time_units.long.day': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'jours',
+				one: 'jour',
+				other: 'jours',
+			);
+			case 'time_units.long.hour': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'heures',
+				one: 'heure',
+				other: 'heures',
+			);
+			case 'time_units.long.minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'minutes',
+				one: 'minute',
+				other: 'minutes',
+			);
 			default: return null;
 		}
 	}

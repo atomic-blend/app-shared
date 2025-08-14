@@ -451,5 +451,33 @@
     "primary": "Principal",
     "accent": "Accentué",
     "wheel": "Roue"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain"
+  },
+  "time_units": {
+    "short": {
+      "day": "j",
+      "hour": "h",
+      "minute": "m"
+    },
+    "long": {
+      "day": {
+        "zero": "jours",
+        "one": "jour",
+        "other": "jours"
+      },
+      "hour": {
+        "zero": "heures",
+        "one": "heure",
+        "other": "heures"
+      },
+      "minute": {
+        "zero": "minutes",
+        "one": "minute",
+        "other": "minutes"
+      }
+    }
   }
 }

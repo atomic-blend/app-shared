@@ -454,5 +454,33 @@
     "primary": "Primary",
     "accent": "Accent",
     "wheel": "Wheel"
+  },
+  "dates": {
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "time_units": {
+    "short": {
+      "day": "d",
+      "hour": "h",
+      "minute": "m"
+    },
+    "long": {
+      "day": {
+        "zero": "days",
+        "one": "day",
+        "other": "days"
+      },
+      "hour": {
+        "zero": "hours",
+        "one": "hour",
+        "other": "hours"
+      },
+      "minute": {
+        "zero": "minutes",
+        "one": "minute",
+        "other": "minutes"
+      }
+    }
   }
 }

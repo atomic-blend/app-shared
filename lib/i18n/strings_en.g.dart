@@ -60,6 +60,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
 	late final TranslationsColorWheelEn color_wheel = TranslationsColorWheelEn._(_root);
+	late final TranslationsDatesEn dates = TranslationsDatesEn._(_root);
+	late final TranslationsTimeUnitsEn time_units = TranslationsTimeUnitsEn._(_root);
 }
 
 // Path: auth
@@ -454,6 +456,32 @@ class TranslationsColorWheelEn {
 
 	/// en: 'Wheel'
 	String get wheel => 'Wheel';
+}
+
+// Path: dates
+class TranslationsDatesEn {
+	TranslationsDatesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Today'
+	String get today => 'Today';
+
+	/// en: 'Tomorrow'
+	String get tomorrow => 'Tomorrow';
+}
+
+// Path: time_units
+class TranslationsTimeUnitsEn {
+	TranslationsTimeUnitsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsTimeUnitsShortEn short = TranslationsTimeUnitsShortEn._(_root);
+	late final TranslationsTimeUnitsLongEn long = TranslationsTimeUnitsLongEn._(_root);
 }
 
 // Path: auth.not_logged_in
@@ -971,6 +999,54 @@ class TranslationsPaywallPricingCloudMonthlyEn {
 
 	/// en: 'Start the 1-week free trial'
 	String get start_button => 'Start the 1-week free trial';
+}
+
+// Path: time_units.short
+class TranslationsTimeUnitsShortEn {
+	TranslationsTimeUnitsShortEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'd'
+	String get day => 'd';
+
+	/// en: 'h'
+	String get hour => 'h';
+
+	/// en: 'm'
+	String get minute => 'm';
+}
+
+// Path: time_units.long
+class TranslationsTimeUnitsLongEn {
+	TranslationsTimeUnitsLongEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: '(zero) {days} (one) {day} (other) {days}'
+	String day({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'days',
+		one: 'day',
+		other: 'days',
+	);
+
+	/// en: '(zero) {hours} (one) {hour} (other) {hours}'
+	String hour({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'hours',
+		one: 'hour',
+		other: 'hours',
+	);
+
+	/// en: '(zero) {minutes} (one) {minute} (other) {minutes}'
+	String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'minutes',
+		one: 'minute',
+		other: 'minutes',
+	);
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -1516,6 +1592,26 @@ extension on Translations {
 			case 'color_wheel.primary': return 'Primary';
 			case 'color_wheel.accent': return 'Accent';
 			case 'color_wheel.wheel': return 'Wheel';
+			case 'dates.today': return 'Today';
+			case 'dates.tomorrow': return 'Tomorrow';
+			case 'time_units.short.day': return 'd';
+			case 'time_units.short.hour': return 'h';
+			case 'time_units.short.minute': return 'm';
+			case 'time_units.long.day': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'days',
+				one: 'day',
+				other: 'days',
+			);
+			case 'time_units.long.hour': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'hours',
+				one: 'hour',
+				other: 'hours',
+			);
+			case 'time_units.long.minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'minutes',
+				one: 'minute',
+				other: 'minutes',
+			);
 			default: return null;
 		}
 	}
