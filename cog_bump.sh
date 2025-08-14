@@ -3,13 +3,8 @@
 current_version=$(grep 'version:' pubspec.yaml | awk '{print $2}')
 echo "Current version: $current_version"
 
-# Store the current version code from pubspec.yaml
-version_code=$(echo $current_version | cut -d"+" -f2)
-# Increment the version code
-version_code=$((version_code + 1))
-
-# Construct the new version string
-new_version="$1+$version_code"
+# Remove the 'v' prefix if present and update the version in pubspec.yaml
+new_version="${1#v}"
 
 # Update the version in pubspec.yaml
 sed "s/version: .*/version: $new_version/" pubspec.yaml > temp.yaml && mv temp.yaml pubspec.yaml
