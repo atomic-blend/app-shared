@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.3 - 2025-09-08
+#### Bug Fixes
+- decryption service fix for complex types - (630ccad) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.2.2 [skip ci] - (1b723b8) - GitHub Actions
+
+- - -
+
 ## v0.2.2 - 2025-09-08
 #### Bug Fixes
 - make the cupertino icon used inside the navbar - (5cc07e6) - Brandon Guigo
