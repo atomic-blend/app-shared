@@ -4,13 +4,12 @@ import 'dart:typed_data';
 
 import 'package:ab_shared/entities/encryption/encryption_key.dart';
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:flutter_age/flutter_age.dart';
+import 'package:flutter_age/flutter_age.dart' as age;
 import 'package:pointycastle/block/aes.dart';
 import 'package:pointycastle/block/modes/gcm.dart';
 import 'package:pointycastle/key_derivators/argon2.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class EncryptionService {
   late Uint8List userSalt;
@@ -19,24 +18,35 @@ class EncryptionService {
   String? agePublicKey;
   final argon2 = Argon2BytesGenerator();
 
-  EncryptionService({required String userSalt, required this.prefs, required this.userKey, required this.agePublicKey}) {
+  EncryptionService({
+    required String userSalt,
+    required this.prefs,
+    required this.userKey,
+    required this.agePublicKey,
+  }) {
     this.userSalt = Uint8List.fromList(utf8.encode(userSalt));
     final argon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, this.userSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      this.userSalt,
+      desiredKeyLength: 32,
+    );
     argon2.init(argon2parameters);
   }
 
   Future<void> restoreDataKey(
-      String password, EncryptionKeyEntity keySet) async {
+    String password,
+    EncryptionKeyEntity keySet,
+  ) async {
     // Use the salt from the keySet to initialize argon2 correctly
     final saltBytes = base64.decode(keySet.salt);
 
     // Initialize Argon2 with the correct salt
     final restoreArgon2 = Argon2BytesGenerator();
     final restoreArgon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, saltBytes,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      saltBytes,
+      desiredKeyLength: 32,
+    );
     restoreArgon2.init(restoreArgon2parameters);
 
     // Generate user key from password
@@ -49,9 +59,13 @@ class EncryptionService {
     final encryptedDataKey = base64.decode(keySet.userKey);
     final iv = encryptedDataKey.sublist(encryptedDataKey.length - 12);
     final tag = encryptedDataKey.sublist(
-        encryptedDataKey.length - 28, encryptedDataKey.length - 12);
-    final cipherText =
-        encryptedDataKey.sublist(0, encryptedDataKey.length - 28);
+      encryptedDataKey.length - 28,
+      encryptedDataKey.length - 12,
+    );
+    final cipherText = encryptedDataKey.sublist(
+      0,
+      encryptedDataKey.length - 28,
+    );
 
     final cipher = GCMBlockCipher(AESEngine())
       ..init(false, ParametersWithIV(KeyParameter(uKey), iv));
@@ -93,21 +107,31 @@ class EncryptionService {
     // Initialize Argon2 with the old mnemonic salt
     final mnemonicArgon2 = Argon2BytesGenerator();
     final mnemonicArgon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, mnemonicSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      mnemonicSalt,
+      desiredKeyLength: 32,
+    );
     mnemonicArgon2.init(mnemonicArgon2parameters);
 
-    mnemonicArgon2.deriveKey(Uint8List.fromList(utf8.encode(mnemonic)),
-        utf8.encode(mnemonic).length, mnemonicKey, 0);
+    mnemonicArgon2.deriveKey(
+      Uint8List.fromList(utf8.encode(mnemonic)),
+      utf8.encode(mnemonic).length,
+      mnemonicKey,
+      0,
+    );
 
     final encryptedMnemonicDataKey = base64.decode(backupKey);
-    final iv =
-        encryptedMnemonicDataKey.sublist(encryptedMnemonicDataKey.length - 12);
+    final iv = encryptedMnemonicDataKey.sublist(
+      encryptedMnemonicDataKey.length - 12,
+    );
     final tag = encryptedMnemonicDataKey.sublist(
-        encryptedMnemonicDataKey.length - 28,
-        encryptedMnemonicDataKey.length - 12);
+      encryptedMnemonicDataKey.length - 28,
+      encryptedMnemonicDataKey.length - 12,
+    );
     final cipherText = encryptedMnemonicDataKey.sublist(
-        0, encryptedMnemonicDataKey.length - 28);
+      0,
+      encryptedMnemonicDataKey.length - 28,
+    );
 
     final mnemonicCipher = GCMBlockCipher(AESEngine())
       ..init(false, ParametersWithIV(KeyParameter(mnemonicKey), iv));
@@ -152,8 +176,10 @@ class EncryptionService {
     // init argon2 key derivation
     final argon2 = Argon2BytesGenerator();
     final argon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, userSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      userSalt,
+      desiredKeyLength: 32,
+    );
     argon2.init(argon2parameters);
 
     // generate user key from password
@@ -162,23 +188,29 @@ class EncryptionService {
     argon2.deriveKey(passwordBytes, passwordBytes.length, uKey, 0);
 
     // generate random data key or use existing one
-    AgeKey? dataKey;
+    age.AgeKey? dataKey;
     if (existingAgePrivateKey != null && existingAgePublicKey != null) {
-      dataKey = AgeKey(privateKey: existingAgePrivateKey, publicKey: existingAgePublicKey);
+      dataKey = age.AgeKey(
+        privateKey: existingAgePrivateKey,
+        publicKey: existingAgePublicKey,
+      );
     } else {
-      dataKey = createKey();
+      dataKey = age.createKey();
     }
 
     // encrypt data key with user key
     final iv = generateRandomBytes(12);
     final cipher = GCMBlockCipher(AESEngine())
       ..init(true, ParametersWithIV(KeyParameter(uKey), iv));
-    final cipheResult = cipher.process(Uint8List.fromList(utf8.encode(dataKey.privateKey)));
+    final cipheResult = cipher.process(
+      Uint8List.fromList(utf8.encode(dataKey.privateKey)),
+    );
     final tag = cipher.mac;
 
     // concat: encrypted data + tag + iv
-    final encryptedDataKey =
-        Uint8List(cipheResult.length + tag.length + iv.length);
+    final encryptedDataKey = Uint8List(
+      cipheResult.length + tag.length + iv.length,
+    );
     encryptedDataKey.setAll(0, cipheResult);
     encryptedDataKey.setAll(cipheResult.length, tag);
     encryptedDataKey.setAll(cipheResult.length + tag.length, iv);
@@ -190,29 +222,40 @@ class EncryptionService {
     // Create a separate salt for the mnemonic key to ensure uniqueness
     final mnemonicArgon2 = Argon2BytesGenerator();
     final mnemonicArgon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, mnemonicSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      mnemonicSalt,
+      desiredKeyLength: 32,
+    );
     mnemonicArgon2.init(mnemonicArgon2parameters);
 
     final mnemonicKey = Uint8List(32);
-    mnemonicArgon2.deriveKey(Uint8List.fromList(utf8.encode(mnemonicPass)),
-        mnemonicPass.length, mnemonicKey, 0);
+    mnemonicArgon2.deriveKey(
+      Uint8List.fromList(utf8.encode(mnemonicPass)),
+      mnemonicPass.length,
+      mnemonicKey,
+      0,
+    );
 
     final mnemonicIv = generateRandomBytes(12);
     final mnemonicCipher = GCMBlockCipher(AESEngine())
       ..init(true, ParametersWithIV(KeyParameter(mnemonicKey), mnemonicIv));
 
     // encrypt data key with mnemonic key
-    final mnemonicCipherResult = mnemonicCipher.process(Uint8List.fromList(utf8.encode(dataKey.privateKey)));
+    final mnemonicCipherResult = mnemonicCipher.process(
+      Uint8List.fromList(utf8.encode(dataKey.privateKey)),
+    );
     final mnemonicTag = mnemonicCipher.mac;
 
     // concat: encrypted data + tag + iv
     final encryptedMnemonicDataKey = Uint8List(
-        mnemonicCipherResult.length + mnemonicTag.length + mnemonicIv.length);
+      mnemonicCipherResult.length + mnemonicTag.length + mnemonicIv.length,
+    );
     encryptedMnemonicDataKey.setAll(0, mnemonicCipherResult);
     encryptedMnemonicDataKey.setAll(mnemonicCipherResult.length, mnemonicTag);
     encryptedMnemonicDataKey.setAll(
-        mnemonicCipherResult.length + mnemonicTag.length, mnemonicIv);
+      mnemonicCipherResult.length + mnemonicTag.length,
+      mnemonicIv,
+    );
 
     // store the keys and mnemonic
     final EncryptionKeyEntity encryptionKey = EncryptionKeyEntity(
@@ -237,9 +280,10 @@ class EncryptionService {
   }
 
   Future<Map<String, String>> refreshUserDataKey(
-      EncryptionKeyEntity keySet,
-      String currentPassword,
-      String newPassword) async {
+    EncryptionKeyEntity keySet,
+    String currentPassword,
+    String newPassword,
+  ) async {
     //////////// DECRYPT USER KEY WITH CURRENT ////////////
     // parse the salt from the keySet
     final userSalt = base64.decode(keySet.salt);
@@ -247,8 +291,10 @@ class EncryptionService {
     // init argon2 key derivation
     final argon2 = Argon2BytesGenerator();
     final argon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, userSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      userSalt,
+      desiredKeyLength: 32,
+    );
     argon2.init(argon2parameters);
 
     // generate user key from password
@@ -259,9 +305,13 @@ class EncryptionService {
     final encryptedDataKey = base64.decode(keySet.userKey);
     final iv = encryptedDataKey.sublist(encryptedDataKey.length - 12);
     final tag = encryptedDataKey.sublist(
-        encryptedDataKey.length - 28, encryptedDataKey.length - 12);
-    final cipherText =
-        encryptedDataKey.sublist(0, encryptedDataKey.length - 28);
+      encryptedDataKey.length - 28,
+      encryptedDataKey.length - 12,
+    );
+    final cipherText = encryptedDataKey.sublist(
+      0,
+      encryptedDataKey.length - 28,
+    );
 
     final cipher = GCMBlockCipher(AESEngine())
       ..init(false, ParametersWithIV(KeyParameter(uKey), iv));
@@ -285,8 +335,10 @@ class EncryptionService {
     // init argon2 key derivation
     final newArgon2 = Argon2BytesGenerator();
     final newArgon2parameters = Argon2Parameters(
-        Argon2Parameters.ARGON2_id, newUserSalt,
-        desiredKeyLength: 32);
+      Argon2Parameters.ARGON2_id,
+      newUserSalt,
+      desiredKeyLength: 32,
+    );
     newArgon2.init(newArgon2parameters);
 
     // generate user key from password
@@ -302,8 +354,9 @@ class EncryptionService {
     final newTag = newCipher.mac;
 
     // concat: encrypted data + tag + iv
-    final newEncryptedDataKey =
-        Uint8List(newCipherResult.length + newTag.length + newIv.length);
+    final newEncryptedDataKey = Uint8List(
+      newCipherResult.length + newTag.length + newIv.length,
+    );
     newEncryptedDataKey.setAll(0, newCipherResult);
     newEncryptedDataKey.setAll(newCipherResult.length, newTag);
     newEncryptedDataKey.setAll(newCipherResult.length + newTag.length, newIv);
@@ -361,23 +414,24 @@ class EncryptionService {
     }
 
     // encrypt with age key
-    final encrypted = encryptData(data: Uint8List.fromList(utf8.encode(data)), publicKey: key);
+    final encrypted = age.encryptString(
+      message: data,
+      publicKey: key,
+    );
 
     return encrypted;
   }
 
-  Future<String> decryptString({
-    required String data,
-  }) async {
+  Future<String> decryptString({required String data}) async {
     final key = userKey;
     if (key == null) {
       throw Exception("Key not found");
     }
 
     // decrypt with age key
-    final decrypted = decryptData(encryptedDataBase64: data, privateKey: key);
+    final decrypted = age.decryptString(ciphertext: data, privateKey: key);
 
-    return utf8.decode(decrypted);
+    return decrypted;
   }
 
   Future<dynamic> _processJsonValue(dynamic value, bool encrypt) async {
@@ -385,18 +439,42 @@ class EncryptionService {
 
     // Handle different Map types
     if (value is Map) {
+      // Case-insensitive detection for simple key/value map items (e.g. [{key: "1", value: "..."}] or [{Key: "1", Value: "..."}])
+      String? keyField;
+      String? valueField;
+      for (final k in value.keys) {
+        final ks = k.toString();
+        if (ks.toLowerCase() == 'key') keyField = k;
+        if (ks.toLowerCase() == 'value') valueField = k;
+      }
+
+      if (keyField != null && valueField != null) {
+        // Preserve original key field name/casing and only process the value field
+        final preservedKey = value[keyField];
+        final processedValue = await _processJsonValue(
+          value[valueField],
+          encrypt,
+        );
+        return {
+          keyField.toString(): preservedKey,
+          valueField.toString(): processedValue,
+        };
+      }
+
       return await (encrypt ? encryptJson(value) : decryptJson(value));
-    } 
+    }
     // Handle different List types
     else if (value is List) {
       return await Future.wait(
-          value.map((item) => _processJsonValue(item, encrypt)));
-    } 
+        value.map((item) => _processJsonValue(item, encrypt)),
+      );
+    }
     // Handle Set types
     else if (value is Set) {
       List<dynamic> listValue = value.toList();
       List<dynamic> processedList = await Future.wait(
-          listValue.map((item) => _processJsonValue(item, encrypt)));
+        listValue.map((item) => _processJsonValue(item, encrypt)),
+      );
       return Set.from(processedList);
     }
     // Handle DateTime objects
@@ -498,7 +576,10 @@ class EncryptionService {
       }
     }
     // Handle other primitive types (String, int, double, bool)
-    else if (value is String || value is int || value is double || value is bool) {
+    else if (value is String ||
+        value is int ||
+        value is double ||
+        value is bool) {
       if (encrypt) {
         String jsonValue = json.encode(value);
         return await encryptString(data: jsonValue);
@@ -548,7 +629,8 @@ class EncryptionService {
 
     if (data is List) {
       return await Future.wait(
-          data.map((item) => _processJsonValue(item, false)));
+        data.map((item) => _processJsonValue(item, false)),
+      );
     }
 
     if (data.runtimeType != Map) {
