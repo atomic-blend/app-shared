@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.2 - 2025-09-08
+#### Bug Fixes
+- make the cupertino icon used inside the navbar - (5cc07e6) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.2.1 [skip ci] - (b145025) - GitHub Actions
+
+- - -
+
 ## v0.2.1 - 2025-08-14
 #### Bug Fixes
 - add missing nav section - (8aa475c) - Brandon Guigo
