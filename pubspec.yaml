@@ -1,6 +1,6 @@
 name: ab_shared
 description: "A new Flutter package project."
-version: 0.2.3
+version: 0.2.4
 homepage: https://github.com/atomic-blend/ab_shared
 
 environment:

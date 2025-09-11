@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.4 - 2025-09-11
+#### Bug Fixes
+- skip decryption for boolean type - (80ed530) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.2.3 [skip ci] - (cfbbdb9) - GitHub Actions
+
+- - -
+
 ## v0.2.3 - 2025-09-08
 #### Bug Fixes
 - decryption service fix for complex types - (630ccad) - Brandon Guigo
