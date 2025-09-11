@@ -633,7 +633,11 @@ class EncryptionService {
       );
     }
 
-    if (data.runtimeType != Map) {
+    if (data is bool) {
+      return data;
+    }
+
+    if (data.runtimeType == String) {
       return await decryptString(data: data);
     }
 
