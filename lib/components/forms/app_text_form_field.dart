@@ -92,6 +92,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             height: widget.height,
             child: TextFormField(
               validator: widget.validator,
+              textAlignVertical: TextAlignVertical.top,
               autofocus: widget.autofocus ?? false,
               autofillHints: widget.autofillHints,
               controller: widget.controller,
@@ -199,10 +200,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             if (widget.labelText != null)
               Text(
                 widget.labelText!,
-                style: widget.labelStyle ??
-                    getTextTheme(context).bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                style: getTextTheme(context).bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             if (widget.labelDescription != null)
               Text(
