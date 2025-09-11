@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.3.0 - 2025-09-11
+#### Bug Fixes
+- text alignment in field - (ec1f934) - Brandon Guigo
+#### Features
+- support row layout for app text form field + label style - (294ef74) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.2.4 [skip ci] - (f4a72f8) - GitHub Actions
+
+- - -
+
 ## v0.2.4 - 2025-09-11
 #### Bug Fixes
 - skip decryption for boolean type - (80ed530) - Brandon Guigo
