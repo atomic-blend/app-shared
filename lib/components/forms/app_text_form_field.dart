@@ -30,7 +30,9 @@ class AppTextFormField extends StatefulWidget {
       this.backgroundColor,
       this.height,
       this.textStyle,
-      this.labelDescription});
+      this.labelDescription,
+      this.rowLayout,
+      this.labelStyle});
 
   final TextEditingController? controller;
   final FocusNode? focusNode;
@@ -54,6 +56,8 @@ class AppTextFormField extends StatefulWidget {
   final Color? backgroundColor;
   final double? height;
   final TextStyle? textStyle;
+  final bool? rowLayout;
+  final TextStyle? labelStyle;
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
 }
@@ -82,95 +86,138 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      final textField = Stack(
         children: [
-          if (widget.labelText != null)
-            Text(
-              widget.labelText!,
-              style: getTextTheme(context).bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          if (widget.labelDescription != null)
-            Text(
-              widget.labelDescription!,
-              style: getTextTheme(context).bodySmall!.copyWith(
-                    color: Colors.grey[700],
-                  ),
-            ),
           SizedBox(
-            height: $constants.insets.xxs,
-          ),
-          Stack(
-            children: [
-              SizedBox(
-                height: widget.height,
-                child: TextFormField(
-                  validator: widget.validator,
-                  autofocus: widget.autofocus ?? false,
-                  autofillHints: widget.autofillHints,
-                  controller: widget.controller,
-                  autocorrect: widget.autocorrect ?? true,
-                  obscureText: _obscureText ?? false,
-                  onChanged: (value) {
-                    resetTimer();
-                  },
-                  onEditingComplete: () {
-                    if (widget.onSubmitted != null) widget.onSubmitted!();
-                    SystemChannels.textInput.invokeMethod('TextInput.hide');
-                  },
-                  enabled: widget.disabled != null ? !widget.disabled! : true,
-                  focusNode: widget.focusNode,
-                  initialValue: widget.value,
-                  keyboardType: widget.keyboardType,
-                  style: widget.textStyle ??
-                      getTextTheme(context).bodyMedium!.copyWith(
-                          color:
-                              widget.textColor ?? getTheme(context).onSurface),
-                  decoration: InputDecoration(
-                    fillColor: widget.backgroundColor ??
-                        getTheme(context).surfaceContainer,
-                    hintText: widget.hintText,
-                    hintStyle: getTextTheme(context).bodyMedium!.copyWith(
-                          color: Colors.grey[700],
-                        ),
-                    isDense: true,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular($constants.insets.sm),
+            height: widget.height,
+            child: TextFormField(
+              validator: widget.validator,
+              autofocus: widget.autofocus ?? false,
+              autofillHints: widget.autofillHints,
+              controller: widget.controller,
+              autocorrect: widget.autocorrect ?? true,
+              obscureText: _obscureText ?? false,
+              onChanged: (value) {
+                resetTimer();
+              },
+              onEditingComplete: () {
+                if (widget.onSubmitted != null) widget.onSubmitted!();
+                SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              enabled: widget.disabled != null ? !widget.disabled! : true,
+              focusNode: widget.focusNode,
+              initialValue: widget.value,
+              keyboardType: widget.keyboardType,
+              style: widget.textStyle ??
+                  getTextTheme(context).bodyMedium!.copyWith(
+                      color:
+                          widget.textColor ?? getTheme(context).onSurface),
+              decoration: InputDecoration(
+                fillColor: widget.backgroundColor ??
+                    getTheme(context).surfaceContainer,
+                hintText: widget.hintText,
+                hintStyle: getTextTheme(context).bodyMedium!.copyWith(
+                      color: Colors.grey[700],
                     ),
-                  ),
+                isDense: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular($constants.insets.sm),
                 ),
               ),
-              if (widget.onDelete != null)
-                Positioned(
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    child: IconButton(
-                        onPressed: widget.onDelete,
-                        icon: const Icon(LineAwesome.times_circle))),
-              if (widget.obscureText != null)
-                Positioned(
-                    right: $constants.insets.sm,
-                    top: $constants.insets.xs,
-                    child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obscureText = !_obscureText!;
-                          });
-                        },
-                        child: Icon(_obscureText != true
-                            ? LineAwesome.eye_slash
-                            : LineAwesome.eye))),
-              if (widget.trailing != null)
-                Positioned(
-                    right: 0, top: 0, bottom: 0, child: widget.trailing!),
-            ],
+            ),
           ),
+          if (widget.onDelete != null)
+            Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: IconButton(
+                    onPressed: widget.onDelete,
+                    icon: const Icon(LineAwesome.times_circle))),
+          if (widget.obscureText != null)
+            Positioned(
+                right: $constants.insets.sm,
+                top: $constants.insets.xs,
+                child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _obscureText = !_obscureText!;
+                      });
+                    },
+                    child: Icon(_obscureText != true
+                        ? LineAwesome.eye_slash
+                        : LineAwesome.eye))),
+          if (widget.trailing != null)
+            Positioned(
+                right: 0, top: 0, bottom: 0, child: widget.trailing!),
         ],
       );
+
+      if (widget.rowLayout == true) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (widget.labelText != null)
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: $constants.insets.sm,
+                    ),
+                    child: Text(
+                      widget.labelText!,
+                      style: widget.labelStyle ??
+                          getTextTheme(context).bodyMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                    ),
+                  ),
+                Expanded(child: textField),
+              ],
+            ),
+            if (widget.labelDescription != null)
+              Padding(
+                padding: EdgeInsets.only(
+                  top: $constants.insets.xxs,
+                  left: widget.labelText != null ? 0 : 0,
+                ),
+                child: Text(
+                  widget.labelDescription!,
+                  style: getTextTheme(context).bodySmall!.copyWith(
+                        color: Colors.grey[700],
+                      ),
+                ),
+              ),
+          ],
+        );
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.labelText != null)
+              Text(
+                widget.labelText!,
+                style: widget.labelStyle ??
+                    getTextTheme(context).bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+              ),
+            if (widget.labelDescription != null)
+              Text(
+                widget.labelDescription!,
+                style: getTextTheme(context).bodySmall!.copyWith(
+                      color: Colors.grey[700],
+                    ),
+              ),
+            SizedBox(
+              height: $constants.insets.xxs,
+            ),
+            textField,
+          ],
+        );
+      }
     });
   }
 }
