@@ -85,7 +85,7 @@ class RevenueCatService {
     required Package package,
   }) async {
     try {
-      final purchaseResult = await Purchases.purchasePackage(package);
+      final purchaseResult = await Purchases.purchase(PurchaseParams.package(package));
       return purchaseResult.customerInfo;
     } catch (e) {
       // Handle purchase error

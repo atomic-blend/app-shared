@@ -43,12 +43,15 @@ TextTheme getTextTheme(BuildContext context) {
 
 Color getPrimaryColor(BuildContext context) {
   return ElevationOverlay.colorWithOverlay(
-      getTheme(context).surface, getTheme(context).primary, 3);
+    getTheme(context).surface,
+    getTheme(context).primary,
+    3,
+  );
 }
 
 Color getCustomOnPrimaryColor(BuildContext context) {
   return getTheme(context).primary.withValues(alpha: 0.5);
-/*   return ElevationOverlay.colorWithOverlay(
+  /*   return ElevationOverlay.colorWithOverlay(
     getTheme(context).primary,
     getTheme(context).background,
     isDarkMode(context) ? 1000 : 500,
@@ -73,6 +76,7 @@ LinearGradient colorsToGradient(List<Color> colors, {double opacity = 1}) {
 
 bool isDesktop(BuildContext? context) {
   return kIsWeb ||
+      kIsWasm ||
       Platform.isMacOS ||
       Platform.isWindows ||
       Platform.isLinux ||
@@ -80,9 +84,9 @@ bool isDesktop(BuildContext? context) {
 }
 
 bool isPaymentSupported() {
-  return !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+  return !kIsWeb && !kIsWasm && (Platform.isAndroid || Platform.isIOS);
 }
 
 bool isApple(BuildContext context) {
-  return !kIsWeb && (Platform.isIOS || Platform.isMacOS);
+  return !kIsWeb && !kIsWasm && (Platform.isIOS || Platform.isMacOS);
 }
