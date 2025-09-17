@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.4.0 - 2025-09-17
+#### Bug Fixes
+- update revenue cat package - (9fd364c) - Brandon Guigo
+- linter - (3c178bf) - Brandon Guigo
+#### Features
+- add more tools to the toolbar - (52b3f19) - Brandon Guigo
+- add fleather based ABEditor widget and toolbar - (6f0566b) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.3.0 [skip ci] - (7273402) - GitHub Actions
+
+- - -
+
 ## v0.3.0 - 2025-09-11
 #### Bug Fixes
 - text alignment in field - (ec1f934) - Brandon Guigo
