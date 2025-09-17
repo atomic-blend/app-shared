@@ -109,7 +109,6 @@ class ABEditorToolbar extends StatelessWidget {
             attributeKey: attribute,
             nullColorLabel: nullColorLabel,
             builder: (context, color) {
-              print(color);
               return Icon(icon, size: 20);
             },
           ),
