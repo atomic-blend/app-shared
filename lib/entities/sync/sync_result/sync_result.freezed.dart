@@ -12,7 +12,8 @@ part of 'sync_result.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 SyncResult _$SyncResultFromJson(Map<String, dynamic> json) {
   return _SyncResult.fromJson(json);
@@ -38,14 +39,16 @@ mixin _$SyncResult {
 /// @nodoc
 abstract class $SyncResultCopyWith<$Res> {
   factory $SyncResultCopyWith(
-          SyncResult value, $Res Function(SyncResult) then) =
-      _$SyncResultCopyWithImpl<$Res, SyncResult>;
+    SyncResult value,
+    $Res Function(SyncResult) then,
+  ) = _$SyncResultCopyWithImpl<$Res, SyncResult>;
   @useResult
-  $Res call(
-      {List<String> success,
-      List<ConflictedItem> conflicts,
-      List<PatchError> errors,
-      DateTime date});
+  $Res call({
+    List<String> success,
+    List<ConflictedItem> conflicts,
+    List<PatchError> errors,
+    DateTime date,
+  });
 }
 
 /// @nodoc
@@ -68,24 +71,31 @@ class _$SyncResultCopyWithImpl<$Res, $Val extends SyncResult>
     Object? errors = null,
     Object? date = null,
   }) {
-    return _then(_value.copyWith(
-      success: null == success
-          ? _value.success
-          : success // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      conflicts: null == conflicts
-          ? _value.conflicts
-          : conflicts // ignore: cast_nullable_to_non_nullable
-              as List<ConflictedItem>,
-      errors: null == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as List<PatchError>,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            success:
+                null == success
+                    ? _value.success
+                    : success // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            conflicts:
+                null == conflicts
+                    ? _value.conflicts
+                    : conflicts // ignore: cast_nullable_to_non_nullable
+                        as List<ConflictedItem>,
+            errors:
+                null == errors
+                    ? _value.errors
+                    : errors // ignore: cast_nullable_to_non_nullable
+                        as List<PatchError>,
+            date:
+                null == date
+                    ? _value.date
+                    : date // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -93,15 +103,17 @@ class _$SyncResultCopyWithImpl<$Res, $Val extends SyncResult>
 abstract class _$$SyncResultImplCopyWith<$Res>
     implements $SyncResultCopyWith<$Res> {
   factory _$$SyncResultImplCopyWith(
-          _$SyncResultImpl value, $Res Function(_$SyncResultImpl) then) =
-      __$$SyncResultImplCopyWithImpl<$Res>;
+    _$SyncResultImpl value,
+    $Res Function(_$SyncResultImpl) then,
+  ) = __$$SyncResultImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<String> success,
-      List<ConflictedItem> conflicts,
-      List<PatchError> errors,
-      DateTime date});
+  $Res call({
+    List<String> success,
+    List<ConflictedItem> conflicts,
+    List<PatchError> errors,
+    DateTime date,
+  });
 }
 
 /// @nodoc
@@ -109,8 +121,9 @@ class __$$SyncResultImplCopyWithImpl<$Res>
     extends _$SyncResultCopyWithImpl<$Res, _$SyncResultImpl>
     implements _$$SyncResultImplCopyWith<$Res> {
   __$$SyncResultImplCopyWithImpl(
-      _$SyncResultImpl _value, $Res Function(_$SyncResultImpl) _then)
-      : super(_value, _then);
+    _$SyncResultImpl _value,
+    $Res Function(_$SyncResultImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of SyncResult
   /// with the given fields replaced by the non-null parameter values.
@@ -122,38 +135,44 @@ class __$$SyncResultImplCopyWithImpl<$Res>
     Object? errors = null,
     Object? date = null,
   }) {
-    return _then(_$SyncResultImpl(
-      success: null == success
-          ? _value._success
-          : success // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      conflicts: null == conflicts
-          ? _value._conflicts
-          : conflicts // ignore: cast_nullable_to_non_nullable
-              as List<ConflictedItem>,
-      errors: null == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as List<PatchError>,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
+    return _then(
+      _$SyncResultImpl(
+        success:
+            null == success
+                ? _value._success
+                : success // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        conflicts:
+            null == conflicts
+                ? _value._conflicts
+                : conflicts // ignore: cast_nullable_to_non_nullable
+                    as List<ConflictedItem>,
+        errors:
+            null == errors
+                ? _value._errors
+                : errors // ignore: cast_nullable_to_non_nullable
+                    as List<PatchError>,
+        date:
+            null == date
+                ? _value.date
+                : date // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$SyncResultImpl implements _SyncResult {
-  const _$SyncResultImpl(
-      {required final List<String> success,
-      required final List<ConflictedItem> conflicts,
-      required final List<PatchError> errors,
-      required this.date})
-      : _success = success,
-        _conflicts = conflicts,
-        _errors = errors;
+  const _$SyncResultImpl({
+    required final List<String> success,
+    required final List<ConflictedItem> conflicts,
+    required final List<PatchError> errors,
+    required this.date,
+  }) : _success = success,
+       _conflicts = conflicts,
+       _errors = errors;
 
   factory _$SyncResultImpl.fromJson(Map<String, dynamic> json) =>
       _$$SyncResultImplFromJson(json);
@@ -196,8 +215,10 @@ class _$SyncResultImpl implements _SyncResult {
         (other.runtimeType == runtimeType &&
             other is _$SyncResultImpl &&
             const DeepCollectionEquality().equals(other._success, _success) &&
-            const DeepCollectionEquality()
-                .equals(other._conflicts, _conflicts) &&
+            const DeepCollectionEquality().equals(
+              other._conflicts,
+              _conflicts,
+            ) &&
             const DeepCollectionEquality().equals(other._errors, _errors) &&
             (identical(other.date, date) || other.date == date));
   }
@@ -205,11 +226,12 @@ class _$SyncResultImpl implements _SyncResult {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_success),
-      const DeepCollectionEquality().hash(_conflicts),
-      const DeepCollectionEquality().hash(_errors),
-      date);
+    runtimeType,
+    const DeepCollectionEquality().hash(_success),
+    const DeepCollectionEquality().hash(_conflicts),
+    const DeepCollectionEquality().hash(_errors),
+    date,
+  );
 
   /// Create a copy of SyncResult
   /// with the given fields replaced by the non-null parameter values.
@@ -221,18 +243,17 @@ class _$SyncResultImpl implements _SyncResult {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SyncResultImplToJson(
-      this,
-    );
+    return _$$SyncResultImplToJson(this);
   }
 }
 
 abstract class _SyncResult implements SyncResult {
-  const factory _SyncResult(
-      {required final List<String> success,
-      required final List<ConflictedItem> conflicts,
-      required final List<PatchError> errors,
-      required final DateTime date}) = _$SyncResultImpl;
+  const factory _SyncResult({
+    required final List<String> success,
+    required final List<ConflictedItem> conflicts,
+    required final List<PatchError> errors,
+    required final DateTime date,
+  }) = _$SyncResultImpl;
 
   factory _SyncResult.fromJson(Map<String, dynamic> json) =
       _$SyncResultImpl.fromJson;

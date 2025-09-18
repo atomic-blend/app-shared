@@ -14,14 +14,11 @@ _$ConflictedItemImpl _$$ConflictedItemImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$ConflictedItemImplToJson(
-        _$ConflictedItemImpl instance) =>
-    <String, dynamic>{
-      'type': _$ItemTypeEnumMap[instance.type]!,
-      'patchId': instance.patchId,
-      'remoteObject': instance.remoteObject,
-    };
-
-const _$ItemTypeEnumMap = {
-  ItemType.task: 'task',
-  ItemType.note: 'note',
+  _$ConflictedItemImpl instance,
+) => <String, dynamic>{
+  'type': _$ItemTypeEnumMap[instance.type]!,
+  'patchId': instance.patchId,
+  'remoteObject': instance.remoteObject,
 };
+
+const _$ItemTypeEnumMap = {ItemType.task: 'task', ItemType.note: 'note'};

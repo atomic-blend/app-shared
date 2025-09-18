@@ -12,7 +12,8 @@ part of 'conflicted_item.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 ConflictedItem _$ConflictedItemFromJson(Map<String, dynamic> json) {
   return _ConflictedItem.fromJson(json);
@@ -37,11 +38,15 @@ mixin _$ConflictedItem {
 /// @nodoc
 abstract class $ConflictedItemCopyWith<$Res> {
   factory $ConflictedItemCopyWith(
-          ConflictedItem value, $Res Function(ConflictedItem) then) =
-      _$ConflictedItemCopyWithImpl<$Res, ConflictedItem>;
+    ConflictedItem value,
+    $Res Function(ConflictedItem) then,
+  ) = _$ConflictedItemCopyWithImpl<$Res, ConflictedItem>;
   @useResult
-  $Res call(
-      {ItemType type, String patchId, Map<String, dynamic>? remoteObject});
+  $Res call({
+    ItemType type,
+    String patchId,
+    Map<String, dynamic>? remoteObject,
+  });
 }
 
 /// @nodoc
@@ -63,33 +68,43 @@ class _$ConflictedItemCopyWithImpl<$Res, $Val extends ConflictedItem>
     Object? patchId = null,
     Object? remoteObject = freezed,
   }) {
-    return _then(_value.copyWith(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ItemType,
-      patchId: null == patchId
-          ? _value.patchId
-          : patchId // ignore: cast_nullable_to_non_nullable
-              as String,
-      remoteObject: freezed == remoteObject
-          ? _value.remoteObject
-          : remoteObject // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            type:
+                null == type
+                    ? _value.type
+                    : type // ignore: cast_nullable_to_non_nullable
+                        as ItemType,
+            patchId:
+                null == patchId
+                    ? _value.patchId
+                    : patchId // ignore: cast_nullable_to_non_nullable
+                        as String,
+            remoteObject:
+                freezed == remoteObject
+                    ? _value.remoteObject
+                    : remoteObject // ignore: cast_nullable_to_non_nullable
+                        as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$ConflictedItemImplCopyWith<$Res>
     implements $ConflictedItemCopyWith<$Res> {
-  factory _$$ConflictedItemImplCopyWith(_$ConflictedItemImpl value,
-          $Res Function(_$ConflictedItemImpl) then) =
-      __$$ConflictedItemImplCopyWithImpl<$Res>;
+  factory _$$ConflictedItemImplCopyWith(
+    _$ConflictedItemImpl value,
+    $Res Function(_$ConflictedItemImpl) then,
+  ) = __$$ConflictedItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {ItemType type, String patchId, Map<String, dynamic>? remoteObject});
+  $Res call({
+    ItemType type,
+    String patchId,
+    Map<String, dynamic>? remoteObject,
+  });
 }
 
 /// @nodoc
@@ -97,8 +112,9 @@ class __$$ConflictedItemImplCopyWithImpl<$Res>
     extends _$ConflictedItemCopyWithImpl<$Res, _$ConflictedItemImpl>
     implements _$$ConflictedItemImplCopyWith<$Res> {
   __$$ConflictedItemImplCopyWithImpl(
-      _$ConflictedItemImpl _value, $Res Function(_$ConflictedItemImpl) _then)
-      : super(_value, _then);
+    _$ConflictedItemImpl _value,
+    $Res Function(_$ConflictedItemImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ConflictedItem
   /// with the given fields replaced by the non-null parameter values.
@@ -109,31 +125,36 @@ class __$$ConflictedItemImplCopyWithImpl<$Res>
     Object? patchId = null,
     Object? remoteObject = freezed,
   }) {
-    return _then(_$ConflictedItemImpl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ItemType,
-      patchId: null == patchId
-          ? _value.patchId
-          : patchId // ignore: cast_nullable_to_non_nullable
-              as String,
-      remoteObject: freezed == remoteObject
-          ? _value._remoteObject
-          : remoteObject // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$ConflictedItemImpl(
+        type:
+            null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                    as ItemType,
+        patchId:
+            null == patchId
+                ? _value.patchId
+                : patchId // ignore: cast_nullable_to_non_nullable
+                    as String,
+        remoteObject:
+            freezed == remoteObject
+                ? _value._remoteObject
+                : remoteObject // ignore: cast_nullable_to_non_nullable
+                    as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ConflictedItemImpl implements _ConflictedItem {
-  const _$ConflictedItemImpl(
-      {required this.type,
-      required this.patchId,
-      final Map<String, dynamic>? remoteObject})
-      : _remoteObject = remoteObject;
+  const _$ConflictedItemImpl({
+    required this.type,
+    required this.patchId,
+    final Map<String, dynamic>? remoteObject,
+  }) : _remoteObject = remoteObject;
 
   factory _$ConflictedItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConflictedItemImplFromJson(json);
@@ -164,14 +185,20 @@ class _$ConflictedItemImpl implements _ConflictedItem {
             other is _$ConflictedItemImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.patchId, patchId) || other.patchId == patchId) &&
-            const DeepCollectionEquality()
-                .equals(other._remoteObject, _remoteObject));
+            const DeepCollectionEquality().equals(
+              other._remoteObject,
+              _remoteObject,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, type, patchId,
-      const DeepCollectionEquality().hash(_remoteObject));
+  int get hashCode => Object.hash(
+    runtimeType,
+    type,
+    patchId,
+    const DeepCollectionEquality().hash(_remoteObject),
+  );
 
   /// Create a copy of ConflictedItem
   /// with the given fields replaced by the non-null parameter values.
@@ -180,21 +207,22 @@ class _$ConflictedItemImpl implements _ConflictedItem {
   @pragma('vm:prefer-inline')
   _$$ConflictedItemImplCopyWith<_$ConflictedItemImpl> get copyWith =>
       __$$ConflictedItemImplCopyWithImpl<_$ConflictedItemImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ConflictedItemImplToJson(
-      this,
-    );
+    return _$$ConflictedItemImplToJson(this);
   }
 }
 
 abstract class _ConflictedItem implements ConflictedItem {
-  const factory _ConflictedItem(
-      {required final ItemType type,
-      required final String patchId,
-      final Map<String, dynamic>? remoteObject}) = _$ConflictedItemImpl;
+  const factory _ConflictedItem({
+    required final ItemType type,
+    required final String patchId,
+    final Map<String, dynamic>? remoteObject,
+  }) = _$ConflictedItemImpl;
 
   factory _ConflictedItem.fromJson(Map<String, dynamic> json) =
       _$ConflictedItemImpl.fromJson;

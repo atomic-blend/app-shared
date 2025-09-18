@@ -12,7 +12,8 @@ part of 'patch.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Patch _$PatchFromJson(Map<String, dynamic> json) {
   return _Patch.fromJson(json);
@@ -51,14 +52,15 @@ abstract class $PatchCopyWith<$Res> {
   factory $PatchCopyWith(Patch value, $Res Function(Patch) then) =
       _$PatchCopyWithImpl<$Res, Patch>;
   @useResult
-  $Res call(
-      {String id,
-      PatchAction action,
-      @Iso8601DateTimeConverter() DateTime patchDate,
-      ItemType itemType,
-      String itemId,
-      List<PatchChange> changes,
-      bool? force});
+  $Res call({
+    String id,
+    PatchAction action,
+    @Iso8601DateTimeConverter() DateTime patchDate,
+    ItemType itemType,
+    String itemId,
+    List<PatchChange> changes,
+    bool? force,
+  });
 }
 
 /// @nodoc
@@ -84,54 +86,66 @@ class _$PatchCopyWithImpl<$Res, $Val extends Patch>
     Object? changes = null,
     Object? force = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      action: null == action
-          ? _value.action
-          : action // ignore: cast_nullable_to_non_nullable
-              as PatchAction,
-      patchDate: null == patchDate
-          ? _value.patchDate
-          : patchDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      itemType: null == itemType
-          ? _value.itemType
-          : itemType // ignore: cast_nullable_to_non_nullable
-              as ItemType,
-      itemId: null == itemId
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-      changes: null == changes
-          ? _value.changes
-          : changes // ignore: cast_nullable_to_non_nullable
-              as List<PatchChange>,
-      force: freezed == force
-          ? _value.force
-          : force // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            action:
+                null == action
+                    ? _value.action
+                    : action // ignore: cast_nullable_to_non_nullable
+                        as PatchAction,
+            patchDate:
+                null == patchDate
+                    ? _value.patchDate
+                    : patchDate // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+            itemType:
+                null == itemType
+                    ? _value.itemType
+                    : itemType // ignore: cast_nullable_to_non_nullable
+                        as ItemType,
+            itemId:
+                null == itemId
+                    ? _value.itemId
+                    : itemId // ignore: cast_nullable_to_non_nullable
+                        as String,
+            changes:
+                null == changes
+                    ? _value.changes
+                    : changes // ignore: cast_nullable_to_non_nullable
+                        as List<PatchChange>,
+            force:
+                freezed == force
+                    ? _value.force
+                    : force // ignore: cast_nullable_to_non_nullable
+                        as bool?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$PatchImplCopyWith<$Res> implements $PatchCopyWith<$Res> {
   factory _$$PatchImplCopyWith(
-          _$PatchImpl value, $Res Function(_$PatchImpl) then) =
-      __$$PatchImplCopyWithImpl<$Res>;
+    _$PatchImpl value,
+    $Res Function(_$PatchImpl) then,
+  ) = __$$PatchImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      PatchAction action,
-      @Iso8601DateTimeConverter() DateTime patchDate,
-      ItemType itemType,
-      String itemId,
-      List<PatchChange> changes,
-      bool? force});
+  $Res call({
+    String id,
+    PatchAction action,
+    @Iso8601DateTimeConverter() DateTime patchDate,
+    ItemType itemType,
+    String itemId,
+    List<PatchChange> changes,
+    bool? force,
+  });
 }
 
 /// @nodoc
@@ -139,8 +153,9 @@ class __$$PatchImplCopyWithImpl<$Res>
     extends _$PatchCopyWithImpl<$Res, _$PatchImpl>
     implements _$$PatchImplCopyWith<$Res> {
   __$$PatchImplCopyWithImpl(
-      _$PatchImpl _value, $Res Function(_$PatchImpl) _then)
-      : super(_value, _then);
+    _$PatchImpl _value,
+    $Res Function(_$PatchImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of Patch
   /// with the given fields replaced by the non-null parameter values.
@@ -155,50 +170,60 @@ class __$$PatchImplCopyWithImpl<$Res>
     Object? changes = null,
     Object? force = freezed,
   }) {
-    return _then(_$PatchImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      action: null == action
-          ? _value.action
-          : action // ignore: cast_nullable_to_non_nullable
-              as PatchAction,
-      patchDate: null == patchDate
-          ? _value.patchDate
-          : patchDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      itemType: null == itemType
-          ? _value.itemType
-          : itemType // ignore: cast_nullable_to_non_nullable
-              as ItemType,
-      itemId: null == itemId
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-      changes: null == changes
-          ? _value.changes
-          : changes // ignore: cast_nullable_to_non_nullable
-              as List<PatchChange>,
-      force: freezed == force
-          ? _value.force
-          : force // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
+    return _then(
+      _$PatchImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        action:
+            null == action
+                ? _value.action
+                : action // ignore: cast_nullable_to_non_nullable
+                    as PatchAction,
+        patchDate:
+            null == patchDate
+                ? _value.patchDate
+                : patchDate // ignore: cast_nullable_to_non_nullable
+                    as DateTime,
+        itemType:
+            null == itemType
+                ? _value.itemType
+                : itemType // ignore: cast_nullable_to_non_nullable
+                    as ItemType,
+        itemId:
+            null == itemId
+                ? _value.itemId
+                : itemId // ignore: cast_nullable_to_non_nullable
+                    as String,
+        changes:
+            null == changes
+                ? _value.changes
+                : changes // ignore: cast_nullable_to_non_nullable
+                    as List<PatchChange>,
+        force:
+            freezed == force
+                ? _value.force
+                : force // ignore: cast_nullable_to_non_nullable
+                    as bool?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$PatchImpl implements _Patch {
-  _$PatchImpl(
-      {required this.id,
-      required this.action,
-      @Iso8601DateTimeConverter() required this.patchDate,
-      required this.itemType,
-      required this.itemId,
-      required this.changes,
-      this.force});
+  _$PatchImpl({
+    required this.id,
+    required this.action,
+    @Iso8601DateTimeConverter() required this.patchDate,
+    required this.itemType,
+    required this.itemId,
+    required this.changes,
+    this.force,
+  });
 
   factory _$PatchImpl.fromJson(Map<String, dynamic> json) =>
       _$$PatchImplFromJson(json);
@@ -234,21 +259,20 @@ class _$PatchImpl implements _Patch {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PatchImplToJson(
-      this,
-    );
+    return _$$PatchImplToJson(this);
   }
 }
 
 abstract class _Patch implements Patch {
-  factory _Patch(
-      {required String id,
-      required PatchAction action,
-      @Iso8601DateTimeConverter() required DateTime patchDate,
-      required ItemType itemType,
-      required String itemId,
-      required List<PatchChange> changes,
-      bool? force}) = _$PatchImpl;
+  factory _Patch({
+    required String id,
+    required PatchAction action,
+    @Iso8601DateTimeConverter() required DateTime patchDate,
+    required ItemType itemType,
+    required String itemId,
+    required List<PatchChange> changes,
+    bool? force,
+  }) = _$PatchImpl;
 
   factory _Patch.fromJson(Map<String, dynamic> json) = _$PatchImpl.fromJson;
 

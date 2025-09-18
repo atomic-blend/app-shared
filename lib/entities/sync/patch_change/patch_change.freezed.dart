@@ -12,7 +12,8 @@ part of 'patch_change.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 PatchChange _$PatchChangeFromJson(Map<String, dynamic> json) {
   return _PatchChange.fromJson(json);
@@ -38,8 +39,9 @@ mixin _$PatchChange {
 /// @nodoc
 abstract class $PatchChangeCopyWith<$Res> {
   factory $PatchChangeCopyWith(
-          PatchChange value, $Res Function(PatchChange) then) =
-      _$PatchChangeCopyWithImpl<$Res, PatchChange>;
+    PatchChange value,
+    $Res Function(PatchChange) then,
+  ) = _$PatchChangeCopyWithImpl<$Res, PatchChange>;
   @useResult
   $Res call({String key, dynamic value});
 }
@@ -58,20 +60,22 @@ class _$PatchChangeCopyWithImpl<$Res, $Val extends PatchChange>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? key = null,
-    Object? value = freezed,
-  }) {
-    return _then(_value.copyWith(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
+  $Res call({Object? key = null, Object? value = freezed}) {
+    return _then(
+      _value.copyWith(
+            key:
+                null == key
+                    ? _value.key
+                    : key // ignore: cast_nullable_to_non_nullable
+                        as String,
+            value:
+                freezed == value
+                    ? _value.value
+                    : value // ignore: cast_nullable_to_non_nullable
+                        as dynamic,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -79,8 +83,9 @@ class _$PatchChangeCopyWithImpl<$Res, $Val extends PatchChange>
 abstract class _$$PatchChangeImplCopyWith<$Res>
     implements $PatchChangeCopyWith<$Res> {
   factory _$$PatchChangeImplCopyWith(
-          _$PatchChangeImpl value, $Res Function(_$PatchChangeImpl) then) =
-      __$$PatchChangeImplCopyWithImpl<$Res>;
+    _$PatchChangeImpl value,
+    $Res Function(_$PatchChangeImpl) then,
+  ) = __$$PatchChangeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String key, dynamic value});
@@ -91,27 +96,29 @@ class __$$PatchChangeImplCopyWithImpl<$Res>
     extends _$PatchChangeCopyWithImpl<$Res, _$PatchChangeImpl>
     implements _$$PatchChangeImplCopyWith<$Res> {
   __$$PatchChangeImplCopyWithImpl(
-      _$PatchChangeImpl _value, $Res Function(_$PatchChangeImpl) _then)
-      : super(_value, _then);
+    _$PatchChangeImpl _value,
+    $Res Function(_$PatchChangeImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of PatchChange
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? key = null,
-    Object? value = freezed,
-  }) {
-    return _then(_$PatchChangeImpl(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
+  $Res call({Object? key = null, Object? value = freezed}) {
+    return _then(
+      _$PatchChangeImpl(
+        key:
+            null == key
+                ? _value.key
+                : key // ignore: cast_nullable_to_non_nullable
+                    as String,
+        value:
+            freezed == value
+                ? _value.value
+                : value // ignore: cast_nullable_to_non_nullable
+                    as dynamic,
+      ),
+    );
   }
 }
 
@@ -143,9 +150,7 @@ class _$PatchChangeImpl implements _PatchChange {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PatchChangeImplToJson(
-      this,
-    );
+    return _$$PatchChangeImplToJson(this);
   }
 }
 

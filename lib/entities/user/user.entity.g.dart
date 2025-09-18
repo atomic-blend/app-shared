@@ -14,22 +14,27 @@ _$UserEntityImpl _$$UserEntityImplFromJson(Map<String, dynamic> json) =>
       roles: json['roles'] as List<dynamic>,
       firstname: json['firstname'] as String?,
       lastname: json['lastname'] as String?,
-      keySet:
-          EncryptionKeyEntity.fromJson(json['keySet'] as Map<String, dynamic>),
-      devices: (json['devices'] as List<dynamic>?)
-          ?.map((e) => UserDeviceEntity.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      purchases: (json['purchases'] as List<dynamic>?)
-          ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      keySet: EncryptionKeyEntity.fromJson(
+        json['keySet'] as Map<String, dynamic>,
+      ),
+      devices:
+          (json['devices'] as List<dynamic>?)
+              ?.map((e) => UserDeviceEntity.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      purchases:
+          (json['purchases'] as List<dynamic>?)
+              ?.map((e) => Purchase.fromJson(e as Map<String, dynamic>))
+              .toList(),
       accessToken: json['accessToken'] as String?,
       refreshToken: json['refreshToken'] as String?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt:
+          json['createdAt'] == null
+              ? null
+              : DateTime.parse(json['createdAt'] as String),
+      updatedAt:
+          json['updatedAt'] == null
+              ? null
+              : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$$UserEntityImplToJson(_$UserEntityImpl instance) =>

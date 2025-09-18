@@ -12,7 +12,8 @@ part of 'patch_error.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 PatchError _$PatchErrorFromJson(Map<String, dynamic> json) {
   return _PatchError.fromJson(json);
@@ -36,8 +37,9 @@ mixin _$PatchError {
 /// @nodoc
 abstract class $PatchErrorCopyWith<$Res> {
   factory $PatchErrorCopyWith(
-          PatchError value, $Res Function(PatchError) then) =
-      _$PatchErrorCopyWithImpl<$Res, PatchError>;
+    PatchError value,
+    $Res Function(PatchError) then,
+  ) = _$PatchErrorCopyWithImpl<$Res, PatchError>;
   @useResult
   $Res call({String patchId, String errorCode});
 }
@@ -56,20 +58,22 @@ class _$PatchErrorCopyWithImpl<$Res, $Val extends PatchError>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? patchId = null,
-    Object? errorCode = null,
-  }) {
-    return _then(_value.copyWith(
-      patchId: null == patchId
-          ? _value.patchId
-          : patchId // ignore: cast_nullable_to_non_nullable
-              as String,
-      errorCode: null == errorCode
-          ? _value.errorCode
-          : errorCode // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  $Res call({Object? patchId = null, Object? errorCode = null}) {
+    return _then(
+      _value.copyWith(
+            patchId:
+                null == patchId
+                    ? _value.patchId
+                    : patchId // ignore: cast_nullable_to_non_nullable
+                        as String,
+            errorCode:
+                null == errorCode
+                    ? _value.errorCode
+                    : errorCode // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -77,8 +81,9 @@ class _$PatchErrorCopyWithImpl<$Res, $Val extends PatchError>
 abstract class _$$PatchErrorImplCopyWith<$Res>
     implements $PatchErrorCopyWith<$Res> {
   factory _$$PatchErrorImplCopyWith(
-          _$PatchErrorImpl value, $Res Function(_$PatchErrorImpl) then) =
-      __$$PatchErrorImplCopyWithImpl<$Res>;
+    _$PatchErrorImpl value,
+    $Res Function(_$PatchErrorImpl) then,
+  ) = __$$PatchErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String patchId, String errorCode});
@@ -89,27 +94,29 @@ class __$$PatchErrorImplCopyWithImpl<$Res>
     extends _$PatchErrorCopyWithImpl<$Res, _$PatchErrorImpl>
     implements _$$PatchErrorImplCopyWith<$Res> {
   __$$PatchErrorImplCopyWithImpl(
-      _$PatchErrorImpl _value, $Res Function(_$PatchErrorImpl) _then)
-      : super(_value, _then);
+    _$PatchErrorImpl _value,
+    $Res Function(_$PatchErrorImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of PatchError
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? patchId = null,
-    Object? errorCode = null,
-  }) {
-    return _then(_$PatchErrorImpl(
-      patchId: null == patchId
-          ? _value.patchId
-          : patchId // ignore: cast_nullable_to_non_nullable
-              as String,
-      errorCode: null == errorCode
-          ? _value.errorCode
-          : errorCode // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+  $Res call({Object? patchId = null, Object? errorCode = null}) {
+    return _then(
+      _$PatchErrorImpl(
+        patchId:
+            null == patchId
+                ? _value.patchId
+                : patchId // ignore: cast_nullable_to_non_nullable
+                    as String,
+        errorCode:
+            null == errorCode
+                ? _value.errorCode
+                : errorCode // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
   }
 }
 
@@ -155,16 +162,15 @@ class _$PatchErrorImpl implements _PatchError {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PatchErrorImplToJson(
-      this,
-    );
+    return _$$PatchErrorImplToJson(this);
   }
 }
 
 abstract class _PatchError implements PatchError {
-  const factory _PatchError(
-      {required final String patchId,
-      required final String errorCode}) = _$PatchErrorImpl;
+  const factory _PatchError({
+    required final String patchId,
+    required final String errorCode,
+  }) = _$PatchErrorImpl;
 
   factory _PatchError.fromJson(Map<String, dynamic> json) =
       _$PatchErrorImpl.fromJson;

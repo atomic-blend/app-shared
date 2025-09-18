@@ -1,22 +1,23 @@
 part of 'auth.bloc.dart';
 
 sealed class AuthState extends Equatable {
-  const AuthState(this.user);
+  const AuthState(this.user, this.appConfig );
   final UserEntity? user;
+  final ABConfig? appConfig;
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, appConfig];
 }
 
 class LoggedOut extends AuthState {
-  const LoggedOut() : super(null);
+  const LoggedOut(super.user, super.appConfig);
 
   @override
   String toString() => 'LoggedOut { }';
 }
 
 class Loading extends AuthState {
-  const Loading() : super(null);
+  const Loading(super.user, super.appConfig);
 
   @override
   String toString() => 'Loading { }';
@@ -24,7 +25,7 @@ class Loading extends AuthState {
 
 class AuthError extends AuthState {
   final String message;
-  const AuthError(this.message) : super(null);
+  const AuthError(this.message, super.user, super.appConfig);
 
   @override
   String toString() => 'Error { $message }';
@@ -32,7 +33,7 @@ class AuthError extends AuthState {
 
 class LoggedIn extends AuthState {
   final bool? isRegistration;
-  const LoggedIn(UserEntity super.user, this.isRegistration);
+  const LoggedIn(UserEntity super.user, this.isRegistration, super.appConfig);
 
   @override
   List<Object?> get props => [user];
@@ -42,56 +43,56 @@ class LoggedIn extends AuthState {
 }
 
 class UserDeleting extends AuthState {
-  const UserDeleting() : super(null);
+  const UserDeleting(super.user, super.appConfig);
 
   @override
   String toString() => 'UserDeleting { }';
 }
 
 class UserDeleted extends AuthState {
-  const UserDeleted() : super(null);
+  const UserDeleted(super.user, super.appConfig);
 
   @override
   String toString() => 'UserDeleted { }';
 }
 
 class UserUpdateProfileLoading extends AuthState {
-  const UserUpdateProfileLoading() : super(null);
+  const UserUpdateProfileLoading(super.user, super.appConfig);
 
   @override
   String toString() => 'UserUpdateProfileLoading { }';
 }
 
 class UserUpdateProfileSuccess extends AuthState {
-  const UserUpdateProfileSuccess(UserEntity super.user);
+  const UserUpdateProfileSuccess(UserEntity super.user, super.appConfig);
 
   @override
   String toString() => 'UserUpdateProfileSuccess { user: $user }';
 }
 
 class UserChangePasswordLoading extends AuthState {
-  const UserChangePasswordLoading() : super(null);
+  const UserChangePasswordLoading(super.user, super.appConfig);
 
   @override
   String toString() => 'UserChangePasswordLoading { }';
 }
 
 class UserChangePasswordSuccess extends AuthState {
-  const UserChangePasswordSuccess(UserEntity super.user);
+  const UserChangePasswordSuccess(UserEntity super.user, super.appConfig);
 
   @override
   String toString() => 'UserChangePasswordSuccess { user: $user }';
 }
 
 class StartResetPasswordLoading extends AuthState {
-  const StartResetPasswordLoading() : super(null);
+  const StartResetPasswordLoading(super.user, super.appConfig);
 
   @override
   String toString() => 'UserStartResetPasswordLoading { }';
 }
 
 class StartResetPasswordSuccess extends AuthState {
-  const StartResetPasswordSuccess() : super(null);
+  const StartResetPasswordSuccess(super.user, super.appConfig);
 
   @override
   String toString() => 'UserStartResetPasswordSuccess { }';
@@ -99,21 +100,21 @@ class StartResetPasswordSuccess extends AuthState {
 
 class StartResetPasswordError extends AuthState {
   final String message;
-  const StartResetPasswordError(this.message) : super(null);
+  const StartResetPasswordError(this.message, super.user, super.appConfig);
 
   @override
   String toString() => 'UserStartResetPasswordError { $message }';
 }
 
 class ConfirmResetPasswordLoading extends AuthState {
-  const ConfirmResetPasswordLoading() : super(null);
+  const ConfirmResetPasswordLoading(super.user, super.appConfig);
 
   @override
   String toString() => 'UserConfirmResetPasswordLoading { }';
 }
 
 class ConfirmResetPasswordSuccess extends AuthState {
-  const ConfirmResetPasswordSuccess() : super(null);
+  const ConfirmResetPasswordSuccess(super.user, super.appConfig);
 
   @override
   String toString() => 'UserConfirmResetPasswordSuccess { }';
@@ -121,14 +122,14 @@ class ConfirmResetPasswordSuccess extends AuthState {
 
 class ConfirmResetPasswordError extends AuthState {
   final String message;
-  const ConfirmResetPasswordError(this.message) : super(null);
+  const ConfirmResetPasswordError(this.message, super.user, super.appConfig);
 
   @override
   String toString() => 'UserConfirmResetPasswordError { $message }';
 }
 
 class GetBackupKeyForResetPasswordLoading extends AuthState {
-  const GetBackupKeyForResetPasswordLoading() : super(null);
+  const GetBackupKeyForResetPasswordLoading(super.user, super.appConfig);
 
   @override
   String toString() => 'GetBackupKeyForResetPasswordLoading { }';
@@ -141,7 +142,7 @@ class GetBackupKeyForResetPasswordSuccess extends AuthState {
   const GetBackupKeyForResetPasswordSuccess(
     this.backupKey,
     this.backupSalt,
-  ) : super(null);
+  ) : super(null, null);
 
   @override
   String toString() => 'GetBackupKeyForResetPasswordSuccess { $backupKey, $backupSalt }';
@@ -149,7 +150,7 @@ class GetBackupKeyForResetPasswordSuccess extends AuthState {
 
 final class GetBackupKeyForResetPasswordError extends AuthState {
   final String message;
-  const GetBackupKeyForResetPasswordError(this.message) : super(null);
+    const GetBackupKeyForResetPasswordError(this.message, super.user, super.appConfig);
 
   @override
   String toString() => 'GetBackupKeyForResetPasswordError { $message }';
