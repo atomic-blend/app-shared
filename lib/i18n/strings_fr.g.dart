@@ -452,6 +452,7 @@ class _TranslationsAuthLoginFr implements TranslationsAuthLoginEn {
 	@override String get title => '👋 Bon retour parmis nous !';
 	@override String get description => 'Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.';
 	@override String get email => 'Adresse e-mail';
+	@override String get username => 'Nom d\'utilisateur';
 	@override String get login => 'Se connecter';
 }
 
@@ -864,6 +865,7 @@ extension on TranslationsFr {
 			case 'auth.login.title': return '👋 Bon retour parmis nous !';
 			case 'auth.login.description': return 'Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.';
 			case 'auth.login.email': return 'Adresse e-mail';
+			case 'auth.login.username': return 'Nom d\'utilisateur';
 			case 'auth.login.login': return 'Se connecter';
 			case 'auth.register.email': return 'Quelle est votre adresse e-mail ?';
 			case 'auth.register.email_description': return 'Votre e-mail est utilisé uniquement a des fins de connexion et de récupération de mot de passe.';

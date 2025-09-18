@@ -25,6 +25,7 @@
       "title": "👋 Bon retour parmis nous !",
       "description": "Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.",
       "email": "Adresse e-mail",
+      "username": "Nom d'utilisateur",
       "login": "Se connecter"
     },
     "register": {

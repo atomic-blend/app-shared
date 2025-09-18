@@ -105,7 +105,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
                 );
               case 3:
                 return RegisterEmail(
-                  email: email,
+                  username: email,
                   nextStepCallback: (String newEmail) {
                     setState(() {
                       email = newEmail;

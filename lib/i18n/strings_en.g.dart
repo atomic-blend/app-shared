@@ -564,6 +564,9 @@ class TranslationsAuthLoginEn {
 	/// en: 'Email'
 	String get email => 'Email';
 
+	/// en: 'Username'
+	String get username => 'Username';
+
 	/// en: 'Log in'
 	String get login => 'Log in';
 }
@@ -1236,6 +1239,7 @@ extension on Translations {
 			case 'auth.login.title': return '👋 Welcome back!';
 			case 'auth.login.description': return 'Use you email and password to log back in and access your data.';
 			case 'auth.login.email': return 'Email';
+			case 'auth.login.username': return 'Username';
 			case 'auth.login.login': return 'Log in';
 			case 'auth.register.email': return 'What’s your email ?';
 			case 'auth.register.email_description': return 'Your email is used only for login and password recovery purposes.';

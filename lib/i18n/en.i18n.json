@@ -25,6 +25,7 @@
       "title": "👋 Welcome back!",
       "description": "Use you email and password to log back in and access your data.",
       "email": "Email",
+      "username": "Username",
       "login": "Log in"
     },
     "register": {
