@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.5.0 - 2025-09-18
+#### Features
+- add the domain selector using a CustomPopup - (d88cfee) - Brandon Guigo
+- get the appConfig from the backend on app startup - (741ca15) - Brandon Guigo
+- add the config model + add it to the auth bloc - (561ca4c) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.4.0 [skip ci] - (ea28e53) - GitHub Actions
+
+- - -
+
 ## v0.4.0 - 2025-09-17
 #### Bug Fixes
 - update revenue cat package - (9fd364c) - Brandon Guigo
