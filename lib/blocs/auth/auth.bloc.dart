@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ab_shared/entities/config/ab_config.dart';
 import 'package:ab_shared/entities/user/user.entity.dart';
 import 'package:ab_shared/entities/user_device/user_device.dart';
+import 'package:ab_shared/services/config_service.dart';
 import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/services/user.service.dart';
@@ -18,7 +19,7 @@ part 'auth.state.dart';
 
 class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   late UserService _userService;
-
+  late ConfigService _configService;
   AuthBloc({
     required SharedPreferences prefs,
     required VoidCallback onLogout,
@@ -35,6 +36,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       globalApiClient: globalApiClient,
       encryptionService: encryptionService,
     );
+    _configService = ConfigService(globalApiClient: globalApiClient);
     on<LoginEvent>(_onLogIn);
     on<Logout>(_onLogOut);
     on<RegisterEvent>(_onRegister);
@@ -46,6 +48,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<StartResetPassword>(_onStartResetPassword);
     on<ConfirmResetPassword>(_onConfirmResetPassword);
     on<GetBackupKeyForResetPassword>(_onGetBackupKeyForPasswordReset);
+    on<LoadConfig>(_onLoadConfig);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -267,6 +270,20 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
           prevState.appConfig,
         ),
       );
+    }
+  }
+
+  FutureOr<void> _onLoadConfig(
+    LoadConfig event,
+    Emitter<AuthState> emit,
+  ) async {
+    final prevState = state;
+    emit(Loading(prevState.user, prevState.appConfig));
+    try {
+      final result = await _configService.loadConfig();
+      emit(LoggedOut(prevState.user, result));
+    } on Exception catch (e) {
+      emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
   }
 }

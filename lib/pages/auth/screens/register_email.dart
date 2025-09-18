@@ -11,11 +11,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class RegisterEmail extends StatefulWidget {
-  const RegisterEmail(
-      {super.key,
-      this.cancelCallback,
-      required this.nextStepCallback,
-      this.email});
+  const RegisterEmail({
+    super.key,
+    this.cancelCallback,
+    required this.nextStepCallback,
+    this.email,
+  });
   final String? email;
   final VoidCallback? cancelCallback;
   final Function(String) nextStepCallback;
@@ -33,9 +34,7 @@ class _RegisterEmailState extends State<RegisterEmail>
   @override
   initState() {
     _emailController.text = widget.email ?? '';
-    _animationController = AnimationController(
-      vsync: this,
-    );
+    _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
@@ -58,21 +57,20 @@ class _RegisterEmailState extends State<RegisterEmail>
         children: [
           Column(
             children: [
-              SizedBox(
-                height: getSize(context).height * 0.08,
-              ),
+              SizedBox(height: getSize(context).height * 0.08),
               Animate(
                 controller: _animationController,
                 effects: [
                   FadeEffect(
                     duration: _animationDuration,
                     delay: const Duration(milliseconds: 0),
-                  )
+                  ),
                 ],
                 onPlay: (controller) => controller.forward(),
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: $constants.insets.md,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -81,46 +79,41 @@ class _RegisterEmailState extends State<RegisterEmail>
                         child: Image.asset(
                           'assets/images/authentication.png',
                           fit: BoxFit.cover,
-                          width: isDesktop(context)
-                              ? getSize(context).width * 0.2
-                              : getSize(context).width * 0.5,
+                          width:
+                              isDesktop(context)
+                                  ? getSize(context).width * 0.2
+                                  : getSize(context).width * 0.5,
                         ),
                       ),
                       AutoSizeText(
                         maxLines: 1,
                         context.t.auth.register.email,
-                        style: getTextTheme(context).displaySmall!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: getTextTheme(
+                          context,
+                        ).displaySmall!.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: $constants.insets.xs,
-                      ),
+                      SizedBox(height: $constants.insets.xs),
                       SizedBox(
                         width: getSize(context).width * 0.9,
-                        child: Text(
-                          context.t.auth.register.email_description,
-                        ),
+                        child: Text(context.t.auth.register.email_description),
                       ),
                       SizedBox(
                         width: getSize(context).width * 0.9,
                         child: Text(
                           context.t.auth.register.we_never_sell,
-                          style: getTextTheme(context).bodyMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: getTextTheme(
+                            context,
+                          ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
-                        height: $constants.insets.xs,
-                      ),
+                      SizedBox(height: $constants.insets.xs),
                       Animate(
                         controller: _animationController,
                         effects: [
                           FadeEffect(
                             duration: _animationDuration,
                             delay: const Duration(milliseconds: 300),
-                          )
+                          ),
                         ],
                         onPlay: (controller) => controller.forward(),
                         child: SizedBox(
@@ -135,9 +128,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                   ),
                 ),
               ),
-              SizedBox(
-                height: $constants.insets.sm,
-              ),
+              SizedBox(height: $constants.insets.sm),
               const Spacer(),
               const Divider(),
               Animate(
@@ -146,12 +137,13 @@ class _RegisterEmailState extends State<RegisterEmail>
                   FadeEffect(
                     duration: _animationDuration,
                     delay: const Duration(milliseconds: 500),
-                  )
+                  ),
                 ],
                 onPlay: (controller) => controller.forward(),
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: $constants.insets.md,
+                  ),
                   height: getSize(context).height * 0.1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,15 +162,16 @@ class _RegisterEmailState extends State<RegisterEmail>
                           await _animationController.reverse(from: 1.0);
                           widget.nextStepCallback(_emailController.text);
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
               SizedBox(
-                height: !isDesktop(context)
-                    ? $constants.insets.sm
-                    : $constants.insets.xs,
+                height:
+                    !isDesktop(context)
+                        ? $constants.insets.sm
+                        : $constants.insets.xs,
               ),
             ],
           ),
@@ -190,18 +183,13 @@ class _RegisterEmailState extends State<RegisterEmail>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
-                    OctIcons.arrow_left,
-                    size: 18,
-                  ),
-                  SizedBox(
-                    width: $constants.insets.xxs,
-                  ),
+                  const Icon(OctIcons.arrow_left, size: 18),
+                  SizedBox(width: $constants.insets.xxs),
                   Text(
                     context.t.actions.back,
-                    style: getTextTheme(context)
-                        .bodyMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
+                    style: getTextTheme(
+                      context,
+                    ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
