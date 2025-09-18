@@ -24,6 +24,4 @@ Map<String, dynamic> _$$PurchaseImplToJson(_$PurchaseImpl instance) =>
       'updatedAt': instance.updatedAt.toIso8601String(),
     };
 
-const _$PurchaseTypeEnumMap = {
-  PurchaseType.revenueCat: 'REVENUE_CAT',
-};
+const _$PurchaseTypeEnumMap = {PurchaseType.revenueCat: 'REVENUE_CAT'};

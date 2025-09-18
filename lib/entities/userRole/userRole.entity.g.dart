@@ -15,10 +15,10 @@ _$UserRoleEntityImpl _$$UserRoleEntityImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$UserRoleEntityImplToJson(
-        _$UserRoleEntityImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'creation_date': instance.creation_date.toIso8601String(),
-      'last_updated': instance.last_updated.toIso8601String(),
-    };
+  _$UserRoleEntityImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'creation_date': instance.creation_date.toIso8601String(),
+  'last_updated': instance.last_updated.toIso8601String(),
+};

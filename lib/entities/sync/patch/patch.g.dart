@@ -7,17 +7,19 @@ part of 'patch.dart';
 // **************************************************************************
 
 _$PatchImpl _$$PatchImplFromJson(Map<String, dynamic> json) => _$PatchImpl(
-      id: json['id'] as String,
-      action: $enumDecode(_$PatchActionEnumMap, json['action']),
-      patchDate: const Iso8601DateTimeConverter()
-          .fromJson(json['patchDate'] as String),
-      itemType: $enumDecode(_$ItemTypeEnumMap, json['itemType']),
-      itemId: json['itemId'] as String,
-      changes: (json['changes'] as List<dynamic>)
+  id: json['id'] as String,
+  action: $enumDecode(_$PatchActionEnumMap, json['action']),
+  patchDate: const Iso8601DateTimeConverter().fromJson(
+    json['patchDate'] as String,
+  ),
+  itemType: $enumDecode(_$ItemTypeEnumMap, json['itemType']),
+  itemId: json['itemId'] as String,
+  changes:
+      (json['changes'] as List<dynamic>)
           .map((e) => PatchChange.fromJson(e as Map<String, dynamic>))
           .toList(),
-      force: json['force'] as bool?,
-    );
+  force: json['force'] as bool?,
+);
 
 Map<String, dynamic> _$$PatchImplToJson(_$PatchImpl instance) =>
     <String, dynamic>{
@@ -36,7 +38,4 @@ const _$PatchActionEnumMap = {
   PatchAction.delete: 'delete',
 };
 
-const _$ItemTypeEnumMap = {
-  ItemType.task: 'task',
-  ItemType.note: 'note',
-};
+const _$ItemTypeEnumMap = {ItemType.task: 'task', ItemType.note: 'note'};
