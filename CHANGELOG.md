@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.5.1 - 2025-09-19
+#### Bug Fixes
+- update to latest flutter_age - (9b6a8fc) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.5.0 [skip ci] - (93079b3) - GitHub Actions
+
+- - -
+
 ## v0.5.0 - 2025-09-18
 #### Features
 - add the domain selector using a CustomPopup - (d88cfee) - Brandon Guigo
