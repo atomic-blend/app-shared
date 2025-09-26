@@ -43,199 +43,224 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(height: $constants.insets.lg),
-              SizedBox(
-                height: 350,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Animate(
-                      effects: [
-                        FadeEffect(
-                          duration: _animationDuration,
-                          delay: const Duration(milliseconds: 0),
-                        ),
-                      ],
-                      onPlay: (controller) => controller.forward(),
-                      child: ElevatedContainer(
-                        width: 120,
-                        height: 120,
-                        blurRadius: 32,
-                        borderRadius: $constants.corners.xl,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                            $constants.corners.xl,
-                          ),
-                          child: Image.asset("assets/images/appicon.png"),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: $constants.insets.md),
-                    Animate(
-                      controller: _animationController,
-                      effects: [
-                        FadeEffect(
-                          duration: _animationDuration,
-                          delay: const Duration(milliseconds: 0),
-                        ),
-                      ],
-                      onPlay: (controller) => controller.forward(),
-                      child: AutoSizeText(
-                        maxLines: 1,
-                        context.t.app_name,
-                        textAlign: TextAlign.center,
-                        style: getTextTheme(
-                          context,
-                        ).displaySmall!.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: $constants.insets.md),
-                    Animate(
-                      controller: _animationController,
-                      effects: [
-                        FadeEffect(
-                          duration: _animationDuration,
-                          delay: const Duration(milliseconds: 300),
-                        ),
-                      ],
-                      onPlay: (controller) => controller.forward(),
-                      child: Text(
-                        context.t.auth.not_logged_in.log_in_to_your_account,
-                        textAlign: TextAlign.center,
-                        style: getTextTheme(context).bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: $constants.insets.sm),
-              SizedBox(
-                height: 280,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(height: $constants.insets.md),
-                    SizedBox(
-                      width: getSize(context).width * 0.9,
-                      child: AppTextFormField(
-                        controller: _emailController,
-                        hintText: context.t.auth.login.email,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    SizedBox(height: $constants.insets.xs),
-                    SizedBox(
-                      width: getSize(context).width * 0.9,
-                      child: AppTextFormField(
-                        controller: _passwordController,
-                        hintText: context.t.auth.register.password_hint,
-                        obscureText: true,
-                      ),
-                    ),
-                    if (errorMessage != null) ...[
-                      SizedBox(height: $constants.insets.xs),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: $constants.insets.lg,
-                        ),
-                        child: SizedBox(
-                          width: getSize(context).width * 0.9,
-                          child: Text(
-                            context.t.errors[errorMessage] ??
-                                context.t.errors["unknown_error"]!,
-                            style: getTextTheme(
-                              context,
-                            ).labelSmall!.copyWith(color: Colors.red),
-                          ),
-                        ),
-                      ),
-                    ],
-                    SizedBox(height: $constants.insets.xxl),
-                    Animate(
-                      controller: _animationController,
-                      effects: [
-                        FadeEffect(
-                          duration: _animationDuration,
-                          delay: const Duration(milliseconds: 500),
-                        ),
-                      ],
-                      onPlay: (controller) => controller.forward(),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          PrimaryButtonSquare(
-                            text: context.t.auth.login.login,
-                            backgroundColor: getTheme(context).primary,
-                            onPressed: () async {
-                              if (_emailController.text.isNotEmpty &&
-                                  _passwordController.text.isNotEmpty) {
-                                if (!context.mounted) return;
-                                context.read<AuthBloc>().add(
-                                  LoginEvent(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => ResetPassword(
-                                        email: _emailController.text,
-                                        encryptionService:
-                                            widget.encryptionService,
-                                      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if (isDesktop(context)) Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              constraints: BoxConstraints(minWidth: 500),
+              width:
+                  isDesktop(context)
+                      ? getSize(context).width * 0.2
+                      : getSize(context).width,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: $constants.insets.lg),
+                      SizedBox(
+                        height: 350,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Animate(
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 0),
                                 ),
-                              );
-                            },
-                            child: Text(
-                              context.t.auth.reset_password.title,
-                              style: getTextTheme(
-                                context,
-                              ).bodyMedium!.copyWith(color: Colors.grey),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: ElevatedContainer(
+                                width: 120,
+                                height: 120,
+                                blurRadius: 32,
+                                borderRadius: $constants.corners.xl,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    $constants.corners.xl,
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/appicon.png",
+                                  ),
+                                ),
+                              ),
                             ),
+                            SizedBox(height: $constants.insets.md),
+                            Animate(
+                              controller: _animationController,
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 0),
+                                ),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: AutoSizeText(
+                                maxLines: 1,
+                                context.t.app_name,
+                                textAlign: TextAlign.center,
+                                style: getTextTheme(context).displaySmall!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(height: $constants.insets.md),
+                            Animate(
+                              controller: _animationController,
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 300),
+                                ),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: Text(
+                                context
+                                    .t
+                                    .auth
+                                    .not_logged_in
+                                    .log_in_to_your_account,
+                                textAlign: TextAlign.center,
+                                style: getTextTheme(context).bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: $constants.insets.sm),
+                      SizedBox(
+                        height: 280,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: $constants.insets.md),
+                            SizedBox(
+                              width: getSize(context).width * 0.9,
+                              child: AppTextFormField(
+                                controller: _emailController,
+                                hintText: context.t.auth.login.email,
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                            ),
+                            SizedBox(height: $constants.insets.xs),
+                            SizedBox(
+                              width: getSize(context).width * 0.9,
+                              child: AppTextFormField(
+                                controller: _passwordController,
+                                hintText: context.t.auth.register.password_hint,
+                                obscureText: true,
+                              ),
+                            ),
+                            if (errorMessage != null) ...[
+                              SizedBox(height: $constants.insets.xs),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: $constants.insets.lg,
+                                ),
+                                child: SizedBox(
+                                  width: getSize(context).width * 0.9,
+                                  child: Text(
+                                    context.t.errors[errorMessage] ??
+                                        context.t.errors["unknown_error"]!,
+                                    style: getTextTheme(
+                                      context,
+                                    ).labelSmall!.copyWith(color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ],
+                            SizedBox(height: $constants.insets.xxl),
+                            Animate(
+                              controller: _animationController,
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 500),
+                                ),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  PrimaryButtonSquare(
+                                    text: context.t.auth.login.login,
+                                    backgroundColor: getTheme(context).primary,
+                                    onPressed: () async {
+                                      if (_emailController.text.isNotEmpty &&
+                                          _passwordController.text.isNotEmpty) {
+                                        if (!context.mounted) return;
+                                        context.read<AuthBloc>().add(
+                                          LoginEvent(
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => ResetPassword(
+                                                email: _emailController.text,
+                                                encryptionService:
+                                                    widget.encryptionService,
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      context.t.auth.reset_password.title,
+                                      style: getTextTheme(context).bodyMedium!
+                                          .copyWith(color: Colors.grey),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Divider(height: $constants.insets.sm),
+                          ),
+                          SizedBox(width: $constants.insets.sm),
+                          Text("or"),
+                          SizedBox(width: $constants.insets.sm),
+                          Expanded(
+                            child: Divider(height: $constants.insets.sm),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      SizedBox(height: $constants.insets.md),
+                      Center(
+                        child: PrimaryButtonSquare(
+                          text: context.t.auth.login_or_register.register,
+                          backgroundColor: getTheme(context).primary,
+                          outlined: true,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(child: Divider(height: $constants.insets.sm)),
-                  SizedBox(width: $constants.insets.sm),
-                  Text("or"),
-                  SizedBox(width: $constants.insets.sm),
-                  Expanded(child: Divider(height: $constants.insets.sm)),
-                ],
-              ),
-              SizedBox(height: $constants.insets.md),
-              Center(
-                child: PrimaryButtonSquare(
-                  text: context.t.auth.login_or_register.register,
-                  backgroundColor: getTheme(context).primary,
-                  outlined: true,
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
+        if (isDesktop(context)) Spacer(),
+      ],
     );
   }
 }
