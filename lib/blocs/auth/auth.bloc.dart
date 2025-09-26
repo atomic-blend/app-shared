@@ -115,11 +115,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   @override
   AuthState? fromJson(Map<String, dynamic> json) {
     if (json['user'] != null) {
-      return LoggedIn(
-        UserEntity.fromJson(json['user']),
-        false,
-        ABConfig.fromJson(json['appConfig']),
-      );
+      ABConfig? appConfig;
+      if (json['appConfig'] != null) {
+        appConfig = ABConfig.fromJson(json['appConfig']);
+      }
+      return LoggedIn(UserEntity.fromJson(json['user']), false, appConfig);
     }
     return const LoggedOut(null, null);
   }
@@ -281,7 +281,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(Loading(prevState.user, prevState.appConfig));
     try {
       final result = await _configService.loadConfig();
-      emit(LoggedOut(prevState.user, result));
+      if (prevState is LoggedIn) {
+        emit(LoggedIn(prevState.user!, prevState.isRegistration, result));
+      } else {
+        emit(LoggedOut(prevState.user, result));
+      }
     } on Exception catch (e) {
       emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
