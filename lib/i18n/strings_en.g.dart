@@ -495,6 +495,9 @@ class TranslationsAuthNotLoggedInEn {
 	/// en: 'Welcome to Atomic Blend'
 	String get welcome => 'Welcome to Atomic Blend';
 
+	/// en: 'Atomic Blend is your end-to-end encrypted suite of apps. Log in to access your account.'
+	String get log_in_to_your_account => 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
+
 	/// en: 'Atomic Blend is the first'
 	String get description_start => 'Atomic Blend is the first';
 
@@ -1222,6 +1225,7 @@ extension on Translations {
 			case 'app_name': return 'Atomic Blend';
 			case 'app_name_saas': return 'Atomic Blend Cloud';
 			case 'auth.not_logged_in.welcome': return 'Welcome to Atomic Blend';
+			case 'auth.not_logged_in.log_in_to_your_account': return 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
 			case 'auth.not_logged_in.description_start': return 'Atomic Blend is the first';
 			case 'auth.not_logged_in.e2e_app': return 'end-to-end encrypted app';
 			case 'auth.not_logged_in.description_middle': return 'that combines all the tools you need to manage both work and personal life in one place.\n\nFrom task management to note-taking, document writing, time tracking, movie tracking, food tracking, everything stays';

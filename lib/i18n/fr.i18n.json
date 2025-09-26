@@ -4,6 +4,7 @@
   "auth": {
     "not_logged_in": {
       "welcome": "Bienvenue sur Atomic Blend",
+      "log_in_to_your_account": "Atomic Blend est une une suite d'apps chiffrées de bout en bout. Connectez-vous pour accéder à votre compte.",
       "description_start": "Atomic Blend est la première",
       "e2e_app": "application chiffrée de bout en bout",
       "description_middle": "qui regroupe tous les outils dont vous avez besoin pour gérer à la fois votre travail et votre vie personnelle en un seul endroit.\n\nDe la gestion des tâches à la prise de notes, en passant par la rédaction de documents, le suivi du temps, le suivi des films, le suivi de l'alimentation, tout reste",

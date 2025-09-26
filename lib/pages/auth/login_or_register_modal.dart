@@ -80,6 +80,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 0:
                 return WelcomeScreen(
                   nextStepCallback: () => setState(() => _step = 1),
+                  encryptionService: widget.encryptionService,
                 );
               case 1:
                 return LoginOrRegister(
