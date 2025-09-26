@@ -15,7 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginOrRegisterScreen extends StatefulWidget {
   final EncryptionService? encryptionService;
-  const LoginOrRegisterScreen({super.key, this.encryptionService});
+  final VoidCallback? onRegister;
+  const LoginOrRegisterScreen({super.key, this.encryptionService, this.onRegister});
 
   @override
   State<LoginOrRegisterScreen> createState() => _LoginOrRegisterScreenState();
@@ -51,7 +52,9 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              constraints: BoxConstraints(minWidth: 500),
+              constraints: BoxConstraints(
+                minWidth: isDesktop(context) ? 500 : 200,
+              ),
               width:
                   isDesktop(context)
                       ? getSize(context).width * 0.2
@@ -249,7 +252,9 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                           text: context.t.auth.login_or_register.register,
                           backgroundColor: getTheme(context).primary,
                           outlined: true,
-                          onPressed: () {},
+                          onPressed: () {
+                            widget.onRegister?.call();
+                          },
                         ),
                       ),
                     ],

@@ -40,6 +40,8 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
 
   @override
   void initState() {
+    context.read<AuthBloc>().add(const LoadConfig());
+
     super.initState();
   }
 
@@ -78,8 +80,13 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 0:
                 return LoginOrRegisterScreen(
                   encryptionService: widget.encryptionService,
+                  onRegister: () {
+                    setState(() {
+                      _step = 1;
+                    });
+                  },
                 );
-              case 3:
+              case 1:
                 return RegisterEmail(
                   username: email,
                   nextStepCallback: (String newEmail) {
@@ -90,7 +97,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
                   },
                   cancelCallback: () {
                     setState(() {
-                      _step = 1;
+                      _step = 0;
                     });
                   },
                 );
