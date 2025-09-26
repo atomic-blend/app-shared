@@ -1,12 +1,10 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/widgets/loading_city.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
-import 'package:ab_shared/pages/auth/screens/login.dart';
-import 'package:ab_shared/pages/auth/screens/login_or_register.dart';
 import 'package:ab_shared/pages/auth/screens/mnemonic_key.dart';
 import 'package:ab_shared/pages/auth/screens/register_email.dart';
 import 'package:ab_shared/pages/auth/screens/register_password.dart';
-import 'package:ab_shared/pages/auth/screens/welcome_screen.dart';
+import 'package:ab_shared/pages/auth/screens/login_or_register.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/env/env.dart';
@@ -67,7 +65,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
         }
       },
       child: SizedBox(
-        height: getSize(context).height * 0.9,
+        height: double.infinity,
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, authState) {
             if (authState is Loading) {
@@ -78,30 +76,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
             }
             switch (_step) {
               case 0:
-                return WelcomeScreen(
-                  nextStepCallback: () => setState(() => _step = 1),
-                  encryptionService: widget.encryptionService,
-                );
-              case 1:
-                return LoginOrRegister(
-                  globalApiClient: widget.globalApiClient,
-                  prefs: widget.prefs,
-                  env: widget.env,
-                  backStepCallback: () => setState(() => _step = 0),
-                  loginCallback: () => setState(() => _step = 2),
-                  registerCallback: () => setState(() => _step = 3),
-                );
-              case 2:
-                return Login(
-                  onAuthSuccess: () {
-                    widget.onAuthSuccess.call();
-                  },
-                  cancelCallback: () {
-                    setState(() {
-                      _step = 1;
-                    });
-                  },
-                  errorMessage: errorMessage,
+                return LoginOrRegisterScreen(
                   encryptionService: widget.encryptionService,
                 );
               case 3:
