@@ -22,9 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-    );
+    _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
@@ -48,9 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: $constants.insets.lg,
-                ),
+                SizedBox(height: $constants.insets.lg),
                 Animate(
                   effects: [
                     FadeEffect(
@@ -59,13 +55,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     ),
                   ],
                   onPlay: (controller) => controller.forward(),
-                  child: Transform.scale(
-                    scale: 1.2,
-                    child: Lottie.asset(
-                      'assets/animations/graph.json',
-                      width: isDesktop(context)
-                          ? getSize(context).width * 0.2
-                          : getSize(context).width * 0.5,
+                  child: SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        $constants.corners.xl,
+                      ),
+                      child: Image.asset("assets/images/atomic_blend_logo.png"),
                     ),
                   ),
                 ),
@@ -75,50 +72,51 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     FadeEffect(
                       duration: _animationDuration,
                       delay: const Duration(milliseconds: 0),
-                    )
+                    ),
                   ],
                   onPlay: (controller) => controller.forward(),
                   child: AutoSizeText(
                     maxLines: 1,
                     context.t.auth.not_logged_in.welcome,
                     textAlign: TextAlign.center,
-                    style: getTextTheme(context)
-                        .displaySmall!
-                        .copyWith(fontWeight: FontWeight.bold),
+                    style: getTextTheme(
+                      context,
+                    ).displaySmall!.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
-                  height: $constants.insets.md,
-                ),
+                SizedBox(height: $constants.insets.md),
                 Animate(
                   controller: _animationController,
                   effects: [
                     FadeEffect(
                       duration: _animationDuration,
                       delay: const Duration(milliseconds: 300),
-                    )
+                    ),
                   ],
                   onPlay: (controller) => controller.forward(),
                   child: Text.rich(
                     TextSpan(
-                        text: context.t.auth.not_logged_in.description_start,
-                        children: [
-                          TextSpan(
-                              text: " ${context.t.auth.not_logged_in.e2e_app}",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(
-                              text:
-                                  " ${context.t.auth.not_logged_in.description_middle}"),
-                          TextSpan(
-                              text:
-                                  " ${context.t.auth.not_logged_in.description_middle_bold}",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(
-                              text:
-                                  "\n\n${context.t.auth.not_logged_in.description_end}"),
-                        ]),
+                      text: context.t.auth.not_logged_in.description_start,
+                      children: [
+                        TextSpan(
+                          text: " ${context.t.auth.not_logged_in.e2e_app}",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              " ${context.t.auth.not_logged_in.description_middle}",
+                        ),
+                        TextSpan(
+                          text:
+                              " ${context.t.auth.not_logged_in.description_middle_bold}",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text:
+                              "\n\n${context.t.auth.not_logged_in.description_end}",
+                        ),
+                      ],
+                    ),
                     textAlign: TextAlign.center,
                     style: getTextTheme(context).bodyMedium,
                   ),
@@ -136,7 +134,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   FadeEffect(
                     duration: _animationDuration,
                     delay: const Duration(milliseconds: 500),
-                  )
+                  ),
                 ],
                 onPlay: (controller) => controller.forward(),
                 child: Container(
@@ -158,14 +156,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           await _animationController.reverse(from: 1.0);
                           widget.nextStepCallback?.call();
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: $constants.insets.md,
-              ),
+              SizedBox(height: $constants.insets.md),
             ],
           ),
         ],
