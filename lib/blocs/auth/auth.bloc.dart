@@ -49,6 +49,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<ConfirmResetPassword>(_onConfirmResetPassword);
     on<GetBackupKeyForResetPassword>(_onGetBackupKeyForPasswordReset);
     on<LoadConfig>(_onLoadConfig);
+    on<MnemonicDisplayed>(_onMnemonicDisplayed);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -290,4 +291,10 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
   }
-}
+
+  FutureOr<void> _onMnemonicDisplayed(MnemonicDisplayed event, Emitter<AuthState> emit) async {
+    final prevState = state;
+    emit(Loading(prevState.user, prevState.appConfig));
+    emit(LoggedIn(prevState.user!, false, prevState.appConfig));
+  }
+} 

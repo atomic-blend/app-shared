@@ -91,15 +91,15 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
                   username: email,
                   onLogin: () {
                     setState(() {
-                      _step = 3;
+                      _step = 1;
                     });
                   },
                 );
-              case 3:
-                return MnemonicKey(
-                  onSuccess: () {},
-                  mnemonic: authState.user?.keySet.backupPhrase ?? '',
-                );
+              // case 3:
+              //   return MnemonicKey(
+              //     onSuccess: () {},
+              //     mnemonic: authState.user?.keySet.backupPhrase ?? '',
+              //   );
             }
             return Container();
           },
