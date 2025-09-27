@@ -4,6 +4,7 @@
   "auth": {
     "not_logged_in": {
       "welcome": "Bienvenue sur Atomic Blend",
+      "register_to_atomic_blend": "Inscrivez-vous à Atomic Blend",
       "log_in_to_your_account": "Atomic Blend est une une suite d'apps chiffrées de bout en bout. Connectez-vous pour accéder à votre compte.",
       "description_start": "Atomic Blend est la première",
       "e2e_app": "application chiffrée de bout en bout",

@@ -227,10 +227,7 @@ class _RegisterPasswordState extends State<RegisterPassword>
                         if (widget.email.isNotEmpty &&
                             _passwordController.text.isNotEmpty) {
                           if (!context.mounted) return;
-                          context.read<AuthBloc>().add(RegisterEvent(
-                                email: widget.email,
-                                password: _passwordController.text,
-                              ));
+                           
                         }
                       },
                     )

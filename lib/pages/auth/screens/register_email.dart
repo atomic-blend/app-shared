@@ -11,20 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_popup/flutter_popup.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class RegisterEmail extends StatefulWidget {
   const RegisterEmail({
     super.key,
-    this.cancelCallback,
-    required this.nextStepCallback,
     this.username,
     this.domain,
+    required this.onLogin,
   });
   final String? username;
   final String? domain;
-  final VoidCallback? cancelCallback;
-  final Function(String) nextStepCallback;
+  final VoidCallback onLogin;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -35,6 +32,8 @@ class _RegisterEmailState extends State<RegisterEmail>
   late AnimationController _animationController;
   final _animationDuration = const Duration(milliseconds: 250);
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  String? errorMessage;
   String? domain;
 
   @override
@@ -62,250 +61,564 @@ class _RegisterEmailState extends State<RegisterEmail>
               title: "Cannot get the app config from the server",
               description: "Please try again later",
             );
-          widget.cancelCallback?.call();
+            widget.onLogin();
           });
           return const SizedBox.shrink();
         }
-        return Stack(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
+            if (isDesktop(context)) Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: getSize(context).height * 0.08),
-                Animate(
-                  controller: _animationController,
-                  effects: [
-                    FadeEffect(
-                      duration: _animationDuration,
-                      delay: const Duration(milliseconds: 0),
-                    ),
-                  ],
-                  onPlay: (controller) => controller.forward(),
+                Container(
+                  constraints: BoxConstraints(
+                    minWidth: isDesktop(context) ? 500 : 200,
+                  ),
+                  width:
+                      isDesktop(context)
+                          ? getSize(context).width * 0.2
+                          : getSize(context).width,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: $constants.insets.md,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            'assets/images/authentication.png',
-                            fit: BoxFit.cover,
-                            width:
-                                isDesktop(context)
-                                    ? getSize(context).width * 0.2
-                                    : getSize(context).width * 0.5,
-                          ),
-                        ),
-                        AutoSizeText(
-                          maxLines: 1,
-                          context.t.auth.register.email,
-                          style: getTextTheme(
-                            context,
-                          ).displaySmall!.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: $constants.insets.xs),
-                        SizedBox(
-                          width: getSize(context).width * 0.9,
-                          child: Text(
-                            context.t.auth.register.email_description,
-                          ),
-                        ),
-                        SizedBox(
-                          width: getSize(context).width * 0.9,
-                          child: Text(
-                            context.t.auth.register.we_never_sell,
-                            style: getTextTheme(
-                              context,
-                            ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(height: $constants.insets.xs),
-                        Animate(
-                          controller: _animationController,
-                          effects: [
-                            FadeEffect(
-                              duration: _animationDuration,
-                              delay: const Duration(milliseconds: 300),
-                            ),
-                          ],
-                          onPlay: (controller) => controller.forward(),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: getSize(context).width * 0.4,
-                                child: ElevatedContainer(
-                                  child: AppTextFormField(
-                                    controller: _usernameController,
-                                    hintText: context.t.auth.login.username,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: $constants.insets.lg),
+                          SizedBox(
+                            height: 350,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Animate(
+                                  effects: [
+                                    FadeEffect(
+                                      duration: _animationDuration,
+                                      delay: const Duration(milliseconds: 0),
+                                    ),
+                                  ],
+                                  onPlay: (controller) => controller.forward(),
+                                  child: ElevatedContainer(
+                                    width: 120,
+                                    height: 120,
+                                    blurRadius: 32,
+                                    borderRadius: $constants.corners.xl,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        $constants.corners.xl,
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/atomic_blend_logo.png",
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: $constants.insets.xs),
-                              Expanded(
-                                child: CustomPopup(
-                                  content: SizedBox(
-                                    width: getSize(context).width * 0.45,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "Please select a domain",
-                                          style: getTextTheme(
-                                            context,
-                                          ).headlineSmall!.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: $constants.insets.sm),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              ...authState.appConfig!.domains
-                                                  .map(
-                                                    (e) => Padding(
-                                                      padding: EdgeInsets.only(
-                                                        bottom:
-                                                            $constants
-                                                                .insets
-                                                                .sm,
-                                                      ),
-                                                      child: ElevatedContainer(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            domain = e;
-                                                          });
-                                                          Navigator.pop(
-                                                            context,
-                                                          );
-                                                        },
-                                                        color:
-                                                            getTheme(
-                                                              context,
-                                                            ).surface,
-                                                        width: double.infinity,
-                                                        height: 45,
-                                                        child: Center(
-                                                          child: Text(e),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                SizedBox(height: $constants.insets.md),
+                                Animate(
+                                  controller: _animationController,
+                                  effects: [
+                                    FadeEffect(
+                                      duration: _animationDuration,
+                                      delay: const Duration(milliseconds: 0),
                                     ),
+                                  ],
+                                  onPlay: (controller) => controller.forward(),
+                                  child: AutoSizeText(
+                                    maxLines: 1,
+                                    context
+                                        .t
+                                        .auth
+                                        .not_logged_in
+                                        .register_to_atomic_blend,
+                                    textAlign: TextAlign.center,
+                                    style: getTextTheme(context).headlineLarge!
+                                        .copyWith(fontWeight: FontWeight.bold),
                                   ),
-                                  child: ElevatedContainer(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: $constants.insets.sm,
+                                ),
+                                SizedBox(height: $constants.insets.md),
+                                Animate(
+                                  controller: _animationController,
+                                  effects: [
+                                    FadeEffect(
+                                      duration: _animationDuration,
+                                      delay: const Duration(milliseconds: 300),
                                     ),
-                                    height: 45,
-                                    // width: getSize(context).width * 0.45,
-                                    child: Row(
-                                      children: [
-                                        if (domain == null || domain!.isEmpty)
-                                          Row(
+                                  ],
+                                  onPlay: (controller) => controller.forward(),
+                                  child: Text(
+                                    context
+                                        .t
+                                        .auth
+                                        .not_logged_in
+                                        .log_in_to_your_account,
+                                    textAlign: TextAlign.center,
+                                    style: getTextTheme(context).bodyMedium,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: $constants.insets.sm),
+                          SizedBox(
+                            height: 280,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(height: $constants.insets.md),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: getSize(context).width * 0.4,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color:
+                                              getTheme(
+                                                context,
+                                              ).surfaceContainer,
+
+                                          borderRadius: BorderRadius.circular(
+                                            $constants.insets.sm,
+                                          ),
+                                        ),
+                                        child: AppTextFormField(
+                                          controller: _usernameController,
+                                          hintText:
+                                              context.t.auth.login.username,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: $constants.insets.xs),
+                                    Expanded(
+                                      child: CustomPopup(
+                                        content: SizedBox(
+                                          width: getSize(context).width * 0.45,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text("@"),
-                                              SizedBox(
-                                                width: $constants.insets.md,
-                                              ),
                                               Text(
                                                 "Please select a domain",
                                                 style: getTextTheme(
                                                   context,
-                                                ).bodySmall!.copyWith(
-                                                  color: Colors.grey[700],
+                                                ).headlineSmall!.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: $constants.insets.sm,
+                                              ),
+                                              SingleChildScrollView(
+                                                child: Column(
+                                                  children: [
+                                                    ...authState.appConfig!.domains.map(
+                                                      (e) => Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                              bottom:
+                                                                  $constants
+                                                                      .insets
+                                                                      .sm,
+                                                            ),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              domain = e;
+                                                            });
+                                                            Navigator.pop(
+                                                              context,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                              color:
+                                                                  getTheme(
+                                                                    context,
+                                                                  ).surfaceContainer,
+
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    $constants
+                                                                        .insets
+                                                                        .sm,
+                                                                  ),
+                                                            ),
+                                                            width:
+                                                                double.infinity,
+                                                            height: 45,
+                                                            child: Center(
+                                                              child: Text(e),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
-                                          )
-                                        else
-                                          Text("@${domain!}"),
-                                      ],
+                                          ),
+                                        ),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: $constants.insets.sm,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                getTheme(
+                                                  context,
+                                                ).surfaceContainer,
+
+                                            borderRadius: BorderRadius.circular(
+                                              $constants.insets.sm,
+                                            ),
+                                          ),
+                                          height: 45,
+                                          // width: getSize(context).width * 0.45,
+                                          child: Row(
+                                            children: [
+                                              if (domain == null ||
+                                                  domain!.isEmpty)
+                                                Row(
+                                                  children: [
+                                                    Text("@"),
+                                                    SizedBox(
+                                                      width:
+                                                          $constants.insets.md,
+                                                    ),
+                                                    Text(
+                                                      "Please select a domain",
+                                                      style: getTextTheme(
+                                                        context,
+                                                      ).bodySmall!.copyWith(
+                                                        color: Colors.grey[700],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              else
+                                                Text("@${domain!}"),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ),
+                                  ],
+                                ),
+                                SizedBox(height: $constants.insets.xs),
+                                SizedBox(
+                                  width: getSize(context).width * 0.9,
+                                  child: AppTextFormField(
+                                    controller: _passwordController,
+                                    hintText:
+                                        context.t.auth.register.password_hint,
+                                    obscureText: true,
                                   ),
                                 ),
+                                if (errorMessage != null) ...[
+                                  SizedBox(height: $constants.insets.xs),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: $constants.insets.lg,
+                                    ),
+                                    child: SizedBox(
+                                      width: getSize(context).width * 0.9,
+                                      child: Text(
+                                        context.t.errors[errorMessage] ??
+                                            context.t.errors["unknown_error"]!,
+                                        style: getTextTheme(context).labelSmall!
+                                            .copyWith(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                SizedBox(height: $constants.insets.xxl),
+                                Animate(
+                                  controller: _animationController,
+                                  effects: [
+                                    FadeEffect(
+                                      duration: _animationDuration,
+                                      delay: const Duration(milliseconds: 500),
+                                    ),
+                                  ],
+                                  onPlay: (controller) => controller.forward(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      PrimaryButtonSquare(
+                                        text:
+                                            context
+                                                .t
+                                                .auth
+                                                .login_or_register
+                                                .register,
+                                        backgroundColor:
+                                            getTheme(context).primary,
+                                        onPressed: () async {
+                                          if (_usernameController
+                                                  .text
+                                                  .isNotEmpty &&
+                                              _passwordController
+                                                  .text
+                                                  .isNotEmpty) {
+                                            if (!context.mounted) return;
+                                            context.read<AuthBloc>().add(
+                                              RegisterEvent(
+                                                email:
+                                                    "${_usernameController.text}@${domain!}",
+                                                password:
+                                                    _passwordController.text,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Divider(height: $constants.insets.sm),
+                              ),
+                              SizedBox(width: $constants.insets.sm),
+                              Text("or"),
+                              SizedBox(width: $constants.insets.sm),
+                              Expanded(
+                                child: Divider(height: $constants.insets.sm),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          SizedBox(height: $constants.insets.md),
+                          Center(
+                            child: PrimaryButtonSquare(
+                              text: context.t.auth.login_or_register.login,
+                              backgroundColor: getTheme(context).primary,
+                              outlined: true,
+                              onPressed: () {
+                                widget.onLogin();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: $constants.insets.sm),
-                const Spacer(),
-                const Divider(),
-                Animate(
-                  controller: _animationController,
-                  effects: [
-                    FadeEffect(
-                      duration: _animationDuration,
-                      delay: const Duration(milliseconds: 500),
-                    ),
-                  ],
-                  onPlay: (controller) => controller.forward(),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: $constants.insets.md,
-                    ),
-                    height: getSize(context).height * 0.1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Spacer(),
-                        PrimaryButtonSquare(
-                          text: context.t.actions.next,
-                          backgroundColor: getTheme(context).primary,
-                          onPressed: () async {
-                            if (_usernameController.text.isEmpty) {
-                              return;
-                            }
-                            _animationController.reverseDuration =
-                                const Duration(milliseconds: 500);
-                            await _animationController.reverse(from: 1.0);
-                            widget.nextStepCallback(
-                              "${_usernameController.text}@${domain!}",
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height:
-                      !isDesktop(context)
-                          ? $constants.insets.sm
-                          : $constants.insets.xs,
                 ),
               ],
             ),
-            Positioned(
-              left: $constants.insets.sm,
-              top: $constants.insets.md,
-              child: GestureDetector(
-                onTap: widget.cancelCallback,
-                child: Row(
+          ],
+        );
+
+        return Column(
+          children: [
+            SizedBox(height: getSize(context).height * 0.08),
+            Animate(
+              controller: _animationController,
+              effects: [
+                FadeEffect(
+                  duration: _animationDuration,
+                  delay: const Duration(milliseconds: 0),
+                ),
+              ],
+              onPlay: (controller) => controller.forward(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(OctIcons.arrow_left, size: 18),
-                    SizedBox(width: $constants.insets.xxs),
-                    Text(
-                      context.t.actions.back,
+                    Center(
+                      child: Image.asset(
+                        'assets/images/authentication.png',
+                        fit: BoxFit.cover,
+                        width:
+                            isDesktop(context)
+                                ? getSize(context).width * 0.2
+                                : getSize(context).width * 0.5,
+                      ),
+                    ),
+                    AutoSizeText(
+                      maxLines: 1,
+                      context.t.auth.register.email,
                       style: getTextTheme(
                         context,
-                      ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                      ).displaySmall!.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: $constants.insets.xs),
+                    SizedBox(
+                      width: getSize(context).width * 0.9,
+                      child: Text(context.t.auth.register.email_description),
+                    ),
+                    SizedBox(
+                      width: getSize(context).width * 0.9,
+                      child: Text(
+                        context.t.auth.register.we_never_sell,
+                        style: getTextTheme(
+                          context,
+                        ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: $constants.insets.xs),
+                    Animate(
+                      controller: _animationController,
+                      effects: [
+                        FadeEffect(
+                          duration: _animationDuration,
+                          delay: const Duration(milliseconds: 300),
+                        ),
+                      ],
+                      onPlay: (controller) => controller.forward(),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: getSize(context).width * 0.4,
+                            child: ElevatedContainer(
+                              child: AppTextFormField(
+                                controller: _usernameController,
+                                hintText: context.t.auth.login.username,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: $constants.insets.xs),
+                          Expanded(
+                            child: CustomPopup(
+                              content: SizedBox(
+                                width: getSize(context).width * 0.45,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "Please select a domain",
+                                      style: getTextTheme(
+                                        context,
+                                      ).headlineSmall!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: $constants.insets.sm),
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          ...authState.appConfig!.domains.map(
+                                            (e) => Padding(
+                                              padding: EdgeInsets.only(
+                                                bottom: $constants.insets.sm,
+                                              ),
+                                              child: ElevatedContainer(
+                                                onTap: () {
+                                                  setState(() {
+                                                    domain = e;
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                color:
+                                                    getTheme(context).surface,
+                                                width: double.infinity,
+                                                height: 45,
+                                                child: Center(child: Text(e)),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              child: ElevatedContainer(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: $constants.insets.sm,
+                                ),
+                                height: 45,
+                                // width: getSize(context).width * 0.45,
+                                child: Row(
+                                  children: [
+                                    if (domain == null || domain!.isEmpty)
+                                      Row(
+                                        children: [
+                                          Text("@"),
+                                          SizedBox(width: $constants.insets.md),
+                                          Text(
+                                            "Please select a domain",
+                                            style: getTextTheme(
+                                              context,
+                                            ).bodySmall!.copyWith(
+                                              color: Colors.grey[700],
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    else
+                                      Text("@${domain!}"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
+            ),
+            SizedBox(height: $constants.insets.sm),
+            const Spacer(),
+            const Divider(),
+            Animate(
+              controller: _animationController,
+              effects: [
+                FadeEffect(
+                  duration: _animationDuration,
+                  delay: const Duration(milliseconds: 500),
+                ),
+              ],
+              onPlay: (controller) => controller.forward(),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                height: getSize(context).height * 0.1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Spacer(),
+                    PrimaryButtonSquare(
+                      text: context.t.actions.next,
+                      backgroundColor: getTheme(context).primary,
+                      onPressed: () async {
+                        if (_usernameController.text.isEmpty) {
+                          return;
+                        }
+                        _animationController.reverseDuration = const Duration(
+                          milliseconds: 500,
+                        );
+                        await _animationController.reverse(from: 1.0);
+                        // widget.nextStepCallback(
+                        //   "${_usernameController.text}@${domain!}",
+                        // );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+                  !isDesktop(context)
+                      ? $constants.insets.sm
+                      : $constants.insets.xs,
             ),
           ],
         );

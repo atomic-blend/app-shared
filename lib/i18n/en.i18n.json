@@ -4,6 +4,7 @@
   "auth": {
     "not_logged_in": {
       "welcome": "Welcome to Atomic Blend",
+      "register_to_atomic_blend": "Register to Atomic Blend",
       "log_in_to_your_account": "Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.",
       "description_start": "Atomic Blend is the first",
       "e2e_app": "end-to-end encrypted app",

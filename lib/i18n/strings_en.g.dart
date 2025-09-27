@@ -495,6 +495,9 @@ class TranslationsAuthNotLoggedInEn {
 	/// en: 'Welcome to Atomic Blend'
 	String get welcome => 'Welcome to Atomic Blend';
 
+	/// en: 'Register to Atomic Blend'
+	String get register_to_atomic_blend => 'Register to Atomic Blend';
+
 	/// en: 'Atomic Blend is your end-to-end encrypted suite of apps. Log in to access your account.'
 	String get log_in_to_your_account => 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
 
@@ -1225,6 +1228,7 @@ extension on Translations {
 			case 'app_name': return 'Atomic Blend';
 			case 'app_name_saas': return 'Atomic Blend Cloud';
 			case 'auth.not_logged_in.welcome': return 'Welcome to Atomic Blend';
+			case 'auth.not_logged_in.register_to_atomic_blend': return 'Register to Atomic Blend';
 			case 'auth.not_logged_in.log_in_to_your_account': return 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
 			case 'auth.not_logged_in.description_start': return 'Atomic Blend is the first';
 			case 'auth.not_logged_in.e2e_app': return 'end-to-end encrypted app';

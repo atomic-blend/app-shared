@@ -89,37 +89,13 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 1:
                 return RegisterEmail(
                   username: email,
-                  nextStepCallback: (String newEmail) {
-                    setState(() {
-                      email = newEmail;
-                      _step = 4;
-                    });
-                  },
-                  cancelCallback: () {
-                    setState(() {
-                      _step = 0;
-                    });
-                  },
-                );
-              case 4:
-                return RegisterPassword(
-                  password: password,
-                  onAuthSuccess: () {
-                    widget.onAuthSuccess();
-                  },
-                  onPasswordUpdate: (newPwd) {
-                    setState(() {
-                      password = newPwd;
-                    });
-                  },
-                  email: email!,
-                  cancelCallback: () {
+                  onLogin: () {
                     setState(() {
                       _step = 3;
                     });
                   },
                 );
-              case 5:
+              case 3:
                 return MnemonicKey(
                   onSuccess: () {},
                   mnemonic: authState.user?.keySet.backupPhrase ?? '',

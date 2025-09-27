@@ -417,6 +417,7 @@ class _TranslationsAuthNotLoggedInFr implements TranslationsAuthNotLoggedInEn {
 
 	// Translations
 	@override String get welcome => 'Bienvenue sur Atomic Blend';
+	@override String get register_to_atomic_blend => 'Inscrivez-vous à Atomic Blend';
 	@override String get log_in_to_your_account => 'Atomic Blend est une une suite d\'apps chiffrées de bout en bout. Connectez-vous pour accéder à votre compte.';
 	@override String get description_start => 'Atomic Blend est la première';
 	@override String get e2e_app => 'application chiffrée de bout en bout';
@@ -849,6 +850,7 @@ extension on TranslationsFr {
 			case 'app_name': return 'Atomic Blend';
 			case 'app_name_saas': return 'Atomic Blend Cloud';
 			case 'auth.not_logged_in.welcome': return 'Bienvenue sur Atomic Blend';
+			case 'auth.not_logged_in.register_to_atomic_blend': return 'Inscrivez-vous à Atomic Blend';
 			case 'auth.not_logged_in.log_in_to_your_account': return 'Atomic Blend est une une suite d\'apps chiffrées de bout en bout. Connectez-vous pour accéder à votre compte.';
 			case 'auth.not_logged_in.description_start': return 'Atomic Blend est la première';
 			case 'auth.not_logged_in.e2e_app': return 'application chiffrée de bout en bout';
