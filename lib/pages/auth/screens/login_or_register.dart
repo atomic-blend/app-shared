@@ -16,12 +16,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginOrRegisterScreen extends StatefulWidget {
   final EncryptionService? encryptionService;
   final VoidCallback? onRegister;
-  final String? errorMessage;
+  final String? errorCode;
   const LoginOrRegisterScreen({
     super.key,
     this.encryptionService,
     this.onRegister,
-    this.errorMessage,
+    this.errorCode,
   });
 
   @override
@@ -39,7 +39,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
   @override
   void initState() {
     _animationController = AnimationController(vsync: this);
-    errorMessage = widget.errorMessage;
+    errorMessage = widget.errorCode;
     super.initState();
   }
 

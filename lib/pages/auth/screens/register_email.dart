@@ -18,12 +18,12 @@ class RegisterEmail extends StatefulWidget {
     this.username,
     this.domain,
     required this.onLogin,
-    this.errorMessage,
+    this.errorCode,
   });
   final String? username;
   final String? domain;
   final VoidCallback onLogin;
-  final String? errorMessage;
+  final String? errorCode;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -43,7 +43,7 @@ class _RegisterEmailState extends State<RegisterEmail>
     _usernameController.text = widget.username ?? '';
     domain = widget.domain;
     _animationController = AnimationController(vsync: this);
-    errorMessage = widget.errorMessage;
+    errorMessage = widget.errorCode;
     super.initState();
   }
 

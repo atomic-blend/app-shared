@@ -12,35 +12,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginOrRegisterModal extends StatefulWidget {
-  final VoidCallback onAuthSuccess;
+class SSOModule extends StatefulWidget {
+  final VoidCallback? onAuthSuccess;
   final EncryptionService? encryptionService;
   final ApiClient? globalApiClient;
   final SharedPreferences? prefs;
   final EnvModel? env;
-  const LoginOrRegisterModal({
+  const SSOModule({
     super.key,
-    required this.onAuthSuccess,
-    required this.encryptionService,
-    required this.globalApiClient,
-    required this.prefs,
-    required this.env,
+    this.onAuthSuccess,
+    this.encryptionService,
+    this.globalApiClient,
+    this.prefs,
+    this.env,
   });
 
   @override
-  State<LoginOrRegisterModal> createState() => _LoginOrRegisterModalState();
+  State<SSOModule> createState() => _SSOModuleState();
 }
 
-class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
+class _SSOModuleState extends State<SSOModule> {
   String? email;
   String? password;
-  String? errorMessage;
+  String? errorCode;
   int _step = 0;
 
   @override
   void initState() {
     context.read<AuthBloc>().add(const LoadConfig());
-
     super.initState();
   }
 
@@ -50,17 +49,16 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
       listener: (BuildContext context, AuthState state) async {
         if (state is AuthError) {
           setState(() {
-            errorMessage = state.message;
+            errorCode = state.message;
           });
         }
-        print('state: $state');
         if (state is LoggedIn && state.isRegistration == true) {
           setState(() {
             _step = 5;
           });
         }
         if (state is LoggedIn && state.isRegistration == false) {
-          widget.onAuthSuccess.call();
+          widget.onAuthSuccess?.call();
         }
       },
       child: SizedBox(
@@ -85,7 +83,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 0:
                 return LoginOrRegisterScreen(
                   encryptionService: widget.encryptionService,
-                  errorMessage: errorMessage,
+                  errorCode: errorCode,
                   onRegister: () {
                     setState(() {
                       _step = 1;
@@ -95,7 +93,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 1:
                 return RegisterEmail(
                   username: email,
-                  errorMessage: errorMessage,
+                  errorCode: errorCode,
                   onLogin: () {
                     setState(() {
                       _step = 0;
