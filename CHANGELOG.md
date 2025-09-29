@@ -2,6 +2,32 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.6.0 - 2025-09-29
+#### Bug Fixes
+- linter issues - (d287d91) - Brandon Guigo
+- width on mobile for the domain selector - (9d0a31f) - Brandon Guigo
+- refactor login to ssomodule - (8f7d27e) - Brandon Guigo
+- error handling in register and login - (0b3c4e4) - Brandon Guigo
+- animations on register / login screens - (e6c62df) - Brandon Guigo
+- setIdToken doesn't persist token inside prefs - (1c1697a) - Brandon Guigo
+- mnemonic key display ui - (412ee19) - Brandon Guigo
+- desktop ui for reset password - (0196257) - Brandon Guigo
+- completely delegate back the loading / mnemonic to the shared component - (63acda6) - Brandon Guigo
+- required revenue cat service + register ui on desktop - (fd46f7c) - Brandon Guigo
+- make mnemonic key display work - (222d8a9) - Brandon Guigo
+- adapt the new login ui to desktop - (342b2bb) - Brandon Guigo
+- refactor welcome screen into new login or register + cleanup + fix wrong colors inside the app - (7ffb720) - Brandon Guigo
+- abconfig loading error causing to loss of the auth state uppon app restart - (4837a1d) - Brandon Guigo
+#### Features
+- redo design for register page - (b447082) - Brandon Guigo
+- make login or register change to register screen when needed - (f226f14) - Brandon Guigo
+- make the welcome screen the default login screen - (f2e3585) - Brandon Guigo
+- change the logo inside the welcome screen - (17fd129) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.5.1 [skip ci] - (95e52e4) - GitHub Actions
+
+- - -
+
 ## v0.5.1 - 2025-09-19
 #### Bug Fixes
 - update to latest flutter_age - (9b6a8fc) - Brandon Guigo
