@@ -87,3 +87,7 @@ final class GetBackupKeyForResetPassword extends AuthEvent {
 final class LoadConfig extends AuthEvent {
   const LoadConfig();
 }
+
+final class MnemonicDisplayed extends AuthEvent {
+  const MnemonicDisplayed();
+}

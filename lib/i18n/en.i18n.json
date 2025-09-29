@@ -4,6 +4,8 @@
   "auth": {
     "not_logged_in": {
       "welcome": "Welcome to Atomic Blend",
+      "register_to_atomic_blend": "Register to Atomic Blend",
+      "log_in_to_your_account": "Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.",
       "description_start": "Atomic Blend is the first",
       "e2e_app": "end-to-end encrypted app",
       "description_middle": "that combines all the tools you need to manage both work and personal life in one place.\n\nFrom task management to note-taking, document writing, time tracking, movie tracking, food tracking, everything stays",
@@ -166,6 +168,7 @@
   "errors(map)": {
     "wrong_email_password": "Email or password incorrect",
     "email_malformed": "Email malformed",
+    "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
     "unknown_error": "Unknown error"
   },
   "name_generator": {

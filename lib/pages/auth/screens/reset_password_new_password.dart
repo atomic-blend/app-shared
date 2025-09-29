@@ -68,7 +68,7 @@ class _ResetPasswordNewPwdState extends State<ResetPasswordNewPwd>
             child: Image.asset(
               'assets/images/authentication.png',
               fit: BoxFit.cover,
-              width: getSize(context).width * 0.6,
+              width: isDesktop(context) ? getSize(context).width * 0.3 : getSize(context).width * 0.5,
             ),
           ),
           SizedBox(

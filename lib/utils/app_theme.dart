@@ -29,8 +29,8 @@ abstract final class AppTheme {
       onTertiary: Color(0xFFF5EFFF),
       error: Color(0xFFBA1A1A),
       onError: Color(0xFFFFDAD6),
-      surface: Color(0xFFF2F2F2),
-      surfaceContainer: Colors.white,
+      surfaceContainer: Color(0xFFF2F2F2),
+      surface: Colors.white,
       primaryContainer: Color(0xFFE8F3FF),
       onSurface: Colors.black,
     ),
@@ -61,44 +61,83 @@ abstract final class AppTheme {
     ),
     textTheme: const TextTheme(
       displayLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 88.4, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 88.4,
+        color: Colors.black,
+      ),
       displayMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 50.5, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 50.5,
+        color: Colors.black,
+      ),
       displaySmall: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 37.9, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 37.9,
+        color: Colors.black,
+      ),
       headlineLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 28.4, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 28.4,
+        color: Colors.black,
+      ),
       headlineMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 21.3, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 21.3,
+        color: Colors.black,
+      ),
       headlineSmall: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 16, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 16,
+        color: Colors.black,
+      ),
       titleLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 33.9,
-          color: Colors.black,
-          fontWeight: FontWeight.w300),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 33.9,
+        color: Colors.black,
+        fontWeight: FontWeight.w300,
+      ),
       titleMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 24,
-          color: Colors.black,
-          fontWeight: FontWeight.w300),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 24,
+        color: Colors.black,
+        fontWeight: FontWeight.w300,
+      ),
       titleSmall: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 17,
-          color: Colors.black,
-          fontWeight: FontWeight.w300),
-      bodyLarge:
-          TextStyle(fontFamily: 'Nunito', fontSize: 17, color: Colors.black),
-      bodyMedium:
-          TextStyle(fontFamily: 'Nunito', fontSize: 13.5, color: Colors.black),
-      bodySmall:
-          TextStyle(fontFamily: 'Nunito', fontSize: 11, color: Colors.black),
-      labelLarge:
-          TextStyle(fontFamily: 'Nunito', fontSize: 17, color: Colors.black),
-      labelMedium:
-          TextStyle(fontFamily: 'Nunito', fontSize: 13.5, color: Colors.black),
-      labelSmall:
-          TextStyle(fontFamily: 'Nunito', fontSize: 11, color: Colors.black),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 17,
+        color: Colors.black,
+        fontWeight: FontWeight.w300,
+      ),
+      bodyLarge: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 17,
+        color: Colors.black,
+      ),
+      bodyMedium: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 13.5,
+        color: Colors.black,
+      ),
+      bodySmall: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 11,
+        color: Colors.black,
+      ),
+      labelLarge: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 17,
+        color: Colors.black,
+      ),
+      labelMedium: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 13.5,
+        color: Colors.black,
+      ),
+      labelSmall: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 11,
+        color: Colors.black,
+      ),
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     cupertinoOverrideTheme: const CupertinoThemeData(applyThemeToAll: true),
@@ -134,44 +173,83 @@ abstract final class AppTheme {
     ),
     textTheme: const TextTheme(
       displayLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 88.4, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 88.4,
+        color: Colors.white,
+      ),
       displayMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 50.5, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 50.5,
+        color: Colors.white,
+      ),
       displaySmall: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 37.9, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 37.9,
+        color: Colors.white,
+      ),
       headlineLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 28.4, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 28.4,
+        color: Colors.white,
+      ),
       headlineMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 21.3, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 21.3,
+        color: Colors.white,
+      ),
       headlineSmall: TextStyle(
-          fontFamily: 'SpaceGrotesk', fontSize: 16, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 16,
+        color: Colors.white,
+      ),
       titleLarge: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 33.9,
-          color: Colors.white,
-          fontWeight: FontWeight.w300),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 33.9,
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+      ),
       titleMedium: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 24,
-          color: Colors.white,
-          fontWeight: FontWeight.w300),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 24,
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+      ),
       titleSmall: TextStyle(
-          fontFamily: 'SpaceGrotesk',
-          fontSize: 17,
-          color: Colors.white,
-          fontWeight: FontWeight.w300),
-      bodyLarge:
-          TextStyle(fontFamily: 'Nunito', fontSize: 17, color: Colors.white),
-      bodyMedium:
-          TextStyle(fontFamily: 'Nunito', fontSize: 13.5, color: Colors.white),
-      bodySmall:
-          TextStyle(fontFamily: 'Nunito', fontSize: 11, color: Colors.white),
-      labelLarge:
-          TextStyle(fontFamily: 'Nunito', fontSize: 17, color: Colors.white),
-      labelMedium:
-          TextStyle(fontFamily: 'Nunito', fontSize: 13.5, color: Colors.white),
-      labelSmall:
-          TextStyle(fontFamily: 'Nunito', fontSize: 11, color: Colors.white),
+        fontFamily: 'SpaceGrotesk',
+        fontSize: 17,
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+      ),
+      bodyLarge: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 17,
+        color: Colors.white,
+      ),
+      bodyMedium: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 13.5,
+        color: Colors.white,
+      ),
+      bodySmall: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 11,
+        color: Colors.white,
+      ),
+      labelLarge: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 17,
+        color: Colors.white,
+      ),
+      labelMedium: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 13.5,
+        color: Colors.white,
+      ),
+      labelSmall: TextStyle(
+        fontFamily: 'Nunito',
+        fontSize: 11,
+        color: Colors.white,
+      ),
     ),
     subThemesData: const FlexSubThemesData(
       interactionEffects: true,

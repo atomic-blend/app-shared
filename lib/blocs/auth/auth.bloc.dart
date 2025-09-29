@@ -49,6 +49,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<ConfirmResetPassword>(_onConfirmResetPassword);
     on<GetBackupKeyForResetPassword>(_onGetBackupKeyForPasswordReset);
     on<LoadConfig>(_onLoadConfig);
+    on<MnemonicDisplayed>(_onMnemonicDisplayed);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -80,6 +81,14 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         );
       } else if (e.response?.statusCode == 400) {
         emit(AuthError("email_malformed", prevState.user, prevState.appConfig));
+      } else {
+        if (e.type == DioExceptionType.connectionError) {
+          emit(
+            AuthError("connection_error", prevState.user, prevState.appConfig),
+          );
+        } else {
+          emit(AuthError("login_failed", prevState.user, prevState.appConfig));
+        }
       }
     }
   }
@@ -115,11 +124,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   @override
   AuthState? fromJson(Map<String, dynamic> json) {
     if (json['user'] != null) {
-      return LoggedIn(
-        UserEntity.fromJson(json['user']),
-        false,
-        ABConfig.fromJson(json['appConfig']),
-      );
+      ABConfig? appConfig;
+      if (json['appConfig'] != null) {
+        appConfig = ABConfig.fromJson(json['appConfig']);
+      }
+      return LoggedIn(UserEntity.fromJson(json['user']), false, appConfig);
     }
     return const LoggedOut(null, null);
   }
@@ -281,9 +290,22 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(Loading(prevState.user, prevState.appConfig));
     try {
       final result = await _configService.loadConfig();
-      emit(LoggedOut(prevState.user, result));
+      if (prevState is LoggedIn) {
+        emit(LoggedIn(prevState.user!, prevState.isRegistration, result));
+      } else {
+        emit(LoggedOut(prevState.user, result));
+      }
     } on Exception catch (e) {
       emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
+  }
+
+  FutureOr<void> _onMnemonicDisplayed(
+    MnemonicDisplayed event,
+    Emitter<AuthState> emit,
+  ) async {
+    final prevState = state;
+    emit(Loading(prevState.user, prevState.appConfig));
+    emit(LoggedIn(prevState.user!, false, prevState.appConfig));
   }
 }

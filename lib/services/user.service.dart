@@ -13,7 +13,6 @@ import 'package:dio/dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class UserService {
   SharedPreferences prefs;
   DeviceInfoService deviceInfoService;
@@ -22,7 +21,14 @@ class UserService {
   VoidCallback onLogout;
   // user id, access token, user data, encryption service
   Function(EncryptionService) onLogin;
-  UserService({required this.prefs, required this.deviceInfoService, required this.onLogout, required this.onLogin, required this.globalApiClient, required this.encryptionService});
+  UserService({
+    required this.prefs,
+    required this.deviceInfoService,
+    required this.onLogout,
+    required this.onLogin,
+    required this.globalApiClient,
+    required this.encryptionService,
+  });
 
   Future<void> logOut() async {
     onLogout();
@@ -33,10 +39,12 @@ class UserService {
     final result = await globalApiClient.post('/user/setup', data: user);
     if (result.statusCode == 201) {
       user.id = result.data['_id'];
-      user.roles = result.data['roles'].map<UserRoleEntity>((role) {
-        role['id'] = role['_id'];
-        return UserRoleEntity.fromJson(role);
-      }).toList() as List<UserRoleEntity>;
+      user.roles =
+          result.data['roles'].map<UserRoleEntity>((role) {
+                role['id'] = role['_id'];
+                return UserRoleEntity.fromJson(role);
+              }).toList()
+              as List<UserRoleEntity>;
 
       prefs.setString('user', json.encode(user.toJson()));
       Sentry.configureScope(
@@ -49,7 +57,9 @@ class UserService {
   }
 
   Future<UserEntity> updateUserDevice(
-      UserEntity user, UserDeviceEntity device) async {
+    UserEntity user,
+    UserDeviceEntity device,
+  ) async {
     final result = await globalApiClient.put('/users/device', data: device);
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
@@ -98,10 +108,10 @@ class UserService {
   }
 
   Future<UserEntity?> login(String email, String password) async {
-    final result = await globalApiClient.post('/auth/login', data: {
-      'email': email,
-      'password': password,
-    });
+    final result = await globalApiClient.post(
+      '/auth/login',
+      data: {'email': email, 'password': password},
+    );
     if (result.statusCode == 200) {
       final userData = result.data['user'];
       final user = UserEntity.fromJson(userData);
@@ -110,7 +120,12 @@ class UserService {
       await prefs.setString('refreshToken', result.data["refreshToken"]);
 
       // restore data key from password
-      EncryptionService encryptionService = EncryptionService(userSalt: user.keySet.salt, prefs: prefs, userKey: "", agePublicKey: "");
+      EncryptionService encryptionService = EncryptionService(
+        userSalt: user.keySet.salt,
+        prefs: prefs,
+        userKey: "",
+        agePublicKey: "",
+      );
       await encryptionService.restoreDataKey(password, user.keySet);
 
       Sentry.configureScope(
@@ -129,14 +144,18 @@ class UserService {
 
   Future<UserEntity?> register(String email, String password) async {
     // derive and persist key from password
-    EncryptionService encryptionService = EncryptionService(userSalt: "", prefs: prefs, userKey: "", agePublicKey: "");
+    EncryptionService encryptionService = EncryptionService(
+      userSalt: "",
+      prefs: prefs,
+      userKey: "",
+      agePublicKey: "",
+    );
     final keySet = await encryptionService.generateKeySet(password);
 
-    final result = await globalApiClient.post('/auth/register', data: {
-      'email': email,
-      'password': password,
-      'keySet': keySet?.toJson(),
-    });
+    final result = await globalApiClient.post(
+      '/auth/register',
+      data: {'email': email, 'password': password, 'keySet': keySet?.toJson()},
+    );
     if (result.statusCode == 201) {
       final userData = result.data['user'];
       userData['accessToken'] = result.data['accessToken'];
@@ -159,7 +178,12 @@ class UserService {
     }
   }
 
-  static Future<String?> refreshToken(EnvModel env, ApiClient globalApiClient, SharedPreferences prefs, UserEntity user) async {
+  static Future<String?> refreshToken(
+    EnvModel env,
+    ApiClient globalApiClient,
+    SharedPreferences prefs,
+    UserEntity user,
+  ) async {
     final refreshToken = user.refreshToken;
     if (refreshToken == null || refreshToken.isEmpty) {
       throw Exception('No refresh token available');
@@ -167,9 +191,7 @@ class UserService {
     final apiClient = Dio();
     apiClient.options = BaseOptions(
       baseUrl: env.restApiUrl,
-      headers: {
-        'Authorization': 'Bearer $refreshToken',
-      },
+      headers: {'Authorization': 'Bearer $refreshToken'},
     );
     final result = await apiClient.post('/auth/refresh');
     if (result.statusCode != 200) {
@@ -185,8 +207,10 @@ class UserService {
   }
 
   updateUserProfile(String userId, UserEntity userPayload) async {
-    final result =
-        await globalApiClient.put('/users/profile', data: userPayload);
+    final result = await globalApiClient.put(
+      '/users/profile',
+      data: userPayload,
+    );
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
       prefs.setString('user', json.encode(user.toJson()));
@@ -203,12 +227,15 @@ class UserService {
     required String newUserKey,
     required String newUserSalt,
   }) async {
-    final result = await globalApiClient.put('/users/password', data: {
-      'old_password': oldPassword,
-      'new_password': newPassword,
-      'user_key': newEncryptedDataKey,
-      'salt': newUserSalt,
-    });
+    final result = await globalApiClient.put(
+      '/users/password',
+      data: {
+        'old_password': oldPassword,
+        'new_password': newPassword,
+        'user_key': newEncryptedDataKey,
+        'salt': newUserSalt,
+      },
+    );
     if (result.statusCode == 200) {
       await encryptionService!.persistNewUserKey(newUserKey);
       return true;
@@ -218,9 +245,10 @@ class UserService {
   }
 
   Future<bool> startResetPassword(String email) async {
-    final result = await globalApiClient.post('/auth/reset-password', data: {
-      'email': email,
-    });
+    final result = await globalApiClient.post(
+      '/auth/reset-password',
+      data: {'email': email},
+    );
     if (result.statusCode == 200) {
       return true;
     } else {
@@ -237,16 +265,18 @@ class UserService {
     required String backupKey,
     required String backupSalt,
   }) async {
-    final result =
-        await globalApiClient.post('/auth/reset-password/confirm', data: {
-      'reset_code': resetCode,
-      'reset_data': resetData,
-      'new_password': newPassword,
-      'user_key': userKey,
-      'user_salt': userSalt,
-      'backup_key': backupKey,
-      'backup_salt': backupSalt,
-    });
+    final result = await globalApiClient.post(
+      '/auth/reset-password/confirm',
+      data: {
+        'reset_code': resetCode,
+        'reset_data': resetData,
+        'new_password': newPassword,
+        'user_key': userKey,
+        'user_salt': userSalt,
+        'backup_key': backupKey,
+        'backup_salt': backupSalt,
+      },
+    );
     if (result.statusCode == 200) {
       return true;
     } else {
@@ -255,11 +285,12 @@ class UserService {
   }
 
   Future<Map<String, dynamic>> getBackupKeyForPasswordReset(
-      String resetCode) async {
-    final result =
-        await globalApiClient.post('/auth/reset-password/backup-key', data: {
-      'reset_code': resetCode,
-    });
+    String resetCode,
+  ) async {
+    final result = await globalApiClient.post(
+      '/auth/reset-password/backup-key',
+      data: {'reset_code': resetCode},
+    );
     if (result.statusCode == 200) {
       return result.data;
     } else {
@@ -268,9 +299,13 @@ class UserService {
   }
 
   //check if user have an active subscription in purchases
-  static bool isSubscriptionActive(ApiClient globalApiClient, UserEntity? user) {
+  static bool isSubscriptionActive(
+    ApiClient globalApiClient,
+    UserEntity? user,
+  ) {
     if (globalApiClient.getSelfHostedRestApiUrl() != null &&
-        globalApiClient.getSelfHostedRestApiUrl() != globalApiClient.env?.restApiUrl) {
+        globalApiClient.getSelfHostedRestApiUrl() !=
+            globalApiClient.env?.restApiUrl) {
       // Self-hosted instance, no subscription logic
       return true;
     }
@@ -291,9 +326,10 @@ class UserService {
           try {
             final expirationAtMs = purchaseData['expiration_at_ms'];
             // Handle both int and string representations
-            final int expirationTimestamp = expirationAtMs is int
-                ? expirationAtMs
-                : int.parse(expirationAtMs.toString());
+            final int expirationTimestamp =
+                expirationAtMs is int
+                    ? expirationAtMs
+                    : int.parse(expirationAtMs.toString());
 
             if (expirationTimestamp > nowMs) {
               return true; // Found an active subscription
@@ -311,9 +347,10 @@ class UserService {
           if (purchaseData.containsKey('purchased_at_ms')) {
             try {
               final purchasedAtMs = purchaseData['purchased_at_ms'];
-              final int purchaseTimestamp = purchasedAtMs is int
-                  ? purchasedAtMs
-                  : int.parse(purchasedAtMs.toString());
+              final int purchaseTimestamp =
+                  purchasedAtMs is int
+                      ? purchasedAtMs
+                      : int.parse(purchasedAtMs.toString());
 
               // Consider it active if purchased recently (within last 30 days)
               // This is a fallback - ideally expiration_at_ms should always be present
@@ -348,9 +385,10 @@ class UserService {
             purchaseData['expiration_at_ms'] != null) {
           try {
             final expirationAtMs = purchaseData['expiration_at_ms'];
-            final int expirationTimestamp = expirationAtMs is int
-                ? expirationAtMs
-                : int.parse(expirationAtMs.toString());
+            final int expirationTimestamp =
+                expirationAtMs is int
+                    ? expirationAtMs
+                    : int.parse(expirationAtMs.toString());
 
             if (expirationTimestamp > nowMs) {
               return purchase; // Found an active subscription
@@ -376,11 +414,13 @@ class UserService {
     if (expirationAtMs == null) {
       throw Exception('Expiration at timestamp not found in purchase data');
     }
-    final int expirationTimestamp = expirationAtMs is int
-        ? expirationAtMs
-        : int.parse(expirationAtMs.toString());
-    final expirationDate =
-        DateTime.fromMillisecondsSinceEpoch(expirationTimestamp);
+    final int expirationTimestamp =
+        expirationAtMs is int
+            ? expirationAtMs
+            : int.parse(expirationAtMs.toString());
+    final expirationDate = DateTime.fromMillisecondsSinceEpoch(
+      expirationTimestamp,
+    );
     return expirationDate;
   }
 }

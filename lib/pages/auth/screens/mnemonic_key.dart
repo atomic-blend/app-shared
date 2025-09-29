@@ -10,21 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 
 class MnemonicKey extends StatefulWidget {
-  const MnemonicKey(
-      {super.key,
-      this.cancelCallback,
-      required this.onSuccess,
-      required this.mnemonic,
-      this.widgetMode});
-  final bool? widgetMode;
+  const MnemonicKey({
+    super.key,
+    required this.mnemonic,
+    required this.onSuccess,
+  });
   final String mnemonic;
-  final VoidCallback? cancelCallback;
   final VoidCallback onSuccess;
-
   @override
   State<MnemonicKey> createState() => _MnemonicKeyState();
 }
@@ -40,9 +35,7 @@ class _MnemonicKeyState extends State<MnemonicKey>
 
   @override
   initState() {
-    _animationController = AnimationController(
-      vsync: this,
-    );
+    _animationController = AnimationController(vsync: this);
     _mnemonic = widget.mnemonic;
     super.initState();
   }
@@ -65,23 +58,20 @@ class _MnemonicKeyState extends State<MnemonicKey>
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
-                    height: getSize(context).height * 0.08,
-                  ),
+                  SizedBox(height: getSize(context).height * 0.08),
                   Animate(
                     controller: _animationController,
                     effects: [
                       FadeEffect(
                         duration: _animationDuration,
                         delay: const Duration(milliseconds: 0),
-                      )
+                      ),
                     ],
                     onPlay: (controller) => controller.forward(),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: widget.widgetMode != true
-                              ? $constants.insets.md
-                              : 0),
+                        horizontal: $constants.insets.md,
+                      ),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -92,22 +82,19 @@ class _MnemonicKeyState extends State<MnemonicKey>
                               child: Lottie.asset(
                                 'assets/animations/computer_lock.json',
                                 fit: BoxFit.cover,
-                                width: isDesktop(context)
-                                    ? getSize(context).width * 0.2
-                                    : getSize(context).width * 0.5,
+                                width:
+                                    isDesktop(context)
+                                        ? getSize(context).width * 0.3
+                                        : getSize(context).width * 0.5,
                               ),
                             ),
                             AutoSizeText(
                               maxLines: 1,
                               context.t.auth.mnemonic_key.title,
-                              style:
-                                  getTextTheme(context).displaySmall!.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                              style: getTextTheme(context).displaySmall!
+                                  .copyWith(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              height: $constants.insets.xs,
-                            ),
+                            SizedBox(height: $constants.insets.xs),
                             SizedBox(
                               width: getSize(context).width * 0.9,
                               child: Text.rich(
@@ -123,16 +110,19 @@ class _MnemonicKeyState extends State<MnemonicKey>
                                       ),
                                     ),
                                     TextSpan(
-                                        text: context.t.auth.mnemonic_key
-                                            .description_end),
+                                      text:
+                                          context
+                                              .t
+                                              .auth
+                                              .mnemonic_key
+                                              .description_end,
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
                             if (_isConfirmStep == false) ...[
-                              SizedBox(
-                                height: $constants.insets.md,
-                              ),
+                              SizedBox(height: $constants.insets.md),
                               GestureDetector(
                                 onTap: () {
                                   //copy to clipboard
@@ -140,31 +130,34 @@ class _MnemonicKeyState extends State<MnemonicKey>
                                     ClipboardData(text: _mnemonic ?? ""),
                                   );
                                   ToastHelper.showSuccess(
-                                      context: context,
-                                      title: context
-                                          .t.auth.mnemonic_key.copy_success,
-                                      description: "");
+                                    context: context,
+                                    title:
+                                        context
+                                            .t
+                                            .auth
+                                            .mnemonic_key
+                                            .copy_success,
+                                    description: "",
+                                  );
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all($constants.insets.sm),
                                   decoration: BoxDecoration(
                                     color: getTheme(context).surfaceContainer,
                                     borderRadius: BorderRadius.circular(
-                                        $constants.corners.md),
+                                      $constants.corners.md,
+                                    ),
                                   ),
                                   child: Text(
                                     _mnemonic ?? "",
-                                    style: getTextTheme(context)
-                                        .titleSmall!
+                                    style: getTextTheme(context).titleSmall!
                                         .copyWith(fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                             if (_isConfirmStep == true) ...[
-                              SizedBox(
-                                height: $constants.insets.xs,
-                              ),
+                              SizedBox(height: $constants.insets.xs),
                               SizedBox(
                                 width: getSize(context).width * 0.9,
                                 child: AppTextFormField(
@@ -175,17 +168,23 @@ class _MnemonicKeyState extends State<MnemonicKey>
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return context
-                                          .t.auth.mnemonic_key.mnemonic_error;
+                                          .t
+                                          .auth
+                                          .mnemonic_key
+                                          .mnemonic_error;
                                     }
                                     if (value != _mnemonic) {
                                       return context
-                                          .t.auth.mnemonic_key.mnemonic_error;
+                                          .t
+                                          .auth
+                                          .mnemonic_key
+                                          .mnemonic_error;
                                     }
                                     return null;
                                   },
                                 ),
                               ),
-                            ]
+                            ],
                           ],
                         ),
                       ),
@@ -203,12 +202,13 @@ class _MnemonicKeyState extends State<MnemonicKey>
                       FadeEffect(
                         duration: _animationDuration,
                         delay: const Duration(milliseconds: 500),
-                      )
+                      ),
                     ],
                     onPlay: (controller) => controller.forward(),
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: $constants.insets.md),
+                        horizontal: $constants.insets.md,
+                      ),
                       height: getSize(context).height * 0.1,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,54 +231,27 @@ class _MnemonicKeyState extends State<MnemonicKey>
                                 return;
                               }
                               _animationController.reverseDuration =
-                                  const Duration(
-                                milliseconds: 500,
-                              );
+                                  const Duration(milliseconds: 500);
                               await _animationController.reverse(from: 1.0);
 
                               if (!context.mounted) return;
-                              Navigator.pop(context);
+                              widget.onSuccess();
                             },
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: isDesktop(context)
-                        ? $constants.insets.xs
-                        : $constants.insets.sm,
+                    height:
+                        isDesktop(context)
+                            ? $constants.insets.xs
+                            : $constants.insets.sm,
                   ),
                 ],
               ),
             ],
           ),
-          if (widget.widgetMode != true)
-            Positioned(
-              left: $constants.insets.sm,
-              top: $constants.insets.md,
-              child: GestureDetector(
-                onTap: widget.cancelCallback,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      OctIcons.arrow_left,
-                      size: 18,
-                    ),
-                    SizedBox(
-                      width: $constants.insets.xxs,
-                    ),
-                    Text(
-                      context.t.actions.back,
-                      style: getTextTheme(context)
-                          .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
         ],
       ),
     );

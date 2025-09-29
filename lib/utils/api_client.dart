@@ -20,7 +20,8 @@ class ApiClient {
 
   init() {
     readFromCache();
-    _dio.interceptors.add(PrettyDioLogger(
+    _dio.interceptors.add(
+      PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
         responseBody: true,
@@ -36,7 +37,9 @@ class ApiClient {
           }
           // don't print responses with unit8 list data
           return !args.isResponse || !args.hasUint8ListData;
-        }));
+        },
+      ),
+    );
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
@@ -54,8 +57,10 @@ class ApiClient {
         onError: (error, handler) async {
           try {
             if (error.response?.statusCode == 401 &&
-                !['/auth/login', '/auth/refresh']
-                    .contains(error.requestOptions.path)) {
+                ![
+                  '/auth/login',
+                  '/auth/refresh',
+                ].contains(error.requestOptions.path)) {
               // Get stored user data
               final userDataRaw = prefs?.getString('user');
               final refreshToken = prefs?.getString('refreshToken');
@@ -68,7 +73,12 @@ class ApiClient {
               user.refreshToken = refreshToken;
 
               try {
-                final newToken = await UserService.refreshToken(env!, this, prefs!, user);
+                final newToken = await UserService.refreshToken(
+                  env!,
+                  this,
+                  prefs!,
+                  user,
+                );
                 if (newToken == null) {
                   return handler.reject(error);
                 }
@@ -123,7 +133,11 @@ class ApiClient {
   }
 
   setIdToken(String? idToken) {
-    _dio.options.headers['Authorization'] = idToken == null ? null : 'Bearer $idToken';
+    if (idToken != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $idToken';
+      this.idToken = idToken;
+      prefs?.setString('accessToken', idToken);
+    }
   }
 
   Future<bool> setSelfHostedRestApiUrl(String url) async {
@@ -140,11 +154,17 @@ class ApiClient {
     }
   }
 
-  get(String path,
-      {Options? options, Map<String, dynamic>? queryParameters}) async {
+  get(
+    String path, {
+    Options? options,
+    Map<String, dynamic>? queryParameters,
+  }) async {
     readFromCache();
-    return await _dio.get(path,
-        options: options, queryParameters: queryParameters);
+    return await _dio.get(
+      path,
+      options: options,
+      queryParameters: queryParameters,
+    );
   }
 
   post(String path, {data}) async {

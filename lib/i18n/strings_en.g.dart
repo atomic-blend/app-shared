@@ -55,6 +55,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Map<String, String> get errors => {
 		'wrong_email_password': 'Email or password incorrect',
 		'email_malformed': 'Email malformed',
+		'connection_error': 'Could not connect to the server. Please check your internet connection and try again.',
 		'unknown_error': 'Unknown error',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
@@ -494,6 +495,12 @@ class TranslationsAuthNotLoggedInEn {
 
 	/// en: 'Welcome to Atomic Blend'
 	String get welcome => 'Welcome to Atomic Blend';
+
+	/// en: 'Register to Atomic Blend'
+	String get register_to_atomic_blend => 'Register to Atomic Blend';
+
+	/// en: 'Atomic Blend is your end-to-end encrypted suite of apps. Log in to access your account.'
+	String get log_in_to_your_account => 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
 
 	/// en: 'Atomic Blend is the first'
 	String get description_start => 'Atomic Blend is the first';
@@ -1222,6 +1229,8 @@ extension on Translations {
 			case 'app_name': return 'Atomic Blend';
 			case 'app_name_saas': return 'Atomic Blend Cloud';
 			case 'auth.not_logged_in.welcome': return 'Welcome to Atomic Blend';
+			case 'auth.not_logged_in.register_to_atomic_blend': return 'Register to Atomic Blend';
+			case 'auth.not_logged_in.log_in_to_your_account': return 'Atomic Blend is your end-to-end encrypted suite of apps.\nLog in to access your account.';
 			case 'auth.not_logged_in.description_start': return 'Atomic Blend is the first';
 			case 'auth.not_logged_in.e2e_app': return 'end-to-end encrypted app';
 			case 'auth.not_logged_in.description_middle': return 'that combines all the tools you need to manage both work and personal life in one place.\n\nFrom task management to note-taking, document writing, time tracking, movie tracking, food tracking, everything stays';
@@ -1343,6 +1352,7 @@ extension on Translations {
 			case 'validation.invalid_url': return 'invalid URL';
 			case 'errors.wrong_email_password': return 'Email or password incorrect';
 			case 'errors.email_malformed': return 'Email malformed';
+			case 'errors.connection_error': return 'Could not connect to the server. Please check your internet connection and try again.';
 			case 'errors.unknown_error': return 'Unknown error';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';

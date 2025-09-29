@@ -112,7 +112,6 @@ class _ResetPasswordState extends State<ResetPassword> {
               ),
             if (_currentStep == 5 && _newKeySet?.backupPhrase != null)
               MnemonicKey(
-                widgetMode: true,
                 mnemonic: _newKeySet!.backupPhrase!,
                 onSuccess: () {
                   Navigator.pop(context);
