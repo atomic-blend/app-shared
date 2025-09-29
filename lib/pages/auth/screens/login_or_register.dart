@@ -16,7 +16,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginOrRegisterScreen extends StatefulWidget {
   final EncryptionService? encryptionService;
   final VoidCallback? onRegister;
-  const LoginOrRegisterScreen({super.key, this.encryptionService, this.onRegister});
+  const LoginOrRegisterScreen({
+    super.key,
+    this.encryptionService,
+    this.onRegister,
+  });
 
   @override
   State<LoginOrRegisterScreen> createState() => _LoginOrRegisterScreenState();
@@ -145,19 +149,40 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                             SizedBox(height: $constants.insets.md),
                             SizedBox(
                               width: getSize(context).width * 0.9,
-                              child: AppTextFormField(
-                                controller: _emailController,
-                                hintText: context.t.auth.login.email,
-                                keyboardType: TextInputType.emailAddress,
+                              child: Animate(
+                                controller: _animationController,
+                                effects: [
+                                  FadeEffect(
+                                    duration: _animationDuration,
+                                    delay: const Duration(milliseconds: 300),
+                                  ),
+                                ],
+                                onPlay: (controller) => controller.forward(),
+                                child: AppTextFormField(
+                                  controller: _emailController,
+                                  hintText: context.t.auth.login.email,
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
                               ),
                             ),
                             SizedBox(height: $constants.insets.xs),
                             SizedBox(
                               width: getSize(context).width * 0.9,
-                              child: AppTextFormField(
-                                controller: _passwordController,
-                                hintText: context.t.auth.register.password_hint,
-                                obscureText: true,
+                              child: Animate(
+                                controller: _animationController,
+                                effects: [
+                                  FadeEffect(
+                                    duration: _animationDuration,
+                                    delay: const Duration(milliseconds: 300),
+                                  ),
+                                ],
+                                onPlay: (controller) => controller.forward(),
+                                child: AppTextFormField(
+                                  controller: _passwordController,
+                                  hintText:
+                                      context.t.auth.register.password_hint,
+                                  obscureText: true,
+                                ),
                               ),
                             ),
                             if (errorMessage != null) ...[
@@ -232,29 +257,49 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Divider(height: $constants.insets.sm),
-                          ),
-                          SizedBox(width: $constants.insets.sm),
-                          Text("or"),
-                          SizedBox(width: $constants.insets.sm),
-                          Expanded(
-                            child: Divider(height: $constants.insets.sm),
+                      Animate(
+                        controller: _animationController,
+                        effects: [
+                          FadeEffect(
+                            duration: _animationDuration,
+                            delay: const Duration(milliseconds: 300),
                           ),
                         ],
+                        onPlay: (controller) => controller.forward(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Divider(height: $constants.insets.sm),
+                            ),
+                            SizedBox(width: $constants.insets.sm),
+                            Text("or"),
+                            SizedBox(width: $constants.insets.sm),
+                            Expanded(
+                              child: Divider(height: $constants.insets.sm),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: $constants.insets.md),
-                      Center(
-                        child: PrimaryButtonSquare(
-                          text: context.t.auth.login_or_register.register,
-                          backgroundColor: getTheme(context).primary,
-                          outlined: true,
-                          onPressed: () {
-                            widget.onRegister?.call();
-                          },
+                      Animate(
+                        controller: _animationController,
+                        effects: [
+                          FadeEffect(
+                            duration: _animationDuration,
+                            delay: const Duration(milliseconds: 300),
+                          ),
+                        ],
+                        onPlay: (controller) => controller.forward(),
+                        child: Center(
+                          child: PrimaryButtonSquare(
+                            text: context.t.auth.login_or_register.register,
+                            backgroundColor: getTheme(context).primary,
+                            outlined: true,
+                            onPressed: () {
+                              widget.onRegister?.call();
+                            },
+                          ),
                         ),
                       ),
                     ],

@@ -177,98 +177,20 @@ class _RegisterEmailState extends State<RegisterEmail>
                                   children: [
                                     SizedBox(
                                       width: 240,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              getTheme(
-                                                context,
-                                              ).surfaceContainer,
-
-                                          borderRadius: BorderRadius.circular(
-                                            $constants.insets.sm,
+                                      child: Animate(
+                                        controller: _animationController,
+                                        effects: [
+                                          FadeEffect(
+                                            duration: _animationDuration,
+                                            delay: const Duration(
+                                              milliseconds: 300,
+                                            ),
                                           ),
-                                        ),
-                                        child: AppTextFormField(
-                                          controller: _usernameController,
-                                          hintText:
-                                              context.t.auth.login.username,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: $constants.insets.xs),
-                                    Expanded(
-                                      child: CustomPopup(
-                                        content: SizedBox(
-                                          width: getSize(context).width * 0.45,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                "Please select a domain",
-                                                style: getTextTheme(
-                                                  context,
-                                                ).headlineSmall!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: $constants.insets.sm,
-                                              ),
-                                              SingleChildScrollView(
-                                                child: Column(
-                                                  children: [
-                                                    ...authState.appConfig!.domains.map(
-                                                      (e) => Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                              bottom:
-                                                                  $constants
-                                                                      .insets
-                                                                      .sm,
-                                                            ),
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              domain = e;
-                                                            });
-                                                            Navigator.pop(
-                                                              context,
-                                                            );
-                                                          },
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                              color:
-                                                                  getTheme(
-                                                                    context,
-                                                                  ).surfaceContainer,
-
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                    $constants
-                                                                        .insets
-                                                                        .sm,
-                                                                  ),
-                                                            ),
-                                                            width:
-                                                                double.infinity,
-                                                            height: 45,
-                                                            child: Center(
-                                                              child: Text(e),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                        ],
+                                        onPlay:
+                                            (controller) =>
+                                                controller.forward(),
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: $constants.insets.sm,
-                                          ),
                                           decoration: BoxDecoration(
                                             color:
                                                 getTheme(
@@ -279,32 +201,144 @@ class _RegisterEmailState extends State<RegisterEmail>
                                               $constants.insets.sm,
                                             ),
                                           ),
-                                          height: 45,
-                                          // width: getSize(context).width * 0.45,
-                                          child: Row(
-                                            children: [
-                                              if (domain == null ||
-                                                  domain!.isEmpty)
-                                                Row(
-                                                  children: [
-                                                    Text("@"),
-                                                    SizedBox(
-                                                      width:
-                                                          $constants.insets.md,
-                                                    ),
-                                                    Text(
-                                                      "Please select a domain",
-                                                      style: getTextTheme(
-                                                        context,
-                                                      ).bodySmall!.copyWith(
-                                                        color: Colors.grey[700],
+                                          child: AppTextFormField(
+                                            controller: _usernameController,
+                                            hintText:
+                                                context.t.auth.login.username,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: $constants.insets.xs),
+                                    Expanded(
+                                      child: Animate(
+                                        controller: _animationController,
+                                        effects: [
+                                          FadeEffect(
+                                            duration: _animationDuration,
+                                            delay: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          ),
+                                        ],
+                                        onPlay:
+                                            (controller) =>
+                                                controller.forward(),
+                                        child: CustomPopup(
+                                          content: SizedBox(
+                                            width:
+                                                getSize(context).width * 0.45,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  "Please select a domain",
+                                                  style: getTextTheme(
+                                                    context,
+                                                  ).headlineSmall!.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: $constants.insets.sm,
+                                                ),
+                                                SingleChildScrollView(
+                                                  child: Column(
+                                                    children: [
+                                                      ...authState.appConfig!.domains.map(
+                                                        (e) => Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                bottom:
+                                                                    $constants
+                                                                        .insets
+                                                                        .sm,
+                                                              ),
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                domain = e;
+                                                              });
+                                                              Navigator.pop(
+                                                                context,
+                                                              );
+                                                            },
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                color:
+                                                                    getTheme(
+                                                                      context,
+                                                                    ).surfaceContainer,
+
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                      $constants
+                                                                          .insets
+                                                                          .sm,
+                                                                    ),
+                                                              ),
+                                                              width:
+                                                                  double
+                                                                      .infinity,
+                                                              height: 45,
+                                                              child: Center(
+                                                                child: Text(e),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                )
-                                              else
-                                                Text("@${domain!}"),
-                                            ],
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: $constants.insets.sm,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  getTheme(
+                                                    context,
+                                                  ).surfaceContainer,
+
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                    $constants.insets.sm,
+                                                  ),
+                                            ),
+                                            height: 45,
+                                            // width: getSize(context).width * 0.45,
+                                            child: Row(
+                                              children: [
+                                                if (domain == null ||
+                                                    domain!.isEmpty)
+                                                  Row(
+                                                    children: [
+                                                      Text("@"),
+                                                      SizedBox(
+                                                        width:
+                                                            $constants
+                                                                .insets
+                                                                .md,
+                                                      ),
+                                                      Text(
+                                                        "Please select a domain",
+                                                        style: getTextTheme(
+                                                          context,
+                                                        ).bodySmall!.copyWith(
+                                                          color:
+                                                              Colors.grey[700],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                else
+                                                  Text("@${domain!}"),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -314,11 +348,24 @@ class _RegisterEmailState extends State<RegisterEmail>
                                 SizedBox(height: $constants.insets.xs),
                                 SizedBox(
                                   width: getSize(context).width * 0.9,
-                                  child: AppTextFormField(
-                                    controller: _passwordController,
-                                    hintText:
-                                        context.t.auth.register.password_hint,
-                                    obscureText: true,
+                                  child: Animate(
+                                    controller: _animationController,
+                                    effects: [
+                                      FadeEffect(
+                                        duration: _animationDuration,
+                                        delay: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                      ),
+                                    ],
+                                    onPlay:
+                                        (controller) => controller.forward(),
+                                    child: AppTextFormField(
+                                      controller: _passwordController,
+                                      hintText:
+                                          context.t.auth.register.password_hint,
+                                      obscureText: true,
+                                    ),
                                   ),
                                 ),
                                 if (errorMessage != null) ...[
@@ -385,29 +432,49 @@ class _RegisterEmailState extends State<RegisterEmail>
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Divider(height: $constants.insets.sm),
-                              ),
-                              SizedBox(width: $constants.insets.sm),
-                              Text("or"),
-                              SizedBox(width: $constants.insets.sm),
-                              Expanded(
-                                child: Divider(height: $constants.insets.sm),
+                          Animate(
+                            controller: _animationController,
+                            effects: [
+                              FadeEffect(
+                                duration: _animationDuration,
+                                delay: const Duration(milliseconds: 300),
                               ),
                             ],
+                            onPlay: (controller) => controller.forward(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Divider(height: $constants.insets.sm),
+                                ),
+                                SizedBox(width: $constants.insets.sm),
+                                Text("or"),
+                                SizedBox(width: $constants.insets.sm),
+                                Expanded(
+                                  child: Divider(height: $constants.insets.sm),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: $constants.insets.md),
-                          Center(
-                            child: PrimaryButtonSquare(
-                              text: context.t.auth.login_or_register.login,
-                              backgroundColor: getTheme(context).primary,
-                              outlined: true,
-                              onPressed: () {
-                                widget.onLogin();
-                              },
+                          Animate(
+                            controller: _animationController,
+                            effects: [
+                              FadeEffect(
+                                duration: _animationDuration,
+                                delay: const Duration(milliseconds: 300),
+                              ),
+                            ],
+                            onPlay: (controller) => controller.forward(),
+                            child: Center(
+                              child: PrimaryButtonSquare(
+                                text: context.t.auth.login_or_register.login,
+                                backgroundColor: getTheme(context).primary,
+                                outlined: true,
+                                onPressed: () {
+                                  widget.onLogin();
+                                },
+                              ),
                             ),
                           ),
                         ],

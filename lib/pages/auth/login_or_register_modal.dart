@@ -3,7 +3,6 @@ import 'package:ab_shared/components/widgets/loading_city.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/auth/screens/mnemonic_key.dart';
 import 'package:ab_shared/pages/auth/screens/register_email.dart';
-import 'package:ab_shared/pages/auth/screens/register_password.dart';
 import 'package:ab_shared/pages/auth/screens/login_or_register.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/api_client.dart';
