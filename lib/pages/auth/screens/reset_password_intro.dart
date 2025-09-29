@@ -78,7 +78,7 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
                   controller: _lottieController,
                   onLoaded: (p0) => _lottieController.loop(),
                   'assets/animations/pwd_lost.json',
-                  width: getSize(context).width * 0.5,
+                  width: isDesktop(context) ? getSize(context).width * 0.3 : getSize(context).width * 0.5,
                 ),
               ),
             ),

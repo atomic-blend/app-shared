@@ -11,8 +11,11 @@ import 'package:lottie/lottie.dart';
 class ResetPasswordCode extends StatefulWidget {
   final TextEditingController emailCodeController;
   final VoidCallback? onNextCallback;
-  const ResetPasswordCode(
-      {super.key, required this.emailCodeController, this.onNextCallback});
+  const ResetPasswordCode({
+    super.key,
+    required this.emailCodeController,
+    this.onNextCallback,
+  });
 
   @override
   State<ResetPasswordCode> createState() => _ResetPasswordCodeState();
@@ -27,9 +30,7 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
 
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-    );
+    _animationController = AnimationController(vsync: this);
     _lottieController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3000),
@@ -53,9 +54,7 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: getSize(context).height * 0.1,
-          ),
+          SizedBox(height: getSize(context).height * 0.1),
           Animate(
             controller: _animationController,
             effects: [
@@ -69,12 +68,13 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
               controller: _lottieController,
               onLoaded: (p0) => _lottieController.forward(),
               'assets/animations/email.json',
-              width: getSize(context).width * 0.5,
+              width:
+                  isDesktop(context)
+                      ? getSize(context).width * 0.3
+                      : getSize(context).width * 0.5,
             ),
           ),
-          SizedBox(
-            height: $constants.insets.sm,
-          ),
+          SizedBox(height: $constants.insets.sm),
           SizedBox(
             width: double.infinity,
             child: Column(
@@ -83,30 +83,27 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
               children: [
                 AutoSizeText(
                   context.t.auth.reset_password.enter_the_confirmation_code,
-                  style: getTextTheme(context).titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: getTextTheme(
+                    context,
+                  ).titleMedium!.copyWith(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: $constants.insets.xs,
-                ),
+                SizedBox(height: $constants.insets.xs),
                 Text(context.t.auth.reset_password.confirmation_code_sent),
-                SizedBox(
-                  height: $constants.insets.sm,
-                ),
+                SizedBox(height: $constants.insets.sm),
                 Text(
                   context
-                      .t.auth.reset_password.confirmation_code_sent_description,
-                  style: getTextTheme(context).bodyMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      .t
+                      .auth
+                      .reset_password
+                      .confirmation_code_sent_description,
+                  style: getTextTheme(
+                    context,
+                  ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: $constants.insets.sm,
-          ),
+          SizedBox(height: $constants.insets.sm),
           Form(
             key: _formKey,
             child: Column(
@@ -114,14 +111,21 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
                 AppTextFormField(
                   controller: widget.emailCodeController,
                   labelText: context.t.auth.reset_password.confirmation_code,
-                  labelDescription: context
-                      .t.auth.reset_password.confirmation_code_description,
+                  labelDescription:
+                      context
+                          .t
+                          .auth
+                          .reset_password
+                          .confirmation_code_description,
                   hintText:
                       context.t.auth.reset_password.confirmation_code_hint,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return context
-                          .t.auth.reset_password.confirmation_code_required;
+                          .t
+                          .auth
+                          .reset_password
+                          .confirmation_code_required;
                     }
                     return null;
                   },
@@ -137,7 +141,7 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
               FadeEffect(
                 duration: _animationDuration,
                 delay: const Duration(milliseconds: 500),
-              )
+              ),
             ],
             onPlay: (controller) => controller.forward(),
             child: Container(
@@ -154,12 +158,13 @@ class _ResetPasswordCodeState extends State<ResetPasswordCode>
                       if (!_formKey.currentState!.validate()) {
                         return;
                       }
-                      _animationController.reverseDuration =
-                          const Duration(milliseconds: 500);
+                      _animationController.reverseDuration = const Duration(
+                        milliseconds: 500,
+                      );
                       _animationController.reverse();
                       widget.onNextCallback?.call();
                     },
-                  )
+                  ),
                 ],
               ),
             ),
