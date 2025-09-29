@@ -47,6 +47,7 @@ class TranslationsFr implements Translations {
 	@override Map<String, String> get errors => {
 		'wrong_email_password': 'Adresse e-mail ou mot de passe incorrect',
 		'email_malformed': 'Adresse e-mail invalide',
+		'connection_error': 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.',
 		'unknown_error': 'Une erreur inconnue s\'est produite',
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
@@ -973,6 +974,7 @@ extension on TranslationsFr {
 			case 'validation.invalid_url': return 'URL invalide';
 			case 'errors.wrong_email_password': return 'Adresse e-mail ou mot de passe incorrect';
 			case 'errors.email_malformed': return 'Adresse e-mail invalide';
+			case 'errors.connection_error': return 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.';
 			case 'errors.unknown_error': return 'Une erreur inconnue s\'est produite';
 			case 'name_generator.animals.0': return 'hibou';
 			case 'name_generator.animals.1': return 'renard';

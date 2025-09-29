@@ -168,6 +168,7 @@
   "errors(map)": {
     "wrong_email_password": "Email or password incorrect",
     "email_malformed": "Email malformed",
+    "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
     "unknown_error": "Unknown error"
   },
   "name_generator": {

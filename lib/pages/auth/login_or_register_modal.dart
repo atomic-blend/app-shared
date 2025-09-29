@@ -53,6 +53,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
             errorMessage = state.message;
           });
         }
+        print('state: $state');
         if (state is LoggedIn && state.isRegistration == true) {
           setState(() {
             _step = 5;
@@ -84,6 +85,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 0:
                 return LoginOrRegisterScreen(
                   encryptionService: widget.encryptionService,
+                  errorMessage: errorMessage,
                   onRegister: () {
                     setState(() {
                       _step = 1;
@@ -93,6 +95,7 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               case 1:
                 return RegisterEmail(
                   username: email,
+                  errorMessage: errorMessage,
                   onLogin: () {
                     setState(() {
                       _step = 0;

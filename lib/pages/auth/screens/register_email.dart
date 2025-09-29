@@ -18,10 +18,12 @@ class RegisterEmail extends StatefulWidget {
     this.username,
     this.domain,
     required this.onLogin,
+    this.errorMessage,
   });
   final String? username;
   final String? domain;
   final VoidCallback onLogin;
+  final String? errorMessage;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -41,6 +43,7 @@ class _RegisterEmailState extends State<RegisterEmail>
     _usernameController.text = widget.username ?? '';
     domain = widget.domain;
     _animationController = AnimationController(vsync: this);
+    errorMessage = widget.errorMessage;
     super.initState();
   }
 
@@ -368,24 +371,40 @@ class _RegisterEmailState extends State<RegisterEmail>
                                     ),
                                   ),
                                 ),
-                                if (errorMessage != null) ...[
+                                if (errorMessage != null &&
+                                    context.t.errors[errorMessage] != null) ...[
                                   SizedBox(height: $constants.insets.xs),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: $constants.insets.lg,
                                     ),
-                                    child: SizedBox(
-                                      width: getSize(context).width * 0.9,
-                                      child: Text(
-                                        context.t.errors[errorMessage] ??
-                                            context.t.errors["unknown_error"]!,
-                                        style: getTextTheme(context).labelSmall!
-                                            .copyWith(color: Colors.red),
+                                    child: Animate(
+                                      controller: _animationController,
+                                      effects: [
+                                        FadeEffect(
+                                          duration: _animationDuration,
+                                          delay: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                        ),
+                                      ],
+                                      onPlay:
+                                          (controller) => controller.forward(),
+                                      child: SizedBox(
+                                        width: getSize(context).width * 0.9,
+                                        child: Text(
+                                          context.t.errors[errorMessage]!,
+                                          style: getTextTheme(context)
+                                              .labelSmall!
+                                              .copyWith(color: Colors.red),
+                                        ),
                                       ),
                                     ),
                                   ),
+                                  SizedBox(height: $constants.insets.sm),
                                 ],
-                                SizedBox(height: $constants.insets.xxl),
+                                if (errorMessage == null)
+                                  SizedBox(height: $constants.insets.xl),
                                 Animate(
                                   controller: _animationController,
                                   effects: [

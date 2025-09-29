@@ -81,6 +81,14 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         );
       } else if (e.response?.statusCode == 400) {
         emit(AuthError("email_malformed", prevState.user, prevState.appConfig));
+      } else {
+        if (e.type == DioExceptionType.connectionError) {
+          emit(
+            AuthError("connection_error", prevState.user, prevState.appConfig),
+          );
+        } else {
+          emit(AuthError("login_failed", prevState.user, prevState.appConfig));
+        }
       }
     }
   }
@@ -292,9 +300,12 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> _onMnemonicDisplayed(MnemonicDisplayed event, Emitter<AuthState> emit) async {
+  FutureOr<void> _onMnemonicDisplayed(
+    MnemonicDisplayed event,
+    Emitter<AuthState> emit,
+  ) async {
     final prevState = state;
     emit(Loading(prevState.user, prevState.appConfig));
     emit(LoggedIn(prevState.user!, false, prevState.appConfig));
   }
-} 
+}

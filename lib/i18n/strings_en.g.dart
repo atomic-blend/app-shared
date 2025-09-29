@@ -55,6 +55,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Map<String, String> get errors => {
 		'wrong_email_password': 'Email or password incorrect',
 		'email_malformed': 'Email malformed',
+		'connection_error': 'Could not connect to the server. Please check your internet connection and try again.',
 		'unknown_error': 'Unknown error',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
@@ -1351,6 +1352,7 @@ extension on Translations {
 			case 'validation.invalid_url': return 'invalid URL';
 			case 'errors.wrong_email_password': return 'Email or password incorrect';
 			case 'errors.email_malformed': return 'Email malformed';
+			case 'errors.connection_error': return 'Could not connect to the server. Please check your internet connection and try again.';
 			case 'errors.unknown_error': return 'Unknown error';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';
