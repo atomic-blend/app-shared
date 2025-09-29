@@ -179,7 +179,10 @@ class _RegisterEmailState extends State<RegisterEmail>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                      width: 240,
+                                      width:
+                                          isDesktop(context)
+                                              ? 240
+                                              : getSize(context).width * 0.4,
                                       child: Animate(
                                         controller: _animationController,
                                         effects: [
