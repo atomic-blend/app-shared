@@ -61,9 +61,6 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
         }
         if (state is LoggedIn && state.isRegistration == false) {
           widget.onAuthSuccess.call();
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pop();
-          });
         }
       },
       child: SizedBox(
@@ -74,6 +71,14 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
               return LoadingAnimated(
                 imageWidth: getSize(context).width * 0.6,
                 title: context.t.loading.simple,
+              );
+            }
+            if (authState is LoggedIn && authState.isRegistration == true) {
+              return MnemonicKey(
+                onSuccess: () {
+                  context.read<AuthBloc>().add(MnemonicDisplayed());
+                },
+                mnemonic: authState.user?.keySet.backupPhrase ?? '',
               );
             }
             switch (_step) {
@@ -91,15 +96,10 @@ class _LoginOrRegisterModalState extends State<LoginOrRegisterModal> {
                   username: email,
                   onLogin: () {
                     setState(() {
-                      _step = 1;
+                      _step = 0;
                     });
                   },
                 );
-              // case 3:
-              //   return MnemonicKey(
-              //     onSuccess: () {},
-              //     mnemonic: authState.user?.keySet.backupPhrase ?? '',
-              //   );
             }
             return Container();
           },
