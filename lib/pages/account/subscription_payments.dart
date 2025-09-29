@@ -15,7 +15,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SubscriptionPayments extends StatefulWidget {
-  final RevenueCatService revenueCatService;
+  final RevenueCatService? revenueCatService;
   const SubscriptionPayments({super.key, required this.revenueCatService});
 
   @override
@@ -243,7 +243,7 @@ class _SubscriptionPaymentsState extends State<SubscriptionPayments> {
                       GestureDetector(
                         onTap: () async {
                           final managementUrl =
-                              await widget.revenueCatService.getManagementUrl();
+                              await widget.revenueCatService?.getManagementUrl();
                           if (managementUrl != null) {
                             await launchUrl(Uri.parse(managementUrl));
                           } else {

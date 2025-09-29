@@ -176,7 +176,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                      width: getSize(context).width * 0.4,
+                                      width: 240,
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color:
@@ -417,6 +417,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                 ),
               ],
             ),
+            if (isDesktop(context)) Spacer(),
           ],
         );
       },
