@@ -3,7 +3,6 @@ import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
-import 'package:ab_shared/pages/auth/screens/register_email.dart';
 import 'package:ab_shared/pages/auth/screens/reset_password.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/constants.dart';

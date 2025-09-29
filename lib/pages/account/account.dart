@@ -140,7 +140,7 @@ class _AccountState extends State<Account> {
                           MaterialPageRoute(
                             builder:
                                 (context) => SubscriptionPayments(
-                                  revenueCatService: widget?.revenueCatService,
+                                  revenueCatService: widget.revenueCatService,
                                 ),
                           ),
                         );

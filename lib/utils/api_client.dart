@@ -134,8 +134,7 @@ class ApiClient {
 
   setIdToken(String? idToken) {
     if (idToken != null) {
-      _dio.options.headers['Authorization'] =
-          idToken == null ? null : 'Bearer $idToken';
+      _dio.options.headers['Authorization'] = 'Bearer $idToken';
       this.idToken = idToken;
       prefs?.setString('accessToken', idToken);
     }
