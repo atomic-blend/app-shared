@@ -84,7 +84,7 @@ class _MnemonicKeyState extends State<MnemonicKey>
                                 fit: BoxFit.cover,
                                 width:
                                     isDesktop(context)
-                                        ? getSize(context).width * 0.2
+                                        ? getSize(context).width * 0.3
                                         : getSize(context).width * 0.5,
                               ),
                             ),
