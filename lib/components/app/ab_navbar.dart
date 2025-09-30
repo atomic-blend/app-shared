@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class NavigationItem extends StatelessWidget {
     this.selectedIcon,
     this.onTap,
     this.tooltip,
+    this.desktopOnly,
     this.enabled = true,
     this.body,
     this.initialsOnly,
@@ -74,6 +76,10 @@ class NavigationItem extends StatelessWidget {
   /// Usually used for the secondary menu
   final List<NavigationItem>? subItems;
 
+  /// Optional desktopOnly
+  /// Used to display an item only on desktop
+  final bool? desktopOnly;
+
   @override
   Widget build(BuildContext context) {
     return Icon(icon);
@@ -123,6 +129,14 @@ class ABNavbar extends StatefulWidget {
 
 class _ABNavbarState extends State<ABNavbar> {
   int selectedIndex = 0;
+
+  // Filter out desktopOnly items
+  List<NavigationItem> get filteredDestinations {
+    return widget.destinations
+        .where((item) => item.desktopOnly != true)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -149,17 +163,18 @@ class _ABNavbarState extends State<ABNavbar> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Show first 2 items
-          ...widget.destinations
+          ...filteredDestinations
               .take(2)
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final index = widget.destinations.indexOf(e);
+                    final index = filteredDestinations.indexOf(e);
                     setState(() {
                       selectedIndex = index;
                     });
                     // Check if the tapped item has its own onTap handler
-                    if (widget.destinations.length > index && e.onTap != null) {
+                    if (filteredDestinations.length > index &&
+                        e.onTap != null) {
                       e.onTap!(index);
                     }
                     // Otherwise use the default handler
@@ -167,7 +182,7 @@ class _ABNavbarState extends State<ABNavbar> {
                       widget.onTap!(index);
                     } else {
                       widget.onPrimaryMenuSelected(
-                        (widget.destinations[index].key as ValueKey).value,
+                        (filteredDestinations[index].key as ValueKey).value,
                       );
                       if (e.mainSecondaryKey != null) {
                         widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
@@ -185,7 +200,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == widget.destinations.indexOf(e)
+                                selectedIndex == filteredDestinations.indexOf(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -199,7 +214,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontWeight: FontWeight.w700,
                                 color:
                                     selectedIndex ==
-                                            widget.destinations.indexOf(e)
+                                            filteredDestinations.indexOf(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),
@@ -271,18 +286,23 @@ class _ABNavbarState extends State<ABNavbar> {
                 ),
               ),
             ),
-          // Show last 2 items
-          ...widget.destinations
+          // Show last 2 items (or more if there are more than 4 total items)
+          ...filteredDestinations
               .skip(2)
+              .take(
+                filteredDestinations.length > 4
+                    ? 2
+                    : filteredDestinations.length - 2,
+              )
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final originalIndex = widget.destinations.indexOf(e);
+                    final originalIndex = filteredDestinations.indexOf(e);
                     setState(() {
                       selectedIndex = originalIndex;
                     });
                     // Check if the tapped item has its own onTap handler
-                    if (widget.destinations.length > originalIndex &&
+                    if (filteredDestinations.length > originalIndex &&
                         e.onTap != null) {
                       e.onTap!(originalIndex);
                     }
@@ -291,7 +311,7 @@ class _ABNavbarState extends State<ABNavbar> {
                       widget.onTap!(originalIndex);
                     } else {
                       widget.onPrimaryMenuSelected(
-                        (widget.destinations[originalIndex].key as ValueKey)
+                        (filteredDestinations[originalIndex].key as ValueKey)
                             .value,
                       );
                       if (e.mainSecondaryKey != null) {
@@ -310,7 +330,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == widget.destinations.indexOf(e)
+                                selectedIndex == filteredDestinations.indexOf(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -324,7 +344,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontWeight: FontWeight.w700,
                                 color:
                                     selectedIndex ==
-                                            widget.destinations.indexOf(e)
+                                            filteredDestinations.indexOf(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),
@@ -336,6 +356,101 @@ class _ABNavbarState extends State<ABNavbar> {
                   ),
                 ),
               ),
+          // Add "more" button if there are more than 4 items
+          if (filteredDestinations.length > 4)
+            GestureDetector(
+              onTap: () {
+                // Show modal with remaining items
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder:
+                      (context) => Container(
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all($constants.insets.md),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "More",
+                                    style: getTextTheme(context).headlineSmall!
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: () => Navigator.pop(context),
+                                    child: Icon(
+                                      CupertinoIcons.xmark_circle_fill,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: filteredDestinations.length - 4,
+                                itemBuilder: (context, index) {
+                                  final item = filteredDestinations[4 + index];
+                                  return ListTile(
+                                    leading: Icon(
+                                      getIcon(item.icon, item.cupertinoIcon),
+                                    ),
+                                    title: Text(item.label),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      if (item.onTap != null) {
+                                        item.onTap!(4 + index);
+                                      } else {
+                                        widget.onPrimaryMenuSelected(
+                                          (item.key as ValueKey).value,
+                                        );
+                                        if (item.mainSecondaryKey != null) {
+                                          widget.onSecondaryMenuSelected(
+                                            item.mainSecondaryKey!,
+                                          );
+                                        }
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all($constants.insets.xxs),
+                child: Container(
+                  padding: EdgeInsets.all($constants.insets.xs),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        CupertinoIcons.ellipsis_circle_fill,
+                        color: Colors.grey.shade600,
+                        size: 25,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 2),
+                        child: Text(
+                          "More",
+                          style: getTextTheme(context).bodyMedium?.copyWith(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
