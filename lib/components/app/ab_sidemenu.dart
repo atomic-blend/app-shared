@@ -8,6 +8,7 @@ import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,16 @@ class ABSideMenu extends StatelessWidget {
   final List<NavigationItem> primaryMenuItems;
   final Function(NavigationItem) onItemTap;
   final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
+  final String? primaryMenuKey;
+  final String? secondaryMenuKey;
   const ABSideMenu({
     super.key,
     required this.controller,
     required this.primaryMenuItems,
     required this.onItemTap,
     required this.onSubItemTap,
+    this.primaryMenuKey,
+    this.secondaryMenuKey,
   });
 
   @override
@@ -171,6 +176,7 @@ class ABSideMenu extends StatelessWidget {
                             horizontal: $constants.insets.md,
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(height: $constants.insets.xs),
@@ -187,6 +193,7 @@ class ABSideMenu extends StatelessWidget {
                                     item.subItems!.isEmpty) {
                                   // return the main item with the icon and the label
                                   return _buildItemRow(
+                                    context,
                                     item,
                                     padding: EdgeInsets.only(
                                       bottom: $constants.insets.sm,
@@ -196,22 +203,47 @@ class ABSideMenu extends StatelessWidget {
                                 } else {
                                   final children = <Widget>[];
                                   for (var subItem in item.subItems!) {
+                                    bool selected = false;
+                                    print("subItem.key: ${subItem.key}");
+                                    print(
+                                      "secondaryMenuKey: $secondaryMenuKey",
+                                    );
+                                    print("primaryMenuKey: $primaryMenuKey");
+                                    print(
+                                      "(subItem.key as ValueKey).value: ${(subItem.key as ValueKey).value}",
+                                    );
+                                    print(
+                                      "(subItem.key as ValueKey).value == secondaryMenuKey: ${(subItem.key as ValueKey).value == secondaryMenuKey}",
+                                    );
+                                    print(
+                                      "(subItem.key as ValueKey).value == primaryMenuKey: ${(subItem.key as ValueKey).value == primaryMenuKey}",
+                                    );
+                                    print("selected: $selected");
+                                    if ((subItem.key as ValueKey).value ==
+                                        secondaryMenuKey) {
+                                      selected = true;
+                                    }
                                     // return the sub item with the icon and the label
                                     children.add(
                                       _buildItemRow(
+                                        context,
                                         subItem,
                                         padding: EdgeInsets.zero,
+                                        selected: selected,
+                                        margin: EdgeInsets.symmetric(
+                                          horizontal: $constants.insets.xs,
+                                        ),
                                         onTap:
                                             () => onSubItemTap(item, subItem),
                                       ),
                                     );
                                   }
                                   return Column(
-                                    mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       _buildItemRow(
+                                        context,
                                         item,
                                         padding: EdgeInsets.only(
                                           bottom: $constants.insets.xxs,
@@ -227,19 +259,18 @@ class ABSideMenu extends StatelessWidget {
                                             VerticalDivider(
                                               color: Colors.grey.shade300,
                                             ),
-                                            SizedBox(
-                                              width: $constants.insets.xs,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: $constants.insets.xs,
-                                                bottom: $constants.insets.xs,
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                spacing: $constants.insets.sm,
-                                                children: [...children],
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: $constants.insets.xs,
+                                                  bottom: $constants.insets.xs,
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  spacing: $constants.insets.sm,
+                                                  children: [...children],
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -354,22 +385,35 @@ class ABSideMenu extends StatelessWidget {
   }
 
   Widget _buildItemRow(
+    BuildContext context,
     NavigationItem item, {
     EdgeInsets? padding,
+    EdgeInsets? margin,
     VoidCallback? onTap,
+    bool? selected,
   }) {
     return GestureDetector(
       onTap: () => onTap?.call(),
       child: Padding(
         padding: padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-
-          children: [
-            _getIcon(item),
-            SizedBox(width: $constants.insets.xs),
-            Text(item.label),
-          ],
+        child: Container(
+          decoration: BoxDecoration(
+            color:
+                selected == true
+                    ? getTheme(context).surfaceContainer.darken(10)
+                    : Colors.transparent,
+            borderRadius: BorderRadius.circular($constants.corners.sm),
+          ),
+          padding: margin,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              _getIcon(item),
+              SizedBox(width: $constants.insets.xs),
+              Text(item.label),
+            ],
+          ),
         ),
       ),
     );
