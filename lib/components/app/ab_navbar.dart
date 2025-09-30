@@ -28,6 +28,7 @@ class NavigationItem extends StatelessWidget {
     this.color,
     this.separatorBefore,
     this.subItems,
+    this.mobileOnly,
   });
 
   /// The icon displayed by the destination.
@@ -79,6 +80,10 @@ class NavigationItem extends StatelessWidget {
   /// Optional desktopOnly
   /// Used to display an item only on desktop
   final bool? desktopOnly;
+
+  /// Optional mobileOnly
+  /// Used to display an item only on mobile
+  final bool? mobileOnly;
 
   @override
   Widget build(BuildContext context) {
