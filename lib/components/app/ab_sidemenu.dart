@@ -44,7 +44,67 @@ class ABSideMenu extends StatelessWidget {
                 builder: (data) {
                   //TODO: header with the list of apps available + open with deep link in a custom popup
                   return SideMenuData(
-                    header: Container(),
+                    header: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: $constants.insets.sm,
+                        horizontal: $constants.insets.xs,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                $constants.corners.md,
+                              ),
+                              border: Border.all(
+                                color: Colors.grey.shade300,
+                                width: 1,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                $constants.corners.md,
+                              ),
+                              child: Image.asset(
+                                "assets/images/atomic_blend_logo.png",
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: $constants.insets.xs),
+                          SizedBox(
+                            width: 100,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.t.app_name,
+                                  style: getTextTheme(context).bodyMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "See all the apps",
+                                  style: getTextTheme(context).bodySmall!
+                                      .copyWith(color: Colors.grey.shade500),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: $constants.insets.sm),
+                          Icon(
+                            CupertinoIcons.chevron_up_chevron_down,
+                            size: 12,
+                          ),
+                        ],
+                      ),
+                    ),
                     footer: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: $constants.insets.sm,
@@ -102,93 +162,93 @@ class ABSideMenu extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(height: $constants.insets.xs),
-                          ...primaryMenuItems.map(
-                            (item) => Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => onTap(item),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: $constants.insets.sm,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              width: 40,
-                                              height: 40,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    item.color != null
-                                                        ? item.color!
-                                                            .withValues(
-                                                              alpha: 0.1,
-                                                            )
-                                                        : Colors.grey.shade500
-                                                            .withValues(
-                                                              alpha: 0.2,
-                                                            ),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                      $constants.corners.lg,
-                                                    ),
-                                              ),
-                                              child:
-                                                  item.initialsOnly == true
-                                                      ? Center(
-                                                        child: Text(
-                                                          _getInitials(
-                                                            item.label,
-                                                          ),
-                                                          style: getTextTheme(
-                                                            context,
-                                                          ).bodyLarge!.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                item.color !=
-                                                                        null
-                                                                    ? item
-                                                                        .color!
-                                                                    : Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                          ),
-                                                        ),
-                                                      )
-                                                      : IconTheme(
-                                                        data: IconThemeData(
-                                                          color:
-                                                              item.color != null
-                                                                  ? item.color!
-                                                                  : Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                        ),
-                                                        child:
-                                                            isApple(context)
-                                                                ? Icon(
-                                                                  item.cupertinoIcon,
-                                                                )
-                                                                : Icon(
-                                                                  item.icon,
-                                                                ),
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: $constants.insets.sm),
-                                        Text(item.label),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // ...primaryMenuItems.map(
+                          //   (item) => Column(
+                          //     mainAxisSize: MainAxisSize.min,
+                          //     children: [
+                          //       GestureDetector(
+                          //         onTap: () => onTap(item),
+                          //         child: Padding(
+                          //           padding: EdgeInsets.symmetric(
+                          //             horizontal: $constants.insets.sm,
+                          //           ),
+                          //           child: Row(
+                          //             children: [
+                          //               Column(
+                          //                 mainAxisSize: MainAxisSize.min,
+                          //                 children: [
+                          //                   Container(
+                          //                     width: 40,
+                          //                     height: 40,
+                          //                     decoration: BoxDecoration(
+                          //                       color:
+                          //                           item.color != null
+                          //                               ? item.color!
+                          //                                   .withValues(
+                          //                                     alpha: 0.1,
+                          //                                   )
+                          //                               : Colors.grey.shade500
+                          //                                   .withValues(
+                          //                                     alpha: 0.2,
+                          //                                   ),
+                          //                       borderRadius:
+                          //                           BorderRadius.circular(
+                          //                             $constants.corners.lg,
+                          //                           ),
+                          //                     ),
+                          //                     child:
+                          //                         item.initialsOnly == true
+                          //                             ? Center(
+                          //                               child: Text(
+                          //                                 _getInitials(
+                          //                                   item.label,
+                          //                                 ),
+                          //                                 style: getTextTheme(
+                          //                                   context,
+                          //                                 ).bodyLarge!.copyWith(
+                          //                                   fontWeight:
+                          //                                       FontWeight.bold,
+                          //                                   color:
+                          //                                       item.color !=
+                          //                                               null
+                          //                                           ? item
+                          //                                               .color!
+                          //                                           : Colors
+                          //                                               .grey
+                          //                                               .shade800,
+                          //                                 ),
+                          //                               ),
+                          //                             )
+                          //                             : IconTheme(
+                          //                               data: IconThemeData(
+                          //                                 color:
+                          //                                     item.color != null
+                          //                                         ? item.color!
+                          //                                         : Colors
+                          //                                             .grey
+                          //                                             .shade800,
+                          //                               ),
+                          //                               child:
+                          //                                   isApple(context)
+                          //                                       ? Icon(
+                          //                                         item.cupertinoIcon,
+                          //                                       )
+                          //                                       : Icon(
+                          //                                         item.icon,
+                          //                                       ),
+                          //                             ),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //               SizedBox(width: $constants.insets.sm),
+                          //               Text(item.label),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
