@@ -55,6 +55,7 @@ dependencies:
   json_serializable: ^6.9.5
   json_annotation: ^4.9.0
   flutter_popup: ^3.3.9
+  flutter_side_menu: ^0.5.41
 
 dev_dependencies:
   flutter_test:
