@@ -25,6 +25,7 @@ class NavigationItem extends StatelessWidget {
     this.mainSecondaryKey,
     this.color,
     this.separatorBefore,
+    this.subItems,
   });
 
   /// The icon displayed by the destination.
@@ -67,6 +68,11 @@ class NavigationItem extends StatelessWidget {
   ///
   /// The callback provides the index of the item in the navigation bar.
   final Function(int)? onTap;
+
+  /// Optional sub items
+  /// Used to display a list of items in a collapsible menu
+  /// Usually used for the secondary menu
+  final List<NavigationItem>? subItems;
 
   @override
   Widget build(BuildContext context) {

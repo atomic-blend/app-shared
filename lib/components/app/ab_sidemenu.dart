@@ -42,8 +42,10 @@ class ABSideMenu extends StatelessWidget {
                 hasResizer: false,
                 hasResizerToggle: false,
                 builder: (data) {
+                  //TODO: header with the list of apps available + open with deep link in a custom popup
                   return SideMenuData(
-                    header: Padding(
+                    header: Container(),
+                    footer: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: $constants.insets.sm,
                         horizontal: $constants.insets.xs,
@@ -104,18 +106,6 @@ class ABSideMenu extends StatelessWidget {
                             (item) => Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                if (item.separatorBefore != true)
-                                  SizedBox(height: $constants.insets.xxs),
-                                if (item.separatorBefore == true)
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: $constants.insets.sm,
-                                    ),
-                                    child: Divider(
-                                      color: Colors.grey.shade300,
-                                      thickness: 2,
-                                    ),
-                                  ),
                                 GestureDetector(
                                   onTap: () => onTap(item),
                                   child: Padding(
@@ -131,16 +121,6 @@ class ABSideMenu extends StatelessWidget {
                                               width: 40,
                                               height: 40,
                                               decoration: BoxDecoration(
-                                                // border:
-                                                //     appState.primaryMenuSelectedKey ==
-                                                //             (item.key as ValueKey)
-                                                //                 .value
-                                                //         ? Border.all(
-                                                //           color:
-                                                //               Colors.grey.shade500,
-                                                //           width: 1,
-                                                //         )
-                                                //         : null,
                                                 color:
                                                     item.color != null
                                                         ? item.color!
