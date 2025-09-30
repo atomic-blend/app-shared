@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/initial_avatar.dart';
@@ -7,6 +9,7 @@ import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
@@ -14,12 +17,14 @@ import 'package:flutter_side_menu/flutter_side_menu.dart';
 class ABSideMenu extends StatelessWidget {
   final SideMenuController controller;
   final List<NavigationItem> primaryMenuItems;
-  final Function(NavigationItem) onTap;
+  final Function(NavigationItem) onItemTap;
+  final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
   const ABSideMenu({
     super.key,
     required this.controller,
     required this.primaryMenuItems,
-    required this.onTap,
+    required this.onItemTap,
+    required this.onSubItemTap,
   });
 
   @override
@@ -158,98 +163,168 @@ class ABSideMenu extends StatelessWidget {
                       ),
                     ),
                     customChild: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(height: $constants.insets.xs),
-                          // ...primaryMenuItems.map(
-                          //   (item) => Column(
-                          //     mainAxisSize: MainAxisSize.min,
-                          //     children: [
-                          //       GestureDetector(
-                          //         onTap: () => onTap(item),
-                          //         child: Padding(
-                          //           padding: EdgeInsets.symmetric(
-                          //             horizontal: $constants.insets.sm,
-                          //           ),
-                          //           child: Row(
-                          //             children: [
-                          //               Column(
-                          //                 mainAxisSize: MainAxisSize.min,
-                          //                 children: [
-                          //                   Container(
-                          //                     width: 40,
-                          //                     height: 40,
-                          //                     decoration: BoxDecoration(
-                          //                       color:
-                          //                           item.color != null
-                          //                               ? item.color!
-                          //                                   .withValues(
-                          //                                     alpha: 0.1,
-                          //                                   )
-                          //                               : Colors.grey.shade500
-                          //                                   .withValues(
-                          //                                     alpha: 0.2,
-                          //                                   ),
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(
-                          //                             $constants.corners.lg,
-                          //                           ),
-                          //                     ),
-                          //                     child:
-                          //                         item.initialsOnly == true
-                          //                             ? Center(
-                          //                               child: Text(
-                          //                                 _getInitials(
-                          //                                   item.label,
-                          //                                 ),
-                          //                                 style: getTextTheme(
-                          //                                   context,
-                          //                                 ).bodyLarge!.copyWith(
-                          //                                   fontWeight:
-                          //                                       FontWeight.bold,
-                          //                                   color:
-                          //                                       item.color !=
-                          //                                               null
-                          //                                           ? item
-                          //                                               .color!
-                          //                                           : Colors
-                          //                                               .grey
-                          //                                               .shade800,
-                          //                                 ),
-                          //                               ),
-                          //                             )
-                          //                             : IconTheme(
-                          //                               data: IconThemeData(
-                          //                                 color:
-                          //                                     item.color != null
-                          //                                         ? item.color!
-                          //                                         : Colors
-                          //                                             .grey
-                          //                                             .shade800,
-                          //                               ),
-                          //                               child:
-                          //                                   isApple(context)
-                          //                                       ? Icon(
-                          //                                         item.cupertinoIcon,
-                          //                                       )
-                          //                                       : Icon(
-                          //                                         item.icon,
-                          //                                       ),
-                          //                             ),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //               SizedBox(width: $constants.insets.sm),
-                          //               Text(item.label),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                        ],
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: $constants.insets.md,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: $constants.insets.xs),
+                            ...primaryMenuItems.map((item) {
+                              if (item.subItems == null ||
+                                  item.subItems!.isEmpty) {
+                                // return the main item with the icon and the label
+                                return _buildItemRow(
+                                  item,
+                                  padding: EdgeInsets.only(
+                                    bottom: $constants.insets.sm,
+                                  ),
+                                  onTap: () => onItemTap(item),
+                                );
+                              } else {
+                                final children = <Widget>[];
+                                for (var subItem in item.subItems!) {
+                                  // return the sub item with the icon and the label
+                                  children.add(
+                                    _buildItemRow(
+                                      subItem,
+                                      padding: EdgeInsets.zero,
+                                      onTap: () => onSubItemTap(item, subItem),
+                                    ),
+                                  );
+                                }
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildItemRow(
+                                      item,
+                                      padding: EdgeInsets.only(
+                                        bottom: $constants.insets.xxs,
+                                      ),
+                                      onTap: () => onItemTap(item),
+                                    ),
+                                    IntrinsicHeight(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          VerticalDivider(
+                                            color: Colors.grey.shade300,
+                                          ),
+                                          SizedBox(width: $constants.insets.xs),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: $constants.insets.xs,
+                                              bottom: $constants.insets.xs,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              spacing: $constants.insets.sm,
+                                              children: [...children],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: $constants.insets.sm),
+                                  ],
+                                );
+                              }
+                              return Container();
+                            }),
+                            // ...primaryMenuItems.map(
+                            //   (item) => Column(
+                            //     mainAxisSize: MainAxisSize.min,
+                            //     children: [
+                            //       GestureDetector(
+                            //         onTap: () => onTap(item),
+                            //         child: Padding(
+                            //           padding: EdgeInsets.symmetric(
+                            //             horizontal: $constants.insets.sm,
+                            //           ),
+                            //           child: Row(
+                            //             children: [
+                            //               Column(
+                            //                 mainAxisSize: MainAxisSize.min,
+                            //                 children: [
+                            //                   Container(
+                            //                     width: 40,
+                            //                     height: 40,
+                            //                     decoration: BoxDecoration(
+                            //                       color:
+                            //                           item.color != null
+                            //                               ? item.color!
+                            //                                   .withValues(
+                            //                                     alpha: 0.1,
+                            //                                   )
+                            //                               : Colors.grey.shade500
+                            //                                   .withValues(
+                            //                                     alpha: 0.2,
+                            //                                   ),
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(
+                            //                             $constants.corners.lg,
+                            //                           ),
+                            //                     ),
+                            //                     child:
+                            //                         item.initialsOnly == true
+                            //                             ? Center(
+                            //                               child: Text(
+                            //                                 _getInitials(
+                            //                                   item.label,
+                            //                                 ),
+                            //                                 style: getTextTheme(
+                            //                                   context,
+                            //                                 ).bodyLarge!.copyWith(
+                            //                                   fontWeight:
+                            //                                       FontWeight.bold,
+                            //                                   color:
+                            //                                       item.color !=
+                            //                                               null
+                            //                                           ? item
+                            //                                               .color!
+                            //                                           : Colors
+                            //                                               .grey
+                            //                                               .shade800,
+                            //                                 ),
+                            //                               ),
+                            //                             )
+                            //                             : IconTheme(
+                            //                               data: IconThemeData(
+                            //                                 color:
+                            //                                     item.color != null
+                            //                                         ? item.color!
+                            //                                         : Colors
+                            //                                             .grey
+                            //                                             .shade800,
+                            //                               ),
+                            //                               child:
+                            //                                   isApple(context)
+                            //                                       ? Icon(
+                            //                                         item.cupertinoIcon,
+                            //                                       )
+                            //                                       : Icon(
+                            //                                         item.icon,
+                            //                                       ),
+                            //                             ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               SizedBox(width: $constants.insets.sm),
+                            //               Text(item.label),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -260,6 +335,36 @@ class ABSideMenu extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _buildItemRow(
+    NavigationItem item, {
+    EdgeInsets? padding,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: () => onTap?.call(),
+      child: Padding(
+        padding: padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          children: [
+            _getIcon(item),
+            SizedBox(width: $constants.insets.xs),
+            Text(item.label),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getIcon(NavigationItem item) {
+    if (!kIsWasm && (Platform.isIOS || Platform.isMacOS)) {
+      return Icon(item.cupertinoIcon, size: 18);
+    } else {
+      return Icon(item.icon, size: 18);
+    }
   }
 
   String _getInitials(String name) {
