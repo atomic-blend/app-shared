@@ -195,8 +195,15 @@ class ABSideMenu extends StatelessWidget {
                                   return _buildItemRow(
                                     context,
                                     item,
+                                    selected:
+                                        (item.key as ValueKey).value ==
+                                        primaryMenuKey,
                                     padding: EdgeInsets.only(
                                       bottom: $constants.insets.sm,
+                                    ),
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: $constants.insets.xs,
+                                      vertical: $constants.insets.xxs,
                                     ),
                                     onTap: () => onItemTap(item),
                                   );
@@ -204,23 +211,10 @@ class ABSideMenu extends StatelessWidget {
                                   final children = <Widget>[];
                                   for (var subItem in item.subItems!) {
                                     bool selected = false;
-                                    print("subItem.key: ${subItem.key}");
-                                    print(
-                                      "secondaryMenuKey: $secondaryMenuKey",
-                                    );
-                                    print("primaryMenuKey: $primaryMenuKey");
-                                    print(
-                                      "(subItem.key as ValueKey).value: ${(subItem.key as ValueKey).value}",
-                                    );
-                                    print(
-                                      "(subItem.key as ValueKey).value == secondaryMenuKey: ${(subItem.key as ValueKey).value == secondaryMenuKey}",
-                                    );
-                                    print(
-                                      "(subItem.key as ValueKey).value == primaryMenuKey: ${(subItem.key as ValueKey).value == primaryMenuKey}",
-                                    );
-                                    print("selected: $selected");
                                     if ((subItem.key as ValueKey).value ==
-                                        secondaryMenuKey) {
+                                            secondaryMenuKey &&
+                                        (item.key as ValueKey).value ==
+                                            primaryMenuKey) {
                                       selected = true;
                                     }
                                     // return the sub item with the icon and the label
@@ -232,6 +226,7 @@ class ABSideMenu extends StatelessWidget {
                                         selected: selected,
                                         margin: EdgeInsets.symmetric(
                                           horizontal: $constants.insets.xs,
+                                          vertical: $constants.insets.xxs,
                                         ),
                                         onTap:
                                             () => onSubItemTap(item, subItem),
@@ -268,7 +263,7 @@ class ABSideMenu extends StatelessWidget {
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  spacing: $constants.insets.sm,
+                                                  spacing: $constants.insets.xs,
                                                   children: [...children],
                                                 ),
                                               ),
