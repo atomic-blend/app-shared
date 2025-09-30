@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 
-class ABSideMenu extends StatelessWidget {
+class ABSideMenu extends StatefulWidget {
   final SideMenuController controller;
   final List<NavigationItem> primaryMenuItems;
   final Function(NavigationItem) onItemTap;
@@ -33,6 +33,13 @@ class ABSideMenu extends StatelessWidget {
   });
 
   @override
+  State<ABSideMenu> createState() => _ABSideMenuState();
+}
+
+class _ABSideMenuState extends State<ABSideMenu> {
+  String? hoveredKey;
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
@@ -47,7 +54,7 @@ class ABSideMenu extends StatelessWidget {
               borderRadius: BorderRadius.circular($constants.corners.sm),
               child: SafeArea(
                 child: SideMenu(
-                  controller: controller,
+                  controller: widget.controller,
                   mode: SideMenuMode.open,
                   minWidth: getSize(context).width * 0.04,
                   maxWidth: 200,
@@ -180,7 +187,7 @@ class ABSideMenu extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(height: $constants.insets.xs),
-                              ...primaryMenuItems.map((item) {
+                              ...widget.primaryMenuItems.map((item) {
                                 if (item.desktopOnly == true &&
                                     !isDesktop(context)) {
                                   return Container();
@@ -197,7 +204,7 @@ class ABSideMenu extends StatelessWidget {
                                     item,
                                     selected:
                                         (item.key as ValueKey).value ==
-                                        primaryMenuKey,
+                                        widget.primaryMenuKey,
                                     padding: EdgeInsets.only(
                                       bottom: $constants.insets.sm,
                                     ),
@@ -205,16 +212,16 @@ class ABSideMenu extends StatelessWidget {
                                       horizontal: $constants.insets.xs,
                                       vertical: $constants.insets.xxs,
                                     ),
-                                    onTap: () => onItemTap(item),
+                                    onTap: () => widget.onItemTap(item),
                                   );
                                 } else {
                                   final children = <Widget>[];
                                   for (var subItem in item.subItems!) {
                                     bool selected = false;
                                     if ((subItem.key as ValueKey).value ==
-                                            secondaryMenuKey &&
+                                            widget.secondaryMenuKey &&
                                         (item.key as ValueKey).value ==
-                                            primaryMenuKey) {
+                                            widget.primaryMenuKey) {
                                       selected = true;
                                     }
                                     // return the sub item with the icon and the label
@@ -229,7 +236,10 @@ class ABSideMenu extends StatelessWidget {
                                           vertical: $constants.insets.xxs,
                                         ),
                                         onTap:
-                                            () => onSubItemTap(item, subItem),
+                                            () => widget.onSubItemTap(
+                                              item,
+                                              subItem,
+                                            ),
                                       ),
                                     );
                                   }
@@ -243,7 +253,7 @@ class ABSideMenu extends StatelessWidget {
                                         padding: EdgeInsets.only(
                                           bottom: $constants.insets.xxs,
                                         ),
-                                        onTap: () => onItemTap(item),
+                                        onTap: () => widget.onItemTap(item),
                                       ),
                                       IntrinsicHeight(
                                         child: Row(
@@ -387,27 +397,34 @@ class ABSideMenu extends StatelessWidget {
     VoidCallback? onTap,
     bool? selected,
   }) {
-    return GestureDetector(
-      onTap: () => onTap?.call(),
-      child: Padding(
-        padding: padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
-        child: Container(
-          decoration: BoxDecoration(
-            color:
-                selected == true
-                    ? getTheme(context).surfaceContainer.darken(10)
-                    : Colors.transparent,
-            borderRadius: BorderRadius.circular($constants.corners.sm),
-          ),
-          padding: margin,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              _getIcon(item),
-              SizedBox(width: $constants.insets.xs),
-              Text(item.label),
-            ],
+    return MouseRegion(
+      onEnter:
+          (event) => setState(() => hoveredKey = (item.key as ValueKey).value),
+      onExit: (event) => setState(() => hoveredKey = null),
+      child: GestureDetector(
+        onTap: () => onTap?.call(),
+        child: Padding(
+          padding: padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
+          child: Container(
+            decoration: BoxDecoration(
+              color:
+                  selected == true ||
+                          (hoveredKey == (item.key as ValueKey).value &&
+                              (item.subItems == null || item.subItems!.isEmpty))
+                      ? getTheme(context).surfaceContainer.darken(5)
+                      : Colors.transparent,
+              borderRadius: BorderRadius.circular($constants.corners.sm),
+            ),
+            padding: margin,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                _getIcon(item),
+                SizedBox(width: $constants.insets.xs),
+                Text(item.label),
+              ],
+            ),
           ),
         ),
       ),
