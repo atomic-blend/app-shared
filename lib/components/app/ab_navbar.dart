@@ -81,10 +81,13 @@ class NavigationItem extends StatelessWidget {
 }
 
 class NavigationSection {
-  const NavigationSection({required this.key, required this.items});
+  const NavigationSection({required this.key, required this.items, this.title});
 
   /// The key of the section.
   final Key key;
+
+  /// The title of the section.
+  final String? title;
 
   /// The list of items in the section.
   final List<NavigationItem> items;
@@ -98,6 +101,9 @@ class ABNavbar extends StatefulWidget {
   final Color? backgroundColor;
   final Function(int)? onTap;
   final double height = 65;
+  final bool centerActionEnabled;
+  final VoidCallback? centerActionCallback;
+  final IconData? centerActionIcon;
   const ABNavbar({
     super.key,
     required this.onPrimaryMenuSelected,
@@ -106,6 +112,9 @@ class ABNavbar extends StatefulWidget {
     required this.primaryMenuKey,
     this.backgroundColor,
     this.onTap,
+    this.centerActionEnabled = false,
+    this.centerActionCallback,
+    this.centerActionIcon,
   });
 
   @override
@@ -139,114 +148,194 @@ class _ABNavbarState extends State<ABNavbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ...widget.destinations.map(
-            (e) => GestureDetector(
-              onTap: () {
-                final index = widget.destinations.indexOf(e);
-                setState(() {
-                  selectedIndex = index;
-                });
-                // Check if the tapped item has its own onTap handler
-                if (widget.destinations.length > index && e.onTap != null) {
-                  e.onTap!(index);
-                }
-                // Otherwise use the default handler
-                else if (widget.onTap != null) {
-                  widget.onTap!(index);
-                } else {
-                  widget.onPrimaryMenuSelected(
-                    (widget.destinations[index].key as ValueKey).value,
-                  );
-                  if (e.mainSecondaryKey != null) {
-                    widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
-                  }
-                }
-              },
+          // Show first 2 items
+          ...widget.destinations
+              .take(2)
+              .map(
+                (e) => GestureDetector(
+                  onTap: () {
+                    final index = widget.destinations.indexOf(e);
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    // Check if the tapped item has its own onTap handler
+                    if (widget.destinations.length > index && e.onTap != null) {
+                      e.onTap!(index);
+                    }
+                    // Otherwise use the default handler
+                    else if (widget.onTap != null) {
+                      widget.onTap!(index);
+                    } else {
+                      widget.onPrimaryMenuSelected(
+                        (widget.destinations[index].key as ValueKey).value,
+                      );
+                      if (e.mainSecondaryKey != null) {
+                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
+                      }
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all($constants.insets.xxs),
+                    child: Container(
+                      padding: EdgeInsets.all($constants.insets.xs),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            getIcon(e.icon, e.cupertinoIcon),
+                            color:
+                                selectedIndex == widget.destinations.indexOf(e)
+                                    ? Colors.grey.shade800
+                                    : Colors.grey.shade600,
+                            size: 25,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 2),
+                            child: Text(
+                              e.label,
+                              style: getTextTheme(context).bodyMedium?.copyWith(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color:
+                                    selectedIndex ==
+                                            widget.destinations.indexOf(e)
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          // Add center action button if enabled
+          if (widget.centerActionEnabled && widget.centerActionIcon != null)
+            GestureDetector(
+              onTap: widget.centerActionCallback,
               child: Container(
                 padding: EdgeInsets.all($constants.insets.xxs),
-                // always make the center button have a wrapper
-                decoration:
-                    2 == widget.destinations.indexOf(e)
-                        ? BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(
-                            $constants.corners.full,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              offset: const Offset(0, 0),
-                              blurRadius: 2,
-                              spreadRadius: 0,
-                            ),
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.04),
-                              offset: const Offset(0, 0),
-                              blurRadius: 4,
-                              spreadRadius: -4,
-                            ),
-                          ],
-                        )
-                        : null,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular($constants.corners.full),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      offset: const Offset(0, 0),
+                      blurRadius: 2,
+                      spreadRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      offset: const Offset(0, 0),
+                      blurRadius: 4,
+                      spreadRadius: -4,
+                    ),
+                  ],
+                ),
                 child: Container(
                   padding: EdgeInsets.all($constants.insets.xs),
-                  decoration:
-                      2 == widget.destinations.indexOf(e)
-                          ? BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(
-                              $constants.corners.full,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.06),
-                                offset: const Offset(0, 2),
-                                blurRadius: 2,
-                                spreadRadius: 0,
-                              ),
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.04),
-                                offset: const Offset(0, 8),
-                                blurRadius: 4,
-                                spreadRadius: -4,
-                              ),
-                            ],
-                          )
-                          : null,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      $constants.corners.full,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.06),
+                        offset: const Offset(0, 2),
+                        blurRadius: 2,
+                        spreadRadius: 0,
+                      ),
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.04),
+                        offset: const Offset(0, 8),
+                        blurRadius: 4,
+                        spreadRadius: -4,
+                      ),
+                    ],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        getIcon(e.icon, e.cupertinoIcon),
-                        color:
-                            selectedIndex == widget.destinations.indexOf(e)
-                                ? Colors.grey.shade800
-                                : Colors.grey.shade600,
+                        widget.centerActionIcon!,
+                        color: Colors.grey.shade800,
                         size: 25,
                       ),
-                      if (widget.destinations.indexOf(e) != 2)
-                        Padding(
-                          padding: EdgeInsets.only(top: 2),
-                          child: Text(
-                            e.label,
-                            style: getTextTheme(context).bodyMedium?.copyWith(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color:
-                                  selectedIndex ==
-                                          widget.destinations.indexOf(e)
-                                      ? Colors.grey.shade800
-                                      : Colors.grey.shade600,
-                            ),
-                          ),
-                        ),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
+          // Show last 2 items
+          ...widget.destinations
+              .skip(2)
+              .map(
+                (e) => GestureDetector(
+                  onTap: () {
+                    final originalIndex = widget.destinations.indexOf(e);
+                    setState(() {
+                      selectedIndex = originalIndex;
+                    });
+                    // Check if the tapped item has its own onTap handler
+                    if (widget.destinations.length > originalIndex &&
+                        e.onTap != null) {
+                      e.onTap!(originalIndex);
+                    }
+                    // Otherwise use the default handler
+                    else if (widget.onTap != null) {
+                      widget.onTap!(originalIndex);
+                    } else {
+                      widget.onPrimaryMenuSelected(
+                        (widget.destinations[originalIndex].key as ValueKey)
+                            .value,
+                      );
+                      if (e.mainSecondaryKey != null) {
+                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
+                      }
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all($constants.insets.xxs),
+                    child: Container(
+                      padding: EdgeInsets.all($constants.insets.xs),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            getIcon(e.icon, e.cupertinoIcon),
+                            color:
+                                selectedIndex == widget.destinations.indexOf(e)
+                                    ? Colors.grey.shade800
+                                    : Colors.grey.shade600,
+                            size: 25,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 2),
+                            child: Text(
+                              e.label,
+                              style: getTextTheme(context).bodyMedium?.copyWith(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color:
+                                    selectedIndex ==
+                                            widget.destinations.indexOf(e)
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
         ],
       ),
     );
