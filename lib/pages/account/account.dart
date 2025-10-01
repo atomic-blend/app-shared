@@ -21,16 +21,16 @@ import 'package:random_avatar/random_avatar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Account extends StatefulWidget {
-  final ApiClient globalApiClient;
-  final EncryptionService encryptionService;
+  final ApiClient? globalApiClient;
+  final EncryptionService? encryptionService;
   final RevenueCatService? revenueCatService;
-  final SharedPreferences prefs;
+  final SharedPreferences? prefs;
   const Account({
     super.key,
-    required this.globalApiClient,
-    required this.encryptionService,
+    this.globalApiClient,
+    this.encryptionService,
     this.revenueCatService,
-    required this.prefs,
+    this.prefs,
   });
 
   @override
@@ -123,7 +123,7 @@ class _AccountState extends State<Account> {
                   ).labelMedium!.copyWith(color: Colors.grey),
                 ),
                 SizedBox(height: $constants.insets.xs),
-                if (widget.globalApiClient.getSelfHostedRestApiUrl() ==
+                if (widget.globalApiClient?.getSelfHostedRestApiUrl() ==
                     null) ...[
                   IconTextButton(
                     icon: CupertinoIcons.star_fill,
@@ -133,7 +133,7 @@ class _AccountState extends State<Account> {
                     text: context.t.account.subscription_payments.title,
                     onTap: () {
                       if (UserService.isSubscriptionActive(
-                        widget.globalApiClient,
+                        widget.globalApiClient!,
                         authstate.user,
                       )) {
                         Navigator.of(context).push(
@@ -148,8 +148,8 @@ class _AccountState extends State<Account> {
                         if (widget.revenueCatService != null) {
                           PaywallUtils.showPaywall(
                             context,
-                            globalApiClient: widget.globalApiClient,
-                            prefs: widget.prefs,
+                            globalApiClient: widget.globalApiClient!,
+                            prefs: widget.prefs!,
                             user: authstate.user,
                             revenueCatService: widget.revenueCatService!,
                           );
@@ -170,7 +170,7 @@ class _AccountState extends State<Account> {
                       MaterialPageRoute(
                         builder:
                             (context) => Security(
-                              encryptionService: widget.encryptionService,
+                              encryptionService: widget.encryptionService!,
                             ),
                       ),
                     );

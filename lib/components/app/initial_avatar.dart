@@ -1,0 +1,48 @@
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flutter/material.dart';
+
+class InitialAvatar extends StatelessWidget {
+  final String name;
+  final double? size;
+  final double? borderRadius;
+  const InitialAvatar({super.key, required this.name, this.size, this.borderRadius});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size ?? 40,
+      height: size ?? 40,
+      padding: EdgeInsets.all($constants.insets.xs),
+      decoration: BoxDecoration(
+        color: getTheme(context).surface,
+        borderRadius: BorderRadius.circular(borderRadius ?? $constants.corners.md),
+        border: Border.all(
+          color: isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
+          width: 1,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          _getInitials(name),
+          style: getTextTheme(context).bodyMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade600,
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _getInitials(String name) {
+    if (name.isEmpty) return '';
+
+    return name
+        .trim()
+        .split(' ')
+        .where((word) => word.isNotEmpty)
+        .take(3)
+        .map((word) => word[0].toUpperCase())
+        .join();
+  }
+}
