@@ -12,6 +12,7 @@ class ABAppsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPopup(
+      backgroundColor: getTheme(context).surface,
       content: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: isDesktop(context) ? 400 : 200,
@@ -109,7 +110,11 @@ class ABAppsPopup extends StatelessWidget {
               height: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular($constants.corners.lg),
-                border: Border.all(color: Colors.white, width: 1),
+                border: Border.all(
+                  color:
+                      isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
+                  width: 1,
+                ),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular($constants.corners.lg),
