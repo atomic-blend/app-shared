@@ -58,14 +58,14 @@ class _ABSideMenuState extends State<ABSideMenu> {
                   controller: widget.controller,
                   mode: SideMenuMode.open,
                   minWidth:
-                      isDesktop(context) ? 250 : getSize(context).width * 0.6,
+                      isDesktop(context) ? 80 : getSize(context).width * 0.6,
                   maxWidth:
                       isDesktop(context) ? 250 : getSize(context).width * 0.6,
                   backgroundColor: getTheme(context).surfaceContainer,
                   hasResizer: false,
+                  //To support this, the navbar components shoud not display the labels and display a discord like navbar
                   hasResizerToggle: false,
                   builder: (data) {
-                    //TODO: header with the list of apps available + open with deep link in a custom popup
                     return SideMenuData(
                       header: Padding(
                         padding: EdgeInsets.symmetric(

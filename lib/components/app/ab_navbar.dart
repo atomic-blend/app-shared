@@ -370,7 +370,7 @@ class _ABNavbarState extends State<ABNavbar> {
                   context: context,
                   isScrollControlled: true,
                   builder:
-                      (context) => Container(
+                      (context) => SizedBox(
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: Column(
                           children: [
