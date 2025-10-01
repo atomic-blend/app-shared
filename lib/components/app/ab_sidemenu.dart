@@ -57,8 +57,10 @@ class _ABSideMenuState extends State<ABSideMenu> {
                 child: SideMenu(
                   controller: widget.controller,
                   mode: SideMenuMode.open,
-                  minWidth: getSize(context).width * 0.04,
-                  maxWidth: 200,
+                  minWidth:
+                      isDesktop(context) ? 250 : getSize(context).width * 0.6,
+                  maxWidth:
+                      isDesktop(context) ? 250 : getSize(context).width * 0.6,
                   backgroundColor: getTheme(context).surfaceContainer,
                   hasResizer: false,
                   hasResizerToggle: false,
@@ -68,7 +70,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                       header: Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: $constants.insets.sm,
-                          horizontal: $constants.insets.xs,
+                          horizontal: $constants.insets.xs + 4,
                         ),
                         child: ABAppsPopup(),
                       ),
@@ -127,7 +129,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                       customChild: SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: $constants.insets.md,
+                            horizontal: $constants.insets.xs,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

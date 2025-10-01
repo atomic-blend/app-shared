@@ -90,7 +90,7 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
         selected: (widget.item.key as ValueKey).value == widget.primaryMenuKey,
         padding: EdgeInsets.only(bottom: $constants.insets.sm),
         margin: EdgeInsets.symmetric(
-          horizontal: $constants.insets.xs,
+          horizontal: $constants.insets.sm,
           vertical: $constants.insets.xxs,
         ),
         onTap: () => widget.onItemTap(widget.item),
@@ -111,7 +111,7 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             padding: EdgeInsets.zero,
             selected: selected,
             margin: EdgeInsets.symmetric(
-              horizontal: $constants.insets.xs,
+              horizontal: $constants.insets.sm,
               vertical: $constants.insets.xxs,
             ),
             onTap: () => widget.onSubItemTap(widget.item, subItem),
@@ -125,6 +125,10 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             context,
             widget.item,
             padding: EdgeInsets.only(bottom: $constants.insets.xxs),
+            margin: EdgeInsets.symmetric(
+              horizontal: $constants.insets.sm,
+              vertical: $constants.insets.xxs,
+            ),
             onTap:
                 widget.collapsible
                     ? _toggleExpanded
@@ -132,28 +136,29 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             showArrow: widget.collapsible,
             isExpanded: _isExpanded,
           ),
-          SizeTransition(
-            sizeFactor: _expandAnimation,
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  VerticalDivider(color: Colors.grey.shade300),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: $constants.insets.xs,
-                        bottom: $constants.insets.xs,
-                      ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: $constants.insets.sm,
+              // vertical: $constants.insets.xxs,
+            ),
+            child: SizeTransition(
+              sizeFactor: _expandAnimation,
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 2),
+                    VerticalDivider(color: Colors.grey.shade300),
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: $constants.insets.xs,
                         children: [...children],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -198,8 +203,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _getIcon(item),
-                SizedBox(width: $constants.insets.xs),
-                Expanded(child: Text(item.label)),
+                SizedBox(width: $constants.insets.sm),
+                Expanded(
+                  child: Text(
+                    item.label,
+                    style: getTextTheme(context).bodyLarge,
+                  ),
+                ),
                 if (showArrow)
                   AnimatedRotation(
                     turns: isExpanded ? 0.5 : 0.0,
@@ -220,9 +230,9 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
 
   Widget _getIcon(NavigationItem item) {
     if (!kIsWasm && (Platform.isIOS || Platform.isMacOS)) {
-      return Icon(item.cupertinoIcon, size: 18);
+      return Icon(item.cupertinoIcon, size: 22);
     } else {
-      return Icon(item.icon, size: 18);
+      return Icon(item.icon, size: 20);
     }
   }
 }

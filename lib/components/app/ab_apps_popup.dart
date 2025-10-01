@@ -14,12 +14,9 @@ class ABAppsPopup extends StatelessWidget {
     return CustomPopup(
       backgroundColor: getTheme(context).surface,
       content: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: isDesktop(context) ? 400 : 200,
-          maxHeight: isDesktop(context) ? 400 : 200,
-        ),
+        constraints: BoxConstraints(maxHeight: isDesktop(context) ? 400 : 200),
         child: SizedBox(
-          width: isDesktop(context) ? 400 : 200,
+          width: isDesktop(context) ? 400 : getSize(context).width * 0.8,
           child: StaggeredGrid.count(
             crossAxisCount: 6,
             children: [
@@ -43,26 +40,24 @@ class ABAppsPopup extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular($constants.corners.md),
+              borderRadius: BorderRadius.circular($constants.corners.lg),
               border: Border.all(color: Colors.grey.shade300, width: 1),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular($constants.corners.md),
+              borderRadius: BorderRadius.circular($constants.corners.lg),
               child: Image.asset("assets/images/atomic_blend_logo.png"),
             ),
           ),
-          SizedBox(width: $constants.insets.xs),
+          SizedBox(width: $constants.insets.sm),
           SizedBox(
-            width: 100,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -72,18 +67,18 @@ class ABAppsPopup extends StatelessWidget {
                   context.t.app_name,
                   style: getTextTheme(
                     context,
-                  ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                  ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "See all the apps",
                   style: getTextTheme(
                     context,
-                  ).bodySmall!.copyWith(color: Colors.grey.shade500),
+                  ).bodyMedium!.copyWith(color: Colors.grey.shade500),
                 ),
               ],
             ),
           ),
-          SizedBox(width: $constants.insets.sm),
+          Spacer(),
           Icon(CupertinoIcons.chevron_up_chevron_down, size: 12),
         ],
       ),
