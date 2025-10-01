@@ -14,6 +14,8 @@ class ABSideMenuItem extends StatefulWidget {
   final String? secondaryMenuKey;
   final Function(NavigationItem) onItemTap;
   final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
+  final bool collapsible;
+  final bool initiallyExpanded;
 
   const ABSideMenuItem({
     super.key,
@@ -22,14 +24,56 @@ class ABSideMenuItem extends StatefulWidget {
     required this.secondaryMenuKey,
     required this.onItemTap,
     required this.onSubItemTap,
+    this.collapsible = false,
+    this.initiallyExpanded = true,
   });
 
   @override
   State<ABSideMenuItem> createState() => _ABSideMenuItemState();
 }
 
-class _ABSideMenuItemState extends State<ABSideMenuItem> {
+class _ABSideMenuItemState extends State<ABSideMenuItem>
+    with TickerProviderStateMixin {
   String? hoveredKey;
+  late bool _isExpanded;
+  late AnimationController _animationController;
+  late Animation<double> _expandAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _isExpanded = widget.initiallyExpanded;
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _expandAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+
+    if (_isExpanded) {
+      _animationController.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleExpanded() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+      if (_isExpanded) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.item.desktopOnly == true && !isDesktop(context)) {
@@ -81,28 +125,36 @@ class _ABSideMenuItemState extends State<ABSideMenuItem> {
             context,
             widget.item,
             padding: EdgeInsets.only(bottom: $constants.insets.xxs),
-            onTap: () => widget.onItemTap(widget.item),
+            onTap:
+                widget.collapsible
+                    ? _toggleExpanded
+                    : () => widget.onItemTap(widget.item),
+            showArrow: widget.collapsible,
+            isExpanded: _isExpanded,
           ),
-          IntrinsicHeight(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                VerticalDivider(color: Colors.grey.shade300),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: $constants.insets.xs,
-                      bottom: $constants.insets.xs,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: $constants.insets.xs,
-                      children: [...children],
+          SizeTransition(
+            sizeFactor: _expandAnimation,
+            child: IntrinsicHeight(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  VerticalDivider(color: Colors.grey.shade300),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: $constants.insets.xs,
+                        bottom: $constants.insets.xs,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: $constants.insets.xs,
+                        children: [...children],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(height: $constants.insets.sm),
@@ -118,9 +170,12 @@ class _ABSideMenuItemState extends State<ABSideMenuItem> {
     EdgeInsets? margin,
     VoidCallback? onTap,
     bool? selected,
+    bool showArrow = false,
+    bool isExpanded = false,
   }) {
     return MouseRegion(
-      onEnter: (event) => setState(() => hoveredKey = (item.key as ValueKey).value),
+      onEnter:
+          (event) => setState(() => hoveredKey = (item.key as ValueKey).value),
       onExit: (event) => setState(() => hoveredKey = null),
       child: GestureDetector(
         onTap: () => onTap?.call(),
@@ -142,7 +197,17 @@ class _ABSideMenuItemState extends State<ABSideMenuItem> {
               children: [
                 _getIcon(item),
                 SizedBox(width: $constants.insets.xs),
-                Text(item.label),
+                Expanded(child: Text(item.label)),
+                if (showArrow)
+                  AnimatedRotation(
+                    turns: isExpanded ? 0.5 : 0.0,
+                    duration: const Duration(milliseconds: 300),
+                    child: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 18,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
               ],
             ),
           ),

@@ -138,6 +138,8 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                   secondaryMenuKey: widget.secondaryMenuKey,
                                   onItemTap: widget.onItemTap,
                                   onSubItemTap: widget.onSubItemTap,
+                                  collapsible: true,
+                                  initiallyExpanded: true,
                                 );
                               }),
                             ],
