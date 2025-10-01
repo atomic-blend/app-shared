@@ -2,6 +2,33 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.7.0 - 2025-10-01
+#### Bug Fixes
+- sizes and linter - (8c53a72) - Brandon Guigo
+- last ui enhancements for both mobile and desktop - (8113e0a) - Brandon Guigo
+- make the UI bigger - (ca41856) - Brandon Guigo
+- ab_apps popup dark mode - (f1e6b16) - Brandon Guigo
+- dark mode issues for side menu - (f610084) - Brandon Guigo
+- add hovering on items - (3be5265) - Brandon Guigo
+- issue when main category alone was selected along with the old sub item - (420a004) - Brandon Guigo
+- define center action as parameter, not by taking the middle item of the nav items - (0796425) - Brandon Guigo
+#### Features
+- add collapsible with animation - (fdf167a) - Brandon Guigo
+- refactor side menu item to be self sufficient - (cfde14d) - Brandon Guigo
+- add the app modal - (e2c1401) - Brandon Guigo
+- add selected marker - (cfd1dea) - Brandon Guigo
+- add the items of the navbar + desktop and mobile only tabs - (6c1b827) - Brandon Guigo
+- make the desktop navbar working when clicking - (7b25ff7) - Brandon Guigo
+- add header - (0007c10) - Brandon Guigo
+- add a desktop only field to nav items, so some items are hidden on mobile - (4da91e0) - Brandon Guigo
+- move to the footer and setup secondary items in navItems - (5d1d3e3) - Brandon Guigo
+- add new side menu header - (31ed39a) - Brandon Guigo
+- add a new ab_sidemenu component to be shared between the apps for desktop - (814843b) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.6.0 [skip ci] - (2e4a234) - GitHub Actions
+
+- - -
+
 ## v0.6.0 - 2025-09-29
 #### Bug Fixes
 - linter issues - (d287d91) - Brandon Guigo
