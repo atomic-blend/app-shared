@@ -84,15 +84,17 @@ class _ABSideMenuState extends State<ABSideMenu> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            SizedBox(width: $constants.insets.xs),
                             InitialAvatar(
+                              size: 50,
+                              borderRadius: $constants.corners.lg,
                               name:
                                   authState.user?.firstname != null
                                       ? "${authState.user?.firstname} ${authState.user?.lastname}"
                                       : "Atomic Blend",
                             ),
-                            SizedBox(width: $constants.insets.xs),
-                            SizedBox(
-                              width: 100,
+                            SizedBox(width: $constants.insets.sm),
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
@@ -102,7 +104,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                     authState.user?.firstname != null
                                         ? "${authState.user?.firstname}${authState.user?.lastname != null ? " ${authState.user?.lastname}" : ""}"
                                         : context.t.app_name,
-                                    style: getTextTheme(context).bodyMedium!
+                                    style: getTextTheme(context).bodyLarge!
                                         .copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   AutoSizeText(
@@ -113,7 +115,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                     style:
                                         getTextTheme(
                                           context,
-                                        ).bodySmall!.copyWith(),
+                                        ).bodyMedium!.copyWith(),
                                   ),
                                 ],
                               ),

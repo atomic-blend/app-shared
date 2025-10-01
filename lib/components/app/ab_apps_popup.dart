@@ -1,3 +1,4 @@
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -100,16 +101,16 @@ class ABAppsPopup extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
+            ElevatedContainer(
               width: 60,
               height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular($constants.corners.lg),
-                border: Border.all(
-                  color:
-                      isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
-                  width: 1,
-                ),
+              borderRadius: $constants.corners.lg,
+              border: Border.all(
+                color:
+                    isDarkMode(context)
+                        ? Colors.grey.shade600
+                        : Colors.grey.shade300,
+                width: 1,
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular($constants.corners.lg),

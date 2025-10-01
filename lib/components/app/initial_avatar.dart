@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 
 class InitialAvatar extends StatelessWidget {
   final String name;
-  const InitialAvatar({super.key, required this.name});
+  final double? size;
+  final double? borderRadius;
+  const InitialAvatar({super.key, required this.name, this.size, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40,
-      height: 40,
+      width: size ?? 40,
+      height: size ?? 40,
       padding: EdgeInsets.all($constants.insets.xs),
       decoration: BoxDecoration(
         color: getTheme(context).surface,
-        borderRadius: BorderRadius.circular($constants.corners.md),
+        borderRadius: BorderRadius.circular(borderRadius ?? $constants.corners.md),
         border: Border.all(
           color: isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
           width: 1,
