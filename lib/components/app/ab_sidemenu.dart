@@ -46,7 +46,10 @@ class _ABSideMenuState extends State<ABSideMenu> {
             isDesktop(context) ? $constants.insets.xs : 0,
           ),
           child: ElevatedContainer(
-            border: Border.all(color: Colors.white, width: 1),
+            border: Border.all(
+              color: isDarkMode(context) ? Colors.grey.shade900 : Colors.white,
+              width: 1,
+            ),
             borderRadius: $constants.corners.sm,
             child: ClipRRect(
               borderRadius: BorderRadius.circular($constants.corners.sm),

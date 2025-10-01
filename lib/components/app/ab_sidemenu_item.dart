@@ -187,7 +187,9 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
                   selected == true ||
                           (hoveredKey == (item.key as ValueKey).value &&
                               (item.subItems == null || item.subItems!.isEmpty))
-                      ? getTheme(context).surfaceContainer.darken(5)
+                      ? isDarkMode(context)
+                          ? getTheme(context).surfaceContainer.lighten(10)
+                          : getTheme(context).surfaceContainer.darken(5)
                       : Colors.transparent,
               borderRadius: BorderRadius.circular($constants.corners.sm),
             ),

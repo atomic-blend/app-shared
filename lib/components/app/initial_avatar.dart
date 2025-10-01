@@ -15,7 +15,10 @@ class InitialAvatar extends StatelessWidget {
       decoration: BoxDecoration(
         color: getTheme(context).surface,
         borderRadius: BorderRadius.circular($constants.corners.md),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
+        border: Border.all(
+          color: isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
+          width: 1,
+        ),
       ),
       child: Center(
         child: Text(
