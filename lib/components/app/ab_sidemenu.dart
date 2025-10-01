@@ -13,7 +13,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ABSideMenu extends StatefulWidget {
   final SideMenuController controller;
@@ -69,60 +71,97 @@ class _ABSideMenuState extends State<ABSideMenu> {
                           vertical: $constants.insets.sm,
                           horizontal: $constants.insets.xs,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  $constants.corners.md,
-                                ),
-                                border: Border.all(
-                                  color: Colors.grey.shade300,
-                                  width: 1,
-                                ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  $constants.corners.md,
-                                ),
-                                child: Image.asset(
-                                  "assets/images/atomic_blend_logo.png",
-                                ),
-                              ),
+                        child: CustomPopup(
+                          content: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: isDesktop(context) ? 400 : 200,
+                              maxHeight: isDesktop(context) ? 400 : 200,
                             ),
-                            SizedBox(width: $constants.insets.xs),
-                            SizedBox(
-                              width: 100,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                            child: SizedBox(
+                              width: isDesktop(context) ? 400 : 200,
+                              child: StaggeredGrid.count(
+                                crossAxisCount: 6,
                                 children: [
-                                  Text(
-                                    context.t.app_name,
-                                    style: getTextTheme(context).bodyMedium!
-                                        .copyWith(fontWeight: FontWeight.bold),
+                                  _buildAppListItem(
+                                    context,
+                                    "assets/images/atomic_mail_logo.png",
+                                    "Atomic Mail",
                                   ),
-                                  Text(
-                                    "See all the apps",
-                                    style: getTextTheme(context).bodySmall!
-                                        .copyWith(color: Colors.grey.shade500),
+                                  _buildAppListItem(
+                                    context,
+                                    "assets/images/atomic_task_logo.png",
+                                    "Atomic Task",
+                                  ),
+                                  _buildAppListItem(
+                                    context,
+                                    "assets/images/atomic_notes_logo.png",
+                                    "Atomic Notes",
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(width: $constants.insets.sm),
-                            Icon(
-                              CupertinoIcons.chevron_up_chevron_down,
-                              size: 12,
-                            ),
-                          ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                    $constants.corners.md,
+                                  ),
+                                  border: Border.all(
+                                    color: Colors.grey.shade300,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    $constants.corners.md,
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/atomic_blend_logo.png",
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: $constants.insets.xs),
+                              SizedBox(
+                                width: 100,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      context.t.app_name,
+                                      style: getTextTheme(
+                                        context,
+                                      ).bodyMedium!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "See all the apps",
+                                      style: getTextTheme(
+                                        context,
+                                      ).bodySmall!.copyWith(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: $constants.insets.sm),
+                              Icon(
+                                CupertinoIcons.chevron_up_chevron_down,
+                                size: 12,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       footer: Padding(
@@ -287,93 +326,6 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                 }
                                 return Container();
                               }),
-                              // ...primaryMenuItems.map(
-                              //   (item) => Column(
-                              //     mainAxisSize: MainAxisSize.min,
-                              //     children: [
-                              //       GestureDetector(
-                              //         onTap: () => onTap(item),
-                              //         child: Padding(
-                              //           padding: EdgeInsets.symmetric(
-                              //             horizontal: $constants.insets.sm,
-                              //           ),
-                              //           child: Row(
-                              //             children: [
-                              //               Column(
-                              //                 mainAxisSize: MainAxisSize.min,
-                              //                 children: [
-                              //                   Container(
-                              //                     width: 40,
-                              //                     height: 40,
-                              //                     decoration: BoxDecoration(
-                              //                       color:
-                              //                           item.color != null
-                              //                               ? item.color!
-                              //                                   .withValues(
-                              //                                     alpha: 0.1,
-                              //                                   )
-                              //                               : Colors.grey.shade500
-                              //                                   .withValues(
-                              //                                     alpha: 0.2,
-                              //                                   ),
-                              //                       borderRadius:
-                              //                           BorderRadius.circular(
-                              //                             $constants.corners.lg,
-                              //                           ),
-                              //                     ),
-                              //                     child:
-                              //                         item.initialsOnly == true
-                              //                             ? Center(
-                              //                               child: Text(
-                              //                                 _getInitials(
-                              //                                   item.label,
-                              //                                 ),
-                              //                                 style: getTextTheme(
-                              //                                   context,
-                              //                                 ).bodyLarge!.copyWith(
-                              //                                   fontWeight:
-                              //                                       FontWeight.bold,
-                              //                                   color:
-                              //                                       item.color !=
-                              //                                               null
-                              //                                           ? item
-                              //                                               .color!
-                              //                                           : Colors
-                              //                                               .grey
-                              //                                               .shade800,
-                              //                                 ),
-                              //                               ),
-                              //                             )
-                              //                             : IconTheme(
-                              //                               data: IconThemeData(
-                              //                                 color:
-                              //                                     item.color != null
-                              //                                         ? item.color!
-                              //                                         : Colors
-                              //                                             .grey
-                              //                                             .shade800,
-                              //                               ),
-                              //                               child:
-                              //                                   isApple(context)
-                              //                                       ? Icon(
-                              //                                         item.cupertinoIcon,
-                              //                                       )
-                              //                                       : Icon(
-                              //                                         item.icon,
-                              //                                       ),
-                              //                             ),
-                              //                   ),
-                              //                 ],
-                              //               ),
-                              //               SizedBox(width: $constants.insets.sm),
-                              //               Text(item.label),
-                              //             ],
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -386,6 +338,41 @@ class _ABSideMenuState extends State<ABSideMenu> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildAppListItem(
+    BuildContext context,
+    String assetName,
+    String label,
+  ) {
+    return StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1.7,
+      child: GestureDetector(
+        onTap: () => {},
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular($constants.corners.lg),
+                border: Border.all(color: Colors.white, width: 1),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular($constants.corners.lg),
+                child: Image.asset(assetName, package: "ab_shared"),
+              ),
+            ),
+            SizedBox(height: $constants.insets.xs),
+            Text(label),
+          ],
+        ),
+      ),
     );
   }
 
