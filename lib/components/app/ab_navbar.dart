@@ -24,6 +24,7 @@ class NavigationItem extends StatelessWidget {
     this.body,
     this.initialsOnly,
     this.appBar,
+    this.header,
     this.mainSecondaryKey,
     this.color,
     this.separatorBefore,
@@ -48,6 +49,9 @@ class NavigationItem extends StatelessWidget {
 
   /// Optional body
   final Widget? body;
+
+  /// Optional header
+  final Widget? header;
 
   /// Optional appbar
   final AppBar? appBar;

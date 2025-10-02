@@ -1,8 +1,6 @@
+import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:io' show Platform;
 
 class ABSearchBar extends StatefulWidget {
   final TextEditingController controller;
@@ -10,6 +8,7 @@ class ABSearchBar extends StatefulWidget {
   final Function(String)? onChanged;
   final VoidCallback? onClear;
   final String? placeholder;
+  final bool showKeyboardShortcut;
 
   const ABSearchBar({
     super.key,
@@ -18,6 +17,7 @@ class ABSearchBar extends StatefulWidget {
     this.onChanged,
     this.onClear,
     this.placeholder,
+    this.showKeyboardShortcut = false,
   });
 
   @override
@@ -27,40 +27,94 @@ class ABSearchBar extends StatefulWidget {
 class _ABSearchBarState extends State<ABSearchBar> {
   @override
   Widget build(BuildContext context) {
-    // Use Cupertino search bar for iOS, and Material for other platforms
-    if (!kIsWeb && (Platform.isIOS || Platform.isMacOS)) {
-      return CupertinoSearchTextField(
-        backgroundColor: getTheme(context).surfaceContainer,
-        controller: widget.controller,
-        placeholder: widget.placeholder ?? 'Search',
-        onSubmitted: widget.onSubmitted,
-        onChanged: (value) {
-          if (value.isEmpty && widget.onClear != null) {
-            widget.onClear!();
-            return;
-          }
-          if (widget.onChanged != null) {
-            widget.onChanged!(value);
-          }
-        },
-      );
-    } else {
-      return TextField(
-        controller: widget.controller,
-        decoration: InputDecoration(
-          hintText: widget.placeholder ?? 'Search',
-          prefixIcon: const Icon(Icons.search),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+    final theme = getTheme(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        color: theme.surfaceContainer,
+        borderRadius: BorderRadius.circular($constants.corners.sm),
+      ),
+      child: Row(
+        children: [
+          // Search icon
+          Padding(
+            padding: EdgeInsets.only(
+              left: $constants.insets.xs,
+              right: $constants.insets.xxs,
+            ),
+            child: Icon(
+              Icons.search,
+              color: isDark ? Colors.grey[400] : Colors.grey[600],
+              size: 16,
+            ),
           ),
-          fillColor: getTheme(context).surfaceContainer,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 12.0,
-            horizontal: 16.0,
+          // Text field
+          Expanded(
+            child: TextField(
+              controller: widget.controller,
+              style: TextStyle(
+                color: isDark ? Colors.white : theme.onSurface,
+                fontSize: 12,
+              ),
+              decoration: InputDecoration(
+                fillColor: theme.surfaceContainer,
+                hintText: widget.placeholder ?? 'Search',
+                hintStyle: TextStyle(
+                  color:
+                      isDark
+                          ? Colors.grey[500]
+                          : theme.onSurfaceVariant.withValues(alpha: 0.6),
+                  fontSize: 12,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: $constants.insets.xxs,
+                ),
+                isDense: true,
+              ),
+
+              onSubmitted: widget.onSubmitted,
+              onChanged: (value) {
+                if (value.isEmpty && widget.onClear != null) {
+                  widget.onClear!();
+                  return;
+                }
+                if (widget.onChanged != null) {
+                  widget.onChanged!(value);
+                }
+              },
+            ),
           ),
-        ),
-        onSubmitted: widget.onSubmitted,
-      );
-    }
+          // Keyboard shortcut indicator
+          if (widget.showKeyboardShortcut)
+            Padding(
+              padding: EdgeInsets.only(right: $constants.insets.xs),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: $constants.insets.xxs,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color:
+                      isDark
+                          ? Colors.grey.shade800
+                          : theme.outline.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular($constants.corners.xs),
+                ),
+                child: Text(
+                  '⌘K',
+                  style: TextStyle(
+                    color: isDark ? Colors.grey[400] : theme.onSurfaceVariant,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }

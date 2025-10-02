@@ -57,8 +57,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                 child: SideMenu(
                   controller: widget.controller,
                   mode: SideMenuMode.open,
-                  minWidth:
-                      isDesktop(context) ? 80 : getSize(context).width * 0.6,
+                  minWidth: isDesktop(context) ? 0 : 0,
                   maxWidth:
                       isDesktop(context) ? 250 : getSize(context).width * 0.6,
                   backgroundColor: getTheme(context).surfaceContainer,
