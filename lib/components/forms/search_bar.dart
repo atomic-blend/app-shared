@@ -1,5 +1,6 @@
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 class ABSearchBar extends StatefulWidget {
@@ -31,7 +32,7 @@ class _ABSearchBarState extends State<ABSearchBar> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      height: 30,
+      height: isDesktop(context) ? 30 : 35,
       decoration: BoxDecoration(
         color: theme.surfaceContainer,
         borderRadius: BorderRadius.circular($constants.corners.sm),
@@ -55,7 +56,7 @@ class _ABSearchBarState extends State<ABSearchBar> {
             child: TextField(
               controller: widget.controller,
               style: TextStyle(
-                color: isDark ? Colors.white : theme.onSurface,
+                color: isDark ? Colors.white : theme.surfaceContainer,
                 fontSize: 12,
               ),
               decoration: InputDecoration(
