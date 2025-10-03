@@ -12,6 +12,7 @@ class ElevatedContainer extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onTap;
   final Border? border;
+  final bool? disableShadow;
   const ElevatedContainer({
     super.key,
     this.child,
@@ -23,6 +24,7 @@ class ElevatedContainer extends StatelessWidget {
     this.onTap,
     this.border,
     this.blurRadius,
+    this.disableShadow,
   });
 
   @override
@@ -39,20 +41,23 @@ class ElevatedContainer extends StatelessWidget {
             borderRadius ?? $constants.insets.sm,
           ),
           border: border,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.06),
-              offset: const Offset(0, 2),
-              blurRadius: blurRadius ?? 8,
-              spreadRadius: 0,
-            ),
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              offset: const Offset(0, 8),
-              blurRadius: blurRadius != null ? blurRadius! * 2 : 16,
-              spreadRadius: -4,
-            ),
-          ],
+          boxShadow:
+              disableShadow != true
+                  ? [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      offset: const Offset(0, 2),
+                      blurRadius: blurRadius ?? 8,
+                      spreadRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      offset: const Offset(0, 8),
+                      blurRadius: blurRadius != null ? blurRadius! * 2 : 16,
+                      spreadRadius: -4,
+                    ),
+                  ]
+                  : null,
         ),
         child: child,
       ),
