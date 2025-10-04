@@ -78,24 +78,31 @@ class ABToastDisplay extends StatelessWidget {
           color: getTheme(context).surface,
           borderRadius: $constants.corners.full,
           border: Border.all(color: getTheme(context).surfaceContainerHighest),
-          child: CarouselSlider(
-            items: controller.notifications.map((notification) {
-              if (notification.content != null) {
-                return notification.content!;
-              }
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(notification.icon ?? CupertinoIcons.info),
-                  Text(notification.title ?? ''),
-                  Text(notification.message ?? ''),
-                ],
-              );
-            }).toList(),
-            options: CarouselOptions(
+          child: IntrinsicHeight(
+            child: CarouselSlider(
+              items:
+                  controller.notifications.map((notification) {
+                    if (notification.content != null) {
+                      return Padding(
+                        padding: EdgeInsets.all($constants.insets.xs),
+                        child: notification.content!,
+                      );
+                    }
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(notification.icon ?? CupertinoIcons.info),
+                        Text(notification.title ?? ''),
+                        Text(notification.message ?? ''),
+                      ],
+                    );
+                  }).toList(),
+              options: CarouselOptions(
                 aspectRatio: 16 / 9,
                 autoPlay: true,
-                enableInfiniteScroll: false),
+                enableInfiniteScroll: false,
+              ),
+            ),
           ),
         );
       },
