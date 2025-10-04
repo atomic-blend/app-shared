@@ -44,7 +44,7 @@ class ABToastController extends ChangeNotifier {
   }
 
   void removeNotification(ValueKey key) {
-    notifications.removeWhere((element) => element.key == key);
+    notifications.removeWhere((element) => element.key.value == key.value);
     _safeNotifyListeners();
   }
 
@@ -73,7 +73,7 @@ class ABToastDisplay extends StatelessWidget {
           return const SizedBox.shrink();
         }
         return ElevatedContainer(
-          width: getSize(context).width * 0.5,
+          width: getSize(context).width * 0.55,
           height: 60,
           color: getTheme(context).surface,
           borderRadius: $constants.corners.full,
@@ -83,18 +83,21 @@ class ABToastDisplay extends StatelessWidget {
               items:
                   controller.notifications.map((notification) {
                     if (notification.content != null) {
-                      return Padding(
-                        padding: EdgeInsets.all($constants.insets.xs),
+                      return GestureDetector(
+                        onTap: notification.onTap,
                         child: notification.content!,
                       );
                     }
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(notification.icon ?? CupertinoIcons.info),
-                        Text(notification.title ?? ''),
-                        Text(notification.message ?? ''),
-                      ],
+                    return GestureDetector(
+                      onTap: notification.onTap,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(notification.icon ?? CupertinoIcons.info),
+                          Text(notification.title ?? ''),
+                          Text(notification.message ?? ''),
+                        ],
+                      ),
                     );
                   }).toList(),
               options: CarouselOptions(
