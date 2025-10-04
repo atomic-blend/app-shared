@@ -73,7 +73,7 @@ class ABToastDisplay extends StatelessWidget {
           return const SizedBox.shrink();
         }
         return ElevatedContainer(
-          width: getSize(context).width * 0.55,
+          width: isDesktop(context) ? 250 : getSize(context).width * 0.55,
           height: 60,
           color: getTheme(context).surface,
           borderRadius: $constants.corners.full,
