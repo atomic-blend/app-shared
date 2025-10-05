@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ab_shared/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,13 +75,19 @@ LinearGradient colorsToGradient(List<Color> colors, {double opacity = 1}) {
   );
 }
 
-bool isDesktop(BuildContext? context) {
-  return kIsWeb ||
-      kIsWasm ||
-      Platform.isMacOS ||
-      Platform.isWindows ||
-      Platform.isLinux ||
-      Device.screenType == ScreenType.tablet;
+bool isDesktop(BuildContext context) {
+  if (!kIsWeb &&
+      (Platform.isMacOS ||
+          Platform.isWindows ||
+          Platform.isLinux ||
+          Device.screenType == ScreenType.tablet)) {
+    return true;
+  }
+  if ((kIsWasm ||
+      kIsWeb) && MediaQuery.of(context!).size.width > $constants.screenSize.sm) {
+    return true;
+  }
+  return false;
 }
 
 bool isPaymentSupported() {
