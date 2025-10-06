@@ -10,6 +10,8 @@ class ABButton extends StatefulWidget {
   final EdgeInsets? padding;
   final VoidCallback onTap;
   final bool? enabled;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   const ABButton({
     super.key,
@@ -19,6 +21,8 @@ class ABButton extends StatefulWidget {
     this.iconSize = 15,
     this.enabled = true,
     this.padding,
+    this.backgroundColor,
+    this.textColor,
   });
 
   @override
@@ -47,8 +51,10 @@ class _ABButtonState extends State<ABButton> {
           decoration: BoxDecoration(
             color:
                 isHovering
-                    ? getTheme(context).surfaceContainer.darken(5)
-                    : getTheme(context).surfaceContainer,
+                    ? widget.backgroundColor?.darken(5) ??
+                        getTheme(context).surfaceContainer.darken(5)
+                    : widget.backgroundColor ??
+                        getTheme(context).surfaceContainer,
             borderRadius: BorderRadius.circular($constants.corners.sm),
           ),
           padding:
@@ -59,10 +65,15 @@ class _ABButtonState extends State<ABButton> {
               ),
           child: Row(
             children: [
-              Icon(widget.icon, size: widget.iconSize),
+              Icon(widget.icon, size: widget.iconSize, color: widget.textColor),
               if (widget.label != null) ...[
                 SizedBox(width: $constants.insets.xs),
-                Text(widget.label!),
+                Text(
+                  widget.label!,
+                  style: getTextTheme(
+                    context,
+                  ).bodyMedium?.copyWith(color: widget.textColor),
+                ),
               ],
             ],
           ),

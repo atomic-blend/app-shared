@@ -16,16 +16,22 @@ class Security extends StatelessWidget {
     return Scaffold(
       key: UniqueKey(),
       appBar: AppBar(
-        title: Text(
-          context.t.account.security_and_privacy.title,
-          style: getTextTheme(context).bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+        title: Row(
+          children: [
+            Icon(CupertinoIcons.padlock_solid, size: 20),
+            SizedBox(width: $constants.insets.sm),
+            Text(
+              context.t.account.security_and_privacy.title,
+              style: getTextTheme(
+                context,
+              ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: $constants.insets.sm,
+          horizontal: $constants.insets.xs,
           vertical: $constants.insets.sm,
         ),
         child: Column(
@@ -41,12 +47,12 @@ class Security extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => ChangePwdModal(
-                    encryptionService: encryptionService,
-                  ),
+                  builder:
+                      (context) =>
+                          ChangePwdModal(encryptionService: encryptionService),
                 );
               },
-            )
+            ),
           ],
         ),
       ),
