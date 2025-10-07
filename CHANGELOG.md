@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.1 - 2025-10-07
+#### Bug Fixes
+- update flutter_age to support 16kb page size on Android - (3be8c4e) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.0 [skip ci] - (902e398) - GitHub Actions
+
+- - -
+
 ## v0.8.0 - 2025-10-07
 #### Bug Fixes
 - linter - (a142fe8) - Brandon Guigo
