@@ -33,13 +33,13 @@ class _SettingsState extends State<Settings> {
   @override
   void initState() {
     super.initState();
-    if (isDesktop(context)) {
-      selectedItem = AppSettings();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isDesktop(context) && selectedItem == null) {
+      selectedItem = AppSettings();
+    }
     return Row(
       children: [
         SizedBox(

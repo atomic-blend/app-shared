@@ -84,7 +84,7 @@ bool isDesktop(BuildContext context) {
     return true;
   }
   if ((kIsWasm ||
-      kIsWeb) && MediaQuery.of(context!).size.width > $constants.screenSize.sm) {
+      kIsWeb) && MediaQuery.of(context).size.width > $constants.screenSize.sm) {
     return true;
   }
   return false;
