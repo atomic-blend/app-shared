@@ -1,5 +1,4 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
-import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/buttons/icon_text_button.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/settings/screens/app_settings.dart';

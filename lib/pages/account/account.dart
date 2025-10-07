@@ -1,7 +1,6 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/ab_button.dart';
 import 'package:ab_shared/components/buttons/icon_text_button.dart';
-import 'package:ab_shared/components/buttons/primary_button_round.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/modals/delete_account_modal.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
@@ -17,7 +16,6 @@ import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/name_generator.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

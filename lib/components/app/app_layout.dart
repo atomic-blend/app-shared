@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:ab_shared/components/ab_toast.dart';
 
 /// A reusable app layout component that provides a consistent structure
