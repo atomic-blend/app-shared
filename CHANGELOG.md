@@ -2,6 +2,30 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.0 - 2025-10-07
+#### Bug Fixes
+- linter - (a142fe8) - Brandon Guigo
+- error in settings (isDesktop in init state is not allowed) - (23e6a3e) - Brandon Guigo
+- customize action per page using nav constants - (e794c58) - Brandon Guigo
+- return mobile ui on web when screen size is small - (cd115ed) - Brandon Guigo
+- desktop width for the toast display - (b698187) - Brandon Guigo
+- add disable shadow option for elevated container - (a702095) - Brandon Guigo
+- remove the more button in shared navbar - (553a488) - Brandon Guigo
+- app theme surfaceContainer + search bar ui - (1bac36e) - Brandon Guigo
+- completely close the sidebar on desktop + unified search bar ui - (5dae703) - Brandon Guigo
+#### Features
+- add settings screen with additional items - (9993b3d) - Brandon Guigo
+- add shared app_layout for every apps - (52ce5a1) - Brandon Guigo
+- add desktop ui for account pages - (158f024) - Brandon Guigo
+- add padding and optional label to ab button - (b7999f4) - Brandon Guigo
+- make the bulk edit clear the selection and the notification - (02d5901) - Brandon Guigo
+- add selected email toast ui - (033db26) - Brandon Guigo
+- add ab button and toast display - (adbdeec) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.7.0 [skip ci] - (ddf37d6) - GitHub Actions
+
+- - -
+
 ## v0.7.0 - 2025-10-01
 #### Bug Fixes
 - sizes and linter - (8c53a72) - Brandon Guigo
