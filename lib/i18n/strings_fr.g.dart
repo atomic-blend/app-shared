@@ -80,6 +80,7 @@ class _TranslationsSettingsFr implements TranslationsSettingsEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Paramètres';
 	@override late final _TranslationsSettingsAppSettingsFr app_settings = _TranslationsSettingsAppSettingsFr._(_root);
 	@override String get logout => 'Déconnexion';
 }
@@ -559,6 +560,7 @@ class _TranslationsSettingsAppSettingsFr implements TranslationsSettingsAppSetti
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Paramètres de l\'application';
 	@override late final _TranslationsSettingsAppSettingsSelfHostedUrlFr selfHostedUrl = _TranslationsSettingsAppSettingsSelfHostedUrlFr._(_root);
 }
 
@@ -745,6 +747,7 @@ class _TranslationsSettingsAppSettingsSelfHostedUrlFr implements TranslationsSet
 	@override String get title => 'URL auto-hébergée';
 	@override String get description => 'Si vous utilisez une instance auto-hébergée d\'Atomic Blend, vous pouvez saisir l\'URL ici.';
 	@override String get placeholder => 'Entrez l\'URL de votre instance';
+	@override String get not_set => 'Non défini';
 }
 
 // Path: account.security_and_privacy.change_password
@@ -929,9 +932,12 @@ extension on TranslationsFr {
 			case 'auth.reset_password.yes': return 'Oui';
 			case 'auth.reset_password.no': return 'Non';
 			case 'auth.reset_password.confirm_reset': return 'Confirmer la réinitialisation';
+			case 'settings.title': return 'Paramètres';
+			case 'settings.app_settings.title': return 'Paramètres de l\'application';
 			case 'settings.app_settings.selfHostedUrl.title': return 'URL auto-hébergée';
 			case 'settings.app_settings.selfHostedUrl.description': return 'Si vous utilisez une instance auto-hébergée d\'Atomic Blend, vous pouvez saisir l\'URL ici.';
 			case 'settings.app_settings.selfHostedUrl.placeholder': return 'Entrez l\'URL de votre instance';
+			case 'settings.app_settings.selfHostedUrl.not_set': return 'Non défini';
 			case 'settings.logout': return 'Déconnexion';
 			case 'account.edit_profile': return 'Modifier le profil';
 			case 'account.sections.account': return 'Compte';

@@ -88,6 +88,10 @@ class TranslationsSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Settings'
+	String get title => 'Settings';
+
 	late final TranslationsSettingsAppSettingsEn app_settings = TranslationsSettingsAppSettingsEn._(_root);
 
 	/// en: 'Logout'
@@ -792,6 +796,10 @@ class TranslationsSettingsAppSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'App Settings'
+	String get title => 'App Settings';
+
 	late final TranslationsSettingsAppSettingsSelfHostedUrlEn selfHostedUrl = TranslationsSettingsAppSettingsSelfHostedUrlEn._(_root);
 }
 
@@ -1075,6 +1083,9 @@ class TranslationsSettingsAppSettingsSelfHostedUrlEn {
 
 	/// en: 'Enter the URL of your instance'
 	String get placeholder => 'Enter the URL of your instance';
+
+	/// en: 'Not set'
+	String get not_set => 'Not set';
 }
 
 // Path: account.security_and_privacy.change_password
@@ -1307,9 +1318,12 @@ extension on Translations {
 			case 'auth.reset_password.yes': return 'Yes';
 			case 'auth.reset_password.no': return 'No';
 			case 'auth.reset_password.confirm_reset': return 'Confirm reset';
+			case 'settings.title': return 'Settings';
+			case 'settings.app_settings.title': return 'App Settings';
 			case 'settings.app_settings.selfHostedUrl.title': return 'Self-Hosted URL';
 			case 'settings.app_settings.selfHostedUrl.description': return 'If you are using a self-hosted instance of Atomic Blend, you can enter the URL here.';
 			case 'settings.app_settings.selfHostedUrl.placeholder': return 'Enter the URL of your instance';
+			case 'settings.app_settings.selfHostedUrl.not_set': return 'Not set';
 			case 'settings.logout': return 'Logout';
 			case 'account.edit_profile': return 'Edit Profile';
 			case 'account.sections.account': return 'Account';

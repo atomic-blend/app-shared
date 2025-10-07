@@ -29,7 +29,7 @@ abstract final class AppTheme {
       onTertiary: Color(0xFFF5EFFF),
       error: Color(0xFFBA1A1A),
       onError: Color(0xFFFFDAD6),
-      surfaceContainer: Color(0xFFFAFAFA),
+      surfaceContainer: Color(0xFFF7F7F7),
       surface: Colors.white,
       primaryContainer: Color(0xFFE8F3FF),
       onSurface: Colors.black,

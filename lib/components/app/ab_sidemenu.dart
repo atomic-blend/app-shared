@@ -20,6 +20,7 @@ class ABSideMenu extends StatefulWidget {
   final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
   final String? primaryMenuKey;
   final String? secondaryMenuKey;
+  final Widget? actionWidget;
   const ABSideMenu({
     super.key,
     required this.controller,
@@ -28,6 +29,7 @@ class ABSideMenu extends StatefulWidget {
     required this.onSubItemTap,
     this.primaryMenuKey,
     this.secondaryMenuKey,
+    this.actionWidget,
   });
 
   @override
@@ -57,8 +59,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                 child: SideMenu(
                   controller: widget.controller,
                   mode: SideMenuMode.open,
-                  minWidth:
-                      isDesktop(context) ? 80 : getSize(context).width * 0.6,
+                  minWidth: isDesktop(context) ? 0 : 0,
                   maxWidth:
                       isDesktop(context) ? 250 : getSize(context).width * 0.6,
                   backgroundColor: getTheme(context).surfaceContainer,
@@ -137,6 +138,11 @@ class _ABSideMenuState extends State<ABSideMenu> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              if (widget.actionWidget != null) ...[
+                                SizedBox(height: $constants.insets.xs),
+                                widget.actionWidget!,
+                                SizedBox(height: $constants.insets.xs),
+                              ],
                               SizedBox(height: $constants.insets.xs),
                               ...widget.primaryMenuItems.map((item) {
                                 return ABSideMenuItem(

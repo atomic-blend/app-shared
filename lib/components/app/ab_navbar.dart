@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -24,11 +23,13 @@ class NavigationItem extends StatelessWidget {
     this.body,
     this.initialsOnly,
     this.appBar,
+    this.header,
     this.mainSecondaryKey,
     this.color,
     this.separatorBefore,
     this.subItems,
     this.mobileOnly,
+    this.action,
   });
 
   /// The icon displayed by the destination.
@@ -48,6 +49,9 @@ class NavigationItem extends StatelessWidget {
 
   /// Optional body
   final Widget? body;
+
+  /// Optional header
+  final Widget? header;
 
   /// Optional appbar
   final AppBar? appBar;
@@ -85,10 +89,24 @@ class NavigationItem extends StatelessWidget {
   /// Used to display an item only on mobile
   final bool? mobileOnly;
 
+  /// Optional action
+  final NavigationAction? action;
+
   @override
   Widget build(BuildContext context) {
     return Icon(icon);
   }
+}
+
+class NavigationAction {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  const NavigationAction({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 }
 
 class NavigationSection {
@@ -361,101 +379,6 @@ class _ABNavbarState extends State<ABNavbar> {
                   ),
                 ),
               ),
-          // Add "more" button if there are more than 4 items
-          if (filteredDestinations.length > 4)
-            GestureDetector(
-              onTap: () {
-                // Show modal with remaining items
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder:
-                      (context) => SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.8,
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all($constants.insets.md),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "More",
-                                    style: getTextTheme(context).headlineSmall!
-                                        .copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  Spacer(),
-                                  GestureDetector(
-                                    onTap: () => Navigator.pop(context),
-                                    child: Icon(
-                                      CupertinoIcons.xmark_circle_fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: filteredDestinations.length - 4,
-                                itemBuilder: (context, index) {
-                                  final item = filteredDestinations[4 + index];
-                                  return ListTile(
-                                    leading: Icon(
-                                      getIcon(item.icon, item.cupertinoIcon),
-                                    ),
-                                    title: Text(item.label),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      if (item.onTap != null) {
-                                        item.onTap!(4 + index);
-                                      } else {
-                                        widget.onPrimaryMenuSelected(
-                                          (item.key as ValueKey).value,
-                                        );
-                                        if (item.mainSecondaryKey != null) {
-                                          widget.onSecondaryMenuSelected(
-                                            item.mainSecondaryKey!,
-                                          );
-                                        }
-                                      }
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.all($constants.insets.xxs),
-                child: Container(
-                  padding: EdgeInsets.all($constants.insets.xs),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        CupertinoIcons.ellipsis_circle_fill,
-                        color: Colors.grey.shade600,
-                        size: 25,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 2),
-                        child: Text(
-                          "More",
-                          style: getTextTheme(context).bodyMedium?.copyWith(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
         ],
       ),
     );
