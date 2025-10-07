@@ -78,23 +78,8 @@ class AppLayout extends ResponsiveStatefulWidget {
   /// Toast controller
   final ABToastController abToastController;
 
-  /// Center action callback for the navigation bar
-  final VoidCallback? centerActionCallback;
-
-  /// Center action icon for the navigation bar
-  final IconData? centerActionIcon;
-
-  /// Custom composer widget (e.g., MailComposer)
-  final Widget? composerWidget;
-
-  /// Custom sync service callback
-  final VoidCallback? syncCallback;
-
   /// Custom SSO module widget
   final Widget? ssoModule;
-
-  /// Whether to show center action in navigation bar
-  final bool centerActionEnabled;
 
   const AppLayout({
     super.key,
@@ -110,12 +95,7 @@ class AppLayout extends ResponsiveStatefulWidget {
     this.userKey,
     this.agePublicKey,
     this.revenueCatService,
-    this.centerActionCallback,
-    this.centerActionIcon,
-    this.composerWidget,
-    this.syncCallback,
     this.ssoModule,
-    this.centerActionEnabled = true,
   });
 
   @override
@@ -216,6 +196,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
             Widget? body = primaryMenuItem?.body;
             AppBar? appBar = primaryMenuItem?.appBar;
             Widget? header = primaryMenuItem?.header;
+            NavigationAction? action = primaryMenuItem?.action;
 
             // select the items if there's a secondary menu and a secondary menu item is selected
             if (secondaryItems.isNotEmpty &&
@@ -254,6 +235,18 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
               if (secondaryAppBar != null) {
                 appBar = secondaryAppBar;
               }
+              final secondaryAction =
+                  secondaryItems
+                      .where(
+                        (item) =>
+                            (item.key as ValueKey).value ==
+                            (appState as dynamic)?.secondaryMenuSelectedKey,
+                      )
+                      .firstOrNull
+                      ?.action;
+              if (secondaryAction != null) {
+                action = secondaryAction;
+              }
             }
 
             final drawer = TapRegion(
@@ -264,6 +257,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 controller: widget.sideMenuController,
                 primaryMenuItems: primaryMenuItems,
                 primaryMenuKey: (appState as dynamic)?.primaryMenuSelectedKey,
+                actionWidget:
+                    action != null
+                        ? _buildActionButtonSideMenu(context, action)
+                        : null,
                 secondaryMenuKey:
                     (appState as dynamic)?.secondaryMenuSelectedKey,
                 onItemTap: (item) {
@@ -348,63 +345,9 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                                 primaryMenuKey:
                                     (appState as dynamic)
                                         ?.primaryMenuSelectedKey,
-                                centerActionEnabled: widget.centerActionEnabled,
-                                centerActionIcon:
-                                    widget.centerActionIcon ??
-                                    LineAwesome.plus_solid,
-                                centerActionCallback:
-                                    widget.centerActionCallback ??
-                                    () {
-                                      if (widget.composerWidget != null) {
-                                        if (isDesktop(context)) {
-                                          showDialog(
-                                            context: context,
-                                            builder:
-                                                (context) => Dialog(
-                                                  child: SizedBox(
-                                                    height:
-                                                        getSize(
-                                                          context,
-                                                        ).height *
-                                                        0.8,
-                                                    width:
-                                                        getSize(context).width *
-                                                        0.8,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            $constants
-                                                                .corners
-                                                                .md,
-                                                          ),
-                                                      child:
-                                                          widget
-                                                              .composerWidget!,
-                                                    ),
-                                                  ),
-                                                ),
-                                          );
-                                        } else {
-                                          showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            context: context,
-                                            isDismissible: false,
-                                            enableDrag: false,
-                                            backgroundColor: Colors.transparent,
-                                            builder:
-                                                (context) => SizedBox(
-                                                  height:
-                                                      getSize(context).height *
-                                                      0.92,
-                                                  child: widget.composerWidget!,
-                                                ),
-                                          );
-                                        }
-                                      }
-                                      if (widget.syncCallback != null) {
-                                        widget.syncCallback!();
-                                      }
-                                    },
+                                centerActionEnabled: action != null,
+                                centerActionIcon: action?.icon,
+                                centerActionCallback: action?.onTap,
                               ),
                             ),
                           ),
@@ -471,6 +414,16 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                     .firstOrNull
                     ?.appBar;
 
+            NavigationAction? action =
+                widget.primaryMenuItems
+                    .where(
+                      (item) =>
+                          (item.key as ValueKey).value ==
+                          (appState as dynamic)?.primaryMenuSelectedKey,
+                    )
+                    .firstOrNull
+                    ?.action;
+
             // on desktop, move the 4th primary menu item to the end of the list
             final primaryMenuItems = widget.primaryMenuItems.toList();
             if (primaryMenuItems.length > 4) {
@@ -515,6 +468,18 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
               if (secondaryAppBar != null) {
                 appBar = secondaryAppBar;
               }
+              final secondaryAction =
+                  secondaryItems
+                      .where(
+                        (item) =>
+                            (item.key as ValueKey).value ==
+                            (appState as dynamic)?.secondaryMenuSelectedKey,
+                      )
+                      .firstOrNull
+                      ?.action;
+              if (secondaryAction != null) {
+                action = secondaryAction;
+              }
             }
 
             final renderedBody = Stack(
@@ -530,6 +495,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                           (appState as dynamic)?.primaryMenuSelectedKey,
                       secondaryMenuKey:
                           (appState as dynamic)?.secondaryMenuSelectedKey,
+                      actionWidget:
+                          action != null
+                              ? _buildActionButtonSideMenu(context, action)
+                              : null,
                       onItemTap: (item) {
                         if (item.onTap != null) {
                           item.onTap!(0);
@@ -603,6 +572,45 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
           },
         );
       },
+    );
+  }
+
+  Widget _buildActionButtonSideMenu(
+    BuildContext context,
+    NavigationAction action,
+  ) {
+    return GestureDetector(
+      onTap: action.onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: $constants.insets.xs,
+          vertical: $constants.insets.xxs,
+        ),
+        child: Container(
+          padding: EdgeInsets.all($constants.insets.xs),
+          decoration: BoxDecoration(
+            color: getTheme(context).primary,
+            borderRadius: BorderRadius.circular($constants.corners.sm),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ...[
+                Icon(action.icon, color: getTheme(context).onPrimary),
+                SizedBox(width: $constants.insets.sm),
+              ],
+              Text(
+                action.label,
+                style: getTextTheme(context).bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: getTheme(context).onPrimary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

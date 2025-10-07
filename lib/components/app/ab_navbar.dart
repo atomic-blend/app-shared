@@ -30,6 +30,7 @@ class NavigationItem extends StatelessWidget {
     this.separatorBefore,
     this.subItems,
     this.mobileOnly,
+    this.action,
   });
 
   /// The icon displayed by the destination.
@@ -89,10 +90,24 @@ class NavigationItem extends StatelessWidget {
   /// Used to display an item only on mobile
   final bool? mobileOnly;
 
+  /// Optional action
+  final NavigationAction? action;
+
   @override
   Widget build(BuildContext context) {
     return Icon(icon);
   }
+}
+
+class NavigationAction {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  const NavigationAction({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 }
 
 class NavigationSection {
