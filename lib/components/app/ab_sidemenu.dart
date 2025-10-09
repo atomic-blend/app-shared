@@ -143,8 +143,6 @@ class _ABSideMenuState extends State<ABSideMenu> {
                               ...widget.primaryMenuItems.map((item) {
                                 return ABSideMenuItem(
                                   item: item,
-                                  primaryMenuKey: widget.primaryMenuKey,
-                                  secondaryMenuKey: widget.secondaryMenuKey,
                                   collapsible: true,
                                   initiallyExpanded: true,
                                 );
