@@ -8,6 +8,7 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   final SharedPreferences? prefs;
@@ -23,8 +24,6 @@ class Settings extends StatefulWidget {
   @override
   State<Settings> createState() => _SettingsState();
 }
-
-class SharedPreferences {}
 
 class _SettingsState extends State<Settings> {
   Widget? selectedItem;

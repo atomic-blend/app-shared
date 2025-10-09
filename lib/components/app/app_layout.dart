@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/ab_sidemenu.dart';
-import 'package:ab_shared/pages/auth/sso_module.dart';
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/responsive_stateful_widget.dart';
 import 'package:ab_shared/pages/paywall/paywall_utils.dart';
@@ -143,13 +142,14 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
         if (authState is! LoggedIn) {
           return Scaffold(
             body:
-                widget.ssoModule ??
-                SSOModule(
-                  encryptionService: widget.encryptionService,
-                  globalApiClient: widget.globalApiClient,
-                  prefs: widget.prefs,
-                  env: widget.env,
-                ),
+                // widget.ssoModule ??
+                // SSOModule(
+                //   encryptionService: widget.encryptionService,
+                //   globalApiClient: widget.globalApiClient,
+                //   prefs: widget.prefs,
+                //   env: widget.env,
+                // ),
+                Container(),
           );
         }
         return body;
@@ -169,13 +169,14 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
             if (authState is! LoggedIn) {
               return Scaffold(
                 body:
-                    widget.ssoModule ??
-                    SSOModule(
-                      encryptionService: widget.encryptionService,
-                      globalApiClient: widget.globalApiClient,
-                      prefs: widget.prefs,
-                      env: widget.env,
-                    ),
+                    // widget.ssoModule ??
+                    // SSOModule(
+                    //   encryptionService: widget.encryptionService,
+                    //   globalApiClient: widget.globalApiClient,
+                    //   prefs: widget.prefs,
+                    //   env: widget.env,
+                    // ),
+                    Container(),
               );
             }
 
