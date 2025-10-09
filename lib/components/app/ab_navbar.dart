@@ -127,11 +127,31 @@ class _ABNavbarState extends State<ABNavbar> {
 
   // Get the action from the currently selected navigation item
   NavigationAction? getCurrentPageAction() {
+    // First, check if any main item is selected and has an action
     for (final item in widget.destinations) {
       if (isItemSelected(item) && item.action != null) {
         return item.action;
       }
     }
+
+    // If no main item action found, check subitems
+    for (final item in widget.destinations) {
+      if (item.subItems != null) {
+        for (final subItem in item.subItems!) {
+          if (isItemSelected(subItem)) {
+            // If subitem has its own action, use it
+            if (subItem.action != null) {
+              return subItem.action;
+            }
+            // If subitem has no action, fallback to parent item's action
+            if (item.action != null) {
+              return item.action;
+            }
+          }
+        }
+      }
+    }
+
     return null;
   }
 
