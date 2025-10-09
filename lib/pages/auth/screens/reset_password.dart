@@ -12,6 +12,27 @@ import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+part 'reset_password.g.dart';
+
+class ResetPasswordParams {
+  final String? email;
+  final EncryptionService? encryptionService;
+
+  const ResetPasswordParams({this.email, this.encryptionService});
+}
+
+@TypedGoRoute<ResetPasswordRoute>(path: "/auth/reset-password", name: "reset-password")
+class ResetPasswordRoute extends GoRouteData with _$ResetPasswordRoute {
+  final ResetPasswordParams? $extra;
+  ResetPasswordRoute(this.$extra);
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ResetPassword(email: $extra?.email, encryptionService: $extra?.encryptionService);
+  }
+}
 
 class ResetPassword extends StatefulWidget {
   final String? email;

@@ -299,18 +299,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (context) => ResetPassword(
-                                                    email:
-                                                        _emailController.text,
-                                                    encryptionService:
-                                                        widget
-                                                            .encryptionService,
-                                                  ),
-                                            ),
-                                          );
+                                          context.go("/auth/reset-password");
                                         },
                                         child: Text(
                                           context.t.auth.reset_password.title,
