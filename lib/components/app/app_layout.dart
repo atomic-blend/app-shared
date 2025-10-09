@@ -120,10 +120,6 @@ class AppLayout extends StatelessWidget {
                 backgroundColor: getTheme(context).surface,
                 destinations: items,
                 primaryMenuKey: GoRouter.of(context).state.path ?? '',
-                //TODO: make the center action work again
-                centerActionEnabled: false,
-                centerActionIcon: null,
-                centerActionCallback: null,
               ),
             ),
           ),

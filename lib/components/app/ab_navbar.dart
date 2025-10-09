@@ -99,18 +99,12 @@ class ABNavbar extends StatefulWidget {
   final Color? backgroundColor;
   final Function(int)? onTap;
   final double height = 65;
-  final bool centerActionEnabled;
-  final VoidCallback? centerActionCallback;
-  final IconData? centerActionIcon;
   const ABNavbar({
     super.key,
     required this.destinations,
     required this.primaryMenuKey,
     this.backgroundColor,
     this.onTap,
-    this.centerActionEnabled = false,
-    this.centerActionCallback,
-    this.centerActionIcon,
   });
 
   @override
@@ -129,6 +123,16 @@ class _ABNavbarState extends State<ABNavbar> {
   bool isItemSelected(NavigationItem item) {
     final currentLocation = GoRouterState.of(context).uri.path;
     return currentLocation == item.location;
+  }
+
+  // Get the action from the currently selected navigation item
+  NavigationAction? getCurrentPageAction() {
+    for (final item in widget.destinations) {
+      if (isItemSelected(item) && item.action != null) {
+        return item.action;
+      }
+    }
+    return null;
   }
 
   @override
@@ -200,10 +204,10 @@ class _ABNavbarState extends State<ABNavbar> {
                   ),
                 ),
               ),
-          // Add center action button if enabled
-          if (widget.centerActionEnabled && widget.centerActionIcon != null)
+          // Add center action button if current page has an action
+          if (getCurrentPageAction() != null)
             GestureDetector(
-              onTap: widget.centerActionCallback,
+              onTap: getCurrentPageAction()!.onTap,
               child: Container(
                 padding: EdgeInsets.all($constants.insets.xxs),
                 decoration: BoxDecoration(
@@ -251,7 +255,7 @@ class _ABNavbarState extends State<ABNavbar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        widget.centerActionIcon!,
+                        getCurrentPageAction()!.icon,
                         color: Colors.grey.shade800,
                         size: 25,
                       ),
