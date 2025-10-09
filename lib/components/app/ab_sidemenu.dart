@@ -16,8 +16,6 @@ import 'package:flutter_side_menu/flutter_side_menu.dart';
 class ABSideMenu extends StatefulWidget {
   final SideMenuController controller;
   final List<NavigationItem> primaryMenuItems;
-  final Function(NavigationItem) onItemTap;
-  final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
   final String? primaryMenuKey;
   final String? secondaryMenuKey;
   final Widget? actionWidget;
@@ -25,8 +23,6 @@ class ABSideMenu extends StatefulWidget {
     super.key,
     required this.controller,
     required this.primaryMenuItems,
-    required this.onItemTap,
-    required this.onSubItemTap,
     this.primaryMenuKey,
     this.secondaryMenuKey,
     this.actionWidget,
@@ -149,8 +145,6 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                   item: item,
                                   primaryMenuKey: widget.primaryMenuKey,
                                   secondaryMenuKey: widget.secondaryMenuKey,
-                                  onItemTap: widget.onItemTap,
-                                  onSubItemTap: widget.onSubItemTap,
                                   collapsible: true,
                                   initiallyExpanded: true,
                                 );

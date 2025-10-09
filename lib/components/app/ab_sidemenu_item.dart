@@ -6,13 +6,12 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ABSideMenuItem extends StatefulWidget {
   final NavigationItem item;
   final String? primaryMenuKey;
   final String? secondaryMenuKey;
-  final Function(NavigationItem) onItemTap;
-  final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
   final bool collapsible;
   final bool initiallyExpanded;
 
@@ -21,8 +20,6 @@ class ABSideMenuItem extends StatefulWidget {
     required this.item,
     required this.primaryMenuKey,
     required this.secondaryMenuKey,
-    required this.onItemTap,
-    required this.onSubItemTap,
     this.collapsible = false,
     this.initiallyExpanded = true,
   });
@@ -92,7 +89,7 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
           horizontal: $constants.insets.sm,
           vertical: $constants.insets.xxs,
         ),
-        onTap: () => widget.onItemTap(widget.item),
+        onTap: () => context.go(widget.item.location ?? '/'),
       );
     } else {
       final children = <Widget>[];
@@ -113,7 +110,7 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
               horizontal: $constants.insets.sm,
               vertical: $constants.insets.xxs,
             ),
-            onTap: () => widget.onSubItemTap(widget.item, subItem),
+            onTap: () => context.go(subItem.location ?? '/'),
           ),
         );
       }
@@ -131,7 +128,7 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             onTap:
                 widget.collapsible
                     ? _toggleExpanded
-                    : () => widget.onItemTap(widget.item),
+                    : () => context.go(widget.item.location ?? '/'),
             showArrow: widget.collapsible,
             isExpanded: _isExpanded,
           ),

@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:go_router/go_router.dart';
 
 /// A customizable bottom navigation item for use with [BottomNavigation].
 ///
@@ -16,21 +17,17 @@ class NavigationItem extends StatelessWidget {
     required this.cupertinoIcon,
     required this.label,
     this.selectedIcon,
-    this.onTap,
-    this.tooltip,
     this.desktopOnly,
     this.enabled = true,
-    this.body,
-    this.initialsOnly,
-    this.appBar,
-    this.header,
-    this.mainSecondaryKey,
+    this.location,
     this.color,
-    this.separatorBefore,
     this.subItems,
     this.mobileOnly,
     this.action,
   });
+
+  /// The location of the destination.
+  final String? location;
 
   /// The icon displayed by the destination.
   final IconData icon;
@@ -44,37 +41,11 @@ class NavigationItem extends StatelessWidget {
   /// The label displayed by the destination.
   final String label;
 
-  /// Optional tooltip for the destination.
-  final String? tooltip;
-
-  /// Optional body
-  final Widget? body;
-
-  /// Optional header
-  final Widget? header;
-
-  /// Optional appbar
-  final AppBar? appBar;
-
-  /// Optional separatorBefore
-  final bool? separatorBefore;
-
-  /// Main secondary key (the default secondary screen)
-  final String? mainSecondaryKey;
-
   /// Optional color
   final Color? color;
 
-  /// Whether to show only initials in the destination.
-  final bool? initialsOnly;
-
   /// Whether this destination is interactive.
   final bool enabled;
-
-  /// Optional callback invoked when this item is tapped.
-  ///
-  /// The callback provides the index of the item in the navigation bar.
-  final Function(int)? onTap;
 
   /// Optional sub items
   /// Used to display a list of items in a collapsible menu
@@ -123,8 +94,6 @@ class NavigationSection {
 }
 
 class ABNavbar extends StatefulWidget {
-  final Function(String key) onPrimaryMenuSelected;
-  final Function(String key) onSecondaryMenuSelected;
   final List<NavigationItem> destinations;
   final String primaryMenuKey;
   final Color? backgroundColor;
@@ -135,8 +104,6 @@ class ABNavbar extends StatefulWidget {
   final IconData? centerActionIcon;
   const ABNavbar({
     super.key,
-    required this.onPrimaryMenuSelected,
-    required this.onSecondaryMenuSelected,
     required this.destinations,
     required this.primaryMenuKey,
     this.backgroundColor,
@@ -195,22 +162,7 @@ class _ABNavbarState extends State<ABNavbar> {
                     setState(() {
                       selectedIndex = index;
                     });
-                    // Check if the tapped item has its own onTap handler
-                    if (filteredDestinations.length > index &&
-                        e.onTap != null) {
-                      e.onTap!(index);
-                    }
-                    // Otherwise use the default handler
-                    else if (widget.onTap != null) {
-                      widget.onTap!(index);
-                    } else {
-                      widget.onPrimaryMenuSelected(
-                        (filteredDestinations[index].key as ValueKey).value,
-                      );
-                      if (e.mainSecondaryKey != null) {
-                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
-                      }
-                    }
+                    context.go(filteredDestinations[index].location ?? '/');
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),
@@ -324,23 +276,10 @@ class _ABNavbarState extends State<ABNavbar> {
                     setState(() {
                       selectedIndex = originalIndex;
                     });
-                    // Check if the tapped item has its own onTap handler
-                    if (filteredDestinations.length > originalIndex &&
-                        e.onTap != null) {
-                      e.onTap!(originalIndex);
-                    }
-                    // Otherwise use the default handler
-                    else if (widget.onTap != null) {
-                      widget.onTap!(originalIndex);
-                    } else {
-                      widget.onPrimaryMenuSelected(
-                        (filteredDestinations[originalIndex].key as ValueKey)
-                            .value,
-                      );
-                      if (e.mainSecondaryKey != null) {
-                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
-                      }
-                    }
+
+                    context.go(
+                      filteredDestinations[originalIndex].location ?? '/',
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),
