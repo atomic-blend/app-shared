@@ -8,7 +8,36 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'settings.g.dart';
+
+class SettingsParams {
+  final SharedPreferences? prefs;
+  final ApiClient? globalApiClient;
+  final List<Widget>? additionalSettings;
+  const SettingsParams({
+    this.prefs,
+    this.globalApiClient,
+    this.additionalSettings,
+  });
+}
+
+@TypedGoRoute<SettingsRoute>(path: "/settings", name: "settings")
+class SettingsRoute extends GoRouteData with _$SettingsRoute {
+  final SettingsParams? $extra;
+  SettingsRoute(this.$extra);
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Settings(
+      prefs: $extra?.prefs,
+      globalApiClient: $extra?.globalApiClient,
+      additionalSettings: $extra?.additionalSettings,
+    );
+  }
+}
 
 class Settings extends StatefulWidget {
   final SharedPreferences? prefs;
@@ -35,8 +64,16 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.prefs == null || widget.globalApiClient == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go('/');
+      });
+    }
     if (isDesktop(context) && selectedItem == null) {
-      selectedItem = AppSettings();
+      selectedItem = AppSettings(
+        prefs: widget.prefs,
+        globalApiClient: widget.globalApiClient,
+      );
     }
     return Row(
       children: [
@@ -65,14 +102,20 @@ class _SettingsState extends State<Settings> {
                           onTap: () {
                             if (isDesktop(context)) {
                               setState(() {
-                                selectedItem = AppSettings();
+                                selectedItem = AppSettings(
+                                  prefs: widget.prefs,
+                                  globalApiClient: widget.globalApiClient,
+                                );
                               });
                             } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return AppSettings();
+                                    return AppSettings(
+                                      prefs: widget.prefs,
+                                      globalApiClient: widget.globalApiClient,
+                                    );
                                   },
                                 ),
                               );
@@ -80,7 +123,7 @@ class _SettingsState extends State<Settings> {
                           },
                         ),
                         if (widget.additionalSettings != null) ...[
-                          ...widget.additionalSettings!,
+                          ...widget.additionalSettings ?? [],
                         ],
                         if (authState is LoggedIn)
                           IconTextButton(

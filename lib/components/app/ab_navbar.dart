@@ -21,6 +21,7 @@ class NavigationItem extends StatelessWidget {
     this.enabled = true,
     this.location,
     this.color,
+    this.onTap,
     this.subItems,
     this.mobileOnly,
     this.action,
@@ -37,6 +38,9 @@ class NavigationItem extends StatelessWidget {
 
   /// The optional icon to display when this destination is selected.
   final Widget? selectedIcon;
+
+  /// The optional onTap callback for the destination.
+  final VoidCallback? onTap;
 
   /// The label displayed by the destination.
   final String label;
@@ -186,7 +190,11 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    context.go(e.location ?? '/');
+                    if (e.onTap != null) {
+                      e.onTap!();
+                    } else {
+                      context.go(e.location ?? '/');
+                    }
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),
@@ -295,7 +303,11 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    context.go(e.location ?? '/');
+                    if (e.onTap != null) {
+                      e.onTap!();
+                    } else {
+                      context.go(e.location ?? '/');
+                    }
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),

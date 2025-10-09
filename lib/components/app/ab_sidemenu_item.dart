@@ -91,7 +91,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
           horizontal: $constants.insets.sm,
           vertical: $constants.insets.xxs,
         ),
-        onTap: () => context.go(widget.item.location ?? '/'),
+        onTap: () {
+          if (widget.item.onTap != null) {
+            widget.item.onTap!();
+          } else {
+            context.go(widget.item.location ?? '/');
+          }
+        },
       );
     } else {
       final children = <Widget>[];
@@ -108,7 +114,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
               horizontal: $constants.insets.sm,
               vertical: $constants.insets.xxs,
             ),
-            onTap: () => context.go(subItem.location ?? '/'),
+            onTap: () {
+              if (subItem.onTap != null) {
+                subItem.onTap!();
+              } else {
+                context.go(subItem.location ?? '/');
+              }
+            },
           ),
         );
       }
@@ -126,7 +138,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             onTap:
                 widget.collapsible
                     ? _toggleExpanded
-                    : () => context.go(widget.item.location ?? '/'),
+                    : () {
+                      if (widget.item.onTap != null) {
+                        widget.item.onTap!();
+                      } else {
+                        context.go(widget.item.location ?? '/');
+                      }
+                    },
             showArrow: widget.collapsible,
             isExpanded: _isExpanded,
           ),
