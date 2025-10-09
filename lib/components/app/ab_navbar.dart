@@ -118,13 +118,17 @@ class ABNavbar extends StatefulWidget {
 }
 
 class _ABNavbarState extends State<ABNavbar> {
-  int selectedIndex = 0;
-
   // Filter out desktopOnly items
   List<NavigationItem> get filteredDestinations {
     return widget.destinations
         .where((item) => item.desktopOnly != true)
         .toList();
+  }
+
+  // Check if an item is selected by comparing current location with item location
+  bool isItemSelected(NavigationItem item) {
+    final currentLocation = GoRouterState.of(context).uri.path;
+    return currentLocation == item.location;
   }
 
   @override
@@ -158,11 +162,7 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final index = filteredDestinations.indexOf(e);
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                    context.go(filteredDestinations[index].location ?? '/');
+                    context.go(e.location ?? '/');
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),
@@ -175,7 +175,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == filteredDestinations.indexOf(e)
+                                isItemSelected(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -188,8 +188,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 color:
-                                    selectedIndex ==
-                                            filteredDestinations.indexOf(e)
+                                    isItemSelected(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),
@@ -272,14 +271,7 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final originalIndex = filteredDestinations.indexOf(e);
-                    setState(() {
-                      selectedIndex = originalIndex;
-                    });
-
-                    context.go(
-                      filteredDestinations[originalIndex].location ?? '/',
-                    );
+                    context.go(e.location ?? '/');
                   },
                   child: Container(
                     padding: EdgeInsets.all($constants.insets.xxs),
@@ -292,7 +284,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == filteredDestinations.indexOf(e)
+                                isItemSelected(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -305,8 +297,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 color:
-                                    selectedIndex ==
-                                            filteredDestinations.indexOf(e)
+                                    isItemSelected(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),
