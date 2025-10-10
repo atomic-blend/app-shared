@@ -99,14 +99,12 @@ class NavigationSection {
 
 class ABNavbar extends StatefulWidget {
   final List<NavigationItem> destinations;
-  final String primaryMenuKey;
   final Color? backgroundColor;
   final Function(int)? onTap;
   final double height = 65;
   const ABNavbar({
     super.key,
     required this.destinations,
-    required this.primaryMenuKey,
     this.backgroundColor,
     this.onTap,
   });

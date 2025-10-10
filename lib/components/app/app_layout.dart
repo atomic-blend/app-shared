@@ -88,7 +88,7 @@ class AppLayout extends StatelessWidget {
                   items: items,
                 ),
               ),
-            Expanded(child: child),
+            Expanded(child: Scaffold(body: child)),
           ],
         ),
         Align(
@@ -106,9 +106,18 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildMobile(BuildContext context) {
+    if (!getIt.isRegistered<GlobalKey<ScaffoldState>>()) {
+      getIt.registerSingleton<GlobalKey<ScaffoldState>>(
+        GlobalKey<ScaffoldState>(),
+        instanceName: 'layoutScaffoldKey',
+      );
+    }
+    final scaffoldKey = getIt<GlobalKey<ScaffoldState>>(
+      instanceName: 'layoutScaffoldKey',
+    );
     return Scaffold(
-      appBar: AppBar(title: Text(GoRouter.of(context).state.name ?? '')),
       drawer: ABSideMenu(controller: getIt<SideMenuController>(), items: items),
+      key: scaffoldKey,
       body: Stack(
         children: [
           child,
@@ -128,7 +137,6 @@ class AppLayout extends StatelessWidget {
               child: ABNavbar(
                 backgroundColor: getTheme(context).surface,
                 destinations: items,
-                primaryMenuKey: GoRouter.of(context).state.path ?? '',
               ),
             ),
           ),
