@@ -65,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen>
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          print('state: $state');
           if (state is AuthError) {
             setState(() {
               errorMessage = state.message;

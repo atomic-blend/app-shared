@@ -18,23 +18,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLayout extends StatelessWidget {
   final getIt = GetIt.instance;
+
   final List<NavigationItem> items;
-  final EncryptionService? encryptionService;
-  final ApiClient? globalApiClient;
-  final SharedPreferences? prefs;
-  final EnvModel? env;
   final Widget child;
   final String homeRouteLocation;
+
+  late final EncryptionService encryptionService;
+  late final ApiClient globalApiClient;
+  late final SharedPreferences prefs;
+  late final EnvModel? env;
+
   AppLayout({
     super.key,
     required this.items,
-    this.encryptionService,
-    this.globalApiClient,
-    this.env,
-    this.prefs,
     required this.child,
     required this.homeRouteLocation,
-  });
+  }) {
+    encryptionService = getIt<EncryptionService>();
+    globalApiClient = getIt<ApiClient>();
+    prefs = getIt<SharedPreferences>();
+    env = getIt<EnvModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +47,7 @@ class AppLayout extends StatelessWidget {
         if (authState is! LoggedIn) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             LoginRoute(
-              LoginParams(
-                homeRouteLocation: homeRouteLocation,
-              ),
+              LoginParams(homeRouteLocation: homeRouteLocation),
             ).go(context);
           });
         }
@@ -83,7 +85,7 @@ class AppLayout extends StatelessWidget {
                 width: 250,
                 child: ABSideMenu(
                   controller: getIt<SideMenuController>(),
-                  primaryMenuItems: items,
+                  items: items,
                 ),
               ),
             Expanded(child: child),
@@ -106,10 +108,7 @@ class AppLayout extends StatelessWidget {
   Widget _buildMobile(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(GoRouter.of(context).state.name ?? '')),
-      drawer: ABSideMenu(
-        controller: getIt<SideMenuController>(),
-        primaryMenuItems: items,
-      ),
+      drawer: ABSideMenu(controller: getIt<SideMenuController>(), items: items),
       body: Stack(
         children: [
           child,

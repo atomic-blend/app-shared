@@ -63,7 +63,6 @@ class _AppSettingsState extends State<AppSettings> {
                 await showDialog(
                     context: context,
                     builder: (context) => EditSelfHostedUrlModal(
-                          globalApiClient: widget.globalApiClient,
                           selfHostedUrl:
                               widget.prefs?.getString("self_hosted_rest_api_url"),
                         ));

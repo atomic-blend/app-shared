@@ -15,16 +15,12 @@ import 'package:flutter_side_menu/flutter_side_menu.dart';
 
 class ABSideMenu extends StatefulWidget {
   final SideMenuController controller;
-  final List<NavigationItem> primaryMenuItems;
-  final String? primaryMenuKey;
-  final String? secondaryMenuKey;
+  final List<NavigationItem> items;
   final Widget? actionWidget;
   const ABSideMenu({
     super.key,
     required this.controller,
-    required this.primaryMenuItems,
-    this.primaryMenuKey,
-    this.secondaryMenuKey,
+    required this.items,
     this.actionWidget,
   });
 
@@ -140,7 +136,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                 SizedBox(height: $constants.insets.xs),
                               ],
                               SizedBox(height: $constants.insets.xs),
-                              ...widget.primaryMenuItems.map((item) {
+                              ...widget.items.map((item) {
                                 return ABSideMenuItem(
                                   item: item,
                                   collapsible: true,

@@ -5,15 +5,18 @@ import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class EditSelfHostedUrlModal extends StatefulWidget {
+  final getIt = GetIt.instance;
   final String? selfHostedUrl;
-  final ApiClient? globalApiClient;
-  const EditSelfHostedUrlModal({
+  late final ApiClient? globalApiClient;
+  EditSelfHostedUrlModal({
     super.key,
     this.selfHostedUrl,
-    required this.globalApiClient,
-  });
+  }) {
+    globalApiClient = getIt<ApiClient>();
+  }
 
   @override
   State<EditSelfHostedUrlModal> createState() => _EditSelfHostedUrlModalState();

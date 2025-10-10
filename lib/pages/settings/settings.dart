@@ -8,18 +8,15 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings.g.dart';
 
 class SettingsParams {
-  final SharedPreferences? prefs;
-  final ApiClient? globalApiClient;
   final List<Widget>? additionalSettings;
   const SettingsParams({
-    this.prefs,
-    this.globalApiClient,
     this.additionalSettings,
   });
 }
@@ -32,23 +29,23 @@ class SettingsRoute extends GoRouteData with _$SettingsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return Settings(
-      prefs: $extra?.prefs,
-      globalApiClient: $extra?.globalApiClient,
       additionalSettings: $extra?.additionalSettings,
     );
   }
 }
 
 class Settings extends StatefulWidget {
-  final SharedPreferences? prefs;
-  final ApiClient? globalApiClient;
-  final List<Widget>? additionalSettings;
-  const Settings({
+  final getIt = GetIt.instance;
+  late final SharedPreferences? prefs;
+  late final ApiClient? globalApiClient;
+  final  List<Widget>? additionalSettings;
+  Settings({
     super.key,
-    this.prefs,
-    this.globalApiClient,
     this.additionalSettings,
-  });
+  }) {
+    prefs = getIt<SharedPreferences>();
+    globalApiClient = getIt<ApiClient>();
+  }
 
   @override
   State<Settings> createState() => _SettingsState();
