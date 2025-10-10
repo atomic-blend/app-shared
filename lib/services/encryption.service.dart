@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:ab_shared/entities/encryption/encryption_key.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter_age/flutter_age.dart' as age;
+import 'package:get_it/get_it.dart';
 import 'package:pointycastle/block/aes.dart';
 import 'package:pointycastle/block/modes/gcm.dart';
 import 'package:pointycastle/key_derivators/argon2.dart';
@@ -13,17 +14,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EncryptionService {
   late Uint8List userSalt;
-  SharedPreferences prefs;
+  final getIt = GetIt.instance;
+  late final SharedPreferences prefs;
   String? userKey;
   String? agePublicKey;
   final argon2 = Argon2BytesGenerator();
 
   EncryptionService({
     required String userSalt,
-    required this.prefs,
     required this.userKey,
     required this.agePublicKey,
   }) {
+    prefs = getIt<SharedPreferences>();
     this.userSalt = Uint8List.fromList(utf8.encode(userSalt));
     final argon2parameters = Argon2Parameters(
       Argon2Parameters.ARGON2_id,

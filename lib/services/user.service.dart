@@ -14,8 +14,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-  final _getIt = GetIt.instance;
-
+final _getIt = GetIt.instance;
 
 class UserService {
   DeviceInfoService deviceInfoService;
@@ -124,7 +123,6 @@ class UserService {
       // restore data key from password
       EncryptionService encryptionService = EncryptionService(
         userSalt: user.keySet.salt,
-        prefs: prefs,
         userKey: "",
         agePublicKey: "",
       );
@@ -148,7 +146,6 @@ class UserService {
     // derive and persist key from password
     EncryptionService encryptionService = EncryptionService(
       userSalt: "",
-      prefs: _getIt<SharedPreferences>(),
       userKey: "",
       agePublicKey: "",
     );

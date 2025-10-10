@@ -4,6 +4,7 @@ import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/components/widgets/loading_city.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
+import 'package:ab_shared/pages/auth/screens/mnemonic_key.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -98,8 +99,17 @@ class _RegisterEmailState extends State<RegisterEmail>
             errorMessage = authState.message;
           }
 
-          if (authState is LoggedIn) {
+          if (authState is LoggedIn && authState.isRegistration == false) {
             getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
+          }
+
+          if (authState is LoggedIn && authState.isRegistration == true) {
+            return MnemonicKey(
+              mnemonic: authState.user!.keySet.backupPhrase!,
+              onSuccess: () {
+                context.read<AuthBloc>().add(MnemonicDisplayed());
+              },
+            );
           }
 
           return Row(

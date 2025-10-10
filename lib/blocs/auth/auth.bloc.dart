@@ -7,7 +7,6 @@ import 'package:ab_shared/services/config_service.dart';
 import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/services/user.service.dart';
-import 'package:ab_shared/utils/api_client.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -32,7 +31,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       onLogout: onLogout,
       onLogin: onLogin,
     );
-    _configService = ConfigService(globalApiClient: getIt<ApiClient>());
+    _configService = ConfigService();
     on<LoginEvent>(_onLogIn);
     on<Logout>(_onLogOut);
     on<RegisterEvent>(_onRegister);
