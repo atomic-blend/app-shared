@@ -10,24 +10,21 @@ import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/env/env.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final _getIt = GetIt.instance;
+
 class UserService {
-  SharedPreferences prefs;
   DeviceInfoService deviceInfoService;
-  EncryptionService? encryptionService;
-  ApiClient globalApiClient;
   VoidCallback onLogout;
   // user id, access token, user data, encryption service
   Function(EncryptionService) onLogin;
   UserService({
-    required this.prefs,
     required this.deviceInfoService,
     required this.onLogout,
     required this.onLogin,
-    required this.globalApiClient,
-    required this.encryptionService,
   });
 
   Future<void> logOut() async {
@@ -35,8 +32,8 @@ class UserService {
   }
 
   Future<UserEntity> createUser(UserEntity user) async {
-    globalApiClient.setIdToken(user.accessToken!);
-    final result = await globalApiClient.post('/user/setup', data: user);
+    _getIt<ApiClient>().setIdToken(user.accessToken!);
+    final result = await _getIt<ApiClient>().post('/user/setup', data: user);
     if (result.statusCode == 201) {
       user.id = result.data['_id'];
       user.roles =
@@ -46,7 +43,7 @@ class UserService {
               }).toList()
               as List<UserRoleEntity>;
 
-      prefs.setString('user', json.encode(user.toJson()));
+      _getIt<SharedPreferences>().setString('user', json.encode(user.toJson()));
       Sentry.configureScope(
         (scope) => scope.setUser(SentryUser(id: '${user.id}')),
       );
@@ -60,10 +57,10 @@ class UserService {
     UserEntity user,
     UserDeviceEntity device,
   ) async {
-    final result = await globalApiClient.put('/users/device', data: device);
+    final result = await _getIt<ApiClient>().put('/users/device', data: device);
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
-      prefs.setString('user', json.encode(user.toJson()));
+      _getIt<SharedPreferences>().setString('user', json.encode(user.toJson()));
       return user;
     } else {
       throw Exception('user_device_update_failed');
@@ -72,10 +69,13 @@ class UserService {
 
   Future<UserEntity?> getUser(UserEntity user) async {
     try {
-      var result = await globalApiClient.get('/users/profile');
+      var result = await _getIt<ApiClient>().get('/users/profile');
       if (result.statusCode == 200) {
         final newUser = UserEntity.fromJson(result.data["data"]);
-        await prefs.setString('user', json.encode(newUser.toJson()));
+        await _getIt<SharedPreferences>().setString(
+          'user',
+          json.encode(newUser.toJson()),
+        );
         return newUser;
       }
       return null;
@@ -85,7 +85,7 @@ class UserService {
   }
 
   Future<UserEntity?> checkForLoggedInUser() async {
-    final userRaw = prefs.getString('accessToken');
+    final userRaw = _getIt<SharedPreferences>().getString('accessToken');
     if (userRaw != null) {
       final user = json.decode(userRaw);
       if (user != null) {
@@ -98,7 +98,7 @@ class UserService {
   }
 
   Future<bool> deleteUser() async {
-    var result = await globalApiClient.delete('/users/me');
+    var result = await _getIt<ApiClient>().delete('/users/me');
     if (result.statusCode == 200) {
       logOut();
       return true;
@@ -108,13 +108,14 @@ class UserService {
   }
 
   Future<UserEntity?> login(String email, String password) async {
-    final result = await globalApiClient.post(
+    final result = await _getIt<ApiClient>().post(
       '/auth/login',
       data: {'email': email, 'password': password},
     );
     if (result.statusCode == 200) {
       final userData = result.data['user'];
       final user = UserEntity.fromJson(userData);
+      final prefs = _getIt<SharedPreferences>();
       await prefs.setString('user', json.encode(user.toJson()));
       await prefs.setString('accessToken', result.data["accessToken"]);
       await prefs.setString('refreshToken', result.data["refreshToken"]);
@@ -122,7 +123,6 @@ class UserService {
       // restore data key from password
       EncryptionService encryptionService = EncryptionService(
         userSalt: user.keySet.salt,
-        prefs: prefs,
         userKey: "",
         agePublicKey: "",
       );
@@ -146,13 +146,12 @@ class UserService {
     // derive and persist key from password
     EncryptionService encryptionService = EncryptionService(
       userSalt: "",
-      prefs: prefs,
       userKey: "",
       agePublicKey: "",
     );
     final keySet = await encryptionService.generateKeySet(password);
 
-    final result = await globalApiClient.post(
+    final result = await _getIt<ApiClient>().post(
       '/auth/register',
       data: {'email': email, 'password': password, 'keySet': keySet?.toJson()},
     );
@@ -161,10 +160,10 @@ class UserService {
       userData['accessToken'] = result.data['accessToken'];
       userData['refreshToken'] = result.data['refreshToken'];
       final user = UserEntity.fromJson(userData);
-      prefs.setString('user', json.encode(user.toJson()));
+      _getIt<SharedPreferences>().setString('user', json.encode(user.toJson()));
       user.keySet = keySet!;
 
-      globalApiClient.setIdToken(user.accessToken!);
+      _getIt<ApiClient>().setIdToken(user.accessToken!);
 
       Sentry.configureScope(
         (scope) => scope.setUser(SentryUser(id: '${user.id}')),
@@ -207,13 +206,13 @@ class UserService {
   }
 
   updateUserProfile(String userId, UserEntity userPayload) async {
-    final result = await globalApiClient.put(
+    final result = await _getIt<ApiClient>().put(
       '/users/profile',
       data: userPayload,
     );
     if (result.statusCode == 200) {
       final user = UserEntity.fromJson(result.data["data"]);
-      prefs.setString('user', json.encode(user.toJson()));
+      _getIt<SharedPreferences>().setString('user', json.encode(user.toJson()));
       return user;
     } else {
       throw Exception('user_update_failed');
@@ -227,7 +226,7 @@ class UserService {
     required String newUserKey,
     required String newUserSalt,
   }) async {
-    final result = await globalApiClient.put(
+    final result = await _getIt<ApiClient>().put(
       '/users/password',
       data: {
         'old_password': oldPassword,
@@ -237,7 +236,7 @@ class UserService {
       },
     );
     if (result.statusCode == 200) {
-      await encryptionService!.persistNewUserKey(newUserKey);
+      await _getIt<EncryptionService>().persistNewUserKey(newUserKey);
       return true;
     } else {
       throw Exception('password_change_failed');
@@ -245,7 +244,7 @@ class UserService {
   }
 
   Future<bool> startResetPassword(String email) async {
-    final result = await globalApiClient.post(
+    final result = await _getIt<ApiClient>().post(
       '/auth/reset-password',
       data: {'email': email},
     );
@@ -265,7 +264,7 @@ class UserService {
     required String backupKey,
     required String backupSalt,
   }) async {
-    final result = await globalApiClient.post(
+    final result = await _getIt<ApiClient>().post(
       '/auth/reset-password/confirm',
       data: {
         'reset_code': resetCode,
@@ -287,7 +286,7 @@ class UserService {
   Future<Map<String, dynamic>> getBackupKeyForPasswordReset(
     String resetCode,
   ) async {
-    final result = await globalApiClient.post(
+    final result = await _getIt<ApiClient>().post(
       '/auth/reset-password/backup-key',
       data: {'reset_code': resetCode},
     );
@@ -305,7 +304,7 @@ class UserService {
   ) {
     if (globalApiClient.getSelfHostedRestApiUrl() != null &&
         globalApiClient.getSelfHostedRestApiUrl() !=
-            globalApiClient.env?.restApiUrl) {
+            _getIt<EnvModel>().restApiUrl) {
       // Self-hosted instance, no subscription logic
       return true;
     }

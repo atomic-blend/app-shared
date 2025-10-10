@@ -18,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -25,9 +26,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Paywall extends StatefulWidget {
-  final RevenueCatService revenueCatService;
-  final ApiClient globalApiClient;
-  const Paywall({super.key, required this.revenueCatService, required this.globalApiClient});
+  final getIt = GetIt.instance;
+  late final RevenueCatService revenueCatService;
+  late final ApiClient globalApiClient;
+  Paywall({super.key}) {
+    revenueCatService = getIt<RevenueCatService>();
+    globalApiClient = getIt<ApiClient>();
+  }
 
   @override
   State<Paywall> createState() => _PaywallState();

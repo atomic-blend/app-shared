@@ -12,23 +12,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ab_shared/components/buttons/primary_button_square.dart';
 
 class ABSideMenu extends StatefulWidget {
   final SideMenuController controller;
-  final List<NavigationItem> primaryMenuItems;
-  final Function(NavigationItem) onItemTap;
-  final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
-  final String? primaryMenuKey;
-  final String? secondaryMenuKey;
+  final List<NavigationItem> items;
   final Widget? actionWidget;
   const ABSideMenu({
     super.key,
     required this.controller,
-    required this.primaryMenuItems,
-    required this.onItemTap,
-    required this.onSubItemTap,
-    this.primaryMenuKey,
-    this.secondaryMenuKey,
+    required this.items,
     this.actionWidget,
   });
 
@@ -38,6 +32,42 @@ class ABSideMenu extends StatefulWidget {
 
 class _ABSideMenuState extends State<ABSideMenu> {
   String? hoveredKey;
+
+  // Check if an item is selected by comparing current location with item location
+  bool isItemSelected(NavigationItem item) {
+    final currentLocation = GoRouterState.of(context).uri.path;
+    return currentLocation == item.location;
+  }
+
+  // Get the action from the currently selected navigation item
+  NavigationAction? getCurrentPageAction() {
+    // First, check if any main item is selected and has an action
+    for (final item in widget.items) {
+      if (isItemSelected(item) && item.action != null) {
+        return item.action;
+      }
+    }
+
+    // If no main item action found, check subitems
+    for (final item in widget.items) {
+      if (item.subItems != null) {
+        for (final subItem in item.subItems!) {
+          if (isItemSelected(subItem)) {
+            // If subitem has its own action, use it
+            if (subItem.action != null) {
+              return subItem.action;
+            }
+            // If subitem has no action, fallback to parent item's action
+            if (item.action != null) {
+              return item.action;
+            }
+          }
+        }
+      }
+    }
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,19 +168,15 @@ class _ABSideMenuState extends State<ABSideMenu> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (widget.actionWidget != null) ...[
+                              if (getCurrentPageAction() != null) ...[
                                 SizedBox(height: $constants.insets.xs),
-                                widget.actionWidget!,
+                                _buildActionWidget(getCurrentPageAction()!),
                                 SizedBox(height: $constants.insets.xs),
                               ],
                               SizedBox(height: $constants.insets.xs),
-                              ...widget.primaryMenuItems.map((item) {
+                              ...widget.items.map((item) {
                                 return ABSideMenuItem(
                                   item: item,
-                                  primaryMenuKey: widget.primaryMenuKey,
-                                  secondaryMenuKey: widget.secondaryMenuKey,
-                                  onItemTap: widget.onItemTap,
-                                  onSubItemTap: widget.onSubItemTap,
                                   collapsible: true,
                                   initiallyExpanded: true,
                                 );
@@ -167,6 +193,15 @@ class _ABSideMenuState extends State<ABSideMenu> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildActionWidget(NavigationAction action) {
+    return PrimaryButtonSquare(
+      text: action.label,
+      icon: action.icon,
+      iconColor: Colors.white,
+      onPressed: action.onTap,
     );
   }
 }

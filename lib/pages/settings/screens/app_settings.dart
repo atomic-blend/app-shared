@@ -5,13 +5,18 @@ import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSettings extends StatefulWidget {
-  final SharedPreferences? prefs;
-  final ApiClient? globalApiClient;
-  const AppSettings({super.key, this.prefs, this.globalApiClient});
+  final getIt = GetIt.instance;
+  late final SharedPreferences? prefs;
+  late final ApiClient? globalApiClient;
+  AppSettings({super.key}) {
+    prefs = getIt<SharedPreferences>();
+    globalApiClient = getIt<ApiClient>();
+  }
 
   @override
   State<AppSettings> createState() => _AppSettingsState();
@@ -63,7 +68,6 @@ class _AppSettingsState extends State<AppSettings> {
                 await showDialog(
                     context: context,
                     builder: (context) => EditSelfHostedUrlModal(
-                          globalApiClient: widget.globalApiClient!,
                           selfHostedUrl:
                               widget.prefs?.getString("self_hosted_rest_api_url"),
                         ));

@@ -8,18 +8,20 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
 
 class ResetPasswordRecap extends StatefulWidget {
+  final getIt = GetIt.instance;
   final String email;
   final String code;
   final String newPassword;
   final String? mnemonicKey;
   final bool restoreData;
   final Function(EncryptionKeyEntity?) onKeySetChanged;
-  final EncryptionService? encryptionService;
+  late final EncryptionService? encryptionService;
 
-  const ResetPasswordRecap({
+  ResetPasswordRecap({
     super.key,
     required this.email,
     required this.code,
@@ -27,8 +29,9 @@ class ResetPasswordRecap extends StatefulWidget {
     required this.restoreData,
     required this.newPassword,
     required this.onKeySetChanged,
-    required this.encryptionService,
-  });
+  }) {
+    encryptionService = getIt<EncryptionService>();
+  }
 
   @override
   State<ResetPasswordRecap> createState() => _ResetPasswordRecapState();

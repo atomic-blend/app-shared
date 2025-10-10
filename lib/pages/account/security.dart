@@ -1,15 +1,13 @@
 import 'package:ab_shared/components/buttons/icon_text_button.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/account/change_pwd_modal.dart';
-import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Security extends StatelessWidget {
-  final EncryptionService encryptionService;
-  const Security({super.key, required this.encryptionService});
+  const Security({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +45,7 @@ class Security extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder:
-                      (context) =>
-                          ChangePwdModal(encryptionService: encryptionService),
+                  builder: (context) => ChangePwdModal(),
                 );
               },
             ),

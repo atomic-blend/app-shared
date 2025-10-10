@@ -6,23 +6,16 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ABSideMenuItem extends StatefulWidget {
   final NavigationItem item;
-  final String? primaryMenuKey;
-  final String? secondaryMenuKey;
-  final Function(NavigationItem) onItemTap;
-  final Function(NavigationItem mainItem, NavigationItem subItem) onSubItemTap;
   final bool collapsible;
   final bool initiallyExpanded;
 
   const ABSideMenuItem({
     super.key,
     required this.item,
-    required this.primaryMenuKey,
-    required this.secondaryMenuKey,
-    required this.onItemTap,
-    required this.onSubItemTap,
     this.collapsible = false,
     this.initiallyExpanded = true,
   });
@@ -73,6 +66,12 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
     });
   }
 
+  // Check if an item is selected by comparing current location with item location
+  bool isItemSelected(NavigationItem item) {
+    final currentLocation = GoRouterState.of(context).uri.path;
+    return currentLocation == item.location;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.item.desktopOnly == true && !isDesktop(context)) {
@@ -86,22 +85,24 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
       return _buildItemRow(
         context,
         widget.item,
-        selected: (widget.item.key as ValueKey).value == widget.primaryMenuKey,
+        selected: isItemSelected(widget.item),
         padding: EdgeInsets.only(bottom: $constants.insets.sm),
         margin: EdgeInsets.symmetric(
           horizontal: $constants.insets.sm,
           vertical: $constants.insets.xxs,
         ),
-        onTap: () => widget.onItemTap(widget.item),
+        onTap: () {
+          if (widget.item.onTap != null) {
+            widget.item.onTap!();
+          } else {
+            context.go(widget.item.location ?? '/');
+          }
+        },
       );
     } else {
       final children = <Widget>[];
       for (var subItem in widget.item.subItems!) {
-        bool selected = false;
-        if ((subItem.key as ValueKey).value == widget.secondaryMenuKey &&
-            (widget.item.key as ValueKey).value == widget.primaryMenuKey) {
-          selected = true;
-        }
+        bool selected = isItemSelected(subItem);
         // return the sub item with the icon and the label
         children.add(
           _buildItemRow(
@@ -113,7 +114,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
               horizontal: $constants.insets.sm,
               vertical: $constants.insets.xxs,
             ),
-            onTap: () => widget.onSubItemTap(widget.item, subItem),
+            onTap: () {
+              if (subItem.onTap != null) {
+                subItem.onTap!();
+              } else {
+                context.go(subItem.location ?? '/');
+              }
+            },
           ),
         );
       }
@@ -131,7 +138,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             onTap:
                 widget.collapsible
                     ? _toggleExpanded
-                    : () => widget.onItemTap(widget.item),
+                    : () {
+                      if (widget.item.onTap != null) {
+                        widget.item.onTap!();
+                      } else {
+                        context.go(widget.item.location ?? '/');
+                      }
+                    },
             showArrow: widget.collapsible,
             isExpanded: _isExpanded,
           ),

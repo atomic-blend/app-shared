@@ -2,29 +2,38 @@ import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/icon_text_button.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/settings/screens/app_settings.dart';
-import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+part 'settings.g.dart';
+
+class SettingsParams {
+  final List<Widget>? additionalSettings;
+  const SettingsParams({this.additionalSettings});
+}
+
+@TypedGoRoute<SettingsRoute>(path: "/settings", name: "settings")
+class SettingsRoute extends GoRouteData with _$SettingsRoute {
+  final SettingsParams? $extra;
+  SettingsRoute(this.$extra);
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Settings(additionalSettings: $extra?.additionalSettings);
+  }
+}
 
 class Settings extends StatefulWidget {
-  final SharedPreferences? prefs;
-  final ApiClient? globalApiClient;
   final List<Widget>? additionalSettings;
-  const Settings({
-    super.key,
-    this.prefs,
-    this.globalApiClient,
-    this.additionalSettings,
-  });
+  const Settings({super.key, this.additionalSettings});
 
   @override
   State<Settings> createState() => _SettingsState();
 }
-
-class SharedPreferences {}
 
 class _SettingsState extends State<Settings> {
   Widget? selectedItem;
@@ -81,7 +90,7 @@ class _SettingsState extends State<Settings> {
                           },
                         ),
                         if (widget.additionalSettings != null) ...[
-                          ...widget.additionalSettings!,
+                          ...widget.additionalSettings ?? [],
                         ],
                         if (authState is LoggedIn)
                           IconTextButton(

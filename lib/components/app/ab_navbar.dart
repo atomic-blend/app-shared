@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:go_router/go_router.dart';
 
 /// A customizable bottom navigation item for use with [BottomNavigation].
 ///
@@ -16,21 +17,18 @@ class NavigationItem extends StatelessWidget {
     required this.cupertinoIcon,
     required this.label,
     this.selectedIcon,
-    this.onTap,
-    this.tooltip,
     this.desktopOnly,
     this.enabled = true,
-    this.body,
-    this.initialsOnly,
-    this.appBar,
-    this.header,
-    this.mainSecondaryKey,
+    this.location,
     this.color,
-    this.separatorBefore,
+    this.onTap,
     this.subItems,
     this.mobileOnly,
     this.action,
   });
+
+  /// The location of the destination.
+  final String? location;
 
   /// The icon displayed by the destination.
   final IconData icon;
@@ -41,40 +39,17 @@ class NavigationItem extends StatelessWidget {
   /// The optional icon to display when this destination is selected.
   final Widget? selectedIcon;
 
+  /// The optional onTap callback for the destination.
+  final VoidCallback? onTap;
+
   /// The label displayed by the destination.
   final String label;
-
-  /// Optional tooltip for the destination.
-  final String? tooltip;
-
-  /// Optional body
-  final Widget? body;
-
-  /// Optional header
-  final Widget? header;
-
-  /// Optional appbar
-  final AppBar? appBar;
-
-  /// Optional separatorBefore
-  final bool? separatorBefore;
-
-  /// Main secondary key (the default secondary screen)
-  final String? mainSecondaryKey;
 
   /// Optional color
   final Color? color;
 
-  /// Whether to show only initials in the destination.
-  final bool? initialsOnly;
-
   /// Whether this destination is interactive.
   final bool enabled;
-
-  /// Optional callback invoked when this item is tapped.
-  ///
-  /// The callback provides the index of the item in the navigation bar.
-  final Function(int)? onTap;
 
   /// Optional sub items
   /// Used to display a list of items in a collapsible menu
@@ -123,27 +98,15 @@ class NavigationSection {
 }
 
 class ABNavbar extends StatefulWidget {
-  final Function(String key) onPrimaryMenuSelected;
-  final Function(String key) onSecondaryMenuSelected;
   final List<NavigationItem> destinations;
-  final String primaryMenuKey;
   final Color? backgroundColor;
   final Function(int)? onTap;
   final double height = 65;
-  final bool centerActionEnabled;
-  final VoidCallback? centerActionCallback;
-  final IconData? centerActionIcon;
   const ABNavbar({
     super.key,
-    required this.onPrimaryMenuSelected,
-    required this.onSecondaryMenuSelected,
     required this.destinations,
-    required this.primaryMenuKey,
     this.backgroundColor,
     this.onTap,
-    this.centerActionEnabled = false,
-    this.centerActionCallback,
-    this.centerActionIcon,
   });
 
   @override
@@ -151,13 +114,47 @@ class ABNavbar extends StatefulWidget {
 }
 
 class _ABNavbarState extends State<ABNavbar> {
-  int selectedIndex = 0;
-
   // Filter out desktopOnly items
   List<NavigationItem> get filteredDestinations {
     return widget.destinations
         .where((item) => item.desktopOnly != true)
         .toList();
+  }
+
+  // Check if an item is selected by comparing current location with item location
+  bool isItemSelected(NavigationItem item) {
+    final currentLocation = GoRouterState.of(context).uri.path;
+    return currentLocation == item.location;
+  }
+
+  // Get the action from the currently selected navigation item
+  NavigationAction? getCurrentPageAction() {
+    // First, check if any main item is selected and has an action
+    for (final item in widget.destinations) {
+      if (isItemSelected(item) && item.action != null) {
+        return item.action;
+      }
+    }
+
+    // If no main item action found, check subitems
+    for (final item in widget.destinations) {
+      if (item.subItems != null) {
+        for (final subItem in item.subItems!) {
+          if (isItemSelected(subItem)) {
+            // If subitem has its own action, use it
+            if (subItem.action != null) {
+              return subItem.action;
+            }
+            // If subitem has no action, fallback to parent item's action
+            if (item.action != null) {
+              return item.action;
+            }
+          }
+        }
+      }
+    }
+
+    return null;
   }
 
   @override
@@ -191,25 +188,10 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final index = filteredDestinations.indexOf(e);
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                    // Check if the tapped item has its own onTap handler
-                    if (filteredDestinations.length > index &&
-                        e.onTap != null) {
-                      e.onTap!(index);
-                    }
-                    // Otherwise use the default handler
-                    else if (widget.onTap != null) {
-                      widget.onTap!(index);
+                    if (e.onTap != null) {
+                      e.onTap!();
                     } else {
-                      widget.onPrimaryMenuSelected(
-                        (filteredDestinations[index].key as ValueKey).value,
-                      );
-                      if (e.mainSecondaryKey != null) {
-                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
-                      }
+                      context.go(e.location ?? '/');
                     }
                   },
                   child: Container(
@@ -223,7 +205,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == filteredDestinations.indexOf(e)
+                                isItemSelected(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -236,8 +218,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 color:
-                                    selectedIndex ==
-                                            filteredDestinations.indexOf(e)
+                                    isItemSelected(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),
@@ -249,10 +230,10 @@ class _ABNavbarState extends State<ABNavbar> {
                   ),
                 ),
               ),
-          // Add center action button if enabled
-          if (widget.centerActionEnabled && widget.centerActionIcon != null)
+          // Add center action button if current page has an action
+          if (getCurrentPageAction() != null)
             GestureDetector(
-              onTap: widget.centerActionCallback,
+              onTap: getCurrentPageAction()!.onTap,
               child: Container(
                 padding: EdgeInsets.all($constants.insets.xxs),
                 decoration: BoxDecoration(
@@ -300,7 +281,7 @@ class _ABNavbarState extends State<ABNavbar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        widget.centerActionIcon!,
+                        getCurrentPageAction()!.icon,
                         color: Colors.grey.shade800,
                         size: 25,
                       ),
@@ -320,26 +301,10 @@ class _ABNavbarState extends State<ABNavbar> {
               .map(
                 (e) => GestureDetector(
                   onTap: () {
-                    final originalIndex = filteredDestinations.indexOf(e);
-                    setState(() {
-                      selectedIndex = originalIndex;
-                    });
-                    // Check if the tapped item has its own onTap handler
-                    if (filteredDestinations.length > originalIndex &&
-                        e.onTap != null) {
-                      e.onTap!(originalIndex);
-                    }
-                    // Otherwise use the default handler
-                    else if (widget.onTap != null) {
-                      widget.onTap!(originalIndex);
+                    if (e.onTap != null) {
+                      e.onTap!();
                     } else {
-                      widget.onPrimaryMenuSelected(
-                        (filteredDestinations[originalIndex].key as ValueKey)
-                            .value,
-                      );
-                      if (e.mainSecondaryKey != null) {
-                        widget.onSecondaryMenuSelected(e.mainSecondaryKey!);
-                      }
+                      context.go(e.location ?? '/');
                     }
                   },
                   child: Container(
@@ -353,7 +318,7 @@ class _ABNavbarState extends State<ABNavbar> {
                           Icon(
                             getIcon(e.icon, e.cupertinoIcon),
                             color:
-                                selectedIndex == filteredDestinations.indexOf(e)
+                                isItemSelected(e)
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade600,
                             size: 25,
@@ -366,8 +331,7 @@ class _ABNavbarState extends State<ABNavbar> {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 color:
-                                    selectedIndex ==
-                                            filteredDestinations.indexOf(e)
+                                    isItemSelected(e)
                                         ? Colors.grey.shade800
                                         : Colors.grey.shade600,
                               ),

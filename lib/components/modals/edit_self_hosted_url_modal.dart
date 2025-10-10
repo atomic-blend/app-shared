@@ -5,11 +5,18 @@ import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class EditSelfHostedUrlModal extends StatefulWidget {
+  final getIt = GetIt.instance;
   final String? selfHostedUrl;
-  final ApiClient? globalApiClient;
-  const EditSelfHostedUrlModal({super.key, this.selfHostedUrl, required this.globalApiClient});
+  late final ApiClient? globalApiClient;
+  EditSelfHostedUrlModal({
+    super.key,
+    this.selfHostedUrl,
+  }) {
+    globalApiClient = getIt<ApiClient>();
+  }
 
   @override
   State<EditSelfHostedUrlModal> createState() => _EditSelfHostedUrlModalState();
@@ -66,30 +73,35 @@ class _EditSelfHostedUrlModalState extends State<EditSelfHostedUrlModal> {
               Row(
                 children: [
                   Expanded(
-                      child: PrimaryButtonRound(
-                          border: Border.all(color: getTheme(context).primary),
-                          textColor: getTheme(context).primary,
-                          backgroundColor: getTheme(context).surface,
-                          text: context.t.actions.cancel,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          })),
+                    child: PrimaryButtonRound(
+                      border: Border.all(color: getTheme(context).primary),
+                      textColor: getTheme(context).primary,
+                      backgroundColor: getTheme(context).surface,
+                      text: context.t.actions.cancel,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                   SizedBox(width: $constants.insets.sm),
                   Expanded(
-                      child: PrimaryButtonRound(
-                          text: context.t.actions.save,
-                          onPressed: () async {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            bool? result =
-                                await widget.globalApiClient?.setSelfHostedRestApiUrl(
-                                    _selfHostedUrlController.text);
-                            if (result == true) {
-                              if (!context.mounted) return;
-                              Navigator.pop(context);
-                            }
-                          })),
+                    child: PrimaryButtonRound(
+                      text: context.t.actions.save,
+                      onPressed: () async {
+                        if (!_formKey.currentState!.validate()) {
+                          return;
+                        }
+                        bool? result = await widget.globalApiClient
+                            ?.setSelfHostedRestApiUrl(
+                              _selfHostedUrlController.text,
+                            );
+                        if (result == true) {
+                          if (!context.mounted) return;
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             ],
