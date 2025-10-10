@@ -108,6 +108,7 @@ class _RegisterEmailState extends State<RegisterEmail>
               mnemonic: authState.user!.keySet.backupPhrase!,
               onSuccess: () {
                 context.read<AuthBloc>().add(MnemonicDisplayed());
+                getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
               },
             );
           }
