@@ -3,34 +3,21 @@ import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
-import 'package:ab_shared/services/encryption.service.dart';
-import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
-import 'package:ab_shared/utils/env/env.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login.g.dart';
 
 class LoginParams {
-  final VoidCallback? onAuthSuccess;
-  final EncryptionService? encryptionService;
-  final ApiClient? globalApiClient;
-  final SharedPreferences? prefs;
-  final EnvModel? env;
+  final String? homeRouteLocation;
 
-  const LoginParams({
-    this.onAuthSuccess,
-    this.encryptionService,
-    this.globalApiClient,
-    this.prefs,
-    this.env,
-  });
+  const LoginParams({this.homeRouteLocation});
 }
 
 @TypedGoRoute<LoginRoute>(path: "/auth/login", name: "login")
@@ -40,13 +27,13 @@ class LoginRoute extends GoRouteData with _$LoginRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return LoginScreen(encryptionService: $extra?.encryptionService);
+    return LoginScreen(homeRouteLocation: $extra?.homeRouteLocation);
   }
 }
 
 class LoginScreen extends StatefulWidget {
-  final EncryptionService? encryptionService;
-  const LoginScreen({super.key, this.encryptionService});
+  final String? homeRouteLocation;
+  const LoginScreen({super.key, this.homeRouteLocation});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -54,6 +41,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
+  final getIt = GetIt.instance;
   late AnimationController _animationController;
   final _animationDuration = const Duration(milliseconds: 250);
   final TextEditingController _emailController = TextEditingController();
@@ -77,10 +65,15 @@ class _LoginScreenState extends State<LoginScreen>
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
+          print('state: $state');
           if (state is AuthError) {
             setState(() {
               errorMessage = state.message;
             });
+          }
+
+          if (state is LoggedIn) {
+            getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
           }
         },
         child: Row(

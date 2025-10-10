@@ -3,6 +3,7 @@ import 'package:ab_shared/components/ab_toast.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/ab_sidemenu.dart';
 import 'package:ab_shared/pages/auth/screens/login.dart';
+import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -15,9 +16,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final getIt = GetIt.instance;
-
 class AppLayout extends StatelessWidget {
+  final getIt = GetIt.instance;
   final List<NavigationItem> items;
   final EncryptionService? encryptionService;
   final ApiClient? globalApiClient;
@@ -25,7 +25,7 @@ class AppLayout extends StatelessWidget {
   final EnvModel? env;
   final Widget child;
   final String homeRouteLocation;
-  const AppLayout({
+  AppLayout({
     super.key,
     required this.items,
     this.encryptionService,
@@ -44,15 +44,26 @@ class AppLayout extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             LoginRoute(
               LoginParams(
-                onAuthSuccess: () {
-                  context.go(homeRouteLocation);
-                },
-                env: env,
-                encryptionService: encryptionService,
-                globalApiClient: globalApiClient,
-                prefs: prefs,
+                homeRouteLocation: homeRouteLocation,
               ),
             ).go(context);
+          });
+        }
+        if (authState.user != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            authState.user?.devices ??= [];
+            final deviceInfoService = DeviceInfoService();
+            final userDeviceInfo = await deviceInfoService.getDeviceInfo();
+
+            if (!context.mounted) return;
+            // ignore: use_build_context_synchronously
+            context.read<AuthBloc>().add(
+              UpdateUserDevice(
+                // ignore: use_build_context_synchronously
+                authState.user!,
+                userDeviceInfo,
+              ),
+            );
           });
         }
         return isDesktop(context)
