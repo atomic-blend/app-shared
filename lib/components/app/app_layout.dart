@@ -11,13 +11,14 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final getIt = GetIt.instance;
+
 class AppLayout extends StatelessWidget {
   final List<NavigationItem> items;
-  final SideMenuController sideMenuController;
-  final ABToastController abToastController;
   final EncryptionService? encryptionService;
   final ApiClient? globalApiClient;
   final SharedPreferences? prefs;
@@ -27,14 +28,12 @@ class AppLayout extends StatelessWidget {
   const AppLayout({
     super.key,
     required this.items,
-    required this.sideMenuController,
     this.encryptionService,
     this.globalApiClient,
     this.env,
     this.prefs,
     required this.child,
     required this.homeRouteLocation,
-    required this.abToastController,
   });
 
   @override
@@ -72,7 +71,7 @@ class AppLayout extends StatelessWidget {
               SizedBox(
                 width: 250,
                 child: ABSideMenu(
-                  controller: sideMenuController,
+                  controller: getIt<SideMenuController>(),
                   primaryMenuItems: items,
                 ),
               ),
@@ -86,7 +85,7 @@ class AppLayout extends StatelessWidget {
               bottom: $constants.insets.sm,
               right: $constants.insets.sm,
             ),
-            child: ABToastDisplay(controller: abToastController),
+            child: ABToastDisplay(controller: getIt<ABToastController>()),
           ),
         ),
       ],
@@ -97,7 +96,7 @@ class AppLayout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(GoRouter.of(context).state.name ?? '')),
       drawer: ABSideMenu(
-        controller: sideMenuController,
+        controller: getIt<SideMenuController>(),
         primaryMenuItems: items,
       ),
       body: Stack(
@@ -107,7 +106,7 @@ class AppLayout extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(bottom: 80),
-              child: ABToastDisplay(controller: abToastController),
+              child: ABToastDisplay(controller: getIt<ABToastController>()),
             ),
           ),
           Positioned(
