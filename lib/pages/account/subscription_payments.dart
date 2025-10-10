@@ -11,12 +11,16 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SubscriptionPayments extends StatefulWidget {
-  final RevenueCatService? revenueCatService;
-  const SubscriptionPayments({super.key, required this.revenueCatService});
+  final getIt = GetIt.instance;
+  late final RevenueCatService? revenueCatService;
+  SubscriptionPayments({super.key}) {
+    revenueCatService = getIt<RevenueCatService>();
+  }
 
   @override
   State<SubscriptionPayments> createState() => _SubscriptionPaymentsState();

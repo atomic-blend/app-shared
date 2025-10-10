@@ -185,18 +185,13 @@ class _AccountState extends State<Account> {
                             )) {
                               if (isDesktop(context)) {
                                 setState(() {
-                                  selectedItem = SubscriptionPayments(
-                                    revenueCatService: widget.revenueCatService,
-                                  );
+                                  selectedItem = SubscriptionPayments();
                                 });
                               } else {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder:
-                                        (context) => SubscriptionPayments(
-                                          revenueCatService:
-                                              widget.revenueCatService,
-                                        ),
+                                        (context) => SubscriptionPayments(),
                                   ),
                                 );
                               }
@@ -224,18 +219,12 @@ class _AccountState extends State<Account> {
                         onTap: () {
                           if (isDesktop(context)) {
                             setState(() {
-                              selectedItem = Security(
-                                encryptionService: widget.encryptionService!,
-                              );
+                              selectedItem = Security();
                             });
                           } else {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder:
-                                    (context) => Security(
-                                      encryptionService:
-                                          widget.encryptionService!,
-                                    ),
+                                builder: (context) => Security(),
                               ),
                             );
                           }

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_popup/flutter_popup.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 part 'register_email.g.dart';
@@ -18,8 +19,9 @@ part 'register_email.g.dart';
 class RegisterParams {
   final String? username;
   final String? domain;
+  final String? homeRouteLocation;
 
-  const RegisterParams({this.username, this.domain});
+  const RegisterParams({this.username, this.domain, this.homeRouteLocation});
 }
 
 @TypedGoRoute<RegisterRoute>(path: "/auth/register", name: "register")
@@ -29,14 +31,24 @@ class RegisterRoute extends GoRouteData with _$RegisterRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return RegisterEmail(username: $extra?.username, domain: $extra?.domain);
+    return RegisterEmail(
+      username: $extra?.username,
+      domain: $extra?.domain,
+      homeRouteLocation: $extra?.homeRouteLocation,
+    );
   }
 }
 
 class RegisterEmail extends StatefulWidget {
-  const RegisterEmail({super.key, this.username, this.domain});
+  const RegisterEmail({
+    super.key,
+    this.username,
+    this.domain,
+    this.homeRouteLocation,
+  });
   final String? username;
   final String? domain;
+  final String? homeRouteLocation;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -44,6 +56,7 @@ class RegisterEmail extends StatefulWidget {
 
 class _RegisterEmailState extends State<RegisterEmail>
     with SingleTickerProviderStateMixin {
+  final getIt = GetIt.instance;
   late AnimationController _animationController;
   final _animationDuration = const Duration(milliseconds: 250);
   final TextEditingController _usernameController = TextEditingController();
@@ -84,6 +97,11 @@ class _RegisterEmailState extends State<RegisterEmail>
           if (authState is AuthError) {
             errorMessage = authState.message;
           }
+
+          if (authState is LoggedIn) {
+            getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
+          }
+
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

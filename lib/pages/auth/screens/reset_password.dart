@@ -7,7 +7,6 @@ import 'package:ab_shared/pages/auth/screens/reset_password_intro.dart';
 import 'package:ab_shared/pages/auth/screens/reset_password_new_password.dart';
 import 'package:ab_shared/pages/auth/screens/reset_password_recap.dart';
 import 'package:ab_shared/pages/auth/screens/reset_password_restore_data_choice.dart';
-import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
@@ -18,27 +17,28 @@ part 'reset_password.g.dart';
 
 class ResetPasswordParams {
   final String? email;
-  final EncryptionService? encryptionService;
 
-  const ResetPasswordParams({this.email, this.encryptionService});
+  const ResetPasswordParams({this.email});
 }
 
-@TypedGoRoute<ResetPasswordRoute>(path: "/auth/reset-password", name: "reset-password")
+@TypedGoRoute<ResetPasswordRoute>(
+  path: "/auth/reset-password",
+  name: "reset-password",
+)
 class ResetPasswordRoute extends GoRouteData with _$ResetPasswordRoute {
   final ResetPasswordParams? $extra;
   ResetPasswordRoute(this.$extra);
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ResetPassword(email: $extra?.email, encryptionService: $extra?.encryptionService);
+    return ResetPassword(email: $extra?.email);
   }
 }
 
 class ResetPassword extends StatefulWidget {
   final String? email;
-  final EncryptionService? encryptionService;
 
-  const ResetPassword({super.key, this.email, required this.encryptionService});
+  const ResetPassword({super.key, this.email});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -67,9 +67,9 @@ class _ResetPasswordState extends State<ResetPassword> {
       appBar: AppBar(
         title: Text(
           context.t.auth.reset_password.title,
-          style: getTextTheme(context).bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: getTextTheme(
+            context,
+          ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -92,9 +92,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                   setState(() {
                     _currentStep = 2;
                   });
-                  context
-                      .read<AuthBloc>()
-                      .add(GetBackupKeyForResetPassword(_emailCodeController.text));
+                  context.read<AuthBloc>().add(
+                    GetBackupKeyForResetPassword(_emailCodeController.text),
+                  );
                 },
               ),
             if (_currentStep == 2)
@@ -129,7 +129,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                     _currentStep = 5;
                   });
                 },
-                encryptionService: widget.encryptionService,
               ),
             if (_currentStep == 5 && _newKeySet?.backupPhrase != null)
               MnemonicKey(
@@ -137,7 +136,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 onSuccess: () {
                   Navigator.pop(context);
                 },
-              )
+              ),
           ],
         ),
       ),
