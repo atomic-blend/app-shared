@@ -2,6 +2,33 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.2 - 2025-10-10
+#### Bug Fixes
+- linter - (3c0d87e) - Brandon Guigo
+- add back the action in side menu if there's one for the item - (2020205) - Brandon Guigo
+- remove unused field in navbar - (f6eb8c2) - Brandon Guigo
+- go to homepage after mnemonic have been displayed - (0ce21b1) - Brandon Guigo
+- migrate the last part to getIt - (fca9567) - Brandon Guigo
+- migrate settings to getIt - (a699999) - Brandon Guigo
+- migrating paywall to getIt - (74ddd65) - Brandon Guigo
+- migrate auth screens to getIt - (5fc895d) - Brandon Guigo
+- more refactoring using getIt - (e92d3e3) - Brandon Guigo
+- convert more to getIt - (dacf35a) - Brandon Guigo
+- use getIt to get services - (bb6c2c9) - Brandon Guigo
+- udpate services to go_router - (271a0a3) - Brandon Guigo
+- make the sidemenu selected using go router location - (ffad07e) - Brandon Guigo
+- look for action in the parent if no action in sub item - (5ce6b95) - Brandon Guigo
+- support the center action with the one in the navigationItem - (75c1930) - Brandon Guigo
+- use go router location for navbar selected - (b81f58f) - Brandon Guigo
+- migrate app_layout to go_router based version - (0b444d8) - Brandon Guigo
+- add reset password into the auth module - (3985c94) - Brandon Guigo
+- make sso a selection of pages, that are integrated into the app router - (2d5d067) - Brandon Guigo
+- make ssoModule a standalone go_router module - (0fb2573) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.1 [skip ci] - (c8f132e) - GitHub Actions
+
+- - -
+
 ## v0.8.1 - 2025-10-07
 #### Bug Fixes
 - update flutter_age to support 16kb page size on Android - (3be8c4e) - Brandon Guigo
