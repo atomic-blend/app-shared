@@ -199,10 +199,7 @@ class _AccountState extends State<Account> {
                               if (widget.revenueCatService != null) {
                                 PaywallUtils.showPaywall(
                                   context,
-                                  globalApiClient: widget.globalApiClient!,
-                                  prefs: widget.prefs!,
                                   user: authstate.user,
-                                  revenueCatService: widget.revenueCatService!,
                                 );
                               }
                             }
