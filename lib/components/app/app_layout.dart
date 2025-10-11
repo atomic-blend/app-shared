@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
+import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLayout extends StatelessWidget {
@@ -86,11 +87,15 @@ class AppLayout extends StatelessWidget {
         Row(
           children: [
             if (isDesktop(context))
-              SizedBox(
-                width: 250,
-                child: ABSideMenu(
-                  controller: getIt<SideMenuController>(),
-                  items: items,
+              _wrapTitlebarSafeArea(
+                context,
+                SizedBox(
+                  width: 250,
+                  height: double.infinity,
+                  child: ABSideMenu(
+                    controller: getIt<SideMenuController>(),
+                    items: items,
+                  ),
                 ),
               ),
             Expanded(child: Scaffold(body: child)),
@@ -108,6 +113,13 @@ class AppLayout extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _wrapTitlebarSafeArea(BuildContext context, Widget child) {
+    if (isDesktop(context) && isApple(context)) {
+      return TitlebarSafeArea(child: child);
+    }
+    return child;
   }
 
   Widget _buildMobile(BuildContext context) {
