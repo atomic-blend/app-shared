@@ -157,7 +157,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       user,
       event.deviceInfo,
     );
-    emit(LoggedIn(updatedUser, false, prevState.appConfig));
+    add(RefreshUser());
   }
 
   FutureOr<void> _onUpdateUserProfile(

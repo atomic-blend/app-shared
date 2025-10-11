@@ -56,6 +56,12 @@ class AppLayout extends StatelessWidget {
             final deviceInfoService = DeviceInfoService();
             final userDeviceInfo = await deviceInfoService.getDeviceInfo();
 
+            if (authState.user?.devices?.any(
+                  (device) => device.deviceId == userDeviceInfo.deviceId,
+                ) ??
+                false) {
+              return;
+            }
             if (!context.mounted) return;
             // ignore: use_build_context_synchronously
             context.read<AuthBloc>().add(
