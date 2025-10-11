@@ -55,7 +55,7 @@ class _ABSearchBarState extends State<ABSearchBar> {
             child: TextField(
               controller: widget.controller,
               style: TextStyle(
-                color: isDark ? Colors.white : theme.surfaceContainer,
+                color: isDark ? Colors.white : theme.onSurfaceVariant,
                 fontSize: 12,
               ),
               decoration: InputDecoration(

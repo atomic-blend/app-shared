@@ -1,9 +1,11 @@
+import 'package:ab_shared/components/forms/search_bar.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class ABHeader extends StatefulWidget {
   final String title;
@@ -15,6 +17,7 @@ class ABHeader extends StatefulWidget {
 
 class _ABHeaderState extends State<ABHeader> {
   final getIt = GetIt.instance;
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,15 @@ class _ABHeaderState extends State<ABHeader> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: []),
-          Text(widget.title),
+          SizedBox(
+            width: getSize(context).width * 0.5,
+            child: ABSearchBar(
+              controller: controller,
+              onSubmitted: (value) {
+                context.go("/search?q=$value");
+              },
+            ),
+          ),
           Row(
             children: [
               IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.ellipsis)),
