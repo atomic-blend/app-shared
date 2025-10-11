@@ -88,7 +88,7 @@ class AppLayout extends StatelessWidget {
         Row(
           children: [
             if (isDesktop(context))
-              _wrapTitlebarSafeArea(
+              wrapTitlebarSafeArea(
                 context,
                 SizedBox(
                   height: double.infinity,
@@ -119,13 +119,6 @@ class AppLayout extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Widget _wrapTitlebarSafeArea(BuildContext context, Widget child) {
-    if (isDesktop(context) && isApple(context)) {
-      return TitlebarSafeArea(child: child);
-    }
-    return child;
   }
 
   Widget _buildMobile(BuildContext context) {

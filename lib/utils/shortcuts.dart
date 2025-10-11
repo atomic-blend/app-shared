@@ -4,6 +4,7 @@ import 'package:ab_shared/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
 import 'package:sizer/sizer.dart';
 
 Size getSize(BuildContext context) {
@@ -83,8 +84,8 @@ bool isDesktop(BuildContext context) {
           Device.screenType == ScreenType.tablet)) {
     return true;
   }
-  if ((kIsWasm ||
-      kIsWeb) && MediaQuery.of(context).size.width > $constants.screenSize.sm) {
+  if ((kIsWasm || kIsWeb) &&
+      MediaQuery.of(context).size.width > $constants.screenSize.sm) {
     return true;
   }
   return false;
@@ -96,4 +97,11 @@ bool isPaymentSupported() {
 
 bool isApple(BuildContext context) {
   return !kIsWeb && !kIsWasm && (Platform.isIOS || Platform.isMacOS);
+}
+
+Widget wrapTitlebarSafeArea(BuildContext context, Widget child) {
+  if (isDesktop(context) && isApple(context)) {
+    return TitlebarSafeArea(child: child);
+  }
+  return child;
 }
