@@ -25,6 +25,7 @@ class NavigationItem extends StatelessWidget {
     this.subItems,
     this.mobileOnly,
     this.action,
+    this.header,
   });
 
   /// The location of the destination.
@@ -66,6 +67,9 @@ class NavigationItem extends StatelessWidget {
 
   /// Optional action
   final NavigationAction? action;
+
+  /// Optional header
+  final Widget? header;
 
   @override
   Widget build(BuildContext context) {

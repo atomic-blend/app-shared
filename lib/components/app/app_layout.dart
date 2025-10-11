@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,7 +91,6 @@ class AppLayout extends StatelessWidget {
               _wrapTitlebarSafeArea(
                 context,
                 SizedBox(
-                  width: 250,
                   height: double.infinity,
                   child: ABSideMenu(
                     controller: getIt<SideMenuController>(),
@@ -98,7 +98,13 @@ class AppLayout extends StatelessWidget {
                   ),
                 ),
               ),
-            Expanded(child: Scaffold(body: child)),
+            Expanded(
+              child: Scaffold(
+                body: Column(
+                  children: [_getHeader(context), Expanded(child: child)],
+                ),
+              ),
+            ),
           ],
         ),
         Align(
@@ -160,5 +166,11 @@ class AppLayout extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _getHeader(BuildContext context) {
+    final location = GoRouterState.of(context).uri.path;
+    final item = items.firstWhere((item) => item.location == location);
+    return item.header ?? SizedBox.shrink();
   }
 }
