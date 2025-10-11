@@ -175,6 +175,9 @@ class _ABSideMenuState extends State<ABSideMenu> {
                               ],
                               SizedBox(height: $constants.insets.xs),
                               ...widget.items.map((item) {
+                                if (item.enabled == false) {
+                                  return SizedBox.shrink();
+                                }
                                 return ABSideMenuItem(
                                   item: item,
                                   collapsible: true,

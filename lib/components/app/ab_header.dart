@@ -3,7 +3,6 @@ import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,6 +37,11 @@ class _ABHeaderState extends State<ABHeader> {
               controller: controller,
               onSubmitted: (value) {
                 context.go("/search?q=$value");
+              },
+              onChanged: (value) {
+                if (GoRouterState.of(context).uri.path == "/search") {
+                  context.go("/search?q=$value");
+                }
               },
             ),
           ),

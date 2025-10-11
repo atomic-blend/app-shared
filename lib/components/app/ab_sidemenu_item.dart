@@ -74,12 +74,6 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.item.desktopOnly == true && !isDesktop(context)) {
-      return Container();
-    }
-    if (widget.item.mobileOnly == true && isDesktop(context)) {
-      return Container();
-    }
     if (widget.item.subItems == null || widget.item.subItems!.isEmpty) {
       // return the main item with the icon and the label
       return _buildItemRow(
