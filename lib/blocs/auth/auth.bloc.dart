@@ -153,10 +153,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       return;
     }
     final user = state.user!;
-    final updatedUser = await _userService.updateUserDevice(
-      user,
-      event.deviceInfo,
-    );
+    await _userService.updateUserDevice(user, event.deviceInfo);
     add(RefreshUser());
   }
 

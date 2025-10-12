@@ -35,6 +35,7 @@ class _ABHeaderState extends State<ABHeader> {
             width: getSize(context).width * 0.5,
             child: ABSearchBar(
               controller: controller,
+              showClearButton: true,
               onSubmitted: (value) {
                 context.go("/search?q=$value");
               },

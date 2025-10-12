@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLayout extends StatelessWidget {
