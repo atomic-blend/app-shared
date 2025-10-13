@@ -8,7 +8,8 @@ import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ABAppsPopup extends StatelessWidget {
-  const ABAppsPopup({super.key});
+  final bool? collapsed;
+  const ABAppsPopup({super.key, this.collapsed = false});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,10 @@ class ABAppsPopup extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment:
+            collapsed != true
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
@@ -57,30 +61,32 @@ class ABAppsPopup extends StatelessWidget {
               child: Image.asset("assets/images/atomic_blend_logo.png"),
             ),
           ),
-          SizedBox(width: $constants.insets.sm),
-          SizedBox(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  context.t.app_name,
-                  style: getTextTheme(
-                    context,
-                  ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "See all the apps",
-                  style: getTextTheme(
-                    context,
-                  ).bodyMedium!.copyWith(color: Colors.grey.shade500),
-                ),
-              ],
+          if (collapsed != true) ...[
+            SizedBox(width: $constants.insets.sm),
+            SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    context.t.app_name,
+                    style: getTextTheme(
+                      context,
+                    ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "See all the apps",
+                    style: getTextTheme(
+                      context,
+                    ).bodyMedium!.copyWith(color: Colors.grey.shade500),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Spacer(),
-          Icon(CupertinoIcons.chevron_up_chevron_down, size: 12),
+            Spacer(),
+            Icon(CupertinoIcons.chevron_up_chevron_down, size: 12),
+          ],
         ],
       ),
     );

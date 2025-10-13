@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLayout extends StatelessWidget {
@@ -56,6 +57,12 @@ class AppLayout extends StatelessWidget {
             final deviceInfoService = DeviceInfoService();
             final userDeviceInfo = await deviceInfoService.getDeviceInfo();
 
+            if (authState.user?.devices?.any(
+                  (device) => device.deviceId == userDeviceInfo.deviceId,
+                ) ??
+                false) {
+              return;
+            }
             if (!context.mounted) return;
             // ignore: use_build_context_synchronously
             context.read<AuthBloc>().add(
@@ -77,18 +84,43 @@ class AppLayout extends StatelessWidget {
   Widget _buildDesktop(BuildContext context) {
     return Stack(
       children: [
-        Row(
-          children: [
-            if (isDesktop(context))
-              SizedBox(
-                width: 250,
-                child: ABSideMenu(
-                  controller: getIt<SideMenuController>(),
-                  items: items,
+        Scaffold(
+          body: SafeArea(
+            top: isTablet(context),
+            bottom: isTablet(context),
+            left: isTablet(context),
+            right: isTablet(context),
+            child: Row(
+              children: [
+                if (isDesktop(context))
+                  wrapTitlebarSafeArea(
+                    context,
+                    SizedBox(
+                      height: double.infinity,
+                      child: ABSideMenu(
+                        controller: getIt<SideMenuController>(),
+                        items: items,
+                      ),
+                    ),
+                  ),
+                Expanded(
+                  child: Scaffold(
+                    body: Column(
+                      children: [
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: getSize(context).width * 0.6,
+                          ),
+                          child: _getHeader(context),
+                        ),
+                        Expanded(child: child),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            Expanded(child: Scaffold(body: child)),
-          ],
+              ],
+            ),
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,
@@ -105,42 +137,78 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildMobile(BuildContext context) {
-    if (!getIt.isRegistered<GlobalKey<ScaffoldState>>()) {
-      getIt.registerSingleton<GlobalKey<ScaffoldState>>(
-        GlobalKey<ScaffoldState>(),
+    // Always create a fresh GlobalKey to avoid stale references
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
+    // Update the singleton with the new key
+    if (getIt.isRegistered<GlobalKey<ScaffoldState>>()) {
+      getIt.unregister<GlobalKey<ScaffoldState>>(
         instanceName: 'layoutScaffoldKey',
       );
     }
-    final scaffoldKey = getIt<GlobalKey<ScaffoldState>>(
+    getIt.registerSingleton<GlobalKey<ScaffoldState>>(
+      scaffoldKey,
       instanceName: 'layoutScaffoldKey',
     );
     return Scaffold(
       drawer: ABSideMenu(controller: getIt<SideMenuController>(), items: items),
-      key: scaffoldKey,
-      body: Stack(
-        children: [
-          child,
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 80),
-              child: ABToastDisplay(controller: getIt<ABToastController>()),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-              child: ABNavbar(
-                backgroundColor: getTheme(context).surface,
-                destinations: items,
+      // key: scaffoldKey,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(children: [_getHeader(context), Expanded(child: child)]),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 80),
+                child: ABToastDisplay(controller: getIt<ABToastController>()),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                child: ABNavbar(
+                  backgroundColor: getTheme(context).surface,
+                  destinations: items,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _getHeader(BuildContext context) {
+    final location = GoRouterState.of(context).uri.path;
+    final item = _findNavigationItemByLocation(items, location);
+    return item?.header ?? Container();
+  }
+
+  NavigationItem? _findNavigationItemByLocation(
+    List<NavigationItem> items,
+    String location,
+  ) {
+    for (final item in items) {
+      // First, recursively search in subitems (children)
+      if (item.subItems != null) {
+        final foundItem = _findNavigationItemByLocation(
+          item.subItems!,
+          location,
+        );
+        if (foundItem != null) {
+          return foundItem;
+        }
+      }
+
+      // Then check if current item (parent) matches
+      if (item.location == location) {
+        return item;
+      }
+    }
+    return null;
   }
 }

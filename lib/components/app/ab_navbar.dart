@@ -17,14 +17,13 @@ class NavigationItem extends StatelessWidget {
     required this.cupertinoIcon,
     required this.label,
     this.selectedIcon,
-    this.desktopOnly,
     this.enabled = true,
     this.location,
     this.color,
     this.onTap,
     this.subItems,
-    this.mobileOnly,
     this.action,
+    this.header,
   });
 
   /// The location of the destination.
@@ -56,16 +55,11 @@ class NavigationItem extends StatelessWidget {
   /// Usually used for the secondary menu
   final List<NavigationItem>? subItems;
 
-  /// Optional desktopOnly
-  /// Used to display an item only on desktop
-  final bool? desktopOnly;
-
-  /// Optional mobileOnly
-  /// Used to display an item only on mobile
-  final bool? mobileOnly;
-
   /// Optional action
   final NavigationAction? action;
+
+  /// Optional header
+  final Widget? header;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +111,7 @@ class _ABNavbarState extends State<ABNavbar> {
   // Filter out desktopOnly items
   List<NavigationItem> get filteredDestinations {
     return widget.destinations
-        .where((item) => item.desktopOnly != true)
+        .where((item) => item.enabled != false)
         .toList();
   }
 

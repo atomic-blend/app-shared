@@ -1,23 +1,24 @@
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ABSearchBar extends StatefulWidget {
   final TextEditingController controller;
   final Function(String)? onSubmitted;
   final Function(String)? onChanged;
-  final VoidCallback? onClear;
   final String? placeholder;
   final bool showKeyboardShortcut;
+  final bool showClearButton;
 
   const ABSearchBar({
     super.key,
     required this.controller,
     this.onSubmitted,
     this.onChanged,
-    this.onClear,
     this.placeholder,
     this.showKeyboardShortcut = false,
+    this.showClearButton = false,
   });
 
   @override
@@ -25,6 +26,22 @@ class ABSearchBar extends StatefulWidget {
 }
 
 class _ABSearchBarState extends State<ABSearchBar> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onTextChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onTextChanged);
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = getTheme(context);
@@ -55,7 +72,7 @@ class _ABSearchBarState extends State<ABSearchBar> {
             child: TextField(
               controller: widget.controller,
               style: TextStyle(
-                color: isDark ? Colors.white : theme.surfaceContainer,
+                color: isDark ? Colors.white : theme.onSurfaceVariant,
                 fontSize: 12,
               ),
               decoration: InputDecoration(
@@ -77,16 +94,30 @@ class _ABSearchBarState extends State<ABSearchBar> {
 
               onSubmitted: widget.onSubmitted,
               onChanged: (value) {
-                if (value.isEmpty && widget.onClear != null) {
-                  widget.onClear!();
-                  return;
-                }
                 if (widget.onChanged != null) {
                   widget.onChanged!(value);
                 }
               },
             ),
           ),
+          // Clear button
+          if (widget.showClearButton && widget.controller.text.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.only(right: $constants.insets.xs),
+              child: GestureDetector(
+                onTap: () {
+                  widget.controller.clear();
+                  if (widget.onChanged != null) {
+                    widget.onChanged!('');
+                  }
+                },
+                child: Icon(
+                  CupertinoIcons.xmark_circle,
+                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  size: 16,
+                ),
+              ),
+            ),
           // Keyboard shortcut indicator
           if (widget.showKeyboardShortcut)
             Padding(

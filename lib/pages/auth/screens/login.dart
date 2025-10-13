@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen>
           }
         },
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             if (isDesktop(context)) Spacer(),
@@ -96,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -103,9 +105,11 @@ class _LoginScreenState extends State<LoginScreen>
                           SizedBox(
                             height: 350,
                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Animate(
+                                  controller: _animationController,
                                   effects: [
                                     FadeEffect(
                                       duration: _animationDuration,
@@ -171,9 +175,9 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                           SizedBox(height: $constants.insets.sm),
                           SizedBox(
-                            height: 280,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(height: $constants.insets.md),
                                 SizedBox(
@@ -259,12 +263,14 @@ class _LoginScreenState extends State<LoginScreen>
                                   effects: [
                                     FadeEffect(
                                       duration: _animationDuration,
-                                      delay: const Duration(milliseconds: 500),
+                                      delay: const Duration(milliseconds: 300),
                                     ),
                                   ],
                                   onPlay: (controller) => controller.forward(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       PrimaryButtonSquare(
                                         text: context.t.auth.login.login,
@@ -315,6 +321,7 @@ class _LoginScreenState extends State<LoginScreen>
                             ],
                             onPlay: (controller) => controller.forward(),
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(

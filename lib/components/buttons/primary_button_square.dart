@@ -4,27 +4,28 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButtonSquare extends StatelessWidget {
-  const PrimaryButtonSquare(
-      {super.key,
-      this.onPressed,
-      this.emoji,
-      this.icon,
-      this.iconColor,
-      required this.text,
-      this.backgroundColor,
-      this.trailing,
-      this.textColor,
-      this.border,
-      this.height,
-      this.width,
-      this.outlined});
+  const PrimaryButtonSquare({
+    super.key,
+    this.onPressed,
+    this.emoji,
+    this.icon,
+    this.iconColor,
+    this.text,
+    this.backgroundColor,
+    this.trailing,
+    this.textColor,
+    this.border,
+    this.height,
+    this.width,
+    this.outlined,
+  });
 
   final VoidCallback? onPressed;
   final String? emoji;
   final IconData? icon;
   final Color? iconColor;
   final Widget? trailing;
-  final String text;
+  final String? text;
   final Color? backgroundColor;
   final Color? textColor;
   final Border? border;
@@ -38,10 +39,12 @@ class PrimaryButtonSquare extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: outlined == true
-                ? Border.all(
-                    color: backgroundColor ?? getTheme(context).primary)
-                : border,
+            border:
+                outlined == true
+                    ? Border.all(
+                      color: backgroundColor ?? getTheme(context).primary,
+                    )
+                    : border,
             borderRadius: BorderRadius.circular($constants.corners.md),
           ),
           height: height ?? 50,
@@ -49,52 +52,55 @@ class PrimaryButtonSquare extends StatelessWidget {
           child: TextButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(outlined == true
-                  ? null
-                  : backgroundColor ?? getTheme(context).primary),
+              backgroundColor: WidgetStatePropertyAll(
+                outlined == true
+                    ? null
+                    : backgroundColor ?? getTheme(context).primary,
+              ),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                      $constants.corners.md), // This makes it completely square
+                    $constants.corners.md,
+                  ), // This makes it completely square
                 ),
               ),
             ),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (emoji != null) ...[
-                Text(
-                  emoji!,
-                  style: const TextStyle(fontSize: 23),
-                ),
-                SizedBox(
-                  width: $constants.insets.xs,
-                ),
-              ],
-              if (icon != null) ...[
-                Icon(icon, color: iconColor),
-                SizedBox(
-                  width: $constants.insets.xs,
-                ),
-              ],
-              Center(
-                child: AutoSizeText(
-                  text,
-                  maxLines: 1,
-                  style: getTextTheme(context).bodyMedium!.copyWith(
-                        color: outlined == true
-                            ? backgroundColor ?? getTheme(context).primary
-                            : textColor ?? Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (emoji != null) ...[
+                  Text(emoji!, style: const TextStyle(fontSize: 23)),
+                ],
+                if (icon != null) ...[Icon(icon, color: iconColor)],
+                if (text != null) ...[
+                  SizedBox(width: $constants.insets.xs),
+                  Center(
+                    child: AutoSizeText(
+                      text!,
+                      maxLines: 1,
+                      style: getTextTheme(context).bodyMedium!.copyWith(
+                        color:
+                            outlined == true
+                                ? backgroundColor ?? getTheme(context).primary
+                                : textColor ?? Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
-                ),
-              ),
-            ]),
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
         ),
         if (trailing != null) ...[
           Positioned(
-              top: 0, bottom: 0, right: $constants.insets.xs, child: trailing!),
-        ]
+            top: 0,
+            bottom: 0,
+            right: $constants.insets.xs,
+            child: trailing!,
+          ),
+        ],
       ],
     );
   }

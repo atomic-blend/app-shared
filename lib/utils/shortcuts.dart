@@ -4,7 +4,7 @@ import 'package:ab_shared/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
 
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
@@ -76,18 +76,27 @@ LinearGradient colorsToGradient(List<Color> colors, {double opacity = 1}) {
 }
 
 bool isDesktop(BuildContext context) {
-  if (!kIsWeb &&
-      (Platform.isMacOS ||
-          Platform.isWindows ||
-          Platform.isLinux ||
-          Device.screenType == ScreenType.tablet)) {
+  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
     return true;
   }
-  if ((kIsWasm ||
-      kIsWeb) && MediaQuery.of(context).size.width > $constants.screenSize.sm) {
+  if ((kIsWasm || kIsWeb) &&
+      MediaQuery.of(context).size.width > $constants.screenSize.sm) {
+    return true;
+  }
+  if (MediaQuery.of(context).size.width > $constants.screenSize.sm) {
     return true;
   }
   return false;
+}
+
+bool isTablet(BuildContext context) {
+  return MediaQuery.of(context).size.width > $constants.screenSize.sm &&
+      !kIsWeb &&
+      (Platform.isIOS || Platform.isMacOS);
+}
+
+bool isMobile(BuildContext context) {
+  return MediaQuery.of(context).size.width < $constants.screenSize.sm;
 }
 
 bool isPaymentSupported() {
@@ -96,4 +105,11 @@ bool isPaymentSupported() {
 
 bool isApple(BuildContext context) {
   return !kIsWeb && !kIsWasm && (Platform.isIOS || Platform.isMacOS);
+}
+
+Widget wrapTitlebarSafeArea(BuildContext context, Widget child) {
+  if (isDesktop(context) && isApple(context)) {
+    return TitlebarSafeArea(child: child);
+  }
+  return child;
 }

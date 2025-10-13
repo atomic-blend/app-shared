@@ -10,12 +10,16 @@ import 'package:go_router/go_router.dart';
 
 class ABSideMenuItem extends StatefulWidget {
   final NavigationItem item;
+  // Whether the item is collapsed, ie the side menu is collapsed and iconsOnly are needed
+  final bool collapsed;
+  // Whether the item is collapsible, ie has sub items and can be collapsed
   final bool collapsible;
   final bool initiallyExpanded;
 
   const ABSideMenuItem({
     super.key,
     required this.item,
+    this.collapsed = false,
     this.collapsible = false,
     this.initiallyExpanded = true,
   });
@@ -74,12 +78,6 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.item.desktopOnly == true && !isDesktop(context)) {
-      return Container();
-    }
-    if (widget.item.mobileOnly == true && isDesktop(context)) {
-      return Container();
-    }
     if (widget.item.subItems == null || widget.item.subItems!.isEmpty) {
       // return the main item with the icon and the label
       return _buildItemRow(
@@ -110,10 +108,13 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
             subItem,
             padding: EdgeInsets.zero,
             selected: selected,
-            margin: EdgeInsets.symmetric(
-              horizontal: $constants.insets.sm,
-              vertical: $constants.insets.xxs,
-            ),
+            margin:
+                widget.collapsed
+                    ? EdgeInsets.zero
+                    : EdgeInsets.symmetric(
+                      horizontal: $constants.insets.sm,
+                      vertical: $constants.insets.xxs,
+                    ),
             onTap: () {
               if (subItem.onTap != null) {
                 subItem.onTap!();
@@ -130,6 +131,9 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
           _buildItemRow(
             context,
             widget.item,
+            showArrow: widget.collapsible,
+            isExpanded: _isExpanded,
+
             padding: EdgeInsets.only(bottom: $constants.insets.xxs),
             margin: EdgeInsets.symmetric(
               horizontal: $constants.insets.sm,
@@ -145,33 +149,38 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
                         context.go(widget.item.location ?? '/');
                       }
                     },
-            showArrow: widget.collapsible,
-            isExpanded: _isExpanded,
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: $constants.insets.sm,
+              horizontal: widget.collapsed ? 0 : $constants.insets.sm,
               // vertical: $constants.insets.xxs,
             ),
             child: SizeTransition(
               sizeFactor: _expandAnimation,
-              child: IntrinsicHeight(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 2),
-                    VerticalDivider(color: Colors.grey.shade300),
-                    Expanded(
-                      child: Column(
+              child:
+                  widget.collapsed
+                      ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: $constants.insets.xs,
                         children: [...children],
+                      )
+                      : IntrinsicHeight(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 2),
+                            VerticalDivider(color: Colors.grey.shade300),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: $constants.insets.xs,
+                                children: [...children],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
           SizedBox(height: $constants.insets.sm),
@@ -196,45 +205,96 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
       onExit: (event) => setState(() => hoveredKey = null),
       child: GestureDetector(
         onTap: () => onTap?.call(),
-        child: Padding(
-          padding: padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
-          child: Container(
-            decoration: BoxDecoration(
-              color:
-                  selected == true ||
-                          (hoveredKey == (item.key as ValueKey).value &&
-                              (item.subItems == null || item.subItems!.isEmpty))
-                      ? isDarkMode(context)
-                          ? getTheme(context).surfaceContainer.lighten(10)
-                          : getTheme(context).surfaceContainer.darken(5)
-                      : Colors.transparent,
-              borderRadius: BorderRadius.circular($constants.corners.sm),
-            ),
-            padding: margin,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _getIcon(item),
-                SizedBox(width: $constants.insets.sm),
-                Expanded(
-                  child: Text(
-                    item.label,
-                    style: getTextTheme(context).bodyLarge,
+        child: Stack(
+          children: [
+            if (showArrow)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: AnimatedRotation(
+                  turns: isExpanded ? 0.5 : 0.0,
+                  duration: const Duration(milliseconds: 300),
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    size: 18,
+                    color: Colors.grey.shade600,
                   ),
                 ),
-                if (showArrow)
-                  AnimatedRotation(
-                    turns: isExpanded ? 0.5 : 0.0,
-                    duration: const Duration(milliseconds: 300),
-                    child: Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 18,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-              ],
+              ),
+            Center(
+              child: Padding(
+                padding:
+                    padding ?? EdgeInsets.only(bottom: $constants.insets.xs),
+                child:
+                    widget.collapsed
+                        ? Container(
+                          width: _isSubItem(item) ? 40 : 50,
+                          height: _isSubItem(item) ? 40 : 50,
+                          decoration: BoxDecoration(
+                            color:
+                                selected == true ||
+                                        (hoveredKey ==
+                                                (item.key as ValueKey).value &&
+                                            (item.subItems == null ||
+                                                item.subItems!.isEmpty))
+                                    ? isDarkMode(context)
+                                        ? getTheme(
+                                          context,
+                                        ).surfaceContainer.lighten(10)
+                                        : getTheme(
+                                          context,
+                                        ).surfaceContainer.darken(5)
+                                    : Colors.transparent,
+                            borderRadius: BorderRadius.circular(
+                              $constants.corners.sm,
+                            ),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [_getIcon(item)],
+                            ),
+                          ),
+                        )
+                        : Container(
+                          decoration: BoxDecoration(
+                            color:
+                                selected == true ||
+                                        (hoveredKey ==
+                                                (item.key as ValueKey).value &&
+                                            (item.subItems == null ||
+                                                item.subItems!.isEmpty))
+                                    ? isDarkMode(context)
+                                        ? getTheme(
+                                          context,
+                                        ).surfaceContainer.lighten(10)
+                                        : getTheme(
+                                          context,
+                                        ).surfaceContainer.darken(5)
+                                    : Colors.transparent,
+                            borderRadius: BorderRadius.circular(
+                              $constants.corners.sm,
+                            ),
+                          ),
+                          padding: widget.collapsed ? EdgeInsets.zero : margin,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _getIcon(item),
+                              SizedBox(width: $constants.insets.sm),
+                              Expanded(
+                                child: Text(
+                                  item.label,
+                                  style: getTextTheme(context).bodyLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -246,5 +306,10 @@ class _ABSideMenuItemState extends State<ABSideMenuItem>
     } else {
       return Icon(item.icon, size: 20);
     }
+  }
+
+  bool _isSubItem(NavigationItem item) {
+    // Check if this item is a sub-item by looking at the parent's subItems
+    return widget.item.subItems?.contains(item) ?? false;
   }
 }
