@@ -2,6 +2,27 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.3 - 2025-10-13
+#### Bug Fixes
+- linter - (294e2e8) - Brandon Guigo
+- lookup first the subitems for headers, then parents - (4647cfa) - Brandon Guigo
+- be able to collapse the side menu - (2291946) - Brandon Guigo
+- ui for tablet and iPad - (1a6a828) - Brandon Guigo
+- desktop ui for iPad - (20e3092) - Brandon Guigo
+- header on mobile - (e04af3c) - Brandon Guigo
+- look recursively inside subitems - (1e90cab) - Brandon Guigo
+- add clear btn for search bar - (6e7edd7) - Brandon Guigo
+- search works on all app + disabled items in side menu - (c10dca5) - Brandon Guigo
+- add search bar into header - (9ed8100) - Brandon Guigo
+- refactor - (35a48b0) - Brandon Guigo
+- remove static width on side menu + add generic header - (408459a) - Brandon Guigo
+- wrap sidemenu with titlebar safe area on apple desktop - (533d64d) - Brandon Guigo
+- don't send update device request when no update necessary - (2a76d9b) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.2 [skip ci] - (b42b74e) - GitHub Actions
+
+- - -
+
 ## v0.8.2 - 2025-10-10
 #### Bug Fixes
 - linter - (3c0d87e) - Brandon Guigo
