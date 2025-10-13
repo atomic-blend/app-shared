@@ -77,15 +77,14 @@ LinearGradient colorsToGradient(List<Color> colors, {double opacity = 1}) {
 }
 
 bool isDesktop(BuildContext context) {
-  if (!kIsWeb &&
-      (Platform.isMacOS ||
-          Platform.isWindows ||
-          Platform.isLinux ||
-          Device.screenType == ScreenType.tablet)) {
+  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
     return true;
   }
   if ((kIsWasm || kIsWeb) &&
       MediaQuery.of(context).size.width > $constants.screenSize.sm) {
+    return true;
+  }
+  if (MediaQuery.of(context).size.width > $constants.screenSize.sm) {
     return true;
   }
   return false;
