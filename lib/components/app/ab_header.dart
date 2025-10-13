@@ -21,18 +21,30 @@ class _ABHeaderState extends State<ABHeader> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: $constants.insets.sm,
-        right: $constants.insets.sm,
-        top: $constants.insets.xs,
-        bottom: $constants.insets.xs,
-      ),
+      padding:
+          isDesktop(context)
+              ? EdgeInsets.only(
+                left: $constants.insets.sm,
+                right: $constants.insets.sm,
+                top: $constants.insets.xs,
+                bottom: $constants.insets.xs,
+              )
+              : EdgeInsets.zero,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: []),
-          SizedBox(
-            width: getSize(context).width * 0.5,
+          Row(
+            children: [
+              if (!isDesktop(context))
+                IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  icon: Icon(CupertinoIcons.bars),
+                ),
+            ],
+          ),
+          Expanded(
             child: ABSearchBar(
               controller: controller,
               showClearButton: true,

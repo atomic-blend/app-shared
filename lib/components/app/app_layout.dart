@@ -121,41 +121,47 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildMobile(BuildContext context) {
-    if (!getIt.isRegistered<GlobalKey<ScaffoldState>>()) {
-      getIt.registerSingleton<GlobalKey<ScaffoldState>>(
-        GlobalKey<ScaffoldState>(),
+    // Always create a fresh GlobalKey to avoid stale references
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
+    // Update the singleton with the new key
+    if (getIt.isRegistered<GlobalKey<ScaffoldState>>()) {
+      getIt.unregister<GlobalKey<ScaffoldState>>(
         instanceName: 'layoutScaffoldKey',
       );
     }
-    final scaffoldKey = getIt<GlobalKey<ScaffoldState>>(
+    getIt.registerSingleton<GlobalKey<ScaffoldState>>(
+      scaffoldKey,
       instanceName: 'layoutScaffoldKey',
     );
     return Scaffold(
       drawer: ABSideMenu(controller: getIt<SideMenuController>(), items: items),
-      key: scaffoldKey,
-      body: Stack(
-        children: [
-          child,
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 80),
-              child: ABToastDisplay(controller: getIt<ABToastController>()),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-              child: ABNavbar(
-                backgroundColor: getTheme(context).surface,
-                destinations: items,
+      // key: scaffoldKey,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(children: [_getHeader(context), Expanded(child: child)]),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 80),
+                child: ABToastDisplay(controller: getIt<ABToastController>()),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+                child: ABNavbar(
+                  backgroundColor: getTheme(context).surface,
+                  destinations: items,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,7 +169,7 @@ class AppLayout extends StatelessWidget {
   Widget _getHeader(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     final item = _findNavigationItemByLocation(items, location);
-    return item?.header ?? SizedBox.shrink();
+    return item?.header ?? Container();
   }
 
   NavigationItem? _findNavigationItemByLocation(
