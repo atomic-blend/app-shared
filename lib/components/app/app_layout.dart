@@ -84,27 +84,35 @@ class AppLayout extends StatelessWidget {
   Widget _buildDesktop(BuildContext context) {
     return Stack(
       children: [
-        Row(
-          children: [
-            if (isDesktop(context))
-              wrapTitlebarSafeArea(
-                context,
-                SizedBox(
-                  height: double.infinity,
-                  child: ABSideMenu(
-                    controller: getIt<SideMenuController>(),
-                    items: items,
+        Scaffold(
+          body: SafeArea(
+            top: isTablet(context),
+            bottom: isTablet(context),
+            left: isTablet(context),
+            right: isTablet(context),
+            child: Row(
+              children: [
+                if (isDesktop(context))
+                  wrapTitlebarSafeArea(
+                    context,
+                    SizedBox(
+                      height: double.infinity,
+                      child: ABSideMenu(
+                        controller: getIt<SideMenuController>(),
+                        items: items,
+                      ),
+                    ),
+                  ),
+                Expanded(
+                  child: Scaffold(
+                    body: Column(
+                      children: [_getHeader(context), Expanded(child: child)],
+                    ),
                   ),
                 ),
-              ),
-            Expanded(
-              child: Scaffold(
-                body: Column(
-                  children: [_getHeader(context), Expanded(child: child)],
-                ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,

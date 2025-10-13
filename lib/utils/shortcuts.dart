@@ -90,6 +90,16 @@ bool isDesktop(BuildContext context) {
   return false;
 }
 
+bool isTablet(BuildContext context) {
+  return MediaQuery.of(context).size.width > $constants.screenSize.sm &&
+      !kIsWeb &&
+      (Platform.isIOS || Platform.isMacOS);
+}
+
+bool isMobile(BuildContext context) {
+  return MediaQuery.of(context).size.width < $constants.screenSize.sm;
+}
+
 bool isPaymentSupported() {
   return !kIsWeb && !kIsWasm && (Platform.isAndroid || Platform.isIOS);
 }
