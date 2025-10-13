@@ -186,6 +186,7 @@ class AppLayout extends StatelessWidget {
   Widget _getHeader(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     final item = _findNavigationItemByLocation(items, location);
+    print(item);
     return item?.header ?? Container();
   }
 
@@ -194,12 +195,7 @@ class AppLayout extends StatelessWidget {
     String location,
   ) {
     for (final item in items) {
-      // Check if current item matches
-      if (item.location == location) {
-        return item;
-      }
-
-      // Recursively search in subitems
+      // First, recursively search in subitems (children)
       if (item.subItems != null) {
         final foundItem = _findNavigationItemByLocation(
           item.subItems!,
@@ -208,6 +204,11 @@ class AppLayout extends StatelessWidget {
         if (foundItem != null) {
           return foundItem;
         }
+      }
+
+      // Then check if current item (parent) matches
+      if (item.location == location) {
+        return item;
       }
     }
     return null;
