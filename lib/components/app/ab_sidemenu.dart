@@ -89,7 +89,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                 child: SideMenu(
                   controller: widget.controller,
                   mode: SideMenuMode.open,
-                  minWidth: isDesktop(context) ? 0 : 0,
+                  minWidth: 80,
                   maxWidth:
                       isDesktop(context) ? 250 : getSize(context).width * 0.6,
                   backgroundColor: getTheme(context).surfaceContainer,
@@ -103,58 +103,108 @@ class _ABSideMenuState extends State<ABSideMenu> {
                           vertical: $constants.insets.sm,
                           horizontal: $constants.insets.xs + 4,
                         ),
-                        child: ABAppsPopup(),
+                        child: ABAppsPopup(
+                          collapsed: widget.controller.isCollapsed(),
+                        ),
                       ),
                       footer: Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: $constants.insets.sm,
                           horizontal: $constants.insets.xs,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
                           children: [
-                            SizedBox(width: $constants.insets.xs),
-                            InitialAvatar(
-                              size: 50,
-                              borderRadius: $constants.corners.lg,
-                              name:
-                                  authState.user?.firstname != null
-                                      ? "${authState.user?.firstname} ${authState.user?.lastname}"
-                                      : "Atomic Blend",
-                            ),
-                            SizedBox(width: $constants.insets.sm),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    authState.user?.firstname != null
-                                        ? "${authState.user?.firstname}${authState.user?.lastname != null ? " ${authState.user?.lastname}" : ""}"
-                                        : context.t.app_name,
-                                    style: getTextTheme(context).bodyLarge!
-                                        .copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  AutoSizeText(
-                                    authState.user?.email ?? "",
-                                    maxLines: 1,
-                                    minFontSize: 10,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        getTextTheme(
+                            if (isDesktop(context)) ...[
+                              GestureDetector(
+                                onTap: () {
+                                  widget.controller.toggle();
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      widget.controller.isCollapsed()
+                                          ? MainAxisAlignment.center
+                                          : MainAxisAlignment.start,
+                                  children: [
+                                    if (widget.controller.isCollapsed() != true)
+                                      SizedBox(width: $constants.insets.sm),
+                                    Icon(
+                                      CupertinoIcons.sidebar_left,
+                                      size: 20,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                    if (widget.controller.isCollapsed() !=
+                                        true) ...[
+                                      SizedBox(width: $constants.insets.sm),
+                                      Text(
+                                        "Collapse",
+                                        style: getTextTheme(
                                           context,
-                                        ).bodyMedium!.copyWith(),
+                                        ).bodyMedium!.copyWith(
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: $constants.insets.sm),
+                            ],
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                if (widget.controller.isCollapsed() != true)
+                                  SizedBox(width: $constants.insets.xs),
+                                InitialAvatar(
+                                  size: 50,
+                                  borderRadius: $constants.corners.lg,
+                                  name:
+                                      authState.user?.firstname != null
+                                          ? "${authState.user?.firstname} ${authState.user?.lastname}"
+                                          : "Atomic Blend",
+                                ),
+                                if (widget.controller.isCollapsed() !=
+                                    true) ...[
+                                  SizedBox(width: $constants.insets.sm),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          authState.user?.firstname != null
+                                              ? "${authState.user?.firstname}${authState.user?.lastname != null ? " ${authState.user?.lastname}" : ""}"
+                                              : context.t.app_name,
+                                          style: getTextTheme(
+                                            context,
+                                          ).bodyLarge!.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        AutoSizeText(
+                                          authState.user?.email ?? "",
+                                          maxLines: 1,
+                                          minFontSize: 10,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              getTextTheme(
+                                                context,
+                                              ).bodyMedium!.copyWith(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: $constants.insets.sm),
+                                  Icon(
+                                    CupertinoIcons.chevron_up_chevron_down,
+                                    size: 12,
                                   ),
                                 ],
-                              ),
-                            ),
-                            SizedBox(width: $constants.insets.sm),
-                            Icon(
-                              CupertinoIcons.chevron_up_chevron_down,
-                              size: 12,
+                              ],
                             ),
                           ],
                         ),
@@ -165,7 +215,10 @@ class _ABSideMenuState extends State<ABSideMenu> {
                             horizontal: $constants.insets.xs,
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment:
+                                widget.controller.isCollapsed()
+                                    ? CrossAxisAlignment.center
+                                    : CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (getCurrentPageAction() != null) ...[
@@ -180,6 +233,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
                                 }
                                 return ABSideMenuItem(
                                   item: item,
+                                  collapsed: widget.controller.isCollapsed(),
                                   collapsible: true,
                                   initiallyExpanded: true,
                                 );
@@ -201,7 +255,7 @@ class _ABSideMenuState extends State<ABSideMenu> {
 
   Widget _buildActionWidget(NavigationAction action) {
     return PrimaryButtonSquare(
-      text: action.label,
+      text: widget.controller.isCollapsed() ? null : action.label,
       icon: action.icon,
       iconColor: Colors.white,
       onPressed: action.onTap,

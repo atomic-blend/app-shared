@@ -82,6 +82,7 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildDesktop(BuildContext context) {
+    final sideMenuController = getIt<SideMenuController>();
     return Stack(
       children: [
         Scaffold(
@@ -106,7 +107,15 @@ class AppLayout extends StatelessWidget {
                 Expanded(
                   child: Scaffold(
                     body: Column(
-                      children: [_getHeader(context), Expanded(child: child)],
+                      children: [
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: getSize(context).width * 0.6,
+                          ),
+                          child: _getHeader(context),
+                        ),
+                        Expanded(child: child),
+                      ],
                     ),
                   ),
                 ),
