@@ -5,7 +5,6 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
-import 'package:sizer/sizer.dart';
 
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;

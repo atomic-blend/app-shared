@@ -82,7 +82,6 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildDesktop(BuildContext context) {
-    final sideMenuController = getIt<SideMenuController>();
     return Stack(
       children: [
         Scaffold(
@@ -186,7 +185,6 @@ class AppLayout extends StatelessWidget {
   Widget _getHeader(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     final item = _findNavigationItemByLocation(items, location);
-    print(item);
     return item?.header ?? Container();
   }
 
