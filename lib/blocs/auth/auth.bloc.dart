@@ -208,14 +208,15 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(StartResetPasswordLoading(prevState.user, prevState.appConfig));
     try {
       await _userService.startResetPassword(event.email);
-    } on Exception catch (e) {
+    } on DioException catch (e) {
       emit(
         StartResetPasswordError(
-          e.toString(),
+          e.response?.data['message'] ?? e.toString(),
           prevState.user,
           prevState.appConfig,
         ),
       );
+      return;
     }
     emit(StartResetPasswordSuccess(prevState.user, prevState.appConfig));
   }

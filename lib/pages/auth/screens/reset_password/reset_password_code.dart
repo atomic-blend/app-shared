@@ -3,173 +3,88 @@ import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:lottie/lottie.dart';
 
 class ResetPasswordCode extends StatefulWidget {
-  final TextEditingController emailCodeController;
-  final VoidCallback? onNextCallback;
-  const ResetPasswordCode({
-    super.key,
-    required this.emailCodeController,
-    this.onNextCallback,
-  });
+  final String? emailCode;
+  final Function(String emailCode) onSuccess;
+  const ResetPasswordCode({super.key, required this.onSuccess, this.emailCode});
 
   @override
   State<ResetPasswordCode> createState() => _ResetPasswordCodeState();
 }
 
-class _ResetPasswordCodeState extends State<ResetPasswordCode>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late AnimationController _lottieController;
-  final _animationDuration = const Duration(milliseconds: 250);
+class _ResetPasswordCodeState extends State<ResetPasswordCode> {
+  final _emailCodeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this);
-    _lottieController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 3000),
-      lowerBound: 0.2,
-    );
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _lottieController.dispose();
-    super.dispose();
+    _emailCodeController.text = widget.emailCode ?? '';
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: getSize(context).height * 0.86,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: getSize(context).height * 0.1),
-          Animate(
-            controller: _animationController,
-            effects: [
-              FadeEffect(
-                duration: _animationDuration,
-                delay: const Duration(milliseconds: 0),
-              ),
-            ],
-            onPlay: (controller) => controller.forward(),
-            child: Lottie.asset(
-              controller: _lottieController,
-              onLoaded: (p0) => _lottieController.forward(),
-              'assets/animations/email.json',
-              width:
-                  isDesktop(context)
-                      ? getSize(context).width * 0.3
-                      : getSize(context).width * 0.5,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: $constants.insets.md),
+            Text(
+              context.t.auth.reset_password.enter_the_confirmation_code,
+              style: getTextTheme(
+                context,
+              ).headlineSmall!.copyWith(fontWeight: FontWeight.bold),
             ),
-          ),
-          SizedBox(height: $constants.insets.sm),
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  context.t.auth.reset_password.enter_the_confirmation_code,
-                  style: getTextTheme(
-                    context,
-                  ).titleMedium!.copyWith(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: $constants.insets.xs),
-                Text(context.t.auth.reset_password.confirmation_code_sent),
-                SizedBox(height: $constants.insets.sm),
-                Text(
-                  context
+            Text(
+              context.t.auth.reset_password.confirmation_code_sent,
+              style: getTextTheme(
+                context,
+              ).bodySmall!.copyWith(color: Colors.grey),
+            ),
+            SizedBox(height: $constants.insets.sm),
+            Text(
+              context.t.auth.reset_password.confirmation_code_sent_description,
+              style: getTextTheme(
+                context,
+              ).bodySmall!.copyWith(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: $constants.insets.sm),
+            AppTextFormField(
+              controller: _emailCodeController,
+              labelText: context.t.auth.reset_password.confirmation_code,
+              labelDescription:
+                  context.t.auth.reset_password.confirmation_code_description,
+              hintText: context.t.auth.reset_password.confirmation_code_hint,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return context
                       .t
                       .auth
                       .reset_password
-                      .confirmation_code_sent_description,
-                  style: getTextTheme(
-                    context,
-                  ).bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
+                      .confirmation_code_required;
+                }
+                return null;
+              },
             ),
-          ),
-          SizedBox(height: $constants.insets.sm),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                AppTextFormField(
-                  controller: widget.emailCodeController,
-                  labelText: context.t.auth.reset_password.confirmation_code,
-                  labelDescription:
-                      context
-                          .t
-                          .auth
-                          .reset_password
-                          .confirmation_code_description,
-                  hintText:
-                      context.t.auth.reset_password.confirmation_code_hint,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return context
-                          .t
-                          .auth
-                          .reset_password
-                          .confirmation_code_required;
-                    }
-                    return null;
-                  },
-                ),
-              ],
+            SizedBox(height: $constants.insets.md),
+            PrimaryButtonSquare(
+              text: context.t.actions.next,
+              backgroundColor: getTheme(context).primary,
+              onPressed: () async {
+                if (!_formKey.currentState!.validate()) {
+                  return;
+                }
+                widget.onSuccess(_emailCodeController.text);
+              },
             ),
-          ),
-          const Spacer(),
-          const Divider(),
-          Animate(
-            controller: _animationController,
-            effects: [
-              FadeEffect(
-                duration: _animationDuration,
-                delay: const Duration(milliseconds: 500),
-              ),
-            ],
-            onPlay: (controller) => controller.forward(),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-              height: getSize(context).height * 0.1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Spacer(),
-                  PrimaryButtonSquare(
-                    text: context.t.actions.next,
-                    backgroundColor: getTheme(context).primary,
-                    onPressed: () async {
-                      if (!_formKey.currentState!.validate()) {
-                        return;
-                      }
-                      _animationController.reverseDuration = const Duration(
-                        milliseconds: 500,
-                      );
-                      _animationController.reverse();
-                      widget.onNextCallback?.call();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
