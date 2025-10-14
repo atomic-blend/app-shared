@@ -7,8 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PersonalInfosStep extends StatefulWidget {
+  final String? firstName;
+  final String? lastName;
   final Function(String firstName, String lastName) onSuccess;
-  const PersonalInfosStep({super.key, required this.onSuccess});
+  const PersonalInfosStep({
+    super.key,
+    required this.onSuccess,
+    this.firstName,
+    this.lastName,
+  });
 
   @override
   State<PersonalInfosStep> createState() => _PersonalInfosStepState();
@@ -22,6 +29,8 @@ class _PersonalInfosStepState extends State<PersonalInfosStep> {
   @override
   void initState() {
     super.initState();
+    _firstNameController.text = widget.firstName ?? '';
+    _lastNameController.text = widget.lastName ?? '';
   }
 
   @override

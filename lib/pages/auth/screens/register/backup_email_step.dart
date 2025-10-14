@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BackupEmailStep extends StatefulWidget {
+  final String? backupEmail;
   final Function(String backupEmail) onSuccess;
   final String? nextButtonText;
   const BackupEmailStep({
     super.key,
     required this.onSuccess,
     this.nextButtonText,
+    this.backupEmail,
   });
 
   @override
@@ -22,6 +24,12 @@ class BackupEmailStep extends StatefulWidget {
 class _BackupEmailStepState extends State<BackupEmailStep> {
   final _backupEmailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _backupEmailController.text = widget.backupEmail ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {

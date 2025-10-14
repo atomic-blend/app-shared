@@ -11,6 +11,7 @@ import 'package:ab_shared/pages/auth/screens/register/personal_infos_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,6 +108,9 @@ class _RegisterEmailState extends State<RegisterEmail>
             case "register_email":
               return _buildMainLayout(
                 RegisterEmailStep(
+                  username: _email?.split("@")[0],
+                  domain: _email?.split("@")[1],
+                  password: _password,
                   onSuccess: (String email, String password) {
                     setState(() {
                       _index = "personal_infos";
@@ -119,6 +123,8 @@ class _RegisterEmailState extends State<RegisterEmail>
             case "personal_infos":
               return _buildMainLayout(
                 PersonalInfosStep(
+                  firstName: _firstName,
+                  lastName: _lastName,
                   onSuccess: (String firstName, String lastName) {
                     setState(() {
                       _index = "backup_email";
@@ -173,13 +179,34 @@ class _RegisterEmailState extends State<RegisterEmail>
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: $constants.insets.sm,
-                vertical: $constants.insets.xxl,
+                vertical: $constants.insets.md,
               ),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: $constants.insets.md,
+                      ),
+                      child: GestureDetector(
+                        onTap: _goBack,
+                        child: Row(
+                          children: [
+                            Icon(CupertinoIcons.arrow_left, size: 24),
+                            SizedBox(width: $constants.insets.sm),
+                            Text(
+                              context.t.actions.back,
+                              style: getTextTheme(context).bodyMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: $constants.insets.sm),
                     Animate(
                       effects: [
                         FadeEffect(
@@ -263,5 +290,22 @@ class _RegisterEmailState extends State<RegisterEmail>
         ),
       ],
     );
+  }
+
+  void _goBack() {
+    switch (_index) {
+      case "register_email":
+        context.go("/auth/login");
+        break;
+      case "personal_infos":
+        setState(() {
+          _index = "register_email";
+        });
+      case "backup_email":
+        setState(() {
+          _index = "personal_infos";
+        });
+        break;
+    }
   }
 }
