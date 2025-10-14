@@ -13,6 +13,7 @@ class RegisterEmailStep extends StatefulWidget {
   final String? username;
   final String? domain;
   final String? password;
+  final String? passwordConfirmation;
   final Function(String email, String password) onSuccess;
   const RegisterEmailStep({
     super.key,
@@ -20,6 +21,7 @@ class RegisterEmailStep extends StatefulWidget {
     this.username,
     this.domain,
     this.password,
+    this.passwordConfirmation,
   });
 
   @override
@@ -30,6 +32,7 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
     with SingleTickerProviderStateMixin {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordConfirmationController = TextEditingController();
   String? errorMessage;
   String? domain;
   final _formKey = GlobalKey<FormState>();
@@ -40,6 +43,7 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
     _usernameController.text = widget.username ?? '';
     domain = widget.domain;
     _passwordController.text = widget.password ?? '';
+    _passwordConfirmationController.text = widget.passwordConfirmation ?? '';
   }
 
   @override
@@ -74,9 +78,12 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                                 ? 240
                                 : getSize(context).width * 0.4,
                         child: AppTextFormField(
-                          height: 40,
                           controller: _usernameController,
-                          hintText: context.t.auth.login.username,
+                          labelText: context.t.auth.login.username,
+                          hintText: context.t.auth.register.username_hint,
+                          labelStyle: getTextTheme(
+                            context,
+                          ).bodySmall!.copyWith(color: Colors.grey.shade600),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return context.t.auth.register.username_required;
@@ -88,9 +95,11 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                       SizedBox(width: $constants.insets.xs),
                       Expanded(
                         child: CustomPopup(
+                          barrierColor: Colors.transparent,
                           content: SizedBox(
-                            width: getSize(context).width * 0.45,
+                            width: 250,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
@@ -140,46 +149,56 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                               ],
                             ),
                           ),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: $constants.insets.sm,
-                            ),
-                            decoration: BoxDecoration(
-                              color: getTheme(context).surfaceContainer,
-
-                              borderRadius: BorderRadius.circular(
-                                $constants.insets.sm,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                context.t.auth.register.domain,
+                                style: getTextTheme(context).bodySmall!
+                                    .copyWith(color: Colors.grey.shade600),
                               ),
-                            ),
-                            height: 40,
-                            width: getSize(context).width * 0.45,
-                            child: Row(
-                              children: [
-                                if (domain == null || domain!.isEmpty)
-                                  Row(
-                                    children: [
-                                      Text("@"),
-                                      SizedBox(width: $constants.insets.md),
-                                      SizedBox(
-                                        width: 80,
-                                        child: AutoSizeText(
-                                          maxLines: 1,
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: $constants.insets.sm,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: getTheme(context).surfaceContainer,
 
-                                          "Please select a domain",
-                                          style: getTextTheme(
-                                            context,
-                                          ).bodySmall!.copyWith(
-                                            color: Colors.grey[700],
+                                  borderRadius: BorderRadius.circular(
+                                    $constants.insets.sm,
+                                  ),
+                                ),
+                                height: 40,
+                                width: getSize(context).width * 0.45,
+                                child: Row(
+                                  children: [
+                                    if (domain == null || domain!.isEmpty)
+                                      Row(
+                                        children: [
+                                          Text("@"),
+                                          SizedBox(width: $constants.insets.md),
+                                          SizedBox(
+                                            width: 80,
+                                            child: AutoSizeText(
+                                              maxLines: 1,
+
+                                              "Please select a domain",
+                                              style: getTextTheme(
+                                                context,
+                                              ).bodySmall!.copyWith(
+                                                color: Colors.grey[700],
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                else
-                                  Text("@${domain!}"),
-                              ],
-                            ),
+                                        ],
+                                      )
+                                    else
+                                      Text("@${domain!}"),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -201,17 +220,44 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                     ),
                   ],
                   SizedBox(height: $constants.insets.xs),
+                  Divider(color: Colors.grey.shade300, thickness: 1),
+                  SizedBox(height: $constants.insets.xs),
                   SizedBox(
                     width: getSize(context).width * 0.9,
                     child: AppTextFormField(
                       controller: _passwordController,
                       hintText: context.t.auth.register.password_hint,
+                      labelText: context.t.auth.register.password,
+                      labelStyle: getTextTheme(
+                        context,
+                      ).bodySmall!.copyWith(color: Colors.grey.shade600),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return context.t.auth.register.password_required;
                         } else if (value.length < 8) {
                           return context.t.auth.register.password_invalid;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: $constants.insets.xs),
+                  SizedBox(
+                    width: getSize(context).width * 0.9,
+                    child: AppTextFormField(
+                      controller: _passwordConfirmationController,
+                      hintText: context.t.auth.register.confirmation_hint,
+                      labelText: context.t.auth.register.confirmation_hint,
+                      labelStyle: getTextTheme(
+                        context,
+                      ).bodySmall!.copyWith(color: Colors.grey.shade600),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return context.t.auth.register.password_mismatch;
+                        } else if (value != _passwordController.text) {
+                          return context.t.auth.register.password_mismatch;
                         }
                         return null;
                       },

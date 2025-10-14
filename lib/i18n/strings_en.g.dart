@@ -621,8 +621,17 @@ class TranslationsAuthRegisterEn {
 	/// en: 'First name'
 	String get first_name => 'First name';
 
+	/// en: 'Brandon'
+	String get first_name_hint => 'Brandon';
+
+	/// en: 'Guigo'
+	String get last_name_hint => 'Guigo';
+
 	/// en: 'Last name'
 	String get last_name => 'Last name';
+
+	/// en: 'Brandon'
+	String get username_hint => 'Brandon';
 
 	/// en: 'Setup account recovery'
 	String get setup_account_recovery => 'Setup account recovery';
@@ -659,6 +668,9 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'We need a backup email to let you recover your account if you forget your password. If you don't have a backup email, you will not be able to recover your account.'
 	String get backup_email_description => 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
+
+	/// en: 'Domain'
+	String get domain => 'Domain';
 }
 
 // Path: auth.delete_account
@@ -1320,7 +1332,10 @@ extension on Translations {
 			case 'auth.register.password_mismatch': return 'Passwords do not match';
 			case 'auth.register.lets_get_to_know_you': return 'Let\'s get to know you!';
 			case 'auth.register.first_name': return 'First name';
+			case 'auth.register.first_name_hint': return 'Brandon';
+			case 'auth.register.last_name_hint': return 'Guigo';
 			case 'auth.register.last_name': return 'Last name';
+			case 'auth.register.username_hint': return 'Brandon';
 			case 'auth.register.setup_account_recovery': return 'Setup account recovery';
 			case 'auth.register.backup_email': return 'Backup email';
 			case 'auth.register.first_name_required': return 'First name is required';
@@ -1333,6 +1348,7 @@ extension on Translations {
 			case 'auth.register.domain_required': return 'Domain is required';
 			case 'auth.register.personal_info_description': return 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
 			case 'auth.register.backup_email_description': return 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
+			case 'auth.register.domain': return 'Domain';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';

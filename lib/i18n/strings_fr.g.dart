@@ -478,7 +478,10 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get password_mismatch => 'Les mots de passe ne correspondent pas';
 	@override String get lets_get_to_know_you => 'Apprenons à vous connaître !';
 	@override String get first_name => 'Prénom';
+	@override String get first_name_hint => 'Brandon';
+	@override String get last_name_hint => 'Guigo';
 	@override String get last_name => 'Nom';
+	@override String get username_hint => 'Brandon';
 	@override String get setup_account_recovery => 'Configuration de la récupération de compte';
 	@override String get backup_email => 'Email de secours';
 	@override String get first_name_required => 'Le prénom est requis';
@@ -491,6 +494,7 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get domain_required => 'Le domaine est requis';
 	@override String get personal_info_description => 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
 	@override String get backup_email_description => 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
+	@override String get domain => 'Domain';
 }
 
 // Path: auth.delete_account
@@ -902,7 +906,10 @@ extension on TranslationsFr {
 			case 'auth.register.password_mismatch': return 'Les mots de passe ne correspondent pas';
 			case 'auth.register.lets_get_to_know_you': return 'Apprenons à vous connaître !';
 			case 'auth.register.first_name': return 'Prénom';
+			case 'auth.register.first_name_hint': return 'Brandon';
+			case 'auth.register.last_name_hint': return 'Guigo';
 			case 'auth.register.last_name': return 'Nom';
+			case 'auth.register.username_hint': return 'Brandon';
 			case 'auth.register.setup_account_recovery': return 'Configuration de la récupération de compte';
 			case 'auth.register.backup_email': return 'Email de secours';
 			case 'auth.register.first_name_required': return 'Le prénom est requis';
@@ -915,6 +922,7 @@ extension on TranslationsFr {
 			case 'auth.register.domain_required': return 'Le domaine est requis';
 			case 'auth.register.personal_info_description': return 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
 			case 'auth.register.backup_email_description': return 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
+			case 'auth.register.domain': return 'Domain';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';

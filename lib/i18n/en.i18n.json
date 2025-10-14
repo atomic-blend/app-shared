@@ -41,7 +41,10 @@
       "password_mismatch": "Passwords do not match",
       "lets_get_to_know_you": "Let's get to know you!",
       "first_name": "First name",
+      "first_name_hint": "Brandon",
+      "last_name_hint": "Guigo",
       "last_name": "Last name",
+      "username_hint": "Brandon",
       "setup_account_recovery": "Setup account recovery",
       "backup_email": "Backup email",
       "first_name_required": "First name is required",
@@ -53,7 +56,8 @@
       "username_required": "Username is required",
       "domain_required": "Domain is required",
       "personal_info_description": "We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.",
-      "backup_email_description": "We need a backup email to let you recover your account if you forget your password.\nIf you don't have a backup email, you will not be able to recover your account."
+      "backup_email_description": "We need a backup email to let you recover your account if you forget your password.\nIf you don't have a backup email, you will not be able to recover your account.",
+      "domain": "Domain"
     },
     "delete_account": {
       "title": "Delete your account",

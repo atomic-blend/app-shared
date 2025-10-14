@@ -59,7 +59,11 @@ class _PersonalInfosStepState extends State<PersonalInfosStep> {
             SizedBox(height: $constants.insets.sm),
             AppTextFormField(
               controller: _firstNameController,
-              hintText: context.t.auth.register.first_name,
+              hintText: context.t.auth.register.first_name_hint,
+              labelText: context.t.auth.register.first_name,
+              labelStyle: getTextTheme(
+                context,
+              ).bodySmall!.copyWith(color: Colors.grey.shade600),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return context.t.auth.register.first_name_required;
@@ -69,7 +73,11 @@ class _PersonalInfosStepState extends State<PersonalInfosStep> {
             ),
             AppTextFormField(
               controller: _lastNameController,
-              hintText: context.t.auth.register.last_name,
+              hintText: context.t.auth.register.last_name_hint,
+              labelText: context.t.auth.register.last_name,
+              labelStyle: getTextTheme(
+                context,
+              ).bodySmall!.copyWith(color: Colors.grey.shade600),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return context.t.auth.register.last_name_required;
