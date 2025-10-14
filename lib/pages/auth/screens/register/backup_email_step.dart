@@ -60,9 +60,7 @@ class _BackupEmailStepState extends State<BackupEmailStep> {
               controller: _backupEmailController,
               hintText: context.t.auth.register.backup_email,
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return context.t.auth.register.backup_email_required;
-                } else if (!value.contains('@')) {
+                if (value != null && value.isNotEmpty && !value.contains('@')) {
                   return context.t.auth.register.backup_email_invalid;
                 }
                 return null;

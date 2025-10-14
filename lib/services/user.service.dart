@@ -165,7 +165,7 @@ class UserService {
         'keySet': keySet?.toJson(),
         'firstName': firstName,
         'lastName': lastName,
-        'backupEmail': backupEmail,
+        'backupEmail': backupEmail.isNotEmpty ? backupEmail : null,
       },
     );
     if (result.statusCode == 201) {
