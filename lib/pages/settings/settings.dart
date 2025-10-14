@@ -7,6 +7,7 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 part 'settings.g.dart';
@@ -101,7 +102,6 @@ class _SettingsState extends State<Settings> {
                             textColor: Colors.red,
                             onTap: () {
                               context.read<AuthBloc>().add(const Logout());
-                              Navigator.pop(context);
                             },
                           ),
                       ],

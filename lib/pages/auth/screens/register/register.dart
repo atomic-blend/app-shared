@@ -76,16 +76,6 @@ class _RegisterEmailState extends State<RegisterEmail>
       backgroundColor: getTheme(context).surface,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
-          if (authState is Loading) {
-            return const Center(
-              child: LoadingAnimated(
-                title: "Loading",
-                animationPath: "assets/animations/loading-city.json",
-                imageWidth: 100,
-                imageHeight: 100,
-              ),
-            );
-          }
           if (authState is AuthError) {
             _errorMessage = authState.message;
           }
@@ -137,6 +127,7 @@ class _RegisterEmailState extends State<RegisterEmail>
             case "backup_email":
               return _buildMainLayout(
                 BackupEmailStep(
+                  isLoading: authState is Loading,
                   onSuccess: (String backupEmail) {
                     context.read<AuthBloc>().add(
                       RegisterEvent(

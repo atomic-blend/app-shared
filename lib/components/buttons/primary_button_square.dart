@@ -7,6 +7,7 @@ class PrimaryButtonSquare extends StatelessWidget {
   const PrimaryButtonSquare({
     super.key,
     this.onPressed,
+    this.leading,
     this.emoji,
     this.icon,
     this.iconColor,
@@ -22,6 +23,7 @@ class PrimaryButtonSquare extends StatelessWidget {
 
   final VoidCallback? onPressed;
   final String? emoji;
+  final Widget? leading;
   final IconData? icon;
   final Color? iconColor;
   final Widget? trailing;
@@ -68,6 +70,7 @@ class PrimaryButtonSquare extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                if (leading != null) ...[leading!],
                 if (emoji != null) ...[
                   Text(emoji!, style: const TextStyle(fontSize: 23)),
                 ],

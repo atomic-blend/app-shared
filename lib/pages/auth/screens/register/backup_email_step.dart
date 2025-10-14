@@ -10,11 +10,13 @@ class BackupEmailStep extends StatefulWidget {
   final String? backupEmail;
   final Function(String backupEmail) onSuccess;
   final String? nextButtonText;
+  final bool? isLoading;
   const BackupEmailStep({
     super.key,
     required this.onSuccess,
     this.nextButtonText,
     this.backupEmail,
+    this.isLoading,
   });
 
   @override
@@ -69,6 +71,17 @@ class _BackupEmailStepState extends State<BackupEmailStep> {
             ),
             SizedBox(height: $constants.insets.md),
             PrimaryButtonSquare(
+              leading:
+                  widget.isLoading == true
+                      ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                      : null,
               text:
                   widget.nextButtonText ??
                   context.t.auth.login_or_register.next,
