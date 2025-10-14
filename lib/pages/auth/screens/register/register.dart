@@ -3,7 +3,6 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
-import 'package:ab_shared/components/widgets/loading_city.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/auth/screens/mnemonic_key.dart';
 import 'package:ab_shared/pages/auth/screens/register/backup_email_step.dart';

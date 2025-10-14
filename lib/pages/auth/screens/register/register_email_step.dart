@@ -240,6 +240,49 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                         }
                         return null;
                       },
+                      onChange: () {
+                        setState(
+                          () {},
+                        ); // Trigger rebuild to update password conditions
+                      },
+                    ),
+                  ),
+                  SizedBox(height: $constants.insets.xs),
+                  // Password validation checklist
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: $constants.insets.sm,
+                    ),
+                    width: getSize(context).width * 0.9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildPasswordCondition(
+                          context,
+                          "8 characters minimum",
+                          _passwordController.text.length >= 8,
+                        ),
+                        SizedBox(height: $constants.insets.xs),
+                        _buildPasswordCondition(
+                          context,
+                          "1 capital letter",
+                          _passwordController.text.contains(RegExp(r'[A-Z]')),
+                        ),
+                        SizedBox(height: $constants.insets.xs),
+                        _buildPasswordCondition(
+                          context,
+                          "1 number",
+                          _passwordController.text.contains(RegExp(r'[0-9]')),
+                        ),
+                        SizedBox(height: $constants.insets.xs),
+                        _buildPasswordCondition(
+                          context,
+                          "1 symbol",
+                          _passwordController.text.contains(
+                            RegExp(r'[!@#$%^&*(),.?":{}|<>]'),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: $constants.insets.xs),
@@ -315,6 +358,29 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
           ),
         );
       },
+    );
+  }
+
+  Widget _buildPasswordCondition(
+    BuildContext context,
+    String text,
+    bool isValid,
+  ) {
+    return Row(
+      children: [
+        Icon(
+          isValid ? Icons.check_circle : Icons.radio_button_unchecked,
+          color: isValid ? Colors.green : Colors.grey,
+          size: 16,
+        ),
+        SizedBox(width: $constants.insets.xs),
+        Text(
+          text,
+          style: getTextTheme(context).bodySmall!.copyWith(
+            color: isValid ? Colors.green : Colors.grey.shade600,
+          ),
+        ),
+      ],
     );
   }
 }
