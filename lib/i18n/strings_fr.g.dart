@@ -443,6 +443,7 @@ class _TranslationsAuthLoginOrRegisterFr implements TranslationsAuthLoginOrRegis
 	// Translations
 	@override String get login => 'Se connecter';
 	@override String get register => 'S\'inscrire';
+	@override String get next => 'Suivant';
 	@override String get connecting_to => 'Connexion à : ';
 }
 
@@ -474,6 +475,15 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get password_hint => 'SuperSecure123!';
 	@override String get confirmation_hint => 'Confirmez votre mot de passe';
 	@override String get password_mismatch => 'Les mots de passe ne correspondent pas';
+	@override String get lets_get_to_know_you => 'Apprenons à vous connaître !';
+	@override String get first_name => 'Prénom';
+	@override String get last_name => 'Nom';
+	@override String get setup_account_recovery => 'Configuration de la récupération de compte';
+	@override String get backup_email => 'Email de secours';
+	@override String get first_name_required => 'Le prénom est requis';
+	@override String get last_name_required => 'Le nom est requis';
+	@override String get backup_email_required => 'L\'email de secours est requis';
+	@override String get backup_email_invalid => 'L\'email de secours est invalide';
 }
 
 // Path: auth.delete_account
@@ -869,6 +879,7 @@ extension on TranslationsFr {
 			case 'auth.not_logged_in.description': return 'LifeOS est une application de gestion de la vie personnelle qui vous aide à organiser votre vie, à atteindre vos objectifs et à améliorer votre bien-être.';
 			case 'auth.login_or_register.login': return 'Se connecter';
 			case 'auth.login_or_register.register': return 'S\'inscrire';
+			case 'auth.login_or_register.next': return 'Suivant';
 			case 'auth.login_or_register.connecting_to': return 'Connexion à : ';
 			case 'auth.login.title': return '👋 Bon retour parmis nous !';
 			case 'auth.login.description': return 'Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.';
@@ -882,6 +893,15 @@ extension on TranslationsFr {
 			case 'auth.register.password_hint': return 'SuperSecure123!';
 			case 'auth.register.confirmation_hint': return 'Confirmez votre mot de passe';
 			case 'auth.register.password_mismatch': return 'Les mots de passe ne correspondent pas';
+			case 'auth.register.lets_get_to_know_you': return 'Apprenons à vous connaître !';
+			case 'auth.register.first_name': return 'Prénom';
+			case 'auth.register.last_name': return 'Nom';
+			case 'auth.register.setup_account_recovery': return 'Configuration de la récupération de compte';
+			case 'auth.register.backup_email': return 'Email de secours';
+			case 'auth.register.first_name_required': return 'Le prénom est requis';
+			case 'auth.register.last_name_required': return 'Le nom est requis';
+			case 'auth.register.backup_email_required': return 'L\'email de secours est requis';
+			case 'auth.register.backup_email_invalid': return 'L\'email de secours est invalide';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';

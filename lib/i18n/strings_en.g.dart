@@ -554,6 +554,9 @@ class TranslationsAuthLoginOrRegisterEn {
 	/// en: 'Register'
 	String get register => 'Register';
 
+	/// en: 'Next'
+	String get next => 'Next';
+
 	/// en: 'Connecting to: '
 	String get connecting_to => 'Connecting to: ';
 }
@@ -610,6 +613,33 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Passwords do not match'
 	String get password_mismatch => 'Passwords do not match';
+
+	/// en: 'Let's get to know you!'
+	String get lets_get_to_know_you => 'Let\'s get to know you!';
+
+	/// en: 'First name'
+	String get first_name => 'First name';
+
+	/// en: 'Last name'
+	String get last_name => 'Last name';
+
+	/// en: 'Setup account recovery'
+	String get setup_account_recovery => 'Setup account recovery';
+
+	/// en: 'Backup email'
+	String get backup_email => 'Backup email';
+
+	/// en: 'First name is required'
+	String get first_name_required => 'First name is required';
+
+	/// en: 'Last name is required'
+	String get last_name_required => 'Last name is required';
+
+	/// en: 'Backup email is required'
+	String get backup_email_required => 'Backup email is required';
+
+	/// en: 'Backup email is invalid'
+	String get backup_email_invalid => 'Backup email is invalid';
 }
 
 // Path: auth.delete_account
@@ -1255,6 +1285,7 @@ extension on Translations {
 			case 'auth.not_logged_in.description': return 'Atomic Blend is a personal life management application that helps you organize your life, achieve your goals, and improve your well-being.';
 			case 'auth.login_or_register.login': return 'Log in';
 			case 'auth.login_or_register.register': return 'Register';
+			case 'auth.login_or_register.next': return 'Next';
 			case 'auth.login_or_register.connecting_to': return 'Connecting to: ';
 			case 'auth.login.title': return '👋 Welcome back!';
 			case 'auth.login.description': return 'Use you email and password to log back in and access your data.';
@@ -1268,6 +1299,15 @@ extension on Translations {
 			case 'auth.register.password_hint': return 'SuperSecure123!';
 			case 'auth.register.confirmation_hint': return 'Confirm your password';
 			case 'auth.register.password_mismatch': return 'Passwords do not match';
+			case 'auth.register.lets_get_to_know_you': return 'Let\'s get to know you!';
+			case 'auth.register.first_name': return 'First name';
+			case 'auth.register.last_name': return 'Last name';
+			case 'auth.register.setup_account_recovery': return 'Setup account recovery';
+			case 'auth.register.backup_email': return 'Backup email';
+			case 'auth.register.first_name_required': return 'First name is required';
+			case 'auth.register.last_name_required': return 'Last name is required';
+			case 'auth.register.backup_email_required': return 'Backup email is required';
+			case 'auth.register.backup_email_invalid': return 'Backup email is invalid';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';

@@ -21,6 +21,7 @@
     "login_or_register": {
       "login": "Se connecter",
       "register": "S'inscrire",
+      "next": "Suivant",
       "connecting_to": "Connexion à : "
     },
     "login": {
@@ -37,7 +38,16 @@
       "password": "Choisissez un mot de passe",
       "password_hint": "SuperSecure123!",
       "confirmation_hint": "Confirmez votre mot de passe",
-      "password_mismatch": "Les mots de passe ne correspondent pas"
+      "password_mismatch": "Les mots de passe ne correspondent pas",
+      "lets_get_to_know_you": "Apprenons à vous connaître !",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "setup_account_recovery": "Configuration de la récupération de compte",
+      "backup_email": "Email de secours",
+      "first_name_required": "Le prénom est requis",
+      "last_name_required": "Le nom est requis",
+      "backup_email_required": "L'email de secours est requis",
+      "backup_email_invalid": "L'email de secours est invalide"
     },
     "delete_account": {
       "title": "Supprimer mon compte",
