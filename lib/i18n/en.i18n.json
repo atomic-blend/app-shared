@@ -80,6 +80,8 @@
       "no_mnemonic_data_loss": "If you don't have your mnemonic key, you will lose access to your previous data.",
       "email": "Email",
       "email_description": "The email address you used to register.",
+      "no_backup_email": "No backup email found",
+      "no_backup_email_description": "Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.",
       "email_hint": "atomicblend@gmail.com",
       "email_required": "Email is required",
       "confirmation_code": "Confirmation code",

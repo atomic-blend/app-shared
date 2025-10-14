@@ -537,6 +537,8 @@ class _TranslationsAuthResetPasswordFr implements TranslationsAuthResetPasswordE
 	@override String get warning => 'Vous allez recevoir un code par email pour réinitialiser votre mot de passe, puis vous devrez entrer votre clé de récupération pour accéder à vos données.';
 	@override String get no_mnemonic_data_loss => 'Si vous ne vous rappelez pas de votre clé de récupération, vous perdrez accès à toutes vos précédentes données.';
 	@override String get email => 'Email';
+	@override String get no_backup_email => 'Aucun email de secours trouvé';
+	@override String get no_backup_email_description => 'Contactez le support pour récupérer votre compte. Vous aurez besoin d\'un document d\'identité correspondant à votre prénom et nom.';
 	@override String get email_description => 'L\'adresse e-mail utilisée pour vous inscrire.';
 	@override String get email_hint => 'atomicblend@gmail.com';
 	@override String get email_required => 'L\'adresse e-mail est requise';
@@ -938,6 +940,8 @@ extension on TranslationsFr {
 			case 'auth.reset_password.warning': return 'Vous allez recevoir un code par email pour réinitialiser votre mot de passe, puis vous devrez entrer votre clé de récupération pour accéder à vos données.';
 			case 'auth.reset_password.no_mnemonic_data_loss': return 'Si vous ne vous rappelez pas de votre clé de récupération, vous perdrez accès à toutes vos précédentes données.';
 			case 'auth.reset_password.email': return 'Email';
+			case 'auth.reset_password.no_backup_email': return 'Aucun email de secours trouvé';
+			case 'auth.reset_password.no_backup_email_description': return 'Contactez le support pour récupérer votre compte. Vous aurez besoin d\'un document d\'identité correspondant à votre prénom et nom.';
 			case 'auth.reset_password.email_description': return 'L\'adresse e-mail utilisée pour vous inscrire.';
 			case 'auth.reset_password.email_hint': return 'atomicblend@gmail.com';
 			case 'auth.reset_password.email_required': return 'L\'adresse e-mail est requise';

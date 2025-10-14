@@ -4,6 +4,7 @@ import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:ab_shared/utils/toast_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,11 @@ import 'package:lottie/lottie.dart';
 class ResetPasswordIntro extends StatefulWidget {
   final TextEditingController emailController;
   final VoidCallback? onNextCallback;
-  const ResetPasswordIntro.ResetPasswordIntroduction(
-      {super.key, required this.emailController, this.onNextCallback});
+  const ResetPasswordIntro.ResetPasswordIntroduction({
+    super.key,
+    required this.emailController,
+    this.onNextCallback,
+  });
 
   @override
   State<ResetPasswordIntro> createState() => _ResetPasswordIntroState();
@@ -28,9 +32,7 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
 
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-    );
+    _animationController = AnimationController(vsync: this);
     _lottieController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3000),
@@ -53,6 +55,16 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
         if (authState is StartResetPasswordSuccess) {
           widget.onNextCallback?.call();
         }
+        if (authState is AuthError) {
+          if (authState.message == "no_backup_email") {
+            ToastHelper.showError(
+              context: context,
+              title: context.t.auth.reset_password.no_backup_email,
+              description:
+                  context.t.auth.reset_password.no_backup_email_description,
+            );
+          }
+        }
       },
       child: SizedBox(
         width: double.infinity,
@@ -60,9 +72,7 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: getSize(context).height * 0.1,
-            ),
+            SizedBox(height: getSize(context).height * 0.1),
             Animate(
               controller: _animationController,
               effects: [
@@ -78,48 +88,43 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
                   controller: _lottieController,
                   onLoaded: (p0) => _lottieController.loop(),
                   'assets/animations/pwd_lost.json',
-                  width: isDesktop(context) ? getSize(context).width * 0.3 : getSize(context).width * 0.5,
+                  width:
+                      isDesktop(context)
+                          ? getSize(context).width * 0.3
+                          : getSize(context).width * 0.5,
                 ),
               ),
             ),
-            SizedBox(
-              height: $constants.insets.sm,
-            ),
+            SizedBox(height: $constants.insets.sm),
             Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   context.t.auth.reset_password.title,
-                  style: getTextTheme(context).titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: getTextTheme(
+                    context,
+                  ).titleMedium!.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   context.t.auth.reset_password.subtitle,
-                  style: getTextTheme(context).bodyMedium!.copyWith(
-                        color: Colors.grey,
-                      ),
+                  style: getTextTheme(
+                    context,
+                  ).bodyMedium!.copyWith(color: Colors.grey),
                 ),
-                SizedBox(
-                  height: $constants.insets.xs,
-                ),
+                SizedBox(height: $constants.insets.xs),
                 Text(context.t.auth.reset_password.warning),
-                SizedBox(
-                  height: $constants.insets.sm,
-                ),
+                SizedBox(height: $constants.insets.sm),
                 Text(
                   context.t.auth.reset_password.no_mnemonic_data_loss,
                   style: getTextTheme(context).bodySmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: getTheme(context).error,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: getTheme(context).error,
+                  ),
                 ),
               ],
             ),
-            SizedBox(
-              height: $constants.insets.sm,
-            ),
+            SizedBox(height: $constants.insets.sm),
             Form(
               key: _formKey,
               child: Column(
@@ -148,7 +153,7 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
                 FadeEffect(
                   duration: _animationDuration,
                   delay: const Duration(milliseconds: 500),
-                )
+                ),
               ],
               onPlay: (controller) => controller.forward(),
               child: Container(
@@ -165,19 +170,18 @@ class _ResetPasswordIntroState extends State<ResetPasswordIntro>
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        _animationController.reverseDuration =
-                            const Duration(milliseconds: 500);
+                        _animationController.reverseDuration = const Duration(
+                          milliseconds: 500,
+                        );
                         _animationController.reverse();
                         if (!context.mounted) {
                           return;
                         }
                         context.read<AuthBloc>().add(
-                              StartResetPassword(
-                                widget.emailController.text,
-                              ),
-                            );
+                          StartResetPassword(widget.emailController.text),
+                        );
                       },
-                    )
+                    ),
                   ],
                 ),
               ),

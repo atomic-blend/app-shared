@@ -747,6 +747,12 @@ class TranslationsAuthResetPasswordEn {
 	/// en: 'The email address you used to register.'
 	String get email_description => 'The email address you used to register.';
 
+	/// en: 'No backup email found'
+	String get no_backup_email => 'No backup email found';
+
+	/// en: 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.'
+	String get no_backup_email_description => 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.';
+
 	/// en: 'atomicblend@gmail.com'
 	String get email_hint => 'atomicblend@gmail.com';
 
@@ -1365,6 +1371,8 @@ extension on Translations {
 			case 'auth.reset_password.no_mnemonic_data_loss': return 'If you don\'t have your mnemonic key, you will lose access to your previous data.';
 			case 'auth.reset_password.email': return 'Email';
 			case 'auth.reset_password.email_description': return 'The email address you used to register.';
+			case 'auth.reset_password.no_backup_email': return 'No backup email found';
+			case 'auth.reset_password.no_backup_email_description': return 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.';
 			case 'auth.reset_password.email_hint': return 'atomicblend@gmail.com';
 			case 'auth.reset_password.email_required': return 'Email is required';
 			case 'auth.reset_password.confirmation_code': return 'Confirmation code';
