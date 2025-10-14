@@ -4,7 +4,6 @@ import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PersonalInfosStep extends StatefulWidget {
   final String? firstName;
