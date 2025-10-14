@@ -653,6 +653,12 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Domain is required'
 	String get domain_required => 'Domain is required';
+
+	/// en: 'We need a few informations to let you use Atomic Blend. You can modify these informations later in the settings of your account.'
+	String get personal_info_description => 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
+
+	/// en: 'We need a backup email to let you recover your account if you forget your password. If you don't have a backup email, you will not be able to recover your account.'
+	String get backup_email_description => 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
 }
 
 // Path: auth.delete_account
@@ -1325,6 +1331,8 @@ extension on Translations {
 			case 'auth.register.password_invalid': return 'Password must be at least 8 characters long';
 			case 'auth.register.username_required': return 'Username is required';
 			case 'auth.register.domain_required': return 'Domain is required';
+			case 'auth.register.personal_info_description': return 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
+			case 'auth.register.backup_email_description': return 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';

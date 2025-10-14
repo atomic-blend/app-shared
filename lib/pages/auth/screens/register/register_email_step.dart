@@ -74,6 +74,7 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                                 ? 240
                                 : getSize(context).width * 0.4,
                         child: AppTextFormField(
+                          height: 40,
                           controller: _usernameController,
                           hintText: context.t.auth.login.username,
                           validator: (value) {
@@ -150,7 +151,7 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                                 $constants.insets.sm,
                               ),
                             ),
-                            height: 45,
+                            height: 40,
                             width: getSize(context).width * 0.45,
                             child: Row(
                               children: [

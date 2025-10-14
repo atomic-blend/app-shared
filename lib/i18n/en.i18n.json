@@ -51,7 +51,9 @@
       "password_required": "Password is required",
       "password_invalid": "Password must be at least 8 characters long",
       "username_required": "Username is required",
-      "domain_required": "Domain is required"
+      "domain_required": "Domain is required",
+      "personal_info_description": "We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.",
+      "backup_email_description": "We need a backup email to let you recover your account if you forget your password.\nIf you don't have a backup email, you will not be able to recover your account."
     },
     "delete_account": {
       "title": "Delete your account",

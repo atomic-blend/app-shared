@@ -3,6 +3,7 @@ import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PersonalInfosStep extends StatefulWidget {
@@ -30,14 +31,23 @@ class _PersonalInfosStepState extends State<PersonalInfosStep> {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(height: $constants.insets.md),
             Text(
               context.t.auth.register.lets_get_to_know_you,
               style: getTextTheme(
                 context,
               ).headlineSmall!.copyWith(fontWeight: FontWeight.bold),
             ),
+            Text(
+              context.t.auth.register.personal_info_description,
+              style: getTextTheme(
+                context,
+              ).bodySmall!.copyWith(color: Colors.grey),
+            ),
+            SizedBox(height: $constants.insets.sm),
             AppTextFormField(
               controller: _firstNameController,
               hintText: context.t.auth.register.first_name,

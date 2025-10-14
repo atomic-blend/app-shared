@@ -215,9 +215,11 @@ class _RegisterEmailState extends State<RegisterEmail>
                       onPlay: (controller) => controller.forward(),
                       child: Text(
                         context.t.auth.not_logged_in.register_to_atomic_blend,
-                        style: getTextTheme(
-                          context,
-                        ).headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+                        style:
+                            _index == "register_email"
+                                ? getTextTheme(context).headlineMedium!
+                                    .copyWith(fontWeight: FontWeight.bold)
+                                : getTextTheme(context).bodyLarge!.copyWith(),
                       ),
                     ),
                     child,
@@ -240,10 +242,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                       ),
                       child: Center(
                         child: PrimaryButtonSquare(
-                          text:
-                              _index?.startsWith("register") ?? false
-                                  ? context.t.auth.login_or_register.login
-                                  : context.t.auth.login_or_register.register,
+                          text: context.t.auth.login_or_register.login,
                           backgroundColor: getTheme(context).primary,
                           outlined: true,
                           onPressed: () {
