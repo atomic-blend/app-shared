@@ -57,6 +57,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'email_malformed': 'Email malformed',
 		'connection_error': 'Could not connect to the server. Please check your internet connection and try again.',
 		'unknown_error': 'Unknown error',
+		'domain_required': 'Domain is required',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
@@ -640,6 +641,18 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Backup email is invalid'
 	String get backup_email_invalid => 'Backup email is invalid';
+
+	/// en: 'Password is required'
+	String get password_required => 'Password is required';
+
+	/// en: 'Password must be at least 8 characters long'
+	String get password_invalid => 'Password must be at least 8 characters long';
+
+	/// en: 'Username is required'
+	String get username_required => 'Username is required';
+
+	/// en: 'Domain is required'
+	String get domain_required => 'Domain is required';
 }
 
 // Path: auth.delete_account
@@ -1308,6 +1321,10 @@ extension on Translations {
 			case 'auth.register.last_name_required': return 'Last name is required';
 			case 'auth.register.backup_email_required': return 'Backup email is required';
 			case 'auth.register.backup_email_invalid': return 'Backup email is invalid';
+			case 'auth.register.password_required': return 'Password is required';
+			case 'auth.register.password_invalid': return 'Password must be at least 8 characters long';
+			case 'auth.register.username_required': return 'Username is required';
+			case 'auth.register.domain_required': return 'Domain is required';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';
@@ -1408,6 +1425,7 @@ extension on Translations {
 			case 'errors.email_malformed': return 'Email malformed';
 			case 'errors.connection_error': return 'Could not connect to the server. Please check your internet connection and try again.';
 			case 'errors.unknown_error': return 'Unknown error';
+			case 'errors.domain_required': return 'Domain is required';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';
 			case 'name_generator.animals.2': return 'fox';

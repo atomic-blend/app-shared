@@ -72,7 +72,7 @@ class _RegisterEmailState extends State<RegisterEmail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: getTheme(context).surfaceContainer,
+      backgroundColor: getTheme(context).surface,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
           if (authState is Loading) {
@@ -132,13 +132,15 @@ class _RegisterEmailState extends State<RegisterEmail>
               return _buildMainLayout(
                 BackupEmailStep(
                   onSuccess: (String backupEmail) {
-                    context.read<AuthBloc>().add(RegisterEvent(
-                      email: _email!,
-                      password: _password!,
-                      firstName: _firstName!,
-                      lastName: _lastName!,
-                      backupEmail: backupEmail,
-                    ));
+                    context.read<AuthBloc>().add(
+                      RegisterEvent(
+                        email: _email!,
+                        password: _password!,
+                        firstName: _firstName!,
+                        lastName: _lastName!,
+                        backupEmail: backupEmail,
+                      ),
+                    );
                   },
                   nextButtonText: context.t.auth.login_or_register.register,
                 ),
@@ -158,15 +160,11 @@ class _RegisterEmailState extends State<RegisterEmail>
       children: [
         SizedBox(height: getSize(context).height * 0.15),
         Center(
-          child: Container(
+          child: ElevatedContainer(
             constraints: BoxConstraints(
               minWidth: isDesktop(context) ? 500 : 200,
             ),
-            decoration: BoxDecoration(
-              color: getTheme(context).surface,
-              border: Border.all(color: Colors.grey[300]!),
-              borderRadius: BorderRadius.circular($constants.corners.xl),
-            ),
+            color: getTheme(context).surface,
             width:
                 isDesktop(context)
                     ? getSize(context).width * 0.2

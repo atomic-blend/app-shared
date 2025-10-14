@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: getTheme(context).surfaceContainer,
+      backgroundColor: getTheme(context).surface,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
@@ -83,15 +83,11 @@ class _LoginScreenState extends State<LoginScreen>
           children: [
             SizedBox(height: getSize(context).height * 0.1),
             Center(
-              child: Container(
+              child: ElevatedContainer(
                 constraints: BoxConstraints(
                   minWidth: isDesktop(context) ? 500 : 200,
                 ),
-                decoration: BoxDecoration(
-                  color: getTheme(context).surface,
-                  border: Border.all(color: Colors.grey[300]!),
-                  borderRadius: BorderRadius.circular($constants.corners.xl),
-                ),
+                color: getTheme(context).surface,
                 width:
                     isDesktop(context)
                         ? getSize(context).width * 0.2

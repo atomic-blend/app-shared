@@ -47,7 +47,11 @@
       "first_name_required": "Le prénom est requis",
       "last_name_required": "Le nom est requis",
       "backup_email_required": "L'email de secours est requis",
-      "backup_email_invalid": "L'email de secours est invalide"
+      "backup_email_invalid": "L'email de secours est invalide",
+      "password_required": "Le mot de passe est requis",
+      "password_invalid": "Le mot de passe doit contenir au moins 8 caractères",
+      "username_required": "Le nom d'utilisateur est requis",
+      "domain_required": "Le domaine est requis"
     },
     "delete_account": {
       "title": "Supprimer mon compte",
@@ -182,7 +186,8 @@
     "wrong_email_password": "Adresse e-mail ou mot de passe incorrect",
     "email_malformed": "Adresse e-mail invalide",
     "connection_error": "Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.",
-    "unknown_error": "Une erreur inconnue s'est produite"
+    "unknown_error": "Une erreur inconnue s'est produite",
+    "domain_required": "Le domaine est requis"
   },
   "name_generator": {
     "animals": [

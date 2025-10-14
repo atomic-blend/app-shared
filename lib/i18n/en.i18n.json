@@ -47,7 +47,11 @@
       "first_name_required": "First name is required",
       "last_name_required": "Last name is required",
       "backup_email_required": "Backup email is required",
-      "backup_email_invalid": "Backup email is invalid"
+      "backup_email_invalid": "Backup email is invalid",
+      "password_required": "Password is required",
+      "password_invalid": "Password must be at least 8 characters long",
+      "username_required": "Username is required",
+      "domain_required": "Domain is required"
     },
     "delete_account": {
       "title": "Delete your account",
@@ -117,7 +121,6 @@
         "not_set": "Not set"
       }
     },
-    
     "logout": "Logout"
   },
   "account": {
@@ -183,7 +186,8 @@
     "wrong_email_password": "Email or password incorrect",
     "email_malformed": "Email malformed",
     "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
-    "unknown_error": "Unknown error"
+    "unknown_error": "Unknown error",
+    "domain_required": "Domain is required"
   },
   "name_generator": {
     "animals": [

@@ -49,6 +49,7 @@ class TranslationsFr implements Translations {
 		'email_malformed': 'Adresse e-mail invalide',
 		'connection_error': 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.',
 		'unknown_error': 'Une erreur inconnue s\'est produite',
+		'domain_required': 'Le domaine est requis',
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
@@ -484,6 +485,10 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get last_name_required => 'Le nom est requis';
 	@override String get backup_email_required => 'L\'email de secours est requis';
 	@override String get backup_email_invalid => 'L\'email de secours est invalide';
+	@override String get password_required => 'Le mot de passe est requis';
+	@override String get password_invalid => 'Le mot de passe doit contenir au moins 8 caractères';
+	@override String get username_required => 'Le nom d\'utilisateur est requis';
+	@override String get domain_required => 'Le domaine est requis';
 }
 
 // Path: auth.delete_account
@@ -902,6 +907,10 @@ extension on TranslationsFr {
 			case 'auth.register.last_name_required': return 'Le nom est requis';
 			case 'auth.register.backup_email_required': return 'L\'email de secours est requis';
 			case 'auth.register.backup_email_invalid': return 'L\'email de secours est invalide';
+			case 'auth.register.password_required': return 'Le mot de passe est requis';
+			case 'auth.register.password_invalid': return 'Le mot de passe doit contenir au moins 8 caractères';
+			case 'auth.register.username_required': return 'Le nom d\'utilisateur est requis';
+			case 'auth.register.domain_required': return 'Le domaine est requis';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';
@@ -1002,6 +1011,7 @@ extension on TranslationsFr {
 			case 'errors.email_malformed': return 'Adresse e-mail invalide';
 			case 'errors.connection_error': return 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.';
 			case 'errors.unknown_error': return 'Une erreur inconnue s\'est produite';
+			case 'errors.domain_required': return 'Le domaine est requis';
 			case 'name_generator.animals.0': return 'hibou';
 			case 'name_generator.animals.1': return 'renard';
 			case 'name_generator.animals.2': return 'lapin';
