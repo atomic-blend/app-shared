@@ -5,9 +5,11 @@ import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:ab_shared/utils/toast_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class ResetPasswordRecap extends StatefulWidget {
   final String email;
@@ -220,6 +222,15 @@ class _ResetPasswordRecapState extends State<ResetPasswordRecap> {
                         backupKey: _newKeySet!.backupKey,
                         backupSalt: _newKeySet!.mnemonicSalt,
                       ),
+                    );
+
+                    context.go("/auth/login");
+
+                    ToastHelper.showSuccess(
+                      context: context,
+                      title: context.t.auth.reset_password.success,
+                      description:
+                          context.t.auth.reset_password.success_description,
                     );
                   },
                 ),

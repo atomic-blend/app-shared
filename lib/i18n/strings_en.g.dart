@@ -854,6 +854,12 @@ class TranslationsAuthResetPasswordEn {
 
 	/// en: 'Confirm reset'
 	String get confirm_reset => 'Confirm reset';
+
+	/// en: 'Password reset successful'
+	String get success => 'Password reset successful';
+
+	/// en: 'You can now log in with your new password.'
+	String get success_description => 'You can now log in with your new password.';
 }
 
 // Path: settings.app_settings
@@ -1407,6 +1413,8 @@ extension on Translations {
 			case 'auth.reset_password.yes': return 'Yes';
 			case 'auth.reset_password.no': return 'No';
 			case 'auth.reset_password.confirm_reset': return 'Confirm reset';
+			case 'auth.reset_password.success': return 'Password reset successful';
+			case 'auth.reset_password.success_description': return 'You can now log in with your new password.';
 			case 'settings.title': return 'Settings';
 			case 'settings.app_settings.title': return 'App Settings';
 			case 'settings.app_settings.selfHostedUrl.title': return 'Self-Hosted URL';

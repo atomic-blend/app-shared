@@ -115,7 +115,9 @@
       "recap_subtitle": "Recap of the process",
       "yes": "Yes",
       "no": "No",
-      "confirm_reset": "Confirm reset"
+      "confirm_reset": "Confirm reset",
+      "success": "Password reset successful",
+      "success_description": "You can now log in with your new password."
     }
   },
   "settings": {

@@ -115,7 +115,9 @@
       "recap_subtitle": "Récapitulatif de la réinitialisation",
       "yes": "Oui",
       "no": "Non",
-      "confirm_reset": "Confirmer la réinitialisation"
+      "confirm_reset": "Confirmer la réinitialisation",
+      "success": "Réinitialisation du mot de passe réussie",
+      "success_description": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
     }
   },
   "settings": {

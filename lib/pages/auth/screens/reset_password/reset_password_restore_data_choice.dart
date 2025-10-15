@@ -93,12 +93,9 @@ class _ResetPasswordRestoreDataChoiceState
                     },
                   ),
                   SizedBox(width: $constants.insets.xs),
-                  SizedBox(
-                    width: getSize(context).width * 0.75,
-                    child: Flexible(
-                      child: Text(
-                        context.t.auth.reset_password.reset_data_warning,
-                      ),
+                  Flexible(
+                    child: Text(
+                      context.t.auth.reset_password.reset_data_warning,
                     ),
                   ),
                 ],

@@ -574,6 +574,8 @@ class _TranslationsAuthResetPasswordFr implements TranslationsAuthResetPasswordE
 	@override String get yes => 'Oui';
 	@override String get no => 'Non';
 	@override String get confirm_reset => 'Confirmer la réinitialisation';
+	@override String get success => 'Réinitialisation du mot de passe réussie';
+	@override String get success_description => 'Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.';
 }
 
 // Path: settings.app_settings
@@ -977,6 +979,8 @@ extension on TranslationsFr {
 			case 'auth.reset_password.yes': return 'Oui';
 			case 'auth.reset_password.no': return 'Non';
 			case 'auth.reset_password.confirm_reset': return 'Confirmer la réinitialisation';
+			case 'auth.reset_password.success': return 'Réinitialisation du mot de passe réussie';
+			case 'auth.reset_password.success_description': return 'Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.';
 			case 'settings.title': return 'Paramètres';
 			case 'settings.app_settings.title': return 'Paramètres de l\'application';
 			case 'settings.app_settings.selfHostedUrl.title': return 'URL auto-hébergée';
