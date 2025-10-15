@@ -57,7 +57,10 @@
       "domain_required": "Le domaine est requis",
       "personal_info_description": "Nous avons besoin de quelques informations pour vous permettre d'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.",
       "backup_email_description": "Nous avons besoin d'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n'avez pas d'email de secours, vous ne pourrez pas récupérer votre compte.",
-      "domain": "Domain"
+      "domain": "Domain",
+      "desktop_only_step": "En selle, Cowboy !",
+      "desktop_only_step_description": "La création de votre compte Atomic Blend n'est disponible que sur le navigateur web.",
+      "go_on_desktop": "Aller sur le navigateur web"
     },
     "delete_account": {
       "title": "Supprimer mon compte",

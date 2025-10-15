@@ -6,6 +6,7 @@ import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/pages/auth/screens/mnemonic_key.dart';
 import 'package:ab_shared/pages/auth/screens/register/backup_email_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/desktop_only_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/personal_infos_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -91,6 +92,10 @@ class _RegisterEmailState extends State<RegisterEmail>
                 getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
               },
             );
+          }
+
+          if (!isPaymentSupported()) {
+            return _buildMainLayout(DesktopOnlyStep());
           }
 
           switch (_index) {
@@ -239,7 +244,12 @@ class _RegisterEmailState extends State<RegisterEmail>
                                 : getTextTheme(context).bodyLarge!.copyWith(),
                       ),
                     ),
-                    child,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: getSize(context).height * 0.3,
+                      ),
+                      child: child,
+                    ),
                     SizedBox(height: $constants.insets.md),
                     Row(
                       mainAxisSize: MainAxisSize.min,

@@ -85,6 +85,7 @@ flutter:
     - assets/images/atomic_task_logo.png
     - assets/images/atomic_notes_logo.png
     - assets/images/atomic_blend_logo.png
+    - assets/images/undraw_sign-up.png
 #
 # For details regarding assets in packages, see
 # https://flutter.dev/to/asset-from-package

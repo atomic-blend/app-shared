@@ -671,6 +671,15 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Domain'
 	String get domain => 'Domain';
+
+	/// en: 'Giddy up Cowboy!'
+	String get desktop_only_step => 'Giddy up Cowboy!';
+
+	/// en: 'Setting up your Atomic Blend account is only available on desktop.'
+	String get desktop_only_step_description => 'Setting up your Atomic Blend account is only available on desktop.';
+
+	/// en: 'Go on desktop'
+	String get go_on_desktop => 'Go on desktop';
 }
 
 // Path: auth.delete_account
@@ -1361,6 +1370,9 @@ extension on Translations {
 			case 'auth.register.personal_info_description': return 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
 			case 'auth.register.backup_email_description': return 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
 			case 'auth.register.domain': return 'Domain';
+			case 'auth.register.desktop_only_step': return 'Giddy up Cowboy!';
+			case 'auth.register.desktop_only_step_description': return 'Setting up your Atomic Blend account is only available on desktop.';
+			case 'auth.register.go_on_desktop': return 'Go on desktop';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';

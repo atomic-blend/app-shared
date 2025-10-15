@@ -495,6 +495,9 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get personal_info_description => 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
 	@override String get backup_email_description => 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
 	@override String get domain => 'Domain';
+	@override String get desktop_only_step => 'En selle, Cowboy !';
+	@override String get desktop_only_step_description => 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
+	@override String get go_on_desktop => 'Aller sur le navigateur web';
 }
 
 // Path: auth.delete_account
@@ -927,6 +930,9 @@ extension on TranslationsFr {
 			case 'auth.register.personal_info_description': return 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
 			case 'auth.register.backup_email_description': return 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
 			case 'auth.register.domain': return 'Domain';
+			case 'auth.register.desktop_only_step': return 'En selle, Cowboy !';
+			case 'auth.register.desktop_only_step_description': return 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
+			case 'auth.register.go_on_desktop': return 'Aller sur le navigateur web';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';

@@ -100,7 +100,7 @@ bool isMobile(BuildContext context) {
 }
 
 bool isPaymentSupported() {
-  return !kIsWeb && !kIsWasm && (Platform.isAndroid || Platform.isIOS);
+  return !(Platform.isAndroid || Platform.isIOS);
 }
 
 bool isApple(BuildContext context) {

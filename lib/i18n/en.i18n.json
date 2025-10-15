@@ -57,7 +57,10 @@
       "domain_required": "Domain is required",
       "personal_info_description": "We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.",
       "backup_email_description": "We need a backup email to let you recover your account if you forget your password.\nIf you don't have a backup email, you will not be able to recover your account.",
-      "domain": "Domain"
+      "domain": "Domain",
+      "desktop_only_step": "Giddy up Cowboy!",
+      "desktop_only_step_description": "Setting up your Atomic Blend account is only available on desktop.",
+      "go_on_desktop": "Go on desktop"
     },
     "delete_account": {
       "title": "Delete your account",
