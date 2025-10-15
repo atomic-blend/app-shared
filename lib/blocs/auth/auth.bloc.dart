@@ -237,11 +237,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         backupKey: event.backupKey,
         backupSalt: event.backupSalt,
       );
-      emit(ConfirmResetPasswordSuccess(prevState.user, prevState.appConfig));
-    } on Exception catch (e) {
+      emit(LoggedOut(prevState.user, prevState.appConfig));
+    } on DioException catch (e) {
       emit(
-        StartResetPasswordError(
-          e.toString(),
+        ConfirmResetPasswordError(
+          e.response?.data['message'] ?? e.toString(),
           prevState.user,
           prevState.appConfig,
         ),

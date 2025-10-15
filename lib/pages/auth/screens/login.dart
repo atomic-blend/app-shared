@@ -76,28 +76,28 @@ class _LoginScreenState extends State<LoginScreen>
             getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
           }
         },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: getSize(context).height * 0.1),
-            Center(
-              child: ElevatedContainer(
-                constraints: BoxConstraints(
-                  minWidth: isDesktop(context) ? 500 : 200,
-                ),
-                color: getTheme(context).surface,
-                width:
-                    isDesktop(context)
-                        ? getSize(context).width * 0.2
-                        : getSize(context).width,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: $constants.insets.md,
-                    vertical: $constants.insets.lg,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: getSize(context).height * 0.1),
+              Center(
+                child: ElevatedContainer(
+                  constraints: BoxConstraints(
+                    minWidth: isDesktop(context) ? 500 : 200,
                   ),
-                  child: SingleChildScrollView(
+                  color: getTheme(context).surface,
+                  width:
+                      isDesktop(context)
+                          ? getSize(context).width * 0.2
+                          : getSize(context).width,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: $constants.insets.md,
+                      vertical: $constants.insets.lg,
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -230,19 +230,17 @@ class _LoginScreenState extends State<LoginScreen>
                                     effects: [
                                       FadeEffect(
                                         duration: _animationDuration,
-                                        delay: const Duration(
-                                          milliseconds: 300,
-                                        ),
+                                        delay: const Duration(milliseconds: 300),
                                       ),
                                     ],
-                                    onPlay:
-                                        (controller) => controller.forward(),
+                                    onPlay: (controller) => controller.forward(),
                                     child: SizedBox(
                                       width: getSize(context).width * 0.9,
                                       child: Text(
                                         context.t.errors[errorMessage]!,
-                                        style: getTextTheme(context).labelSmall!
-                                            .copyWith(color: Colors.red),
+                                        style: getTextTheme(
+                                          context,
+                                        ).labelSmall!.copyWith(color: Colors.red),
                                       ),
                                     ),
                                   ),
@@ -266,19 +264,15 @@ class _LoginScreenState extends State<LoginScreen>
                                   children: [
                                     PrimaryButtonSquare(
                                       text: context.t.auth.login.login,
-                                      backgroundColor:
-                                          getTheme(context).primary,
+                                      backgroundColor: getTheme(context).primary,
                                       onPressed: () async {
                                         if (_emailController.text.isNotEmpty &&
-                                            _passwordController
-                                                .text
-                                                .isNotEmpty) {
+                                            _passwordController.text.isNotEmpty) {
                                           if (!context.mounted) return;
                                           context.read<AuthBloc>().add(
                                             LoginEvent(
                                               email: _emailController.text,
-                                              password:
-                                                  _passwordController.text,
+                                              password: _passwordController.text,
                                             ),
                                           );
                                         }
@@ -351,8 +345,8 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
