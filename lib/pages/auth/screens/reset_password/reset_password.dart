@@ -200,7 +200,7 @@ class _ResetPasswordState extends State<ResetPassword>
             width:
                 isDesktop(context)
                     ? getSize(context).width * 0.2
-                    : getSize(context).width,
+                    : getSize(context).width * 0.9,
             height: getSize(context).height * 0.7,
             child: Padding(
               padding: EdgeInsets.symmetric(

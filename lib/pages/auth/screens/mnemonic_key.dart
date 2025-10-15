@@ -69,7 +69,7 @@ class _MnemonicKeyState extends State<MnemonicKey>
                   width:
                       isDesktop(context)
                           ? getSize(context).width * 0.2
-                          : getSize(context).width,
+                          : getSize(context).width * 0.9,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: $constants.insets.md,

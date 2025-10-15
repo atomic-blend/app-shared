@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen>
                   width:
                       isDesktop(context)
                           ? getSize(context).width * 0.2
-                          : getSize(context).width,
+                          : getSize(context).width * 0.9,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: $constants.insets.md,
@@ -230,17 +230,19 @@ class _LoginScreenState extends State<LoginScreen>
                                     effects: [
                                       FadeEffect(
                                         duration: _animationDuration,
-                                        delay: const Duration(milliseconds: 300),
+                                        delay: const Duration(
+                                          milliseconds: 300,
+                                        ),
                                       ),
                                     ],
-                                    onPlay: (controller) => controller.forward(),
+                                    onPlay:
+                                        (controller) => controller.forward(),
                                     child: SizedBox(
                                       width: getSize(context).width * 0.9,
                                       child: Text(
                                         context.t.errors[errorMessage]!,
-                                        style: getTextTheme(
-                                          context,
-                                        ).labelSmall!.copyWith(color: Colors.red),
+                                        style: getTextTheme(context).labelSmall!
+                                            .copyWith(color: Colors.red),
                                       ),
                                     ),
                                   ),
@@ -264,15 +266,19 @@ class _LoginScreenState extends State<LoginScreen>
                                   children: [
                                     PrimaryButtonSquare(
                                       text: context.t.auth.login.login,
-                                      backgroundColor: getTheme(context).primary,
+                                      backgroundColor:
+                                          getTheme(context).primary,
                                       onPressed: () async {
                                         if (_emailController.text.isNotEmpty &&
-                                            _passwordController.text.isNotEmpty) {
+                                            _passwordController
+                                                .text
+                                                .isNotEmpty) {
                                           if (!context.mounted) return;
                                           context.read<AuthBloc>().add(
                                             LoginEvent(
                                               email: _emailController.text,
-                                              password: _passwordController.text,
+                                              password:
+                                                  _passwordController.text,
                                             ),
                                           );
                                         }
