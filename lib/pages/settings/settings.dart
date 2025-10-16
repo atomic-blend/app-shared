@@ -101,7 +101,6 @@ class _SettingsState extends State<Settings> {
                             textColor: Colors.red,
                             onTap: () {
                               context.read<AuthBloc>().add(const Logout());
-                              Navigator.pop(context);
                             },
                           ),
                       ],

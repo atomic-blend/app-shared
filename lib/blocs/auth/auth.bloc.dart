@@ -108,6 +108,9 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     final updatedUser = await _userService.register(
       event.email,
       event.password,
+      event.firstName,
+      event.lastName,
+      event.backupEmail,
     );
     if (updatedUser == null) {
       emit(LoggedOut(prevState.user, prevState.appConfig));
@@ -205,14 +208,15 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(StartResetPasswordLoading(prevState.user, prevState.appConfig));
     try {
       await _userService.startResetPassword(event.email);
-    } on Exception catch (e) {
+    } on DioException catch (e) {
       emit(
         StartResetPasswordError(
-          e.toString(),
+          e.response?.data['message'] ?? e.toString(),
           prevState.user,
           prevState.appConfig,
         ),
       );
+      return;
     }
     emit(StartResetPasswordSuccess(prevState.user, prevState.appConfig));
   }
@@ -233,11 +237,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         backupKey: event.backupKey,
         backupSalt: event.backupSalt,
       );
-      emit(ConfirmResetPasswordSuccess(prevState.user, prevState.appConfig));
-    } on Exception catch (e) {
+      emit(LoggedOut(prevState.user, prevState.appConfig));
+    } on DioException catch (e) {
       emit(
-        StartResetPasswordError(
-          e.toString(),
+        ConfirmResetPasswordError(
+          e.response?.data['message'] ?? e.toString(),
           prevState.user,
           prevState.appConfig,
         ),

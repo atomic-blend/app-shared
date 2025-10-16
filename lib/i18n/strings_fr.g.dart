@@ -49,6 +49,7 @@ class TranslationsFr implements Translations {
 		'email_malformed': 'Adresse e-mail invalide',
 		'connection_error': 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.',
 		'unknown_error': 'Une erreur inconnue s\'est produite',
+		'domain_required': 'Le domaine est requis',
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
@@ -443,6 +444,7 @@ class _TranslationsAuthLoginOrRegisterFr implements TranslationsAuthLoginOrRegis
 	// Translations
 	@override String get login => 'Se connecter';
 	@override String get register => 'S\'inscrire';
+	@override String get next => 'Suivant';
 	@override String get connecting_to => 'Connexion à : ';
 }
 
@@ -474,6 +476,28 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get password_hint => 'SuperSecure123!';
 	@override String get confirmation_hint => 'Confirmez votre mot de passe';
 	@override String get password_mismatch => 'Les mots de passe ne correspondent pas';
+	@override String get lets_get_to_know_you => 'Apprenons à vous connaître !';
+	@override String get first_name => 'Prénom';
+	@override String get first_name_hint => 'Brandon';
+	@override String get last_name_hint => 'Guigo';
+	@override String get last_name => 'Nom';
+	@override String get username_hint => 'Brandon';
+	@override String get setup_account_recovery => 'Configuration de la récupération de compte';
+	@override String get backup_email => 'Email de secours';
+	@override String get first_name_required => 'Le prénom est requis';
+	@override String get last_name_required => 'Le nom est requis';
+	@override String get backup_email_required => 'L\'email de secours est requis';
+	@override String get backup_email_invalid => 'L\'email de secours est invalide';
+	@override String get password_required => 'Le mot de passe est requis';
+	@override String get password_invalid => 'Le mot de passe doit contenir au moins 8 caractères';
+	@override String get username_required => 'Le nom d\'utilisateur est requis';
+	@override String get domain_required => 'Le domaine est requis';
+	@override String get personal_info_description => 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
+	@override String get backup_email_description => 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
+	@override String get domain => 'Domain';
+	@override String get desktop_only_step => 'En selle, Cowboy !';
+	@override String get desktop_only_step_description => 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
+	@override String get go_on_desktop => 'Aller sur le navigateur web';
 }
 
 // Path: auth.delete_account
@@ -516,6 +540,8 @@ class _TranslationsAuthResetPasswordFr implements TranslationsAuthResetPasswordE
 	@override String get warning => 'Vous allez recevoir un code par email pour réinitialiser votre mot de passe, puis vous devrez entrer votre clé de récupération pour accéder à vos données.';
 	@override String get no_mnemonic_data_loss => 'Si vous ne vous rappelez pas de votre clé de récupération, vous perdrez accès à toutes vos précédentes données.';
 	@override String get email => 'Email';
+	@override String get no_backup_email => 'Aucun email de secours trouvé';
+	@override String get no_backup_email_description => 'Contactez le support pour récupérer votre compte. Vous aurez besoin d\'un document d\'identité correspondant à votre prénom et nom.';
 	@override String get email_description => 'L\'adresse e-mail utilisée pour vous inscrire.';
 	@override String get email_hint => 'atomicblend@gmail.com';
 	@override String get email_required => 'L\'adresse e-mail est requise';
@@ -551,6 +577,8 @@ class _TranslationsAuthResetPasswordFr implements TranslationsAuthResetPasswordE
 	@override String get yes => 'Oui';
 	@override String get no => 'Non';
 	@override String get confirm_reset => 'Confirmer la réinitialisation';
+	@override String get success => 'Réinitialisation du mot de passe réussie';
+	@override String get success_description => 'Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.';
 }
 
 // Path: settings.app_settings
@@ -869,6 +897,7 @@ extension on TranslationsFr {
 			case 'auth.not_logged_in.description': return 'LifeOS est une application de gestion de la vie personnelle qui vous aide à organiser votre vie, à atteindre vos objectifs et à améliorer votre bien-être.';
 			case 'auth.login_or_register.login': return 'Se connecter';
 			case 'auth.login_or_register.register': return 'S\'inscrire';
+			case 'auth.login_or_register.next': return 'Suivant';
 			case 'auth.login_or_register.connecting_to': return 'Connexion à : ';
 			case 'auth.login.title': return '👋 Bon retour parmis nous !';
 			case 'auth.login.description': return 'Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.';
@@ -882,6 +911,28 @@ extension on TranslationsFr {
 			case 'auth.register.password_hint': return 'SuperSecure123!';
 			case 'auth.register.confirmation_hint': return 'Confirmez votre mot de passe';
 			case 'auth.register.password_mismatch': return 'Les mots de passe ne correspondent pas';
+			case 'auth.register.lets_get_to_know_you': return 'Apprenons à vous connaître !';
+			case 'auth.register.first_name': return 'Prénom';
+			case 'auth.register.first_name_hint': return 'Brandon';
+			case 'auth.register.last_name_hint': return 'Guigo';
+			case 'auth.register.last_name': return 'Nom';
+			case 'auth.register.username_hint': return 'Brandon';
+			case 'auth.register.setup_account_recovery': return 'Configuration de la récupération de compte';
+			case 'auth.register.backup_email': return 'Email de secours';
+			case 'auth.register.first_name_required': return 'Le prénom est requis';
+			case 'auth.register.last_name_required': return 'Le nom est requis';
+			case 'auth.register.backup_email_required': return 'L\'email de secours est requis';
+			case 'auth.register.backup_email_invalid': return 'L\'email de secours est invalide';
+			case 'auth.register.password_required': return 'Le mot de passe est requis';
+			case 'auth.register.password_invalid': return 'Le mot de passe doit contenir au moins 8 caractères';
+			case 'auth.register.username_required': return 'Le nom d\'utilisateur est requis';
+			case 'auth.register.domain_required': return 'Le domaine est requis';
+			case 'auth.register.personal_info_description': return 'Nous avons besoin de quelques informations pour vous permettre d\'utiliser Atomic Blend.\nVous pouvez modifier ces informations plus tard dans les paramètres de votre compte.';
+			case 'auth.register.backup_email_description': return 'Nous avons besoin d\'un email de secours pour vous permettre de récupérer votre compte si vous oubliez votre mot de passe.\nSi vous n\'avez pas d\'email de secours, vous ne pourrez pas récupérer votre compte.';
+			case 'auth.register.domain': return 'Domain';
+			case 'auth.register.desktop_only_step': return 'En selle, Cowboy !';
+			case 'auth.register.desktop_only_step_description': return 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
+			case 'auth.register.go_on_desktop': return 'Aller sur le navigateur web';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';
@@ -897,6 +948,8 @@ extension on TranslationsFr {
 			case 'auth.reset_password.warning': return 'Vous allez recevoir un code par email pour réinitialiser votre mot de passe, puis vous devrez entrer votre clé de récupération pour accéder à vos données.';
 			case 'auth.reset_password.no_mnemonic_data_loss': return 'Si vous ne vous rappelez pas de votre clé de récupération, vous perdrez accès à toutes vos précédentes données.';
 			case 'auth.reset_password.email': return 'Email';
+			case 'auth.reset_password.no_backup_email': return 'Aucun email de secours trouvé';
+			case 'auth.reset_password.no_backup_email_description': return 'Contactez le support pour récupérer votre compte. Vous aurez besoin d\'un document d\'identité correspondant à votre prénom et nom.';
 			case 'auth.reset_password.email_description': return 'L\'adresse e-mail utilisée pour vous inscrire.';
 			case 'auth.reset_password.email_hint': return 'atomicblend@gmail.com';
 			case 'auth.reset_password.email_required': return 'L\'adresse e-mail est requise';
@@ -932,6 +985,8 @@ extension on TranslationsFr {
 			case 'auth.reset_password.yes': return 'Oui';
 			case 'auth.reset_password.no': return 'Non';
 			case 'auth.reset_password.confirm_reset': return 'Confirmer la réinitialisation';
+			case 'auth.reset_password.success': return 'Réinitialisation du mot de passe réussie';
+			case 'auth.reset_password.success_description': return 'Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.';
 			case 'settings.title': return 'Paramètres';
 			case 'settings.app_settings.title': return 'Paramètres de l\'application';
 			case 'settings.app_settings.selfHostedUrl.title': return 'URL auto-hébergée';
@@ -982,6 +1037,7 @@ extension on TranslationsFr {
 			case 'errors.email_malformed': return 'Adresse e-mail invalide';
 			case 'errors.connection_error': return 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.';
 			case 'errors.unknown_error': return 'Une erreur inconnue s\'est produite';
+			case 'errors.domain_required': return 'Le domaine est requis';
 			case 'name_generator.animals.0': return 'hibou';
 			case 'name_generator.animals.1': return 'renard';
 			case 'name_generator.animals.2': return 'lapin';

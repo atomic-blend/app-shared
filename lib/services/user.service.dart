@@ -142,7 +142,13 @@ class UserService {
     }
   }
 
-  Future<UserEntity?> register(String email, String password) async {
+  Future<UserEntity?> register(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String backupEmail,
+  ) async {
     // derive and persist key from password
     EncryptionService encryptionService = EncryptionService(
       userSalt: "",
@@ -153,7 +159,14 @@ class UserService {
 
     final result = await _getIt<ApiClient>().post(
       '/auth/register',
-      data: {'email': email, 'password': password, 'keySet': keySet?.toJson()},
+      data: {
+        'email': email,
+        'password': password,
+        'keySet': keySet?.toJson(),
+        'firstName': firstName,
+        'lastName': lastName,
+        'backupEmail': backupEmail.isNotEmpty ? backupEmail : null,
+      },
     );
     if (result.statusCode == 201) {
       final userData = result.data['user'];

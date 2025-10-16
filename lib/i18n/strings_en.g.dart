@@ -57,6 +57,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'email_malformed': 'Email malformed',
 		'connection_error': 'Could not connect to the server. Please check your internet connection and try again.',
 		'unknown_error': 'Unknown error',
+		'domain_required': 'Domain is required',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
@@ -554,6 +555,9 @@ class TranslationsAuthLoginOrRegisterEn {
 	/// en: 'Register'
 	String get register => 'Register';
 
+	/// en: 'Next'
+	String get next => 'Next';
+
 	/// en: 'Connecting to: '
 	String get connecting_to => 'Connecting to: ';
 }
@@ -610,6 +614,72 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Passwords do not match'
 	String get password_mismatch => 'Passwords do not match';
+
+	/// en: 'Let's get to know you!'
+	String get lets_get_to_know_you => 'Let\'s get to know you!';
+
+	/// en: 'First name'
+	String get first_name => 'First name';
+
+	/// en: 'Brandon'
+	String get first_name_hint => 'Brandon';
+
+	/// en: 'Guigo'
+	String get last_name_hint => 'Guigo';
+
+	/// en: 'Last name'
+	String get last_name => 'Last name';
+
+	/// en: 'Brandon'
+	String get username_hint => 'Brandon';
+
+	/// en: 'Setup account recovery'
+	String get setup_account_recovery => 'Setup account recovery';
+
+	/// en: 'Backup email'
+	String get backup_email => 'Backup email';
+
+	/// en: 'First name is required'
+	String get first_name_required => 'First name is required';
+
+	/// en: 'Last name is required'
+	String get last_name_required => 'Last name is required';
+
+	/// en: 'Backup email is required'
+	String get backup_email_required => 'Backup email is required';
+
+	/// en: 'Backup email is invalid'
+	String get backup_email_invalid => 'Backup email is invalid';
+
+	/// en: 'Password is required'
+	String get password_required => 'Password is required';
+
+	/// en: 'Password must be at least 8 characters long'
+	String get password_invalid => 'Password must be at least 8 characters long';
+
+	/// en: 'Username is required'
+	String get username_required => 'Username is required';
+
+	/// en: 'Domain is required'
+	String get domain_required => 'Domain is required';
+
+	/// en: 'We need a few informations to let you use Atomic Blend. You can modify these informations later in the settings of your account.'
+	String get personal_info_description => 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
+
+	/// en: 'We need a backup email to let you recover your account if you forget your password. If you don't have a backup email, you will not be able to recover your account.'
+	String get backup_email_description => 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
+
+	/// en: 'Domain'
+	String get domain => 'Domain';
+
+	/// en: 'Giddy up Cowboy!'
+	String get desktop_only_step => 'Giddy up Cowboy!';
+
+	/// en: 'Setting up your Atomic Blend account is only available on desktop.'
+	String get desktop_only_step_description => 'Setting up your Atomic Blend account is only available on desktop.';
+
+	/// en: 'Go on desktop'
+	String get go_on_desktop => 'Go on desktop';
 }
 
 // Path: auth.delete_account
@@ -685,6 +755,12 @@ class TranslationsAuthResetPasswordEn {
 
 	/// en: 'The email address you used to register.'
 	String get email_description => 'The email address you used to register.';
+
+	/// en: 'No backup email found'
+	String get no_backup_email => 'No backup email found';
+
+	/// en: 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.'
+	String get no_backup_email_description => 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.';
 
 	/// en: 'atomicblend@gmail.com'
 	String get email_hint => 'atomicblend@gmail.com';
@@ -787,6 +863,12 @@ class TranslationsAuthResetPasswordEn {
 
 	/// en: 'Confirm reset'
 	String get confirm_reset => 'Confirm reset';
+
+	/// en: 'Password reset successful'
+	String get success => 'Password reset successful';
+
+	/// en: 'You can now log in with your new password.'
+	String get success_description => 'You can now log in with your new password.';
 }
 
 // Path: settings.app_settings
@@ -1255,6 +1337,7 @@ extension on Translations {
 			case 'auth.not_logged_in.description': return 'Atomic Blend is a personal life management application that helps you organize your life, achieve your goals, and improve your well-being.';
 			case 'auth.login_or_register.login': return 'Log in';
 			case 'auth.login_or_register.register': return 'Register';
+			case 'auth.login_or_register.next': return 'Next';
 			case 'auth.login_or_register.connecting_to': return 'Connecting to: ';
 			case 'auth.login.title': return '👋 Welcome back!';
 			case 'auth.login.description': return 'Use you email and password to log back in and access your data.';
@@ -1268,6 +1351,28 @@ extension on Translations {
 			case 'auth.register.password_hint': return 'SuperSecure123!';
 			case 'auth.register.confirmation_hint': return 'Confirm your password';
 			case 'auth.register.password_mismatch': return 'Passwords do not match';
+			case 'auth.register.lets_get_to_know_you': return 'Let\'s get to know you!';
+			case 'auth.register.first_name': return 'First name';
+			case 'auth.register.first_name_hint': return 'Brandon';
+			case 'auth.register.last_name_hint': return 'Guigo';
+			case 'auth.register.last_name': return 'Last name';
+			case 'auth.register.username_hint': return 'Brandon';
+			case 'auth.register.setup_account_recovery': return 'Setup account recovery';
+			case 'auth.register.backup_email': return 'Backup email';
+			case 'auth.register.first_name_required': return 'First name is required';
+			case 'auth.register.last_name_required': return 'Last name is required';
+			case 'auth.register.backup_email_required': return 'Backup email is required';
+			case 'auth.register.backup_email_invalid': return 'Backup email is invalid';
+			case 'auth.register.password_required': return 'Password is required';
+			case 'auth.register.password_invalid': return 'Password must be at least 8 characters long';
+			case 'auth.register.username_required': return 'Username is required';
+			case 'auth.register.domain_required': return 'Domain is required';
+			case 'auth.register.personal_info_description': return 'We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.';
+			case 'auth.register.backup_email_description': return 'We need a backup email to let you recover your account if you forget your password.\nIf you don\'t have a backup email, you will not be able to recover your account.';
+			case 'auth.register.domain': return 'Domain';
+			case 'auth.register.desktop_only_step': return 'Giddy up Cowboy!';
+			case 'auth.register.desktop_only_step_description': return 'Setting up your Atomic Blend account is only available on desktop.';
+			case 'auth.register.go_on_desktop': return 'Go on desktop';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';
@@ -1284,6 +1389,8 @@ extension on Translations {
 			case 'auth.reset_password.no_mnemonic_data_loss': return 'If you don\'t have your mnemonic key, you will lose access to your previous data.';
 			case 'auth.reset_password.email': return 'Email';
 			case 'auth.reset_password.email_description': return 'The email address you used to register.';
+			case 'auth.reset_password.no_backup_email': return 'No backup email found';
+			case 'auth.reset_password.no_backup_email_description': return 'Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.';
 			case 'auth.reset_password.email_hint': return 'atomicblend@gmail.com';
 			case 'auth.reset_password.email_required': return 'Email is required';
 			case 'auth.reset_password.confirmation_code': return 'Confirmation code';
@@ -1318,6 +1425,8 @@ extension on Translations {
 			case 'auth.reset_password.yes': return 'Yes';
 			case 'auth.reset_password.no': return 'No';
 			case 'auth.reset_password.confirm_reset': return 'Confirm reset';
+			case 'auth.reset_password.success': return 'Password reset successful';
+			case 'auth.reset_password.success_description': return 'You can now log in with your new password.';
 			case 'settings.title': return 'Settings';
 			case 'settings.app_settings.title': return 'App Settings';
 			case 'settings.app_settings.selfHostedUrl.title': return 'Self-Hosted URL';
@@ -1368,6 +1477,7 @@ extension on Translations {
 			case 'errors.email_malformed': return 'Email malformed';
 			case 'errors.connection_error': return 'Could not connect to the server. Please check your internet connection and try again.';
 			case 'errors.unknown_error': return 'Unknown error';
+			case 'errors.domain_required': return 'Domain is required';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';
 			case 'name_generator.animals.2': return 'fox';

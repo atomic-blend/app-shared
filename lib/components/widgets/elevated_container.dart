@@ -12,6 +12,7 @@ class ElevatedContainer extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onTap;
   final Border? border;
+  final BoxConstraints? constraints;
   final bool? disableShadow;
   const ElevatedContainer({
     super.key,
@@ -25,6 +26,7 @@ class ElevatedContainer extends StatelessWidget {
     this.border,
     this.blurRadius,
     this.disableShadow,
+    this.constraints,
   });
 
   @override
@@ -32,6 +34,7 @@ class ElevatedContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        constraints: constraints,
         width: width,
         height: height,
         padding: padding,

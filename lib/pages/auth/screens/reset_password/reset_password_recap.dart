@@ -5,23 +5,21 @@ import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:ab_shared/utils/toast_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lottie/lottie.dart';
+import 'package:go_router/go_router.dart';
 
 class ResetPasswordRecap extends StatefulWidget {
-  final getIt = GetIt.instance;
   final String email;
   final String code;
   final String newPassword;
   final String? mnemonicKey;
   final bool restoreData;
   final Function(EncryptionKeyEntity?) onKeySetChanged;
-  late final EncryptionService? encryptionService;
 
-  ResetPasswordRecap({
+  const ResetPasswordRecap({
     super.key,
     required this.email,
     required this.code,
@@ -29,19 +27,15 @@ class ResetPasswordRecap extends StatefulWidget {
     required this.restoreData,
     required this.newPassword,
     required this.onKeySetChanged,
-  }) {
-    encryptionService = getIt<EncryptionService>();
-  }
+  });
 
   @override
   State<ResetPasswordRecap> createState() => _ResetPasswordRecapState();
 }
 
-class _ResetPasswordRecapState extends State<ResetPasswordRecap>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late AnimationController _lottieController;
-  final _animationDuration = const Duration(milliseconds: 250);
+class _ResetPasswordRecapState extends State<ResetPasswordRecap> {
+  final getIt = GetIt.instance;
+  late final EncryptionService? encryptionService;
 
   // user original backup key, from the backend
   String? _backupKey;
@@ -52,20 +46,8 @@ class _ResetPasswordRecapState extends State<ResetPasswordRecap>
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this);
-    _lottieController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 3000),
-      lowerBound: 0.2,
-    );
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _lottieController.dispose();
-    super.dispose();
+    encryptionService = getIt<EncryptionService>();
   }
 
   @override
@@ -82,57 +64,24 @@ class _ResetPasswordRecapState extends State<ResetPasswordRecap>
             _backupKey = authState.backupKey;
             _mnemonicSalt = authState.backupSalt;
           }
-          return SizedBox(
-            width: double.infinity,
-            height: getSize(context).height * 0.86,
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: getSize(context).height * 0.1),
-                Animate(
-                  controller: _animationController,
-                  effects: [
-                    FadeEffect(
-                      duration: _animationDuration,
-                      delay: const Duration(milliseconds: 0),
-                    ),
-                  ],
-                  onPlay: (controller) => controller.forward(),
-                  child: Transform.scale(
-                    scale: 1.3,
-                    child: Lottie.asset(
-                      controller: _lottieController,
-                      onLoaded: (p0) => _lottieController.loop(),
-                      'assets/animations/pwd_lost.json',
-                      width:
-                          isDesktop(context)
-                              ? getSize(context).width * 0.3
-                              : getSize(context).width * 0.5,
-                    ),
-                  ),
+                SizedBox(height: $constants.insets.md),
+                Text(
+                  context.t.auth.reset_password.title,
+                  style: getTextTheme(
+                    context,
+                  ).headlineSmall!.copyWith(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: $constants.insets.sm),
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        context.t.auth.reset_password.title,
-                        style: getTextTheme(
-                          context,
-                        ).titleMedium!.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        context.t.auth.reset_password.recap_subtitle,
-                        style: getTextTheme(
-                          context,
-                        ).bodyMedium!.copyWith(color: Colors.grey),
-                      ),
-                      SizedBox(height: $constants.insets.xs),
-                    ],
-                  ),
+                Text(
+                  context.t.auth.reset_password.recap_subtitle,
+                  style: getTextTheme(
+                    context,
+                  ).bodySmall!.copyWith(color: Colors.grey),
                 ),
                 SizedBox(height: $constants.insets.sm),
                 Container(
@@ -234,74 +183,56 @@ class _ResetPasswordRecapState extends State<ResetPasswordRecap>
                     ],
                   ),
                 ),
-                const Spacer(),
-                const Divider(),
-                Animate(
-                  controller: _animationController,
-                  effects: [
-                    FadeEffect(
-                      duration: _animationDuration,
-                      delay: const Duration(milliseconds: 500),
-                    ),
-                  ],
-                  onPlay: (controller) => controller.forward(),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: $constants.insets.md,
-                    ),
-                    height: getSize(context).height * 0.1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Spacer(),
-                        PrimaryButtonSquare(
-                          text: context.t.auth.reset_password.confirm_reset,
-                          backgroundColor: getTheme(context).primary,
-                          onPressed: () async {
-                            _animationController.reverseDuration =
-                                const Duration(milliseconds: 500);
-                            _animationController.reverse();
+                SizedBox(height: $constants.insets.md),
+                PrimaryButtonSquare(
+                  text: context.t.auth.reset_password.confirm_reset,
+                  backgroundColor: getTheme(context).primary,
+                  onPressed: () async {
+                    if (widget.restoreData) {
+                      // if restoreData is true, use mnemonicKey to decrypt the existing backup key, then generate a new keySet from an existing data key
+                      _newKeySet = await encryptionService!
+                          .generateKeySetFromBackupKey(
+                            backupKey: _backupKey!,
+                            backupSalt: _mnemonicSalt!,
+                            mnemonic: widget.mnemonicKey!,
+                            newPassword: widget.newPassword,
+                            agePublicKey: authState.user?.keySet.publicKey,
+                          );
+                    } else {
+                      // generate a new keySet from the new password
+                      _newKeySet = await encryptionService!.generateKeySet(
+                        widget.newPassword,
+                      );
+                    }
 
-                            if (widget.restoreData) {
-                              // if restoreData is true, use mnemonicKey to decrypt the existing backup key, then generate a new keySet from an existing data key
-                              _newKeySet = await widget.encryptionService!
-                                  .generateKeySetFromBackupKey(
-                                    backupKey: _backupKey!,
-                                    backupSalt: _mnemonicSalt!,
-                                    mnemonic: widget.mnemonicKey!,
-                                    newPassword: widget.newPassword,
-                                    agePublicKey:
-                                        authState.user?.keySet.publicKey,
-                                  );
-                            } else {
-                              // generate a new keySet from the new password
-                              _newKeySet = await widget.encryptionService!
-                                  .generateKeySet(widget.newPassword);
-                            }
+                    if (_newKeySet == null) {
+                      return;
+                    }
 
-                            if (_newKeySet == null) {
-                              return;
-                            }
+                    if (!context.mounted) {
+                      return;
+                    }
+                    context.read<AuthBloc>().add(
+                      ConfirmResetPassword(
+                        resetCode: widget.code,
+                        resetData: !widget.restoreData,
+                        newPassword: widget.newPassword,
+                        userKey: _newKeySet!.userKey,
+                        userSalt: _newKeySet!.salt,
+                        backupKey: _newKeySet!.backupKey,
+                        backupSalt: _newKeySet!.mnemonicSalt,
+                      ),
+                    );
 
-                            if (!context.mounted) {
-                              return;
-                            }
-                            context.read<AuthBloc>().add(
-                              ConfirmResetPassword(
-                                resetCode: widget.code,
-                                resetData: !widget.restoreData,
-                                newPassword: widget.newPassword,
-                                userKey: _newKeySet!.userKey,
-                                userSalt: _newKeySet!.salt,
-                                backupKey: _newKeySet!.backupKey,
-                                backupSalt: _newKeySet!.mnemonicSalt,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                    context.go("/auth/login");
+
+                    ToastHelper.showSuccess(
+                      context: context,
+                      title: context.t.auth.reset_password.success,
+                      description:
+                          context.t.auth.reset_password.success_description,
+                    );
+                  },
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_email.dart';
+part of 'register.dart';
 
 // **************************************************************************
 // GoRouterGenerator

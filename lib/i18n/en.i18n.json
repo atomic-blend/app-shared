@@ -21,6 +21,7 @@
     "login_or_register": {
       "login": "Log in",
       "register": "Register",
+      "next": "Next",
       "connecting_to": "Connecting to: "
     },
     "login": {
@@ -37,7 +38,29 @@
       "password": "Choose a password",
       "password_hint": "SuperSecure123!",
       "confirmation_hint": "Confirm your password",
-      "password_mismatch": "Passwords do not match"
+      "password_mismatch": "Passwords do not match",
+      "lets_get_to_know_you": "Let's get to know you!",
+      "first_name": "First name",
+      "first_name_hint": "Brandon",
+      "last_name_hint": "Guigo",
+      "last_name": "Last name",
+      "username_hint": "Brandon",
+      "setup_account_recovery": "Setup account recovery",
+      "backup_email": "Backup email",
+      "first_name_required": "First name is required",
+      "last_name_required": "Last name is required",
+      "backup_email_required": "Backup email is required",
+      "backup_email_invalid": "Backup email is invalid",
+      "password_required": "Password is required",
+      "password_invalid": "Password must be at least 8 characters long",
+      "username_required": "Username is required",
+      "domain_required": "Domain is required",
+      "personal_info_description": "We need a few informations to let you use Atomic Blend.\nYou can modify these informations later in the settings of your account.",
+      "backup_email_description": "We need a backup email to let you recover your account if you forget your password.\nIf you don't have a backup email, you will not be able to recover your account.",
+      "domain": "Domain",
+      "desktop_only_step": "Giddy up Cowboy!",
+      "desktop_only_step_description": "Setting up your Atomic Blend account is only available on desktop.",
+      "go_on_desktop": "Go on desktop"
     },
     "delete_account": {
       "title": "Delete your account",
@@ -60,6 +83,8 @@
       "no_mnemonic_data_loss": "If you don't have your mnemonic key, you will lose access to your previous data.",
       "email": "Email",
       "email_description": "The email address you used to register.",
+      "no_backup_email": "No backup email found",
+      "no_backup_email_description": "Contact support to get your account back. You will need a valid identification documents matching the account firstname and lastname.",
       "email_hint": "atomicblend@gmail.com",
       "email_required": "Email is required",
       "confirmation_code": "Confirmation code",
@@ -93,7 +118,9 @@
       "recap_subtitle": "Recap of the process",
       "yes": "Yes",
       "no": "No",
-      "confirm_reset": "Confirm reset"
+      "confirm_reset": "Confirm reset",
+      "success": "Password reset successful",
+      "success_description": "You can now log in with your new password."
     }
   },
   "settings": {
@@ -107,7 +134,6 @@
         "not_set": "Not set"
       }
     },
-    
     "logout": "Logout"
   },
   "account": {
@@ -173,7 +199,8 @@
     "wrong_email_password": "Email or password incorrect",
     "email_malformed": "Email malformed",
     "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
-    "unknown_error": "Unknown error"
+    "unknown_error": "Unknown error",
+    "domain_required": "Domain is required"
   },
   "name_generator": {
     "animals": [
