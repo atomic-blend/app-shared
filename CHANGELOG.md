@@ -2,6 +2,30 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.4 - 2025-10-16
+#### Bug Fixes
+- is payment supported is now web or desktop only - (ab2aee6) - Brandon Guigo
+- disable registering on mobile - (e92945e) - Brandon Guigo
+- sso ui on mobile - (b021d7d) - Brandon Guigo
+- make mnemonic key page look like other auth pages - (a98dc39) - Brandon Guigo
+- ui issue on no backup key + recap returns to login page now - (bdf0417) - Brandon Guigo
+- reset password confirm doesn't return to the homepage after completion - (e1f2db8) - Brandon Guigo
+- handle the case where there's no backup email in the account - (e671f97) - Brandon Guigo
+- allow empty backup email - (6e74cba) - Brandon Guigo
+- handle no backup email in recovey process - (0947eac) - Brandon Guigo
+- linter - (8d0d978) - Brandon Guigo
+- add password conditions display in register - (beb428d) - Brandon Guigo
+- broken logout - (5557d6c) - Brandon Guigo
+- add labels - (cb0bde4) - Brandon Guigo
+- add back button - (31afa90) - Brandon Guigo
+- ui of new register pages - (8f940a7) - Brandon Guigo
+- validation inside the email / pwd form - (f754efb) - Brandon Guigo
+- setup new auth design + add steps when registering for backup email + kyc - (f53d51e) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.3 [skip ci] - (00761c8) - GitHub Actions
+
+- - -
+
 ## v0.8.3 - 2025-10-13
 #### Bug Fixes
 - linter - (294e2e8) - Brandon Guigo
