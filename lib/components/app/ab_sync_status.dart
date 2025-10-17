@@ -42,7 +42,7 @@ class _AbSyncStatusState extends State<AbSyncStatus> {
               syncStatusPopupController.hideTooltip();
             },
             child: Container(
-              constraints: BoxConstraints(minWidth: 400),
+              constraints: BoxConstraints(minWidth: 400, maxHeight: 500),
               width:
                   isDesktop(context)
                       ? getSize(context).width * 0.3
@@ -52,35 +52,37 @@ class _AbSyncStatusState extends State<AbSyncStatus> {
                   horizontal: $constants.insets.xs,
                   vertical: $constants.insets.xs,
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ElevatedContainer(
-                      disableShadow: true,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: $constants.insets.sm,
-                        vertical: $constants.insets.sm,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ElevatedContainer(
+                        disableShadow: true,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: $constants.insets.sm,
+                          vertical: $constants.insets.sm,
+                        ),
+                        child: ABUserDisplay(user: authState.user!),
                       ),
-                      child: ABUserDisplay(user: authState.user!),
-                    ),
-                    SizedBox(height: $constants.insets.sm),
-                    ElevatedContainer(
-                      width: double.infinity,
-                      disableShadow: true,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: $constants.insets.sm,
-                        vertical: $constants.insets.sm,
+                      SizedBox(height: $constants.insets.sm),
+                      ElevatedContainer(
+                        width: double.infinity,
+                        disableShadow: true,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: $constants.insets.sm,
+                          vertical: $constants.insets.sm,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children:
+                              widget.syncElements
+                                  .map((element) => _buildSyncElement(element))
+                                  .toList(),
+                        ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children:
-                            widget.syncElements
-                                .map((element) => _buildSyncElement(element))
-                                .toList(),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
