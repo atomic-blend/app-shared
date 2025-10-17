@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-class SyncedElements {
+class SyncedElement {
   final Key key;
   final String label;
   final IconData icon;
   final int count;
   final int? total;
 
-  const SyncedElements({
+  const SyncedElement({
     required this.key,
     required this.label,
     required this.icon,
@@ -25,11 +25,13 @@ class SyncedElements {
 
 class ABHeader extends StatefulWidget {
   final String title;
-  final List<SyncedElements> syncedElements;
+  final List<SyncedElement> syncedElements;
+  final bool? isSyncing;
   const ABHeader({
     super.key,
     required this.title,
     this.syncedElements = const [],
+    this.isSyncing,
   });
 
   @override
@@ -87,14 +89,23 @@ class _ABHeaderState extends State<ABHeader> {
                 ),
                 if (isDesktop(context)) ...[
                   SizedBox(width: $constants.insets.xs),
-                  AbSyncStatus(),
+                  AbSyncStatus(
+                    syncElements: widget.syncedElements,
+                    isSyncing: widget.isSyncing,
+                  ),
                 ],
               ],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [if (!isDesktop(context)) AbSyncStatus()],
+            children: [
+              if (!isDesktop(context))
+                AbSyncStatus(
+                  syncElements: widget.syncedElements,
+                  isSyncing: widget.isSyncing,
+                ),
+            ],
           ),
         ],
       ),

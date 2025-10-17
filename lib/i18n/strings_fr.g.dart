@@ -56,6 +56,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsColorWheelFr color_wheel = _TranslationsColorWheelFr._(_root);
 	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
 	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
+	@override late final _TranslationsSyncStatusFr sync_status = _TranslationsSyncStatusFr._(_root);
 }
 
 // Path: auth
@@ -410,6 +411,16 @@ class _TranslationsTimeUnitsFr implements TranslationsTimeUnitsEn {
 	// Translations
 	@override late final _TranslationsTimeUnitsShortFr short = _TranslationsTimeUnitsShortFr._(_root);
 	@override late final _TranslationsTimeUnitsLongFr long = _TranslationsTimeUnitsLongFr._(_root);
+}
+
+// Path: sync_status
+class _TranslationsSyncStatusFr implements TranslationsSyncStatusEn {
+	_TranslationsSyncStatusFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get synced => 'synchronisé';
 }
 
 // Path: auth.not_logged_in
@@ -1307,6 +1318,7 @@ extension on TranslationsFr {
 				one: 'minute',
 				other: 'minutes',
 			);
+			case 'sync_status.synced': return 'synchronisé';
 			default: return null;
 		}
 	}

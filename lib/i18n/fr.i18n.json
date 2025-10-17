@@ -514,5 +514,8 @@
         "other": "minutes"
       }
     }
+  },
+  "sync_status": {
+    "synced": "synchronisé"
   }
 }
