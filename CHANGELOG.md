@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.5 - 2025-10-17
+#### Bug Fixes
+- add missing scroll view - (7f6492f) - Brandon Guigo
+- is synced working - (e0f18d8) - Brandon Guigo
+- add sync status btn and refactor user display - (6008249) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.4 [skip ci] - (0ba036d) - GitHub Actions
+
+- - -
+
 ## v0.8.4 - 2025-10-16
 #### Bug Fixes
 - is payment supported is now web or desktop only - (ab2aee6) - Brandon Guigo
