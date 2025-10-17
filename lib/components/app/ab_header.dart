@@ -1,3 +1,4 @@
+import 'package:ab_shared/components/app/ab_sync_status.dart';
 import 'package:ab_shared/components/forms/search_bar.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -6,9 +7,30 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
+class SyncedElements {
+  final Key key;
+  final String label;
+  final IconData icon;
+  final int count;
+  final int? total;
+
+  const SyncedElements({
+    required this.key,
+    required this.label,
+    required this.icon,
+    required this.count,
+    this.total,
+  });
+}
+
 class ABHeader extends StatefulWidget {
   final String title;
-  const ABHeader({super.key, required this.title});
+  final List<SyncedElements> syncedElements;
+  const ABHeader({
+    super.key,
+    required this.title,
+    this.syncedElements = const [],
+  });
 
   @override
   State<ABHeader> createState() => _ABHeaderState();
@@ -44,24 +66,35 @@ class _ABHeaderState extends State<ABHeader> {
                 ),
             ],
           ),
-          Expanded(
-            child: ABSearchBar(
-              controller: controller,
-              showClearButton: true,
-              onSubmitted: (value) {
-                context.go("/search?q=$value");
-              },
-              onChanged: (value) {
-                if (GoRouterState.of(context).uri.path == "/search") {
-                  context.go("/search?q=$value");
-                }
-              },
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: getSize(context).width * 0.4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: ABSearchBar(
+                    controller: controller,
+                    showClearButton: true,
+                    onSubmitted: (value) {
+                      context.go("/search?q=$value");
+                    },
+                    onChanged: (value) {
+                      if (GoRouterState.of(context).uri.path == "/search") {
+                        context.go("/search?q=$value");
+                      }
+                    },
+                  ),
+                ),
+                if (isDesktop(context)) ...[
+                  SizedBox(width: $constants.insets.xs),
+                  AbSyncStatus(),
+                ],
+              ],
             ),
           ),
           Row(
-            children: [
-              IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.ellipsis)),
-            ],
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [if (!isDesktop(context)) AbSyncStatus()],
           ),
         ],
       ),

@@ -29,10 +29,10 @@ mixin _$UserEntity {
   set email(String? value) => throw _privateConstructorUsedError;
   List<dynamic> get roles => throw _privateConstructorUsedError;
   set roles(List<dynamic> value) => throw _privateConstructorUsedError;
-  String? get firstname => throw _privateConstructorUsedError;
-  set firstname(String? value) => throw _privateConstructorUsedError;
-  String? get lastname => throw _privateConstructorUsedError;
-  set lastname(String? value) => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  set firstName(String? value) => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
+  set lastName(String? value) => throw _privateConstructorUsedError;
   EncryptionKeyEntity get keySet => throw _privateConstructorUsedError;
   set keySet(EncryptionKeyEntity value) => throw _privateConstructorUsedError;
   List<UserDeviceEntity>? get devices => throw _privateConstructorUsedError;
@@ -71,8 +71,8 @@ abstract class $UserEntityCopyWith<$Res> {
     String? firebase_id,
     String? email,
     List<dynamic> roles,
-    String? firstname,
-    String? lastname,
+    String? firstName,
+    String? lastName,
     EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -104,8 +104,8 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? firebase_id = freezed,
     Object? email = freezed,
     Object? roles = null,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? keySet = null,
     Object? devices = freezed,
     Object? purchases = freezed,
@@ -136,15 +136,15 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
                     ? _value.roles
                     : roles // ignore: cast_nullable_to_non_nullable
                         as List<dynamic>,
-            firstname:
-                freezed == firstname
-                    ? _value.firstname
-                    : firstname // ignore: cast_nullable_to_non_nullable
+            firstName:
+                freezed == firstName
+                    ? _value.firstName
+                    : firstName // ignore: cast_nullable_to_non_nullable
                         as String?,
-            lastname:
-                freezed == lastname
-                    ? _value.lastname
-                    : lastname // ignore: cast_nullable_to_non_nullable
+            lastName:
+                freezed == lastName
+                    ? _value.lastName
+                    : lastName // ignore: cast_nullable_to_non_nullable
                         as String?,
             keySet:
                 null == keySet
@@ -211,8 +211,8 @@ abstract class _$$UserEntityImplCopyWith<$Res>
     String? firebase_id,
     String? email,
     List<dynamic> roles,
-    String? firstname,
-    String? lastname,
+    String? firstName,
+    String? lastName,
     EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -244,8 +244,8 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? firebase_id = freezed,
     Object? email = freezed,
     Object? roles = null,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? keySet = null,
     Object? devices = freezed,
     Object? purchases = freezed,
@@ -276,15 +276,15 @@ class __$$UserEntityImplCopyWithImpl<$Res>
                 ? _value.roles
                 : roles // ignore: cast_nullable_to_non_nullable
                     as List<dynamic>,
-        firstname:
-            freezed == firstname
-                ? _value.firstname
-                : firstname // ignore: cast_nullable_to_non_nullable
+        firstName:
+            freezed == firstName
+                ? _value.firstName
+                : firstName // ignore: cast_nullable_to_non_nullable
                     as String?,
-        lastname:
-            freezed == lastname
-                ? _value.lastname
-                : lastname // ignore: cast_nullable_to_non_nullable
+        lastName:
+            freezed == lastName
+                ? _value.lastName
+                : lastName // ignore: cast_nullable_to_non_nullable
                     as String?,
         keySet:
             null == keySet
@@ -334,8 +334,8 @@ class _$UserEntityImpl extends _UserEntity {
     this.firebase_id,
     required this.email,
     required this.roles,
-    this.firstname,
-    this.lastname,
+    this.firstName,
+    this.lastName,
     required this.keySet,
     this.devices,
     this.purchases,
@@ -357,9 +357,9 @@ class _$UserEntityImpl extends _UserEntity {
   @override
   List<dynamic> roles;
   @override
-  String? firstname;
+  String? firstName;
   @override
-  String? lastname;
+  String? lastName;
   @override
   EncryptionKeyEntity keySet;
   @override
@@ -395,8 +395,8 @@ abstract class _UserEntity extends UserEntity {
     String? firebase_id,
     required String? email,
     required List<dynamic> roles,
-    String? firstname,
-    String? lastname,
+    String? firstName,
+    String? lastName,
     required EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -423,11 +423,11 @@ abstract class _UserEntity extends UserEntity {
   List<dynamic> get roles;
   set roles(List<dynamic> value);
   @override
-  String? get firstname;
-  set firstname(String? value);
+  String? get firstName;
+  set firstName(String? value);
   @override
-  String? get lastname;
-  set lastname(String? value);
+  String? get lastName;
+  set lastName(String? value);
   @override
   EncryptionKeyEntity get keySet;
   set keySet(EncryptionKeyEntity value);

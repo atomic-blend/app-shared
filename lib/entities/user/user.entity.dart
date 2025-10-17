@@ -15,8 +15,8 @@ class UserEntity with _$UserEntity {
     String? firebase_id,
     required String? email,
     required List<dynamic> roles,
-    String? firstname,
-    String? lastname,
+    String? firstName,
+    String? lastName,
     required EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -28,14 +28,14 @@ class UserEntity with _$UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, name: $firstname, lastname: $lastname, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
+    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, name: $firstName, lastName: $lastName, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
   }
 
   String? displayName() {
-    if (firstname == null && lastname == null) {
+    if (firstName == null && lastName == null) {
       return email;
     }
-    return '${firstname ?? ''} ${lastname ?? ''}';
+    return '${firstName ?? ''} ${lastName ?? ''}';
   }
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
