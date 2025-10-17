@@ -64,6 +64,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsColorWheelEn color_wheel = TranslationsColorWheelEn._(_root);
 	late final TranslationsDatesEn dates = TranslationsDatesEn._(_root);
 	late final TranslationsTimeUnitsEn time_units = TranslationsTimeUnitsEn._(_root);
+	late final TranslationsSyncStatusEn sync_status = TranslationsSyncStatusEn._(_root);
 }
 
 // Path: auth
@@ -488,6 +489,18 @@ class TranslationsTimeUnitsEn {
 	// Translations
 	late final TranslationsTimeUnitsShortEn short = TranslationsTimeUnitsShortEn._(_root);
 	late final TranslationsTimeUnitsLongEn long = TranslationsTimeUnitsLongEn._(_root);
+}
+
+// Path: sync_status
+class TranslationsSyncStatusEn {
+	TranslationsSyncStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'synced'
+	String get synced => 'synced';
 }
 
 // Path: auth.not_logged_in
@@ -1750,6 +1763,7 @@ extension on Translations {
 				one: 'minute',
 				other: 'minutes',
 			);
+			case 'sync_status.synced': return 'synced';
 			default: return null;
 		}
 	}

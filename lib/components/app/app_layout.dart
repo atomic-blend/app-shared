@@ -106,15 +106,7 @@ class AppLayout extends StatelessWidget {
                 Expanded(
                   child: Scaffold(
                     body: Column(
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: getSize(context).width * 0.6,
-                          ),
-                          child: _getHeader(context),
-                        ),
-                        Expanded(child: child),
-                      ],
+                      children: [_getHeader(context), Expanded(child: child)],
                     ),
                   ),
                 ),

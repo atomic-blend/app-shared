@@ -122,7 +122,7 @@ class _AccountState extends State<Account> {
                             ),
                             SizedBox(height: $constants.insets.xs),
                             Text(
-                              authstate.user?.firstname ??
+                              authstate.user?.firstName ??
                                   NameGenerator.generate(context),
                               style: getTextTheme(context).titleSmall!.copyWith(
                                 fontWeight: FontWeight.bold,
