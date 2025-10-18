@@ -147,10 +147,11 @@ class _ABSideMenuState extends State<ABSideMenu> {
                               ),
                               SizedBox(height: $constants.insets.sm),
                             ],
-                            ABUserDisplay(
-                              collapsed: widget.controller.isCollapsed(),
-                              user: authState.user!,
-                            ),
+                            if (authState.user != null)
+                              ABUserDisplay(
+                                collapsed: widget.controller.isCollapsed(),
+                                user: authState.user!,
+                              ),
                           ],
                         ),
                       ),

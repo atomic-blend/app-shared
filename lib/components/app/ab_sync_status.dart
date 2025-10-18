@@ -57,14 +57,15 @@ class _AbSyncStatusState extends State<AbSyncStatus> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ElevatedContainer(
-                        disableShadow: true,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: $constants.insets.sm,
-                          vertical: $constants.insets.sm,
+                      if (authState.user != null)
+                        ElevatedContainer(
+                          disableShadow: true,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: $constants.insets.sm,
+                            vertical: $constants.insets.sm,
+                          ),
+                          child: ABUserDisplay(user: authState.user!),
                         ),
-                        child: ABUserDisplay(user: authState.user!),
-                      ),
                       SizedBox(height: $constants.insets.sm),
                       ElevatedContainer(
                         width: double.infinity,

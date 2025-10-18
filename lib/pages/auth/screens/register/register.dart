@@ -98,6 +98,10 @@ class _RegisterEmailState extends State<RegisterEmail>
             return _buildMainLayout(DesktopOnlyStep());
           }
 
+          if ((authState.appConfig?.remainingSpots ?? 0) <= 0) {
+            return _buildMainLayout(Container());
+          }
+
           switch (_index) {
             case "register_email":
               return _buildMainLayout(

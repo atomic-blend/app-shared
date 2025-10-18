@@ -22,6 +22,7 @@ ABConfig _$ABConfigFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ABConfig {
   List<String> get domains => throw _privateConstructorUsedError;
+  int? get remainingSpots => throw _privateConstructorUsedError;
 
   /// Serializes this ABConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +39,7 @@ abstract class $ABConfigCopyWith<$Res> {
   factory $ABConfigCopyWith(ABConfig value, $Res Function(ABConfig) then) =
       _$ABConfigCopyWithImpl<$Res, ABConfig>;
   @useResult
-  $Res call({List<String> domains});
+  $Res call({List<String> domains, int? remainingSpots});
 }
 
 /// @nodoc
@@ -55,7 +56,7 @@ class _$ABConfigCopyWithImpl<$Res, $Val extends ABConfig>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? domains = null}) {
+  $Res call({Object? domains = null, Object? remainingSpots = freezed}) {
     return _then(
       _value.copyWith(
             domains:
@@ -63,6 +64,11 @@ class _$ABConfigCopyWithImpl<$Res, $Val extends ABConfig>
                     ? _value.domains
                     : domains // ignore: cast_nullable_to_non_nullable
                         as List<String>,
+            remainingSpots:
+                freezed == remainingSpots
+                    ? _value.remainingSpots
+                    : remainingSpots // ignore: cast_nullable_to_non_nullable
+                        as int?,
           )
           as $Val,
     );
@@ -78,7 +84,7 @@ abstract class _$$ABConfigImplCopyWith<$Res>
   ) = __$$ABConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> domains});
+  $Res call({List<String> domains, int? remainingSpots});
 }
 
 /// @nodoc
@@ -94,7 +100,7 @@ class __$$ABConfigImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? domains = null}) {
+  $Res call({Object? domains = null, Object? remainingSpots = freezed}) {
     return _then(
       _$ABConfigImpl(
         domains:
@@ -102,6 +108,11 @@ class __$$ABConfigImplCopyWithImpl<$Res>
                 ? _value._domains
                 : domains // ignore: cast_nullable_to_non_nullable
                     as List<String>,
+        remainingSpots:
+            freezed == remainingSpots
+                ? _value.remainingSpots
+                : remainingSpots // ignore: cast_nullable_to_non_nullable
+                    as int?,
       ),
     );
   }
@@ -110,7 +121,8 @@ class __$$ABConfigImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ABConfigImpl implements _ABConfig {
-  _$ABConfigImpl({required final List<String> domains}) : _domains = domains;
+  _$ABConfigImpl({required final List<String> domains, this.remainingSpots})
+    : _domains = domains;
 
   factory _$ABConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$ABConfigImplFromJson(json);
@@ -124,8 +136,11 @@ class _$ABConfigImpl implements _ABConfig {
   }
 
   @override
+  final int? remainingSpots;
+
+  @override
   String toString() {
-    return 'ABConfig(domains: $domains)';
+    return 'ABConfig(domains: $domains, remainingSpots: $remainingSpots)';
   }
 
   @override
@@ -133,13 +148,18 @@ class _$ABConfigImpl implements _ABConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ABConfigImpl &&
-            const DeepCollectionEquality().equals(other._domains, _domains));
+            const DeepCollectionEquality().equals(other._domains, _domains) &&
+            (identical(other.remainingSpots, remainingSpots) ||
+                other.remainingSpots == remainingSpots));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_domains));
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_domains),
+    remainingSpots,
+  );
 
   /// Create a copy of ABConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -156,13 +176,18 @@ class _$ABConfigImpl implements _ABConfig {
 }
 
 abstract class _ABConfig implements ABConfig {
-  factory _ABConfig({required final List<String> domains}) = _$ABConfigImpl;
+  factory _ABConfig({
+    required final List<String> domains,
+    final int? remainingSpots,
+  }) = _$ABConfigImpl;
 
   factory _ABConfig.fromJson(Map<String, dynamic> json) =
       _$ABConfigImpl.fromJson;
 
   @override
   List<String> get domains;
+  @override
+  int? get remainingSpots;
 
   /// Create a copy of ABConfig
   /// with the given fields replaced by the non-null parameter values.
