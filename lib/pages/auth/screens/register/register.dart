@@ -9,6 +9,8 @@ import 'package:ab_shared/pages/auth/screens/register/backup_email_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/desktop_only_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/personal_infos_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_code_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_start_step.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,6 +50,8 @@ class RegisterEmail extends StatefulWidget {
 class _RegisterEmailState extends State<RegisterEmail>
     with SingleTickerProviderStateMixin {
   final getIt = GetIt.instance;
+  bool? _iHaveACode = false;
+  String? _code;
   String? _email;
   String? _password;
   String? _firstName;
@@ -95,11 +99,17 @@ class _RegisterEmailState extends State<RegisterEmail>
           }
 
           if (!isPaymentSupported()) {
-            return _buildMainLayout(DesktopOnlyStep());
+            _index = "desktop_only";
           }
 
-          if ((authState.appConfig?.remainingSpots ?? 0) <= 0) {
-            return _buildMainLayout(Container());
+          final bool remainingSpots =
+              (authState.appConfig?.remainingSpots ?? 0) <= 0;
+          if (remainingSpots && (_iHaveACode != true || _code == null)) {
+            _index = "waiting_list_start";
+          }
+
+          if (remainingSpots && (_iHaveACode == true || _code != null)) {
+            _index = "waiting_list_code";
           }
 
           switch (_index) {
@@ -150,6 +160,20 @@ class _RegisterEmailState extends State<RegisterEmail>
                   nextButtonText: context.t.auth.login_or_register.register,
                 ),
               );
+            case "desktop_only":
+              return _buildMainLayout(DesktopOnlyStep());
+            case "waiting_list_start":
+              return _buildMainLayout(
+                WaitingListStartStep(
+                  onHasCode: (bool hasCode) {
+                    setState(() {
+                      _iHaveACode = hasCode;
+                    });
+                  },
+                ),
+              );
+            case "waiting_list_code":
+              return _buildMainLayout(WaitingListCodeStep());
             default:
               return const SizedBox.shrink();
           }
@@ -309,6 +333,17 @@ class _RegisterEmailState extends State<RegisterEmail>
         setState(() {
           _index = "personal_infos";
         });
+        break;
+      case "desktop_only":
+        context.go("/auth/login");
+        break;
+      case "waiting_list_start":
+        setState(() {
+          _index = "register_email";
+        });
+        break;
+      case "waiting_list_code":
+        context.go("/auth/login");
         break;
     }
   }
