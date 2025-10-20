@@ -94,3 +94,9 @@ final class LoadConfig extends AuthEvent {
 final class MnemonicDisplayed extends AuthEvent {
   const MnemonicDisplayed();
 }
+
+final class JoinWaitingList extends AuthEvent {
+  final String email;
+
+  const JoinWaitingList(this.email);
+}

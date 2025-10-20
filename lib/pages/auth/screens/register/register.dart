@@ -10,6 +10,7 @@ import 'package:ab_shared/pages/auth/screens/register/desktop_only_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/personal_infos_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/waiting_list_code_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_position_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/waiting_list_start_step.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -170,8 +171,15 @@ class _RegisterEmailState extends State<RegisterEmail>
                       _iHaveACode = hasCode;
                     });
                   },
+                  onSuccess: () {
+                    setState(() {
+                      _index = "waiting_list_position";
+                    });
+                  },
                 ),
               );
+            case "waiting_list_position":
+              return _buildMainLayout(WaitingListPositionStep());
             case "waiting_list_code":
               return _buildMainLayout(WaitingListCodeStep());
             default:

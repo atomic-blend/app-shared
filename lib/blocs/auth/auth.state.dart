@@ -155,3 +155,26 @@ final class GetBackupKeyForResetPasswordError extends AuthState {
   @override
   String toString() => 'GetBackupKeyForResetPasswordError { $message }';
 }
+
+final class JoinWaitingListLoading extends AuthState {
+  const JoinWaitingListLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'JoinWaitingListLoading { }';
+}
+
+final class JoinWaitingListSuccess extends AuthState {
+  final int? beforeCount;
+  const JoinWaitingListSuccess(this.beforeCount, super.user, super.appConfig);
+
+  @override
+  String toString() => 'JoinWaitingListSuccess { $beforeCount }';
+}
+
+final class JoinWaitingListError extends AuthState {
+  final String message;
+  const JoinWaitingListError(this.message, super.user, super.appConfig);
+
+  @override
+  String toString() => 'JoinWaitingListError { $message }';
+}

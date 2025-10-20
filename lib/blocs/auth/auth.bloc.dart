@@ -45,6 +45,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<GetBackupKeyForResetPassword>(_onGetBackupKeyForPasswordReset);
     on<LoadConfig>(_onLoadConfig);
     on<MnemonicDisplayed>(_onMnemonicDisplayed);
+    on<JoinWaitingList>(_onJoinWaitingList);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -303,5 +304,28 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     final prevState = state;
     emit(Loading(prevState.user, prevState.appConfig));
     emit(LoggedIn(prevState.user!, false, prevState.appConfig));
+  }
+
+  FutureOr<void> _onJoinWaitingList(
+    JoinWaitingList event,
+    Emitter<AuthState> emit,
+  ) async {
+    final prevState = state;
+    emit(JoinWaitingListLoading(prevState.user, prevState.appConfig));
+    try {
+      final result = await _userService.joinWaitingList(event.email);
+      emit(JoinWaitingListSuccess(result, prevState.user, prevState.appConfig));
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      final message =
+          (data is Map && data['error'] != null)
+              ? data['error']
+              : (e.message ?? 'waiting_list_failed');
+      emit(JoinWaitingListError(message, prevState.user, prevState.appConfig));
+    } on Exception catch (e) {
+      emit(
+        JoinWaitingListError(e.toString(), prevState.user, prevState.appConfig),
+      );
+    }
   }
 }

@@ -200,7 +200,8 @@
     "email_malformed": "Email malformed",
     "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
     "unknown_error": "Unknown error",
-    "domain_required": "Domain is required"
+    "domain_required": "Domain is required",
+    "error_email_already_in_waiting_list": "This email is already in the waiting list"
   },
   "name_generator": {
     "animals": [
@@ -520,5 +521,15 @@
   },
   "sync_status": {
     "synced": "synced"
+  },
+  "waiting_list": {
+    "title": "We're at capacity!",
+    "description": "Join the waiting list to get notified when a spot opens up.",
+    "email_required": "Email is required",
+    "invalid_email": "Email is invalid",
+    "join_waiting_list": "Join the waiting list",
+    "i_have_a_code": "I have a code",
+    "email": "Email",
+    "email_hint": "brandon@atomic-blend.com"
   }
 }
