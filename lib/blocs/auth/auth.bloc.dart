@@ -46,6 +46,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<LoadConfig>(_onLoadConfig);
     on<MnemonicDisplayed>(_onMnemonicDisplayed);
     on<JoinWaitingList>(_onJoinWaitingList);
+    on<GetWaitingListPosition>(_onGetWaitingListPosition);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -314,13 +315,55 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(JoinWaitingListLoading(prevState.user, prevState.appConfig));
     try {
       final result = await _userService.joinWaitingList(event.email);
-      emit(JoinWaitingListSuccess(result?['position'], result?['total'], prevState.user, prevState.appConfig));
+      emit(
+        JoinWaitingListSuccess(
+          result?['position'],
+          result?['total'],
+          result?['entry']['code'],
+          prevState.user,
+          prevState.appConfig,
+        ),
+      );
     } on DioException catch (e) {
       final data = e.response?.data;
       final message =
           (data is Map && data['error'] != null)
               ? data['error']
               : (e.message ?? 'waiting_list_failed');
+      emit(JoinWaitingListError(message, prevState.user, prevState.appConfig));
+    } on Exception catch (e) {
+      emit(
+        JoinWaitingListError(e.toString(), prevState.user, prevState.appConfig),
+      );
+    }
+  }
+
+  FutureOr<void> _onGetWaitingListPosition(
+    GetWaitingListPosition event,
+    Emitter<AuthState> emit,
+  ) async {
+    final prevState = state;
+    emit(JoinWaitingListLoading(prevState.user, prevState.appConfig));
+    try {
+      final result = await _userService.getWaitingListPosition(
+        event.email,
+        event.securityKey,
+      );
+      emit(
+        JoinWaitingListSuccess(
+          result?['position'],
+          result?['total'],
+          result?['entry']['code'],
+          prevState.user,
+          prevState.appConfig,
+        ),
+      );
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      final message =
+          (data is Map && data['error'] != null)
+              ? data['error']
+              : (e.message ?? 'waiting_list_position_failed');
       emit(JoinWaitingListError(message, prevState.user, prevState.appConfig));
     } on Exception catch (e) {
       emit(

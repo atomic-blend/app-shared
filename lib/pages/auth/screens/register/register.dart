@@ -206,10 +206,21 @@ class _RegisterEmailState extends State<RegisterEmail>
                 ),
               );
             case "waiting_list_position":
+              print("waiting_list_position");
+              print(_email);
+              print(_securityKey);
+              print(widget.email);
+              print(widget.securityKey);
               return _buildMainLayout(
                 WaitingListPositionStep(
                   email: _email ?? widget.email,
                   securityKey: _securityKey ?? widget.securityKey,
+                  onProceedToRegistration: (String code) {
+                    setState(() {
+                      _index = "register_email";
+                      _code = code;
+                    });
+                  },
                 ),
               );
             case "waiting_list_code":

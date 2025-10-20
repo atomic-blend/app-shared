@@ -11,7 +11,13 @@ import 'package:go_router/go_router.dart';
 class WaitingListPositionStep extends StatefulWidget {
   final String? email;
   final String? securityKey;
-  const WaitingListPositionStep({super.key, this.email, this.securityKey});
+  final Function(String) onProceedToRegistration;
+  const WaitingListPositionStep({
+    super.key,
+    this.email,
+    this.securityKey,
+    required this.onProceedToRegistration,
+  });
 
   @override
   State<WaitingListPositionStep> createState() =>
@@ -25,6 +31,10 @@ class _WaitingListPositionStepState extends State<WaitingListPositionStep> {
     super.initState();
     if (widget.email != null && widget.securityKey != null) {
       //TODO: trigger position check on backend
+
+      context.read<AuthBloc>().add(
+        GetWaitingListPosition(widget.email!, widget.securityKey!),
+      );
     }
   }
 
@@ -32,48 +42,63 @@ class _WaitingListPositionStepState extends State<WaitingListPositionStep> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        //TODO: display position too if there's a security key + email and backend returns a position
         if (authState is! JoinWaitingListSuccess) {
           return const SizedBox.shrink();
         }
+
+        final hasCode = authState.code != null;
+
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: $constants.insets.md),
             Text(
-              "You're in!",
+              hasCode ? "It's happening!" : "You're in!",
               style: getTextTheme(
                 context,
               ).titleMedium!.copyWith(fontWeight: FontWeight.bold),
             ),
-            Text("You have successfully joined the waiting list!"),
+            Text(
+              hasCode
+                  ? "A spot has opened up! You can now register."
+                  : "You have successfully joined the waiting list!",
+            ),
             SizedBox(height: $constants.insets.sm),
 
-            Text("Your position in the waiting list is:"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  ((authState.position ?? 0) + 1).toString(),
-                  style: getTextTheme(
-                    context,
-                  ).titleLarge!.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "/ ${authState.total ?? 0}",
-                  style: getTextTheme(
-                    context,
-                  ).titleSmall!.copyWith(color: Colors.grey.shade600),
-                ),
-              ],
-            ),
+            if (!hasCode) ...[
+              Text("Your position in the waiting list is:"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    ((authState.position ?? 0) + 1).toString(),
+                    style: getTextTheme(
+                      context,
+                    ).titleLarge!.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "/ ${(authState.total ?? 0)}",
+                    style: getTextTheme(
+                      context,
+                    ).titleSmall!.copyWith(color: Colors.grey.shade600),
+                  ),
+                ],
+              ),
+            ],
 
             SizedBox(height: $constants.insets.sm),
             PrimaryButtonSquare(
               width: getSize(context).width * 0.25,
-              text: context.t.waiting_list.back_to_home,
+              text:
+                  hasCode
+                      ? context.t.waiting_list.proceed_to_registration
+                      : context.t.waiting_list.back_to_home,
               onPressed: () {
-                getIt<GoRouter>().go("/");
+                if (hasCode) {
+                  widget.onProceedToRegistration.call(authState.code!);
+                } else {
+                  getIt<GoRouter>().go("/");
+                }
               },
             ),
           ],

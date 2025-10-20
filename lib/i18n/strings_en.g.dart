@@ -539,6 +539,9 @@ class TranslationsWaitingListEn {
 
 	/// en: 'Back to home'
 	String get back_to_home => 'Back to home';
+
+	/// en: 'Proceed to registration'
+	String get proceed_to_registration => 'Proceed to registration';
 }
 
 // Path: auth.not_logged_in
@@ -1812,6 +1815,7 @@ extension on Translations {
 			case 'waiting_list.email': return 'Email';
 			case 'waiting_list.email_hint': return 'brandon@atomic-blend.com';
 			case 'waiting_list.back_to_home': return 'Back to home';
+			case 'waiting_list.proceed_to_registration': return 'Proceed to registration';
 			default: return null;
 		}
 	}

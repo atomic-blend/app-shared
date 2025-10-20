@@ -321,6 +321,20 @@ class UserService {
     return null;
   }
 
+  Future<Map<String, dynamic>?> getWaitingListPosition(
+    String email,
+    String securityKey,
+  ) async {
+    final result = await _getIt<ApiClient>().post(
+      '/auth/waiting-list/position',
+      data: {'email': email, 'securityToken': securityKey},
+    );
+    if (result.statusCode == 200 || result.statusCode == 201) {
+      return result.data as Map<String, dynamic>;
+    }
+    return null;
+  }
+
   //check if user have an active subscription in purchases
   static bool isSubscriptionActive(
     ApiClient globalApiClient,

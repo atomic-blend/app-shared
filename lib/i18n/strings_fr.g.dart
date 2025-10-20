@@ -441,6 +441,7 @@ class _TranslationsWaitingListFr implements TranslationsWaitingListEn {
 	@override String get email => 'Email';
 	@override String get email_hint => 'brandon@atomic-blend.com';
 	@override String get back_to_home => 'Retour à l\'accueil';
+	@override String get proceed_to_registration => 'Passer à l\'inscription';
 }
 
 // Path: auth.not_logged_in
@@ -1349,6 +1350,7 @@ extension on TranslationsFr {
 			case 'waiting_list.email': return 'Email';
 			case 'waiting_list.email_hint': return 'brandon@atomic-blend.com';
 			case 'waiting_list.back_to_home': return 'Retour à l\'accueil';
+			case 'waiting_list.proceed_to_registration': return 'Passer à l\'inscription';
 			default: return null;
 		}
 	}
