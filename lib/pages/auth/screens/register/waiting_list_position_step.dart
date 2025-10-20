@@ -30,8 +30,6 @@ class _WaitingListPositionStepState extends State<WaitingListPositionStep> {
   initState() {
     super.initState();
     if (widget.email != null && widget.securityKey != null) {
-      //TODO: trigger position check on backend
-
       context.read<AuthBloc>().add(
         GetWaitingListPosition(widget.email!, widget.securityKey!),
       );

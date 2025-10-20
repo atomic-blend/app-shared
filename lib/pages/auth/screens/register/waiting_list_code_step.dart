@@ -26,7 +26,6 @@ class _WaitingListCodeStepState extends State<WaitingListCodeStep> {
         PrimaryButtonSquare(
           text: "Proceed to registration",
           onPressed: () {
-            //TODO: Check if the code is valid
           },
         )
       ],

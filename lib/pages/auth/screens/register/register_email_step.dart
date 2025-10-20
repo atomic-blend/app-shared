@@ -40,6 +40,7 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
   @override
   void initState() {
     super.initState();
+    context.read<AuthBloc>().add(LoadConfig());
     _usernameController.text = widget.username ?? '';
     domain = widget.domain;
     _passwordController.text = widget.password ?? '';

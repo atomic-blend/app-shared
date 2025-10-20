@@ -119,23 +119,23 @@ class _RegisterEmailState extends State<RegisterEmail>
 
           final bool remainingSpots =
               (authState.appConfig?.remainingSpots ?? 0) <= 0;
-          if (authState is! JoinWaitingListSuccess &&
+
+          // If user has a valid code, allow them to proceed to registration
+          if (_iHaveACode == true && _code != null) {
+            _index = "register_email";
+          }
+          // Only show waiting list if user doesn't have a valid code
+          else if (authState is! JoinWaitingListSuccess &&
               remainingSpots &&
               (_iHaveACode != true || _code == null)) {
             _index = "waiting_list_start";
-          }
-
-          if (authState is! JoinWaitingListSuccess &&
-              remainingSpots &&
-              (_iHaveACode == true || _code != null)) {
-            _index = "waiting_list_code";
-          }
-
-          if (authState is JoinWaitingListSuccess) {
+          } else if (authState is JoinWaitingListSuccess) {
             _index = "waiting_list_position";
           }
 
-          if (widget.securityKey != null && _code == null) {
+          if (widget.securityKey != null &&
+              _code == null &&
+              _iHaveACode != true) {
             _securityKey = widget.securityKey;
             _index = "waiting_list_position";
           }
@@ -206,11 +206,6 @@ class _RegisterEmailState extends State<RegisterEmail>
                 ),
               );
             case "waiting_list_position":
-              print("waiting_list_position");
-              print(_email);
-              print(_securityKey);
-              print(widget.email);
-              print(widget.securityKey);
               return _buildMainLayout(
                 WaitingListPositionStep(
                   email: _email ?? widget.email,
@@ -219,6 +214,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                     setState(() {
                       _index = "register_email";
                       _code = code;
+                      _iHaveACode = true;
                     });
                   },
                 ),
