@@ -164,11 +164,12 @@ final class JoinWaitingListLoading extends AuthState {
 }
 
 final class JoinWaitingListSuccess extends AuthState {
-  final int? beforeCount;
-  const JoinWaitingListSuccess(this.beforeCount, super.user, super.appConfig);
+  final int? position;
+  final int? total;
+  const JoinWaitingListSuccess(this.position, this.total, super.user, super.appConfig);
 
   @override
-  String toString() => 'JoinWaitingListSuccess { $beforeCount }';
+  String toString() => 'JoinWaitingListSuccess { $position, $total }';
 }
 
 final class JoinWaitingListError extends AuthState {

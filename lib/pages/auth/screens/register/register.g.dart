@@ -16,13 +16,22 @@ RouteBase get $registerRoute => GoRouteData.$route(
 );
 
 mixin _$RegisterRoute on GoRouteData {
-  static RegisterRoute _fromState(GoRouterState state) =>
-      RegisterRoute(state.extra as RegisterParams?);
+  static RegisterRoute _fromState(GoRouterState state) => RegisterRoute(
+    state.uri.queryParameters['email'],
+    state.uri.queryParameters['security-key'],
+    state.extra as RegisterParams?,
+  );
 
   RegisterRoute get _self => this as RegisterRoute;
 
   @override
-  String get location => GoRouteData.$location('/auth/register');
+  String get location => GoRouteData.$location(
+    '/auth/register',
+    queryParams: {
+      if (_self.email != null) 'email': _self.email,
+      if (_self.securityKey != null) 'security-key': _self.securityKey,
+    },
+  );
 
   @override
   void go(BuildContext context) => context.go(location, extra: _self.$extra);

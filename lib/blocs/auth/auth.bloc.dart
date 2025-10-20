@@ -314,7 +314,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(JoinWaitingListLoading(prevState.user, prevState.appConfig));
     try {
       final result = await _userService.joinWaitingList(event.email);
-      emit(JoinWaitingListSuccess(result, prevState.user, prevState.appConfig));
+      emit(JoinWaitingListSuccess(result?['position'], result?['total'], prevState.user, prevState.appConfig));
     } on DioException catch (e) {
       final data = e.response?.data;
       final message =

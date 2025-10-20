@@ -32,17 +32,30 @@ class RegisterParams {
 @TypedGoRoute<RegisterRoute>(path: "/auth/register", name: "register")
 class RegisterRoute extends GoRouteData with _$RegisterRoute {
   final RegisterParams? $extra;
-  RegisterRoute(this.$extra);
+  final String? email;
+  final String? securityKey;
+  RegisterRoute(this.email, this.securityKey, this.$extra);
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return RegisterEmail(homeRouteLocation: $extra?.homeRouteLocation);
+    return RegisterEmail(
+      homeRouteLocation: $extra?.homeRouteLocation,
+      email: email,
+      securityKey: securityKey,
+    );
   }
 }
 
 class RegisterEmail extends StatefulWidget {
-  const RegisterEmail({super.key, this.homeRouteLocation});
+  const RegisterEmail({
+    super.key,
+    this.homeRouteLocation,
+    this.email,
+    this.securityKey,
+  });
   final String? homeRouteLocation;
+  final String? email;
+  final String? securityKey;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -53,6 +66,7 @@ class _RegisterEmailState extends State<RegisterEmail>
   final getIt = GetIt.instance;
   bool? _iHaveACode = false;
   String? _code;
+  String? _securityKey;
   String? _email;
   String? _password;
   String? _firstName;
@@ -118,6 +132,11 @@ class _RegisterEmailState extends State<RegisterEmail>
           }
 
           if (authState is JoinWaitingListSuccess) {
+            _index = "waiting_list_position";
+          }
+
+          if (widget.securityKey != null && _code == null) {
+            _securityKey = widget.securityKey;
             _index = "waiting_list_position";
           }
 
@@ -187,7 +206,12 @@ class _RegisterEmailState extends State<RegisterEmail>
                 ),
               );
             case "waiting_list_position":
-              return _buildMainLayout(WaitingListPositionStep());
+              return _buildMainLayout(
+                WaitingListPositionStep(
+                  email: _email ?? widget.email,
+                  securityKey: _securityKey ?? widget.securityKey,
+                ),
+              );
             case "waiting_list_code":
               return _buildMainLayout(WaitingListCodeStep());
             default:

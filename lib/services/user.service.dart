@@ -310,16 +310,13 @@ class UserService {
     }
   }
 
-  Future<int?> joinWaitingList(String email) async {
+  Future<Map<String, dynamic>?> joinWaitingList(String email) async {
     final result = await _getIt<ApiClient>().post(
       '/auth/waiting-list',
       data: {'email': email},
     );
     if (result.statusCode == 200 || result.statusCode == 201) {
-      final beforeCount = result.data['before_count'];
-      if (beforeCount == null) return null;
-      if (beforeCount is int) return beforeCount;
-      return int.tryParse(beforeCount.toString());
+      return result.data as Map<String, dynamic>;
     }
     return null;
   }
