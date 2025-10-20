@@ -527,6 +527,7 @@
     "join_waiting_list": "Rejoindre la liste d'attente",
     "i_have_a_code": "J'ai un code",
     "email": "Email",
-    "email_hint": "brandon@atomic-blend.com"
+    "email_hint": "brandon@atomic-blend.com",
+    "back_to_home": "Retour à l'accueil"
   }
 }

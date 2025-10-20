@@ -530,6 +530,7 @@
     "join_waiting_list": "Join the waiting list",
     "i_have_a_code": "I have a code",
     "email": "Email",
-    "email_hint": "brandon@atomic-blend.com"
+    "email_hint": "brandon@atomic-blend.com",
+    "back_to_home": "Back to home"
   }
 }

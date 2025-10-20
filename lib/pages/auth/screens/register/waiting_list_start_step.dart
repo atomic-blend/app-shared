@@ -29,11 +29,11 @@ class _WaitingListStartStepState extends State<WaitingListStartStep> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, AuthState authState) {
+        print(authState);
         if (authState is JoinWaitingListSuccess) {
           widget.onSuccess();
         }
         if (authState is JoinWaitingListError) {
-          print(authState.message);
           ToastHelper.showError(
             context: context,
             title:

@@ -105,12 +105,20 @@ class _RegisterEmailState extends State<RegisterEmail>
 
           final bool remainingSpots =
               (authState.appConfig?.remainingSpots ?? 0) <= 0;
-          if (remainingSpots && (_iHaveACode != true || _code == null)) {
+          if (authState is! JoinWaitingListSuccess &&
+              remainingSpots &&
+              (_iHaveACode != true || _code == null)) {
             _index = "waiting_list_start";
           }
 
-          if (remainingSpots && (_iHaveACode == true || _code != null)) {
+          if (authState is! JoinWaitingListSuccess &&
+              remainingSpots &&
+              (_iHaveACode == true || _code != null)) {
             _index = "waiting_list_code";
+          }
+
+          if (authState is JoinWaitingListSuccess) {
+            _index = "waiting_list_position";
           }
 
           switch (_index) {

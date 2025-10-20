@@ -536,6 +536,9 @@ class TranslationsWaitingListEn {
 
 	/// en: 'brandon@atomic-blend.com'
 	String get email_hint => 'brandon@atomic-blend.com';
+
+	/// en: 'Back to home'
+	String get back_to_home => 'Back to home';
 }
 
 // Path: auth.not_logged_in
@@ -1808,6 +1811,7 @@ extension on Translations {
 			case 'waiting_list.i_have_a_code': return 'I have a code';
 			case 'waiting_list.email': return 'Email';
 			case 'waiting_list.email_hint': return 'brandon@atomic-blend.com';
+			case 'waiting_list.back_to_home': return 'Back to home';
 			default: return null;
 		}
 	}
