@@ -402,11 +402,15 @@ class _RegisterEmailState extends State<RegisterEmail>
         context.go("/auth/login");
         break;
       case "waiting_list_start":
-        setState(() {
-          _index = "register_email";
-        });
+        context.go("/auth/login");
         break;
       case "waiting_list_code":
+        context.go("/auth/login");
+        break;
+      case "waiting_list_position":
+        context.go("/auth/login");
+        break;
+      default:
         context.go("/auth/login");
         break;
     }
