@@ -3,15 +3,17 @@ import 'package:timezone/timezone.dart' as tz;
 
 class LocalNotificationUtil {
   static NotificationDetails getNotifDetails(
-      String androidChannelId, String androidChannelName) {
+    String androidChannelId,
+    String androidChannelName,
+  ) {
     // define notification details
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-      'main_channel',
-      'Task Notifications',
-      importance: Importance.high,
-      priority: Priority.high,
-    );
+          'main_channel',
+          'Task Notifications',
+          importance: Importance.high,
+          priority: Priority.high,
+        );
 
     const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
       presentAlert: true,
@@ -20,22 +22,56 @@ class LocalNotificationUtil {
       interruptionLevel: InterruptionLevel.critical,
     );
 
+    const WindowsNotificationDetails windowsDetails =
+        WindowsNotificationDetails(
+          actions: [
+            WindowsAction(
+              content: 'Open',
+              arguments: 'com.atomicblend.task_notifications',
+            ),
+          ],
+          inputs: [],
+          images: [],
+          rows: [],
+          progressBars: [],
+          bindings: {},
+          header: null,
+          audio: null,
+          duration: null,
+          scenario: null,
+          timestamp: null,
+          subtitle: null,
+        );
+
+    const LinuxNotificationDetails linuxDetails = LinuxNotificationDetails();
+
     const NotificationDetails notifDetails = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
+      windows: windowsDetails,
+      linux: linuxDetails,
+      macOS: iosDetails,
     );
 
     return notifDetails;
   }
 
   // static method to schedule a pomodoro notification
-  static Future<void> schedulePomodoroNotification(String androidChannelId,
-      String androidChannelName, int id, DateTime scheduledTime) async {
+  static Future<void> schedulePomodoroNotification(
+    String androidChannelId,
+    String androidChannelName,
+    int id,
+    DateTime scheduledTime,
+  ) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    final NotificationDetails notifDetails =
-        getNotifDetails(androidChannelId, androidChannelName);
+    final NotificationDetails notifDetails = getNotifDetails(
+      androidChannelId,
+      androidChannelName,
+    );
+
+    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
