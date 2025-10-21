@@ -95,7 +95,6 @@ class _RegisterEmailState extends State<RegisterEmail>
       backgroundColor: getTheme(context).surface,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
-          print("authState: $authState");
           if (authState is AuthError) {
             _errorMessage = authState.message;
           }
@@ -120,11 +119,6 @@ class _RegisterEmailState extends State<RegisterEmail>
 
           final bool noSpotsAvailable =
               (authState.appConfig?.remainingSpots ?? 0) <= 0;
-          print(
-            "authState.appConfig?.remainingSpots: ${authState.appConfig?.remainingSpots}",
-          );
-
-          print("noSpotsAvailable: $noSpotsAvailable");
 
           // Only apply routing logic if we're at the initial/waiting list steps
           // Don't override if user is already progressing through registration
@@ -195,7 +189,6 @@ class _RegisterEmailState extends State<RegisterEmail>
             case "backup_email":
               return _buildMainLayout(
                 BackupEmailStep(
-                  isLoading: authState is Loading,
                   errorMessage: _errorMessage,
                   onSuccess: (String backupEmail) {
                     context.read<AuthBloc>().add(

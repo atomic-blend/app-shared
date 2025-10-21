@@ -60,7 +60,8 @@
       "domain": "Domain",
       "desktop_only_step": "Giddy up Cowboy!",
       "desktop_only_step_description": "Setting up your Atomic Blend account is only available on desktop.",
-      "go_on_desktop": "Go on desktop"
+      "go_on_desktop": "Go on desktop",
+      "web_register_slow": "It may take a few minutes to complete the registration. App might look frozen, but it's working in the background.\nClick once the register button and please wait until the app redirects you to the next step."
     },
     "delete_account": {
       "title": "Delete your account",

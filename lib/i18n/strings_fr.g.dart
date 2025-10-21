@@ -531,6 +531,7 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get desktop_only_step => 'En selle, Cowboy !';
 	@override String get desktop_only_step_description => 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 	@override String get go_on_desktop => 'Aller sur le navigateur web';
+	@override String get web_register_slow => 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
 }
 
 // Path: auth.delete_account
@@ -966,6 +967,7 @@ extension on TranslationsFr {
 			case 'auth.register.desktop_only_step': return 'En selle, Cowboy !';
 			case 'auth.register.desktop_only_step_description': return 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 			case 'auth.register.go_on_desktop': return 'Aller sur le navigateur web';
+			case 'auth.register.web_register_slow': return 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';
