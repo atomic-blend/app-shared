@@ -20,9 +20,19 @@ class LocalNotificationUtil {
       interruptionLevel: InterruptionLevel.critical,
     );
 
+    const WindowsNotificationDetails windowsDetails = WindowsNotificationDetails(
+    );
+    
+    const LinuxNotificationDetails linuxDetails = LinuxNotificationDetails(
+    );
+    
+
     const NotificationDetails notifDetails = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
+      windows: windowsDetails,
+      linux: linuxDetails,
+      macOS: iosDetails,
     );
 
     return notifDetails;
