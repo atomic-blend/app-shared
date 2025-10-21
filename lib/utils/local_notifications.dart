@@ -71,6 +71,8 @@ class LocalNotificationUtil {
       androidChannelName,
     );
 
+    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       'Pomodoro Complete!',
