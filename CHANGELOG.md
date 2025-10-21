@@ -2,6 +2,27 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.9.0 - 2025-10-21
+#### Bug Fixes
+- go back issue - (9c70779) - Brandon Guigo
+- mnemonic key was missing form widget - (ee91101) - Brandon Guigo
+- refactoring + fix login loading widget - (0cdae0f) - Brandon Guigo
+- display error when capacity reached on register call + setup send code in register payload - (305e6f6) - Brandon Guigo
+- step handling between waiting list or classic register - (470755b) - Brandon Guigo
+- loading issue and register not displayed when there's spot - (6606025) - Brandon Guigo
+- when user have a redeem code in his waiting list entry, allow registration - (26a03f1) - Brandon Guigo
+- update to position and total in join waiting list - (60423cc) - Brandon Guigo
+- send request to the backend to join waiting list and show error when already registered - (bf875fd) - Brandon Guigo
+- add ui for waiting list start - (d64d494) - Brandon Guigo
+- null errors on ABUserDisplay + return waiting screen when no remaining spots - (cc76d26) - Brandon Guigo
+#### Features
+- support checking status of waiting list - (9890436) - Brandon Guigo
+- display position in waiting list when joining - (e9c265b) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.8.5 [skip ci] - (02ab028) - GitHub Actions
+
+- - -
+
 ## v0.8.5 - 2025-10-17
 #### Bug Fixes
 - add missing scroll view - (7f6492f) - Brandon Guigo
