@@ -10,12 +10,14 @@ class BackupEmailStep extends StatefulWidget {
   final Function(String backupEmail) onSuccess;
   final String? nextButtonText;
   final bool? isLoading;
+  final String? errorMessage;
   const BackupEmailStep({
     super.key,
     required this.onSuccess,
     this.nextButtonText,
     this.backupEmail,
     this.isLoading,
+    this.errorMessage,
   });
 
   @override
@@ -66,6 +68,23 @@ class _BackupEmailStepState extends State<BackupEmailStep> {
                 return null;
               },
             ),
+            if (widget.errorMessage != null && context.t.errors[widget.errorMessage!] != null) ...[
+              SizedBox(height: $constants.insets.sm),
+              Container(
+                padding: EdgeInsets.all($constants.insets.sm),
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular($constants.corners.sm),
+                  border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
+                ),
+                child: Text(
+                  context.t.errors[widget.errorMessage!]!,
+                  style: getTextTheme(
+                    context,
+                  ).bodySmall!.copyWith(color: Colors.red),
+                ),
+              ),
+            ],
             SizedBox(height: $constants.insets.md),
             PrimaryButtonSquare(
               leading:

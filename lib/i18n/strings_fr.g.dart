@@ -51,6 +51,7 @@ class TranslationsFr implements Translations {
 		'unknown_error': 'Une erreur inconnue s\'est produite',
 		'domain_required': 'Le domaine est requis',
 		'error_email_already_in_waiting_list': 'Cette adresse e-mail est déjà dans la liste d\'attente',
+		'capacity_exceeded': 'Nous sommes complets ! Veuillez réessayer plus tard.',
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
@@ -1071,6 +1072,7 @@ extension on TranslationsFr {
 			case 'errors.unknown_error': return 'Une erreur inconnue s\'est produite';
 			case 'errors.domain_required': return 'Le domaine est requis';
 			case 'errors.error_email_already_in_waiting_list': return 'Cette adresse e-mail est déjà dans la liste d\'attente';
+			case 'errors.capacity_exceeded': return 'Nous sommes complets ! Veuillez réessayer plus tard.';
 			case 'name_generator.animals.0': return 'hibou';
 			case 'name_generator.animals.1': return 'renard';
 			case 'name_generator.animals.2': return 'lapin';

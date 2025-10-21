@@ -201,7 +201,8 @@
     "connection_error": "Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.",
     "unknown_error": "Une erreur inconnue s'est produite",
     "domain_required": "Le domaine est requis",
-    "error_email_already_in_waiting_list": "Cette adresse e-mail est déjà dans la liste d'attente"
+    "error_email_already_in_waiting_list": "Cette adresse e-mail est déjà dans la liste d'attente",
+    "capacity_exceeded": "Nous sommes complets ! Veuillez réessayer plus tard."
   },
   "name_generator": {
     "animals": [

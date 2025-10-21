@@ -59,6 +59,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'unknown_error': 'Unknown error',
 		'domain_required': 'Domain is required',
 		'error_email_already_in_waiting_list': 'This email is already in the waiting list',
+		'capacity_exceeded': 'We\'re at capacity! Please try again later.',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
@@ -1533,6 +1534,7 @@ extension on Translations {
 			case 'errors.unknown_error': return 'Unknown error';
 			case 'errors.domain_required': return 'Domain is required';
 			case 'errors.error_email_already_in_waiting_list': return 'This email is already in the waiting list';
+			case 'errors.capacity_exceeded': return 'We\'re at capacity! Please try again later.';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';
 			case 'name_generator.animals.2': return 'fox';

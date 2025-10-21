@@ -201,7 +201,8 @@
     "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
     "unknown_error": "Unknown error",
     "domain_required": "Domain is required",
-    "error_email_already_in_waiting_list": "This email is already in the waiting list"
+    "error_email_already_in_waiting_list": "This email is already in the waiting list",
+    "capacity_exceeded": "We're at capacity! Please try again later."
   },
   "name_generator": {
     "animals": [

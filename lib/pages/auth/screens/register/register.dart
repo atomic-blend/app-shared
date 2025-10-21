@@ -95,6 +95,7 @@ class _RegisterEmailState extends State<RegisterEmail>
       backgroundColor: getTheme(context).surface,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
+          print("authState: $authState");
           if (authState is AuthError) {
             _errorMessage = authState.message;
           }
@@ -186,6 +187,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                       _index = "backup_email";
                       _firstName = firstName;
                       _lastName = lastName;
+                      _errorMessage = null; // Clear any previous errors
                     });
                   },
                 ),
@@ -194,6 +196,7 @@ class _RegisterEmailState extends State<RegisterEmail>
               return _buildMainLayout(
                 BackupEmailStep(
                   isLoading: authState is Loading,
+                  errorMessage: _errorMessage,
                   onSuccess: (String backupEmail) {
                     context.read<AuthBloc>().add(
                       RegisterEvent(

@@ -107,19 +107,43 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   void _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
     final prevState = state;
     emit(Loading(prevState.user, prevState.appConfig));
-    final updatedUser = await _userService.register(
-      event.email,
-      event.password,
-      event.firstName,
-      event.lastName,
-      event.backupEmail,
-      event.code,
-    );
-    if (updatedUser == null) {
-      emit(LoggedOut(prevState.user, prevState.appConfig));
-      return;
+    try {
+      final updatedUser = await _userService.register(
+        event.email,
+        event.password,
+        event.firstName,
+        event.lastName,
+        event.backupEmail,
+        event.code,
+      );
+      if (updatedUser == null) {
+        emit(LoggedOut(prevState.user, prevState.appConfig));
+        return;
+      }
+      emit(LoggedIn(updatedUser, true, prevState.appConfig));
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      String errorMessage = "registration_failed";
+      if (e.response?.statusCode == 400) {
+        errorMessage = e.response?.data['message'] ?? "email_malformed";
+      } else if (e.response?.statusCode == 409) {
+        errorMessage = "email_already_exists";
+      } else if (e.type == DioExceptionType.connectionError) {
+        errorMessage = "connection_error";
+      } else if (e.response?.statusCode == 403) {
+        errorMessage = e.response?.data['message'] ?? "capacity_exceeded";
+      }
+      emit(AuthError(errorMessage, prevState.user, prevState.appConfig));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      emit(
+        AuthError("registration_failed", prevState.user, prevState.appConfig),
+      );
     }
-    emit(LoggedIn(updatedUser, true, prevState.appConfig));
   }
 
   @override
