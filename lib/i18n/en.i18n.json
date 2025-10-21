@@ -60,7 +60,8 @@
       "domain": "Domain",
       "desktop_only_step": "Giddy up Cowboy!",
       "desktop_only_step_description": "Setting up your Atomic Blend account is only available on desktop.",
-      "go_on_desktop": "Go on desktop"
+      "go_on_desktop": "Go on desktop",
+      "web_register_slow": "It may take a few minutes to complete the registration. App might look frozen, but it's working in the background.\nClick once the register button and please wait until the app redirects you to the next step."
     },
     "delete_account": {
       "title": "Delete your account",
@@ -200,7 +201,9 @@
     "email_malformed": "Email malformed",
     "connection_error": "Could not connect to the server. Please check your internet connection and try again.",
     "unknown_error": "Unknown error",
-    "domain_required": "Domain is required"
+    "domain_required": "Domain is required",
+    "error_email_already_in_waiting_list": "This email is already in the waiting list",
+    "capacity_exceeded": "We're at capacity! Please try again later."
   },
   "name_generator": {
     "animals": [
@@ -520,5 +523,17 @@
   },
   "sync_status": {
     "synced": "synced"
+  },
+  "waiting_list": {
+    "title": "We're at capacity!",
+    "description": "Join the waiting list to get notified when a spot opens up.",
+    "email_required": "Email is required",
+    "invalid_email": "Email is invalid",
+    "join_waiting_list": "Join the waiting list",
+    "i_have_a_code": "I have a code",
+    "email": "Email",
+    "email_hint": "brandon@atomic-blend.com",
+    "back_to_home": "Back to home",
+    "proceed_to_registration": "Proceed to registration"
   }
 }

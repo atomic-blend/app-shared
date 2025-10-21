@@ -5,7 +5,7 @@ part 'ab_config.g.dart';
 
 @freezed
 class ABConfig with _$ABConfig {
-  factory ABConfig({required List<String> domains}) = _ABConfig;
+  factory ABConfig({required List<String> domains, int? remainingSpots}) = _ABConfig;
 
   factory ABConfig.fromJson(Map<String, dynamic> json) =>
       _$ABConfigFromJson(json);

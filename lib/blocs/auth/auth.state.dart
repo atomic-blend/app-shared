@@ -1,7 +1,7 @@
 part of 'auth.bloc.dart';
 
 sealed class AuthState extends Equatable {
-  const AuthState(this.user, this.appConfig );
+  const AuthState(this.user, this.appConfig);
   final UserEntity? user;
   final ABConfig? appConfig;
 
@@ -139,19 +139,85 @@ class GetBackupKeyForResetPasswordSuccess extends AuthState {
   final String? backupKey;
   final String? backupSalt;
 
-  const GetBackupKeyForResetPasswordSuccess(
-    this.backupKey,
-    this.backupSalt,
-  ) : super(null, null);
+  const GetBackupKeyForResetPasswordSuccess(this.backupKey, this.backupSalt)
+    : super(null, null);
 
   @override
-  String toString() => 'GetBackupKeyForResetPasswordSuccess { $backupKey, $backupSalt }';
+  String toString() =>
+      'GetBackupKeyForResetPasswordSuccess { $backupKey, $backupSalt }';
 }
 
 final class GetBackupKeyForResetPasswordError extends AuthState {
   final String message;
-    const GetBackupKeyForResetPasswordError(this.message, super.user, super.appConfig);
+  const GetBackupKeyForResetPasswordError(
+    this.message,
+    super.user,
+    super.appConfig,
+  );
 
   @override
   String toString() => 'GetBackupKeyForResetPasswordError { $message }';
+}
+
+final class JoinWaitingListLoading extends AuthState {
+  const JoinWaitingListLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'JoinWaitingListLoading { }';
+}
+
+final class JoinWaitingListSuccess extends AuthState {
+  final int? position;
+  final int? total;
+  final String? code;
+  const JoinWaitingListSuccess(
+    this.position,
+    this.total,
+    this.code,
+    super.user,
+    super.appConfig,
+  );
+
+  @override
+  String toString() => 'JoinWaitingListSuccess { $position, $total }';
+}
+
+final class JoinWaitingListError extends AuthState {
+  final String message;
+  const JoinWaitingListError(this.message, super.user, super.appConfig);
+
+  @override
+  String toString() => 'JoinWaitingListError { $message }';
+}
+
+final class GetWaitingListPositionLoading extends AuthState {
+  const GetWaitingListPositionLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'GetWaitingListPositionLoading { }';
+}
+
+final class GetWaitingListPositionSuccess extends AuthState {
+  final int? position;
+  final int? total;
+  final String? code;
+  const GetWaitingListPositionSuccess(
+    this.position,
+    this.total,
+    this.code,
+    super.user,
+    super.appConfig,
+  );
+
+  @override
+  String toString() =>
+      'GetWaitingListPositionSuccess { $position, $total, $code }';
+}
+
+final class GetWaitingListPositionError extends AuthState {
+  final String message;
+  const GetWaitingListPositionError(this.message, super.user, super.appConfig);
+
+  @override
+  String toString() => 'GetWaitingListPositionError { $message }';
 }

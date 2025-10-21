@@ -76,156 +76,89 @@ class _LoginScreenState extends State<LoginScreen>
             getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
           }
         },
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: getSize(context).height * 0.1),
-              Center(
-                child: ElevatedContainer(
-                  constraints: BoxConstraints(
-                    minWidth: isDesktop(context) ? 500 : 200,
-                  ),
-                  color: getTheme(context).surface,
-                  width:
-                      isDesktop(context)
-                          ? getSize(context).width * 0.2
-                          : getSize(context).width * 0.9,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: $constants.insets.md,
-                      vertical: $constants.insets.lg,
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Animate(
-                                controller: _animationController,
-                                effects: [
-                                  FadeEffect(
-                                    duration: _animationDuration,
-                                    delay: const Duration(milliseconds: 0),
-                                  ),
-                                ],
-                                onPlay: (controller) => controller.forward(),
-                                child: ElevatedContainer(
-                                  width: 120,
-                                  height: 120,
-                                  blurRadius: 32,
-                                  borderRadius: $constants.corners.xl,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                      $constants.corners.xl,
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/appicon.png",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: $constants.insets.md),
-                              Animate(
-                                controller: _animationController,
-                                effects: [
-                                  FadeEffect(
-                                    duration: _animationDuration,
-                                    delay: const Duration(milliseconds: 0),
-                                  ),
-                                ],
-                                onPlay: (controller) => controller.forward(),
-                                child: AutoSizeText(
-                                  maxLines: 1,
-                                  context.t.app_name,
-                                  textAlign: TextAlign.center,
-                                  style: getTextTheme(context).displaySmall!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(height: $constants.insets.md),
-                              Animate(
-                                controller: _animationController,
-                                effects: [
-                                  FadeEffect(
-                                    duration: _animationDuration,
-                                    delay: const Duration(milliseconds: 300),
-                                  ),
-                                ],
-                                onPlay: (controller) => controller.forward(),
-                                child: Text(
-                                  context
-                                      .t
-                                      .auth
-                                      .not_logged_in
-                                      .log_in_to_your_account,
-                                  textAlign: TextAlign.center,
-                                  style: getTextTheme(context).bodyMedium,
-                                ),
-                              ),
-                            ],
-                          ),
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, authState) {
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: getSize(context).height * 0.1),
+                  Center(
+                    child: ElevatedContainer(
+                      constraints: BoxConstraints(
+                        minWidth: isDesktop(context) ? 500 : 200,
+                      ),
+                      color: getTheme(context).surface,
+                      width:
+                          isDesktop(context)
+                              ? getSize(context).width * 0.2
+                              : getSize(context).width * 0.9,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: $constants.insets.md,
+                          vertical: $constants.insets.lg,
                         ),
-                        SizedBox(height: $constants.insets.sm),
-                        SizedBox(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(height: $constants.insets.md),
-                              SizedBox(
-                                width: getSize(context).width * 0.9,
-                                child: Animate(
-                                  controller: _animationController,
-                                  effects: [
-                                    FadeEffect(
-                                      duration: _animationDuration,
-                                      delay: const Duration(milliseconds: 300),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Animate(
+                                    controller: _animationController,
+                                    effects: [
+                                      FadeEffect(
+                                        duration: _animationDuration,
+                                        delay: const Duration(milliseconds: 0),
+                                      ),
+                                    ],
+                                    onPlay:
+                                        (controller) => controller.forward(),
+                                    child: ElevatedContainer(
+                                      width: 120,
+                                      height: 120,
+                                      blurRadius: 32,
+                                      borderRadius: $constants.corners.xl,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          $constants.corners.xl,
+                                        ),
+                                        child: Image.asset(
+                                          "assets/images/appicon.png",
+                                        ),
+                                      ),
                                     ),
-                                  ],
-                                  onPlay: (controller) => controller.forward(),
-                                  child: AppTextFormField(
-                                    controller: _emailController,
-                                    hintText: context.t.auth.login.email,
-                                    keyboardType: TextInputType.emailAddress,
                                   ),
-                                ),
-                              ),
-                              SizedBox(height: $constants.insets.xs),
-                              SizedBox(
-                                width: getSize(context).width * 0.9,
-                                child: Animate(
-                                  controller: _animationController,
-                                  effects: [
-                                    FadeEffect(
-                                      duration: _animationDuration,
-                                      delay: const Duration(milliseconds: 300),
+                                  SizedBox(height: $constants.insets.md),
+                                  Animate(
+                                    controller: _animationController,
+                                    effects: [
+                                      FadeEffect(
+                                        duration: _animationDuration,
+                                        delay: const Duration(milliseconds: 0),
+                                      ),
+                                    ],
+                                    onPlay:
+                                        (controller) => controller.forward(),
+                                    child: AutoSizeText(
+                                      maxLines: 1,
+                                      context.t.app_name,
+                                      textAlign: TextAlign.center,
+                                      style: getTextTheme(
+                                        context,
+                                      ).displaySmall!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ],
-                                  onPlay: (controller) => controller.forward(),
-                                  child: AppTextFormField(
-                                    controller: _passwordController,
-                                    hintText:
-                                        context.t.auth.register.password_hint,
-                                    obscureText: true,
                                   ),
-                                ),
-                              ),
-                              if (errorMessage != null &&
-                                  context.t.errors[errorMessage] != null) ...[
-                                SizedBox(height: $constants.insets.xs),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: $constants.insets.lg,
-                                  ),
-                                  child: Animate(
+                                  SizedBox(height: $constants.insets.md),
+                                  Animate(
                                     controller: _animationController,
                                     effects: [
                                       FadeEffect(
@@ -237,122 +170,239 @@ class _LoginScreenState extends State<LoginScreen>
                                     ],
                                     onPlay:
                                         (controller) => controller.forward(),
-                                    child: SizedBox(
-                                      width: getSize(context).width * 0.9,
-                                      child: Text(
-                                        context.t.errors[errorMessage]!,
-                                        style: getTextTheme(context).labelSmall!
-                                            .copyWith(color: Colors.red),
-                                      ),
+                                    child: Text(
+                                      context
+                                          .t
+                                          .auth
+                                          .not_logged_in
+                                          .log_in_to_your_account,
+                                      textAlign: TextAlign.center,
+                                      style: getTextTheme(context).bodyMedium,
                                     ),
-                                  ),
-                                ),
-                                SizedBox(height: $constants.insets.sm),
-                              ],
-                              if (errorMessage == null)
-                                SizedBox(height: $constants.insets.xl),
-                              Animate(
-                                controller: _animationController,
-                                effects: [
-                                  FadeEffect(
-                                    duration: _animationDuration,
-                                    delay: const Duration(milliseconds: 300),
                                   ),
                                 ],
-                                onPlay: (controller) => controller.forward(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    PrimaryButtonSquare(
-                                      text: context.t.auth.login.login,
-                                      backgroundColor:
-                                          getTheme(context).primary,
-                                      onPressed: () async {
-                                        if (_emailController.text.isNotEmpty &&
-                                            _passwordController
-                                                .text
-                                                .isNotEmpty) {
-                                          if (!context.mounted) return;
-                                          context.read<AuthBloc>().add(
-                                            LoginEvent(
-                                              email: _emailController.text,
-                                              password:
-                                                  _passwordController.text,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        context.go("/auth/reset-password");
-                                      },
-                                      child: Text(
-                                        context.t.auth.reset_password.title,
-                                        style: getTextTheme(context).bodyMedium!
-                                            .copyWith(color: Colors.grey),
+                              ),
+                            ),
+                            SizedBox(height: $constants.insets.sm),
+                            SizedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(height: $constants.insets.md),
+                                  SizedBox(
+                                    width: getSize(context).width * 0.9,
+                                    child: Animate(
+                                      controller: _animationController,
+                                      effects: [
+                                        FadeEffect(
+                                          duration: _animationDuration,
+                                          delay: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                        ),
+                                      ],
+                                      onPlay:
+                                          (controller) => controller.forward(),
+                                      child: AppTextFormField(
+                                        controller: _emailController,
+                                        hintText: context.t.auth.login.email,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
                                       ),
                                     ),
+                                  ),
+                                  SizedBox(height: $constants.insets.xs),
+                                  SizedBox(
+                                    width: getSize(context).width * 0.9,
+                                    child: Animate(
+                                      controller: _animationController,
+                                      effects: [
+                                        FadeEffect(
+                                          duration: _animationDuration,
+                                          delay: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                        ),
+                                      ],
+                                      onPlay:
+                                          (controller) => controller.forward(),
+                                      child: AppTextFormField(
+                                        controller: _passwordController,
+                                        hintText:
+                                            context
+                                                .t
+                                                .auth
+                                                .register
+                                                .password_hint,
+                                        obscureText: true,
+                                      ),
+                                    ),
+                                  ),
+                                  if (errorMessage != null &&
+                                      context.t.errors[errorMessage] !=
+                                          null) ...[
+                                    SizedBox(height: $constants.insets.xs),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: $constants.insets.lg,
+                                      ),
+                                      child: Animate(
+                                        controller: _animationController,
+                                        effects: [
+                                          FadeEffect(
+                                            duration: _animationDuration,
+                                            delay: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          ),
+                                        ],
+                                        onPlay:
+                                            (controller) =>
+                                                controller.forward(),
+                                        child: SizedBox(
+                                          width: getSize(context).width * 0.9,
+                                          child: Text(
+                                            context.t.errors[errorMessage]!,
+                                            style: getTextTheme(context)
+                                                .labelSmall!
+                                                .copyWith(color: Colors.red),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: $constants.insets.sm),
                                   ],
+                                  if (errorMessage == null)
+                                    SizedBox(height: $constants.insets.xl),
+                                  Animate(
+                                    controller: _animationController,
+                                    effects: [
+                                      FadeEffect(
+                                        duration: _animationDuration,
+                                        delay: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                      ),
+                                    ],
+                                    onPlay:
+                                        (controller) => controller.forward(),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        PrimaryButtonSquare(
+                                          leading:
+                                              authState is Loading
+                                                  ? const SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                          color: Colors.white,
+                                                          strokeWidth: 2,
+                                                        ),
+                                                  )
+                                                  : null,
+                                          text: context.t.auth.login.login,
+                                          backgroundColor:
+                                              getTheme(context).primary,
+                                          onPressed: () async {
+                                            if (_emailController
+                                                    .text
+                                                    .isNotEmpty &&
+                                                _passwordController
+                                                    .text
+                                                    .isNotEmpty) {
+                                              if (!context.mounted) return;
+                                              context.read<AuthBloc>().add(
+                                                LoginEvent(
+                                                  email: _emailController.text,
+                                                  password:
+                                                      _passwordController.text,
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            context.go("/auth/reset-password");
+                                          },
+                                          child: Text(
+                                            context.t.auth.reset_password.title,
+                                            style: getTextTheme(context)
+                                                .bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Animate(
+                              controller: _animationController,
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 300),
+                                ),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Divider(
+                                      height: $constants.insets.sm,
+                                    ),
+                                  ),
+                                  SizedBox(width: $constants.insets.sm),
+                                  Text("or"),
+                                  SizedBox(width: $constants.insets.sm),
+                                  Expanded(
+                                    child: Divider(
+                                      height: $constants.insets.sm,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: $constants.insets.md),
+                            Animate(
+                              controller: _animationController,
+                              effects: [
+                                FadeEffect(
+                                  duration: _animationDuration,
+                                  delay: const Duration(milliseconds: 300),
+                                ),
+                              ],
+                              onPlay: (controller) => controller.forward(),
+                              child: Center(
+                                child: PrimaryButtonSquare(
+                                  text:
+                                      context.t.auth.login_or_register.register,
+                                  backgroundColor: getTheme(context).primary,
+                                  outlined: true,
+                                  onPressed: () {
+                                    context.go("/auth/register");
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        Animate(
-                          controller: _animationController,
-                          effects: [
-                            FadeEffect(
-                              duration: _animationDuration,
-                              delay: const Duration(milliseconds: 300),
                             ),
                           ],
-                          onPlay: (controller) => controller.forward(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Divider(height: $constants.insets.sm),
-                              ),
-                              SizedBox(width: $constants.insets.sm),
-                              Text("or"),
-                              SizedBox(width: $constants.insets.sm),
-                              Expanded(
-                                child: Divider(height: $constants.insets.sm),
-                              ),
-                            ],
-                          ),
                         ),
-                        SizedBox(height: $constants.insets.md),
-                        Animate(
-                          controller: _animationController,
-                          effects: [
-                            FadeEffect(
-                              duration: _animationDuration,
-                              delay: const Duration(milliseconds: 300),
-                            ),
-                          ],
-                          onPlay: (controller) => controller.forward(),
-                          child: Center(
-                            child: PrimaryButtonSquare(
-                              text: context.t.auth.login_or_register.register,
-                              backgroundColor: getTheme(context).primary,
-                              outlined: true,
-                              onPressed: () {
-                                context.go("/auth/register");
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

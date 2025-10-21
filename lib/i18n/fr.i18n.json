@@ -60,7 +60,8 @@
       "domain": "Domain",
       "desktop_only_step": "En selle, Cowboy !",
       "desktop_only_step_description": "La création de votre compte Atomic Blend n'est disponible que sur le navigateur web.",
-      "go_on_desktop": "Aller sur le navigateur web"
+      "go_on_desktop": "Aller sur le navigateur web",
+      "web_register_slow": "Il peut prendre quelques minutes pour compléter l'inscription. L'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d'inscription et attendez que l'application vous redirige vers l'étape suivante."
     },
     "delete_account": {
       "title": "Supprimer mon compte",
@@ -200,7 +201,9 @@
     "email_malformed": "Adresse e-mail invalide",
     "connection_error": "Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.",
     "unknown_error": "Une erreur inconnue s'est produite",
-    "domain_required": "Le domaine est requis"
+    "domain_required": "Le domaine est requis",
+    "error_email_already_in_waiting_list": "Cette adresse e-mail est déjà dans la liste d'attente",
+    "capacity_exceeded": "Nous sommes complets ! Veuillez réessayer plus tard."
   },
   "name_generator": {
     "animals": [
@@ -517,5 +520,17 @@
   },
   "sync_status": {
     "synced": "synchronisé"
+  },
+  "waiting_list": {
+    "title": "Nous sommes complet !",
+    "description": "Rejoignez la liste d'attente pour être notifié lorsqu'un poste s'ouvre.",
+    "email_required": "L'adresse e-mail est requise",
+    "invalid_email": "L'adresse e-mail est invalide",
+    "join_waiting_list": "Rejoindre la liste d'attente",
+    "i_have_a_code": "J'ai un code",
+    "email": "Email",
+    "email_hint": "brandon@atomic-blend.com",
+    "back_to_home": "Retour à l'accueil",
+    "proceed_to_registration": "Passer à l'inscription"
   }
 }

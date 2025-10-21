@@ -58,6 +58,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'connection_error': 'Could not connect to the server. Please check your internet connection and try again.',
 		'unknown_error': 'Unknown error',
 		'domain_required': 'Domain is required',
+		'error_email_already_in_waiting_list': 'This email is already in the waiting list',
+		'capacity_exceeded': 'We\'re at capacity! Please try again later.',
 	};
 	late final TranslationsNameGeneratorEn name_generator = TranslationsNameGeneratorEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
@@ -65,6 +67,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDatesEn dates = TranslationsDatesEn._(_root);
 	late final TranslationsTimeUnitsEn time_units = TranslationsTimeUnitsEn._(_root);
 	late final TranslationsSyncStatusEn sync_status = TranslationsSyncStatusEn._(_root);
+	late final TranslationsWaitingListEn waiting_list = TranslationsWaitingListEn._(_root);
 }
 
 // Path: auth
@@ -503,6 +506,45 @@ class TranslationsSyncStatusEn {
 	String get synced => 'synced';
 }
 
+// Path: waiting_list
+class TranslationsWaitingListEn {
+	TranslationsWaitingListEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'We're at capacity!'
+	String get title => 'We\'re at capacity!';
+
+	/// en: 'Join the waiting list to get notified when a spot opens up.'
+	String get description => 'Join the waiting list to get notified when a spot opens up.';
+
+	/// en: 'Email is required'
+	String get email_required => 'Email is required';
+
+	/// en: 'Email is invalid'
+	String get invalid_email => 'Email is invalid';
+
+	/// en: 'Join the waiting list'
+	String get join_waiting_list => 'Join the waiting list';
+
+	/// en: 'I have a code'
+	String get i_have_a_code => 'I have a code';
+
+	/// en: 'Email'
+	String get email => 'Email';
+
+	/// en: 'brandon@atomic-blend.com'
+	String get email_hint => 'brandon@atomic-blend.com';
+
+	/// en: 'Back to home'
+	String get back_to_home => 'Back to home';
+
+	/// en: 'Proceed to registration'
+	String get proceed_to_registration => 'Proceed to registration';
+}
+
 // Path: auth.not_logged_in
 class TranslationsAuthNotLoggedInEn {
 	TranslationsAuthNotLoggedInEn._(this._root);
@@ -693,6 +735,9 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'Go on desktop'
 	String get go_on_desktop => 'Go on desktop';
+
+	/// en: 'It may take a few minutes to complete the registration. App might look frozen, but it's working in the background. Click once the register button and please wait until the app redirects you to the next step.'
+	String get web_register_slow => 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
 }
 
 // Path: auth.delete_account
@@ -1386,6 +1431,7 @@ extension on Translations {
 			case 'auth.register.desktop_only_step': return 'Giddy up Cowboy!';
 			case 'auth.register.desktop_only_step_description': return 'Setting up your Atomic Blend account is only available on desktop.';
 			case 'auth.register.go_on_desktop': return 'Go on desktop';
+			case 'auth.register.web_register_slow': return 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';
@@ -1491,6 +1537,8 @@ extension on Translations {
 			case 'errors.connection_error': return 'Could not connect to the server. Please check your internet connection and try again.';
 			case 'errors.unknown_error': return 'Unknown error';
 			case 'errors.domain_required': return 'Domain is required';
+			case 'errors.error_email_already_in_waiting_list': return 'This email is already in the waiting list';
+			case 'errors.capacity_exceeded': return 'We\'re at capacity! Please try again later.';
 			case 'name_generator.animals.0': return 'bat';
 			case 'name_generator.animals.1': return 'owl';
 			case 'name_generator.animals.2': return 'fox';
@@ -1764,6 +1812,16 @@ extension on Translations {
 				other: 'minutes',
 			);
 			case 'sync_status.synced': return 'synced';
+			case 'waiting_list.title': return 'We\'re at capacity!';
+			case 'waiting_list.description': return 'Join the waiting list to get notified when a spot opens up.';
+			case 'waiting_list.email_required': return 'Email is required';
+			case 'waiting_list.invalid_email': return 'Email is invalid';
+			case 'waiting_list.join_waiting_list': return 'Join the waiting list';
+			case 'waiting_list.i_have_a_code': return 'I have a code';
+			case 'waiting_list.email': return 'Email';
+			case 'waiting_list.email_hint': return 'brandon@atomic-blend.com';
+			case 'waiting_list.back_to_home': return 'Back to home';
+			case 'waiting_list.proceed_to_registration': return 'Proceed to registration';
 			default: return null;
 		}
 	}

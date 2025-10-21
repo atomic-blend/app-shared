@@ -9,6 +9,9 @@ import 'package:ab_shared/pages/auth/screens/register/backup_email_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/desktop_only_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/personal_infos_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_code_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_position_step.dart';
+import 'package:ab_shared/pages/auth/screens/register/waiting_list_start_step.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,17 +32,30 @@ class RegisterParams {
 @TypedGoRoute<RegisterRoute>(path: "/auth/register", name: "register")
 class RegisterRoute extends GoRouteData with _$RegisterRoute {
   final RegisterParams? $extra;
-  RegisterRoute(this.$extra);
+  final String? email;
+  final String? securityKey;
+  RegisterRoute(this.email, this.securityKey, this.$extra);
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return RegisterEmail(homeRouteLocation: $extra?.homeRouteLocation);
+    return RegisterEmail(
+      homeRouteLocation: $extra?.homeRouteLocation,
+      email: email,
+      securityKey: securityKey,
+    );
   }
 }
 
 class RegisterEmail extends StatefulWidget {
-  const RegisterEmail({super.key, this.homeRouteLocation});
+  const RegisterEmail({
+    super.key,
+    this.homeRouteLocation,
+    this.email,
+    this.securityKey,
+  });
   final String? homeRouteLocation;
+  final String? email;
+  final String? securityKey;
 
   @override
   State<RegisterEmail> createState() => _RegisterEmailState();
@@ -48,6 +64,9 @@ class RegisterEmail extends StatefulWidget {
 class _RegisterEmailState extends State<RegisterEmail>
     with SingleTickerProviderStateMixin {
   final getIt = GetIt.instance;
+  bool? _iHaveACode = false;
+  String? _code;
+  String? _securityKey;
   String? _email;
   String? _password;
   String? _firstName;
@@ -95,7 +114,45 @@ class _RegisterEmailState extends State<RegisterEmail>
           }
 
           if (!isPaymentSupported()) {
-            return _buildMainLayout(DesktopOnlyStep());
+            _index = "desktop_only";
+          }
+
+          final bool noSpotsAvailable =
+              (authState.appConfig?.remainingSpots ?? 0) <= 0;
+
+          // Only apply routing logic if we're at the initial/waiting list steps
+          // Don't override if user is already progressing through registration
+          if (_index == "register_email" ||
+              _index == "waiting_list_start" ||
+              _index == null) {
+            // If user has a valid code, allow them to proceed to registration
+            if (_iHaveACode == true && _code != null) {
+              _index = "register_email";
+            }
+            // Only show waiting list if there are no spots AND user doesn't have a valid code
+            else if (noSpotsAvailable &&
+                authState is! JoinWaitingListSuccess &&
+                (_iHaveACode != true || _code == null)) {
+              _index = "waiting_list_start";
+            }
+            // If spots are available and user doesn't have a code, proceed to registration
+            else if (!noSpotsAvailable) {
+              _index = "register_email";
+            }
+          }
+
+          // Handle waiting list position step separately
+          // Only show waiting list position if user doesn't have a valid code yet
+          if (authState is JoinWaitingListSuccess &&
+              (_code == null || _iHaveACode != true)) {
+            _index = "waiting_list_position";
+          }
+
+          if (widget.securityKey != null &&
+              _code == null &&
+              _iHaveACode != true) {
+            _securityKey = widget.securityKey;
+            _index = "waiting_list_position";
           }
 
           switch (_index) {
@@ -124,6 +181,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                       _index = "backup_email";
                       _firstName = firstName;
                       _lastName = lastName;
+                      _errorMessage = null; // Clear any previous errors
                     });
                   },
                 ),
@@ -131,7 +189,7 @@ class _RegisterEmailState extends State<RegisterEmail>
             case "backup_email":
               return _buildMainLayout(
                 BackupEmailStep(
-                  isLoading: authState is Loading,
+                  errorMessage: _errorMessage,
                   onSuccess: (String backupEmail) {
                     context.read<AuthBloc>().add(
                       RegisterEvent(
@@ -140,12 +198,46 @@ class _RegisterEmailState extends State<RegisterEmail>
                         firstName: _firstName!,
                         lastName: _lastName!,
                         backupEmail: backupEmail,
+                        code: _code,
                       ),
                     );
                   },
                   nextButtonText: context.t.auth.login_or_register.register,
                 ),
               );
+            case "desktop_only":
+              return _buildMainLayout(DesktopOnlyStep());
+            case "waiting_list_start":
+              return _buildMainLayout(
+                WaitingListStartStep(
+                  onHasCode: (bool hasCode) {
+                    setState(() {
+                      _iHaveACode = hasCode;
+                    });
+                  },
+                  onSuccess: () {
+                    setState(() {
+                      _index = "waiting_list_position";
+                    });
+                  },
+                ),
+              );
+            case "waiting_list_position":
+              return _buildMainLayout(
+                WaitingListPositionStep(
+                  email: _email ?? widget.email,
+                  securityKey: _securityKey ?? widget.securityKey,
+                  onProceedToRegistration: (String code) {
+                    setState(() {
+                      _index = "register_email";
+                      _code = code;
+                      _iHaveACode = true;
+                    });
+                  },
+                ),
+              );
+            case "waiting_list_code":
+              return _buildMainLayout(WaitingListCodeStep());
             default:
               return const SizedBox.shrink();
           }
@@ -305,6 +397,21 @@ class _RegisterEmailState extends State<RegisterEmail>
         setState(() {
           _index = "personal_infos";
         });
+        break;
+      case "desktop_only":
+        context.go("/auth/login");
+        break;
+      case "waiting_list_start":
+        context.go("/auth/login");
+        break;
+      case "waiting_list_code":
+        context.go("/auth/login");
+        break;
+      case "waiting_list_position":
+        context.go("/auth/login");
+        break;
+      default:
+        context.go("/auth/login");
         break;
     }
   }

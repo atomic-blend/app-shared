@@ -16,7 +16,15 @@ final class RegisterEvent extends AuthEvent {
   final String firstName;
   final String lastName;
   final String backupEmail;
-  const RegisterEvent({required this.email, required this.password, required this.firstName, required this.lastName, required this.backupEmail});
+  final String? code;
+  const RegisterEvent({
+    required this.email,
+    required this.password,
+    required this.firstName,
+    required this.lastName,
+    required this.backupEmail,
+    this.code,
+  });
 }
 
 final class Logout extends AuthEvent {
@@ -93,4 +101,16 @@ final class LoadConfig extends AuthEvent {
 
 final class MnemonicDisplayed extends AuthEvent {
   const MnemonicDisplayed();
+}
+
+final class JoinWaitingList extends AuthEvent {
+  final String email;
+
+  const JoinWaitingList(this.email);
+}
+
+final class GetWaitingListPosition extends AuthEvent {
+  final String email;
+  final String securityKey;
+  const GetWaitingListPosition(this.email, this.securityKey);
 }

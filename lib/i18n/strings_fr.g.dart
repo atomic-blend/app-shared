@@ -50,6 +50,8 @@ class TranslationsFr implements Translations {
 		'connection_error': 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.',
 		'unknown_error': 'Une erreur inconnue s\'est produite',
 		'domain_required': 'Le domaine est requis',
+		'error_email_already_in_waiting_list': 'Cette adresse e-mail est déjà dans la liste d\'attente',
+		'capacity_exceeded': 'Nous sommes complets ! Veuillez réessayer plus tard.',
 	};
 	@override late final _TranslationsNameGeneratorFr name_generator = _TranslationsNameGeneratorFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
@@ -57,6 +59,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
 	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
 	@override late final _TranslationsSyncStatusFr sync_status = _TranslationsSyncStatusFr._(_root);
+	@override late final _TranslationsWaitingListFr waiting_list = _TranslationsWaitingListFr._(_root);
 }
 
 // Path: auth
@@ -423,6 +426,25 @@ class _TranslationsSyncStatusFr implements TranslationsSyncStatusEn {
 	@override String get synced => 'synchronisé';
 }
 
+// Path: waiting_list
+class _TranslationsWaitingListFr implements TranslationsWaitingListEn {
+	_TranslationsWaitingListFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nous sommes complet !';
+	@override String get description => 'Rejoignez la liste d\'attente pour être notifié lorsqu\'un poste s\'ouvre.';
+	@override String get email_required => 'L\'adresse e-mail est requise';
+	@override String get invalid_email => 'L\'adresse e-mail est invalide';
+	@override String get join_waiting_list => 'Rejoindre la liste d\'attente';
+	@override String get i_have_a_code => 'J\'ai un code';
+	@override String get email => 'Email';
+	@override String get email_hint => 'brandon@atomic-blend.com';
+	@override String get back_to_home => 'Retour à l\'accueil';
+	@override String get proceed_to_registration => 'Passer à l\'inscription';
+}
+
 // Path: auth.not_logged_in
 class _TranslationsAuthNotLoggedInFr implements TranslationsAuthNotLoggedInEn {
 	_TranslationsAuthNotLoggedInFr._(this._root);
@@ -509,6 +531,7 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get desktop_only_step => 'En selle, Cowboy !';
 	@override String get desktop_only_step_description => 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 	@override String get go_on_desktop => 'Aller sur le navigateur web';
+	@override String get web_register_slow => 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
 }
 
 // Path: auth.delete_account
@@ -944,6 +967,7 @@ extension on TranslationsFr {
 			case 'auth.register.desktop_only_step': return 'En selle, Cowboy !';
 			case 'auth.register.desktop_only_step_description': return 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 			case 'auth.register.go_on_desktop': return 'Aller sur le navigateur web';
+			case 'auth.register.web_register_slow': return 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';
@@ -1049,6 +1073,8 @@ extension on TranslationsFr {
 			case 'errors.connection_error': return 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.';
 			case 'errors.unknown_error': return 'Une erreur inconnue s\'est produite';
 			case 'errors.domain_required': return 'Le domaine est requis';
+			case 'errors.error_email_already_in_waiting_list': return 'Cette adresse e-mail est déjà dans la liste d\'attente';
+			case 'errors.capacity_exceeded': return 'Nous sommes complets ! Veuillez réessayer plus tard.';
 			case 'name_generator.animals.0': return 'hibou';
 			case 'name_generator.animals.1': return 'renard';
 			case 'name_generator.animals.2': return 'lapin';
@@ -1319,6 +1345,16 @@ extension on TranslationsFr {
 				other: 'minutes',
 			);
 			case 'sync_status.synced': return 'synchronisé';
+			case 'waiting_list.title': return 'Nous sommes complet !';
+			case 'waiting_list.description': return 'Rejoignez la liste d\'attente pour être notifié lorsqu\'un poste s\'ouvre.';
+			case 'waiting_list.email_required': return 'L\'adresse e-mail est requise';
+			case 'waiting_list.invalid_email': return 'L\'adresse e-mail est invalide';
+			case 'waiting_list.join_waiting_list': return 'Rejoindre la liste d\'attente';
+			case 'waiting_list.i_have_a_code': return 'J\'ai un code';
+			case 'waiting_list.email': return 'Email';
+			case 'waiting_list.email_hint': return 'brandon@atomic-blend.com';
+			case 'waiting_list.back_to_home': return 'Retour à l\'accueil';
+			case 'waiting_list.proceed_to_registration': return 'Passer à l\'inscription';
 			default: return null;
 		}
 	}

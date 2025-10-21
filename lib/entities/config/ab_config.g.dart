@@ -10,7 +10,11 @@ _$ABConfigImpl _$$ABConfigImplFromJson(Map<String, dynamic> json) =>
     _$ABConfigImpl(
       domains:
           (json['domains'] as List<dynamic>).map((e) => e as String).toList(),
+      remainingSpots: (json['remainingSpots'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ABConfigImplToJson(_$ABConfigImpl instance) =>
-    <String, dynamic>{'domains': instance.domains};
+    <String, dynamic>{
+      'domains': instance.domains,
+      'remainingSpots': instance.remainingSpots,
+    };

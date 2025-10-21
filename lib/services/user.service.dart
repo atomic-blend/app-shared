@@ -148,6 +148,7 @@ class UserService {
     String firstName,
     String lastName,
     String backupEmail,
+    String? code,
   ) async {
     // derive and persist key from password
     EncryptionService encryptionService = EncryptionService(
@@ -166,6 +167,7 @@ class UserService {
         'firstName': firstName,
         'lastName': lastName,
         'backupEmail': backupEmail.isNotEmpty ? backupEmail : null,
+        'waitingListCode': code?.isNotEmpty ?? false ? code : null,
       },
     );
     if (result.statusCode == 201) {
@@ -308,6 +310,31 @@ class UserService {
     } else {
       throw Exception('reset_password_failed');
     }
+  }
+
+  Future<Map<String, dynamic>?> joinWaitingList(String email) async {
+    final result = await _getIt<ApiClient>().post(
+      '/auth/waiting-list',
+      data: {'email': email},
+    );
+    if (result.statusCode == 200 || result.statusCode == 201) {
+      return result.data as Map<String, dynamic>;
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> getWaitingListPosition(
+    String email,
+    String securityKey,
+  ) async {
+    final result = await _getIt<ApiClient>().post(
+      '/auth/waiting-list/position',
+      data: {'email': email, 'securityToken': securityKey},
+    );
+    if (result.statusCode == 200 || result.statusCode == 201) {
+      return result.data as Map<String, dynamic>;
+    }
+    return null;
   }
 
   //check if user have an active subscription in purchases
