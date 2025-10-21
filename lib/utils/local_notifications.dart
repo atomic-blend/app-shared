@@ -24,7 +24,12 @@ class LocalNotificationUtil {
 
     const WindowsNotificationDetails windowsDetails =
         WindowsNotificationDetails(
-          actions: [],
+          actions: [
+            WindowsAction(
+              content: 'Open',
+              arguments: 'com.atomicblend.task_notifications',
+            ),
+          ],
           inputs: [],
           images: [],
           rows: [],
