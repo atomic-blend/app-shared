@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.9.1 - 2025-10-21
+#### Bug Fixes
+- test gh solution - (9747adf) - Brandon Guigo
+- add non empty actions - (cc5a967) - Brandon Guigo
+- add params - (b031791) - Brandon Guigo
+- add windows param for notif - (d431d37) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.9.0 [skip ci] - (0422468) - GitHub Actions
+
+- - -
+
 ## v0.9.0 - 2025-10-21
 #### Bug Fixes
 - go back issue - (9c70779) - Brandon Guigo
