@@ -117,20 +117,29 @@ class _RegisterEmailState extends State<RegisterEmail>
             _index = "desktop_only";
           }
 
-          final bool remainingSpots =
+          final bool noSpotsAvailable =
               (authState.appConfig?.remainingSpots ?? 0) <= 0;
+          print(
+            "authState.appConfig?.remainingSpots: ${authState.appConfig?.remainingSpots}",
+          );
+
+          print("noSpotsAvailable: $noSpotsAvailable");
 
           // If user has a valid code, allow them to proceed to registration
           if (_iHaveACode == true && _code != null) {
             _index = "register_email";
           }
-          // Only show waiting list if user doesn't have a valid code
-          else if (authState is! JoinWaitingListSuccess &&
-              remainingSpots &&
+          // Only show waiting list if there are no spots AND user doesn't have a valid code
+          else if (noSpotsAvailable &&
+              authState is! JoinWaitingListSuccess &&
               (_iHaveACode != true || _code == null)) {
             _index = "waiting_list_start";
           } else if (authState is JoinWaitingListSuccess) {
             _index = "waiting_list_position";
+          }
+          // If spots are available and user doesn't have a code, proceed to registration
+          else if (!noSpotsAvailable) {
+            _index = "register_email";
           }
 
           if (widget.securityKey != null &&

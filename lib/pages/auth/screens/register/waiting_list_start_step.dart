@@ -92,7 +92,7 @@ class _WaitingListStartStepState extends State<WaitingListStartStep> {
                   ),
                   PrimaryButtonSquare(
                     leading:
-                        authState is Loading
+                        authState is JoinWaitingListLoading
                             ? CircularProgressIndicator(strokeWidth: 2)
                             : null,
                     text: context.t.waiting_list.join_waiting_list,
