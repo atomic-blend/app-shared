@@ -198,7 +198,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                         firstName: _firstName!,
                         lastName: _lastName!,
                         backupEmail: backupEmail,
-                        // code: _code,
+                        code: _code,
                       ),
                     );
                   },

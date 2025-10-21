@@ -167,7 +167,7 @@ class UserService {
         'firstName': firstName,
         'lastName': lastName,
         'backupEmail': backupEmail.isNotEmpty ? backupEmail : null,
-        'code': code?.isNotEmpty ?? false ? code : null,
+        'waitingListCode': code?.isNotEmpty ?? false ? code : null,
       },
     );
     if (result.statusCode == 201) {

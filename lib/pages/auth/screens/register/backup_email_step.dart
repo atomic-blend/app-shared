@@ -96,16 +96,15 @@ class _BackupEmailStepState extends State<BackupEmailStep> {
                   ),
                 ],
                 SizedBox(height: $constants.insets.md),
-                if (kIsWeb)
-                  ...[
+                if (kIsWeb) ...[
                   Text(
                     context.t.auth.register.web_register_slow,
                     style: getTextTheme(
                       context,
-                    ).bodySmall!.copyWith(color: Colors.grey),
+                    ).bodySmall!.copyWith(color: getTheme(context).primary),
                   ),
                   SizedBox(height: $constants.insets.sm),
-                  ],
+                ],
                 PrimaryButtonSquare(
                   leading:
                       authState is Loading
