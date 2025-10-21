@@ -113,6 +113,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       event.firstName,
       event.lastName,
       event.backupEmail,
+      event.code,
     );
     if (updatedUser == null) {
       emit(LoggedOut(prevState.user, prevState.appConfig));

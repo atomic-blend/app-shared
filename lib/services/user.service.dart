@@ -148,6 +148,7 @@ class UserService {
     String firstName,
     String lastName,
     String backupEmail,
+    String? code,
   ) async {
     // derive and persist key from password
     EncryptionService encryptionService = EncryptionService(
@@ -166,6 +167,7 @@ class UserService {
         'firstName': firstName,
         'lastName': lastName,
         'backupEmail': backupEmail.isNotEmpty ? backupEmail : null,
+        'code': code?.isNotEmpty ?? false ? code : null,
       },
     );
     if (result.statusCode == 201) {

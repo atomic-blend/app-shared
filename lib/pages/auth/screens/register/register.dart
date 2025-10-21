@@ -125,21 +125,32 @@ class _RegisterEmailState extends State<RegisterEmail>
 
           print("noSpotsAvailable: $noSpotsAvailable");
 
-          // If user has a valid code, allow them to proceed to registration
-          if (_iHaveACode == true && _code != null) {
-            _index = "register_email";
+          // Only apply routing logic if we're at the initial/waiting list steps
+          // Don't override if user is already progressing through registration
+          if (_index == "register_email" ||
+              _index == "waiting_list_start" ||
+              _index == null) {
+            // If user has a valid code, allow them to proceed to registration
+            if (_iHaveACode == true && _code != null) {
+              _index = "register_email";
+            }
+            // Only show waiting list if there are no spots AND user doesn't have a valid code
+            else if (noSpotsAvailable &&
+                authState is! JoinWaitingListSuccess &&
+                (_iHaveACode != true || _code == null)) {
+              _index = "waiting_list_start";
+            }
+            // If spots are available and user doesn't have a code, proceed to registration
+            else if (!noSpotsAvailable) {
+              _index = "register_email";
+            }
           }
-          // Only show waiting list if there are no spots AND user doesn't have a valid code
-          else if (noSpotsAvailable &&
-              authState is! JoinWaitingListSuccess &&
-              (_iHaveACode != true || _code == null)) {
-            _index = "waiting_list_start";
-          } else if (authState is JoinWaitingListSuccess) {
+
+          // Handle waiting list position step separately
+          // Only show waiting list position if user doesn't have a valid code yet
+          if (authState is JoinWaitingListSuccess &&
+              (_code == null || _iHaveACode != true)) {
             _index = "waiting_list_position";
-          }
-          // If spots are available and user doesn't have a code, proceed to registration
-          else if (!noSpotsAvailable) {
-            _index = "register_email";
           }
 
           if (widget.securityKey != null &&
@@ -191,6 +202,7 @@ class _RegisterEmailState extends State<RegisterEmail>
                         firstName: _firstName!,
                         lastName: _lastName!,
                         backupEmail: backupEmail,
+                        // code: _code,
                       ),
                     );
                   },

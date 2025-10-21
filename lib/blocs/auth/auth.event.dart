@@ -16,12 +16,14 @@ final class RegisterEvent extends AuthEvent {
   final String firstName;
   final String lastName;
   final String backupEmail;
+  final String? code;
   const RegisterEvent({
     required this.email,
     required this.password,
     required this.firstName,
     required this.lastName,
     required this.backupEmail,
+    this.code,
   });
 }
 

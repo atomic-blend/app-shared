@@ -50,6 +50,7 @@ class _WaitingListPositionStepState extends State<WaitingListPositionStep> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: $constants.insets.md),
+            if (hasCode) ...[Text("🎉", style: TextStyle(fontSize: 50))],
             Text(
               hasCode ? "It's happening!" : "You're in!",
               style: getTextTheme(
