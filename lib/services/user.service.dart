@@ -404,6 +404,7 @@ class UserService {
           }
         }
       }
+      //TODO: handle stripe purchases
     }
     return false; // No active subscription found
   }
