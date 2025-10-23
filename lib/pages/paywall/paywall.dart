@@ -56,190 +56,184 @@ class _PaywallState extends State<Paywall> {
     }
     return Padding(
       padding: EdgeInsets.all($constants.insets.md),
-      child: Row(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: getSize(context).height * 0.5,
-                    child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: getSize(context).height * 0.5,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: getSize(context).height * 0.1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          $constants.corners.xl,
+                        ),
+                        child: Image.asset(
+                          'assets/images/atomic_blend_logo.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: $constants.insets.md),
+                    Text(
+                      context.t.paywall.title,
+                      style: getTextTheme(
+                        context,
+                      ).headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      context.t.paywall.subtitle,
+                      textAlign: TextAlign.center,
+                      style: getTextTheme(
+                        context,
+                      ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                    ),
+                    SizedBox(height: $constants.insets.md),
+                    ElevatedContainer(
+                      width: double.infinity,
+                      borderRadius: $constants.corners.sm,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: $constants.insets.md,
+                        vertical: $constants.insets.md,
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
+                        spacing: $constants.insets.md,
                         children: [
-                          SizedBox(
-                            height: getSize(context).height * 0.1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                $constants.corners.xl,
-                              ),
-                              child: Image.asset(
-                                'assets/images/atomic_blend_logo.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .all_apps_of_the_suite
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .all_apps_of_the_suite
+                                    .description,
+                            icon: CupertinoIcons.square_grid_2x2,
                           ),
-                          SizedBox(height: $constants.insets.md),
-                          Text(
-                            context.t.paywall.title,
-                            style: getTextTheme(context).headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .end_to_end_encrypted
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .end_to_end_encrypted
+                                    .description,
+                            icon: CupertinoIcons.lock,
                           ),
-                          Text(
-                            context.t.paywall.subtitle,
-                            textAlign: TextAlign.center,
-                            style: getTextTheme(
-                              context,
-                            ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_tasks
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_tasks
+                                    .description,
+                            icon: CupertinoIcons.checkmark_square,
                           ),
-                          SizedBox(height: $constants.insets.md),
-                          ElevatedContainer(
-                            width: double.infinity,
-                            borderRadius: $constants.corners.sm,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: $constants.insets.md,
-                              vertical: $constants.insets.md,
-                            ),
-                            child: Column(
-                              spacing: $constants.insets.md,
-                              children: [
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .all_apps_of_the_suite
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .all_apps_of_the_suite
-                                          .description,
-                                  icon: CupertinoIcons.square_grid_2x2,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .end_to_end_encrypted
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .end_to_end_encrypted
-                                          .description,
-                                  icon: CupertinoIcons.lock,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tasks
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tasks
-                                          .description,
-                                  icon: CupertinoIcons.checkmark_square,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tags
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tags
-                                          .description,
-                                  icon: CupertinoIcons.tags,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_habits
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_habits
-                                          .description,
-                                  icon: CupertinoIcons.repeat,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .sync_across_devices
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .sync_across_devices
-                                          .description,
-                                  icon: CupertinoIcons.cloud,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .community_backed
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .community_backed
-                                          .description,
-                                  icon: CupertinoIcons.person_3,
-                                ),
-                              ],
-                            ),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_tags
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_tags
+                                    .description,
+                            icon: CupertinoIcons.tags,
+                          ),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_habits
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .unlimited_habits
+                                    .description,
+                            icon: CupertinoIcons.repeat,
+                          ),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .sync_across_devices
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .sync_across_devices
+                                    .description,
+                            icon: CupertinoIcons.cloud,
+                          ),
+                          _buildAdvantageRow(
+                            title:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .community_backed
+                                    .title,
+                            description:
+                                context
+                                    .t
+                                    .paywall
+                                    .advantages
+                                    .community_backed
+                                    .description,
+                            icon: CupertinoIcons.person_3,
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: $constants.insets.md),
-                  const Divider(),
-                  SizedBox(height: $constants.insets.xs),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(child: Container(color: Colors.red)),
-        ],
+            SizedBox(height: $constants.insets.md),
+            const Divider(),
+            SizedBox(height: $constants.insets.xs),
+          ],
+        ),
       ),
     );
   }
