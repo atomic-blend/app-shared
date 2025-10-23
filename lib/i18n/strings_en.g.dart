@@ -738,6 +738,8 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'It may take a few minutes to complete the registration. App might look frozen, but it's working in the background. Click once the register button and please wait until the app redirects you to the next step.'
 	String get web_register_slow => 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
+
+	late final TranslationsAuthRegisterPaymentEnabledEn payment_enabled = TranslationsAuthRegisterPaymentEnabledEn._(_root);
 }
 
 // Path: auth.delete_account
@@ -1207,6 +1209,21 @@ class TranslationsTimeUnitsLongEn {
 	);
 }
 
+// Path: auth.register.payment_enabled
+class TranslationsAuthRegisterPaymentEnabledEn {
+	TranslationsAuthRegisterPaymentEnabledEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Credit Card Required'
+	String get title => 'Credit Card Required';
+
+	/// en: 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.'
+	String get description => 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.';
+}
+
 // Path: settings.app_settings.selfHostedUrl
 class TranslationsSettingsAppSettingsSelfHostedUrlEn {
 	TranslationsSettingsAppSettingsSelfHostedUrlEn._(this._root);
@@ -1432,6 +1449,8 @@ extension on Translations {
 			case 'auth.register.desktop_only_step_description': return 'Setting up your Atomic Blend account is only available on desktop.';
 			case 'auth.register.go_on_desktop': return 'Go on desktop';
 			case 'auth.register.web_register_slow': return 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
+			case 'auth.register.payment_enabled.title': return 'Credit Card Required';
+			case 'auth.register.payment_enabled.description': return 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';

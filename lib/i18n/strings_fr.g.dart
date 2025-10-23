@@ -532,6 +532,7 @@ class _TranslationsAuthRegisterFr implements TranslationsAuthRegisterEn {
 	@override String get desktop_only_step_description => 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 	@override String get go_on_desktop => 'Aller sur le navigateur web';
 	@override String get web_register_slow => 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
+	@override late final _TranslationsAuthRegisterPaymentEnabledFr payment_enabled = _TranslationsAuthRegisterPaymentEnabledFr._(_root);
 }
 
 // Path: auth.delete_account
@@ -799,6 +800,17 @@ class _TranslationsTimeUnitsLongFr implements TranslationsTimeUnitsLongEn {
 	);
 }
 
+// Path: auth.register.payment_enabled
+class _TranslationsAuthRegisterPaymentEnabledFr implements TranslationsAuthRegisterPaymentEnabledEn {
+	_TranslationsAuthRegisterPaymentEnabledFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Carte de crédit requise';
+	@override String get description => 'Atomic Blend est un projet opensource. En tant que développeur indépendant finançant le projet, je ne peux pas offrir de version gratuite.';
+}
+
 // Path: settings.app_settings.selfHostedUrl
 class _TranslationsSettingsAppSettingsSelfHostedUrlFr implements TranslationsSettingsAppSettingsSelfHostedUrlEn {
 	_TranslationsSettingsAppSettingsSelfHostedUrlFr._(this._root);
@@ -968,6 +980,8 @@ extension on TranslationsFr {
 			case 'auth.register.desktop_only_step_description': return 'La création de votre compte Atomic Blend n\'est disponible que sur le navigateur web.';
 			case 'auth.register.go_on_desktop': return 'Aller sur le navigateur web';
 			case 'auth.register.web_register_slow': return 'Il peut prendre quelques minutes pour compléter l\'inscription. L\'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d\'inscription et attendez que l\'application vous redirige vers l\'étape suivante.';
+			case 'auth.register.payment_enabled.title': return 'Carte de crédit requise';
+			case 'auth.register.payment_enabled.description': return 'Atomic Blend est un projet opensource. En tant que développeur indépendant finançant le projet, je ne peux pas offrir de version gratuite.';
 			case 'auth.delete_account.title': return 'Supprimer mon compte';
 			case 'auth.delete_account.description': return 'Etes-vous sûr de vouloir supprimer votre compte ?';
 			case 'auth.delete_account.cannot_be_undone': return 'Cette action est irréversible et toutes vos données seront perdues.';
