@@ -1,6 +1,7 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/forms/app_text_form_field.dart';
+import 'package:ab_shared/components/modals/edit_self_hosted_url_modal.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -8,6 +9,7 @@ import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_popup/flutter_popup.dart';
@@ -71,7 +73,11 @@ class _RegisterEmailStepState extends State<RegisterEmailStep>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: $constants.insets.md),
+                  if (!kIsWeb) ...[
+                    SizedBox(height: $constants.insets.xs),
+                    EditSelfHostedUrlButton(),
+                  ],
+                  SizedBox(height: $constants.insets.sm),
                   if (authState.appConfig?.paymentEnabled == true) ...[
                     ElevatedContainer(
                       padding: EdgeInsets.symmetric(
