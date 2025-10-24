@@ -23,6 +23,13 @@ class Loading extends AuthState {
   String toString() => 'Loading { }';
 }
 
+class AuthActionLoading extends AuthState {
+  const AuthActionLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'AuthActionLoading { }';
+}
+
 class AuthError extends AuthState {
   final String message;
   const AuthError(this.message, super.user, super.appConfig);
@@ -220,4 +227,19 @@ final class GetWaitingListPositionError extends AuthState {
 
   @override
   String toString() => 'GetWaitingListPositionError { $message }';
+}
+
+final class SubscribeLoading extends AuthState {
+  const SubscribeLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'SubscribeLoading { }';
+}
+
+final class SubscribeSuccess extends AuthState {
+  final SubscribeResponse response;
+  const SubscribeSuccess(this.response, super.user, super.appConfig);
+
+  @override
+  String toString() => 'SubscribeSuccess { response: $response }';
 }

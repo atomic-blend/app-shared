@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ab_shared/entities/config/ab_config.dart';
+import 'package:ab_shared/entities/subscribe_response/subscribe_response.dart';
 import 'package:ab_shared/entities/user/user.entity.dart';
 import 'package:ab_shared/entities/user_device/user_device.dart';
 import 'package:ab_shared/services/config_service.dart';
@@ -56,7 +57,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   void _onLogIn(LoginEvent event, Emitter<AuthState> emit) async {
     final prevState = state;
-    emit(Loading(prevState.user, prevState.appConfig));
+    emit(AuthActionLoading(prevState.user, prevState.appConfig));
     try {
       final updatedUser = await _userService.login(event.email, event.password);
       if (updatedUser == null) {
@@ -106,7 +107,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   void _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
     final prevState = state;
-    emit(Loading(prevState.user, prevState.appConfig));
+    emit(AuthActionLoading(prevState.user, prevState.appConfig));
     try {
       final updatedUser = await _userService.register(
         event.email,

@@ -300,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       children: [
                                         PrimaryButtonSquare(
                                           leading:
-                                              authState is Loading
+                                              authState is AuthActionLoading
                                                   ? const SizedBox(
                                                     width: 20,
                                                     height: 20,

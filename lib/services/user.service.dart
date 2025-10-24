@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:ab_shared/entities/subscribe_response/subscribe_response.dart';
 import 'package:ab_shared/entities/user/user.entity.dart';
 import 'package:ab_shared/entities/userRole/userRole.entity.dart';
 import 'package:ab_shared/entities/user_device/user_device.dart';
@@ -462,5 +463,17 @@ class UserService {
       expirationTimestamp,
     );
     return expirationDate;
+  }
+
+  Future<SubscribeResponse> subscribe() async {
+    final result = await _getIt<ApiClient>().post('/payment/subscribe');
+    if (result.statusCode == 200) {
+      final subscribeResponse = SubscribeResponse.fromJson(
+        result.data as Map<String, dynamic>,
+      );
+      return subscribeResponse;
+    } else {
+      throw Exception('subscribe_failed');
+    }
   }
 }

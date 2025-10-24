@@ -58,7 +58,7 @@ class _AppLayoutState extends State<AppLayout> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        if (authState is! LoggedIn) {
+        if ([LoggedOut, AuthActionLoading].contains(authState.runtimeType)) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             LoginRoute(
               LoginParams(homeRouteLocation: widget.homeRouteLocation),
