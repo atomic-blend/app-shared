@@ -51,6 +51,7 @@ class _AppLayoutState extends State<AppLayout> {
     if (isPaymentSupported()) {
       PaywallUtils.resetPaywall();
     }
+
     context.read<AuthBloc>().add(LoadConfig());
   }
 
@@ -64,7 +65,33 @@ class _AppLayoutState extends State<AppLayout> {
               LoginParams(homeRouteLocation: widget.homeRouteLocation),
             ).go(context);
           });
+          return Container();
         }
+
+        // Check subscription and redirect to paywall if needed
+        final currentLocation = GoRouterState.of(context).uri.path;
+        final isOnPaywall = currentLocation.startsWith('/paywall');
+        final isOnAuthPages = currentLocation.startsWith('/auth');
+
+        if (!isOnPaywall && !isOnAuthPages && authState.user != null) {
+          if (authState.appConfig?.paymentEnabled == true &&
+              isPaymentSupported()) {
+            final isSubscriptionActive = UserService.isSubscriptionActive(
+              globalApiClient,
+              authState.user,
+            );
+
+            if (!isSubscriptionActive) {
+              // User doesn't have subscription, redirect to paywall
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                getIt<GoRouter>().go('/paywall');
+              });
+              // Return empty container while redirecting
+              return Container();
+            }
+          }
+        }
+
         if (authState.user != null) {
           WidgetsBinding.instance.addPostFrameCallback((_) async {
             authState.user?.devices ??= [];
@@ -86,17 +113,6 @@ class _AppLayoutState extends State<AppLayout> {
                 userDeviceInfo,
               ),
             );
-          });
-        }
-
-        if (authState.appConfig?.paymentEnabled == true &&
-            isPaymentSupported() &&
-            !UserService.isSubscriptionActive(
-              globalApiClient,
-              authState.user,
-            )) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            getIt<GoRouter>().go('/paywall');
           });
         }
 

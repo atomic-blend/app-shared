@@ -229,17 +229,17 @@ final class GetWaitingListPositionError extends AuthState {
   String toString() => 'GetWaitingListPositionError { $message }';
 }
 
-final class SubscribeLoading extends AuthState {
-  const SubscribeLoading(super.user, super.appConfig);
+final class CheckoutLoading extends AuthState {
+  const CheckoutLoading(super.user, super.appConfig);
 
   @override
-  String toString() => 'SubscribeLoading { }';
+  String toString() => 'CheckoutLoading { }';
 }
 
-final class SubscribeSuccess extends AuthState {
-  final SubscribeResponse response;
-  const SubscribeSuccess(this.response, super.user, super.appConfig);
+final class CheckoutLoaded extends AuthState {
+  final String sessionUrl;
+  const CheckoutLoaded(this.sessionUrl, super.user, super.appConfig);
 
   @override
-  String toString() => 'SubscribeSuccess { response: $response }';
+  String toString() => 'CheckoutLoaded { sessionUrl: $sessionUrl }';
 }

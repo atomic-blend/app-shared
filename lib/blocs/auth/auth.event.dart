@@ -114,3 +114,7 @@ final class GetWaitingListPosition extends AuthEvent {
   final String securityKey;
   const GetWaitingListPosition(this.email, this.securityKey);
 }
+
+final class Checkout extends AuthEvent {
+  const Checkout();
+}

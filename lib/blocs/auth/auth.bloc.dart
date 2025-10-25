@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ab_shared/entities/config/ab_config.dart';
-import 'package:ab_shared/entities/subscribe_response/subscribe_response.dart';
 import 'package:ab_shared/entities/user/user.entity.dart';
 import 'package:ab_shared/entities/user_device/user_device.dart';
 import 'package:ab_shared/services/config_service.dart';
@@ -48,6 +47,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<MnemonicDisplayed>(_onMnemonicDisplayed);
     on<JoinWaitingList>(_onJoinWaitingList);
     on<GetWaitingListPosition>(_onGetWaitingListPosition);
+    on<Checkout>(_onCheckout);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -395,6 +395,24 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       emit(
         JoinWaitingListError(e.toString(), prevState.user, prevState.appConfig),
       );
+    }
+  }
+
+  FutureOr<void> _onCheckout(Checkout event, Emitter<AuthState> emit) async {
+    final prevState = state;
+    emit(CheckoutLoading(prevState.user, prevState.appConfig));
+    try {
+      final sessionUrl = await _userService.checkout();
+      emit(CheckoutLoaded(sessionUrl, prevState.user, prevState.appConfig));
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      final message =
+          (data is Map && data['error'] != null)
+              ? data['error']
+              : (e.message ?? 'checkout_failed');
+      emit(AuthError(message, prevState.user, prevState.appConfig));
+    } on Exception catch (e) {
+      emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
   }
 }

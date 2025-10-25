@@ -481,4 +481,17 @@ class UserService {
       throw Exception('subscribe_failed');
     }
   }
+
+  Future<String> checkout() async {
+    final result = await _getIt<ApiClient>().post('/payment/checkout');
+    if (result.statusCode == 200) {
+      final sessionUrl = result.data['session'] as String?;
+      if (sessionUrl == null) {
+        throw Exception('Invalid session URL');
+      }
+      return sessionUrl;
+    } else {
+      throw Exception('checkout_failed');
+    }
+  }
 }

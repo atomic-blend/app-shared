@@ -55,224 +55,237 @@ class _PaywallState extends State<Paywall> {
   @override
   void initState() {
     super.initState();
+    if (widget.success == true) {
+      _startCheckingForPurchase(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    _checkPurchaseTimer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.success == true) {
-      _startCheckingForPurchase(context);
-    } else if (widget.cancelled == true) {
-      return _buildPurchaseFailed(context);
-    }
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, authState) {
+        if (authState is CheckoutLoaded) {
+          //TODO: open session url
+          print('Open checkout url: ${authState.sessionUrl}');
+        }
+        if (widget.cancelled == true) {
+          return _buildPurchaseFailed(context);
+        }
 
-    if (_isMakingPurchase == true || _checkPurchaseTimer != null) {
-      return _buildPurchaseLoading(context);
-    }
-    // Use the same centered container layout as register.dart
-    return Scaffold(
-      backgroundColor: getTheme(context).surface,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: getSize(context).height * 0.15),
-          Center(
-            child: ElevatedContainer(
-              constraints: BoxConstraints(
-                minWidth: isDesktop(context) ? 500 : 200,
-              ),
-              color: getTheme(context).surface,
-              width:
-                  isDesktop(context)
-                      ? getSize(context).width * 0.2
-                      : getSize(context).width * 0.9,
-              height: getSize(context).height * 0.7,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: $constants.insets.sm,
-                  vertical: $constants.insets.md,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        height: getSize(context).height * 0.1,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                            $constants.corners.xl,
+        if (_isMakingPurchase == true || _checkPurchaseTimer != null) {
+          return _buildPurchaseLoading(context);
+        }
+        return Scaffold(
+          backgroundColor: getTheme(context).surface,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: getSize(context).height * 0.15),
+              Center(
+                child: ElevatedContainer(
+                  constraints: BoxConstraints(
+                    minWidth: isDesktop(context) ? 500 : 200,
+                  ),
+                  color: getTheme(context).surface,
+                  width:
+                      isDesktop(context)
+                          ? getSize(context).width * 0.2
+                          : getSize(context).width * 0.9,
+                  height: getSize(context).height * 0.7,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: $constants.insets.sm,
+                      vertical: $constants.insets.md,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: getSize(context).height * 0.1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                $constants.corners.xl,
+                              ),
+                              child: Image.asset(
+                                'assets/images/atomic_blend_logo.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          child: Image.asset(
-                            'assets/images/atomic_blend_logo.png',
-                            fit: BoxFit.cover,
+                          SizedBox(height: $constants.insets.md),
+                          Text(
+                            context.t.paywall.title,
+                            style: getTextTheme(context).headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                        ),
+                          Text(
+                            context.t.paywall.subtitle,
+                            textAlign: TextAlign.center,
+                            style: getTextTheme(
+                              context,
+                            ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                          ),
+                          SizedBox(height: $constants.insets.md),
+                          ElevatedContainer(
+                            width: double.infinity,
+                            borderRadius: $constants.corners.sm,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: $constants.insets.md,
+                              vertical: $constants.insets.md,
+                            ),
+                            child: Column(
+                              spacing: $constants.insets.md,
+                              children: [
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .all_apps_of_the_suite
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .all_apps_of_the_suite
+                                          .description,
+                                  icon: CupertinoIcons.square_grid_2x2,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .end_to_end_encrypted
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .end_to_end_encrypted
+                                          .description,
+                                  icon: CupertinoIcons.lock,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_tasks
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_tasks
+                                          .description,
+                                  icon: CupertinoIcons.checkmark_square,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_tags
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_tags
+                                          .description,
+                                  icon: CupertinoIcons.tags,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_habits
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .unlimited_habits
+                                          .description,
+                                  icon: CupertinoIcons.repeat,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .sync_across_devices
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .sync_across_devices
+                                          .description,
+                                  icon: CupertinoIcons.cloud,
+                                ),
+                                _buildAdvantageRow(
+                                  title:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .community_backed
+                                          .title,
+                                  description:
+                                      context
+                                          .t
+                                          .paywall
+                                          .advantages
+                                          .community_backed
+                                          .description,
+                                  icon: CupertinoIcons.person_3,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: $constants.insets.md),
+                          const Divider(),
+                          SizedBox(height: $constants.insets.xs),
+                          PrimaryButtonSquare(
+                            text: "Start 7-day Free Trial",
+                            onPressed: () async {
+                              context.read<AuthBloc>().add(const Checkout());
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(height: $constants.insets.md),
-                      Text(
-                        context.t.paywall.title,
-                        style: getTextTheme(
-                          context,
-                        ).headlineLarge?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        context.t.paywall.subtitle,
-                        textAlign: TextAlign.center,
-                        style: getTextTheme(
-                          context,
-                        ).bodyMedium?.copyWith(color: Colors.grey.shade600),
-                      ),
-                      SizedBox(height: $constants.insets.md),
-                      ElevatedContainer(
-                        width: double.infinity,
-                        borderRadius: $constants.corners.sm,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: $constants.insets.md,
-                          vertical: $constants.insets.md,
-                        ),
-                        child: Column(
-                          spacing: $constants.insets.md,
-                          children: [
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .all_apps_of_the_suite
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .all_apps_of_the_suite
-                                      .description,
-                              icon: CupertinoIcons.square_grid_2x2,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .end_to_end_encrypted
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .end_to_end_encrypted
-                                      .description,
-                              icon: CupertinoIcons.lock,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_tasks
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_tasks
-                                      .description,
-                              icon: CupertinoIcons.checkmark_square,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_tags
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_tags
-                                      .description,
-                              icon: CupertinoIcons.tags,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_habits
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .unlimited_habits
-                                      .description,
-                              icon: CupertinoIcons.repeat,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .sync_across_devices
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .sync_across_devices
-                                      .description,
-                              icon: CupertinoIcons.cloud,
-                            ),
-                            _buildAdvantageRow(
-                              title:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .community_backed
-                                      .title,
-                              description:
-                                  context
-                                      .t
-                                      .paywall
-                                      .advantages
-                                      .community_backed
-                                      .description,
-                              icon: CupertinoIcons.person_3,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: $constants.insets.md),
-                      const Divider(),
-                      SizedBox(height: $constants.insets.xs),
-                      PrimaryButtonSquare(
-                        text: "Start 7-day Free Trial",
-                        onPressed: () async {
-                          //TODO: call checkout endpoint
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -319,71 +332,33 @@ class _PaywallState extends State<Paywall> {
   }
 
   _startCheckingForPurchase(BuildContext context) {
-    setState(() {
-      int loopCount = 0;
-      _checkPurchaseTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-        loopCount++;
-        final authState = context.read<AuthBloc>().state;
-        final isUserHaveActiveSubscription = UserService.isSubscriptionActive(
-          widget.globalApiClient,
-          authState.user,
-        );
-        if (isUserHaveActiveSubscription) {
-          // Show success message and close the paywall after a delay
-          Timer(const Duration(seconds: 5), () {
-            if (!context.mounted) return;
-            getIt<GoRouter>().go('/');
-          });
-          _checkPurchaseTimer?.cancel();
-        } else if (loopCount >= 60) {
-          setState(() {
-            _checkPurchaseTimer?.cancel();
-            _checkPurchaseTimer = null;
-          });
-          getIt<GoRouter>().go('/paywall?cancelled=true');
-        } else {
-          if (authState.runtimeType != Loading) {
-            context.read<AuthBloc>().add(const RefreshUser());
-          }
+    int loopCount = 0;
+    _checkPurchaseTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      loopCount++;
+      final authState = context.read<AuthBloc>().state;
+      final isUserHaveActiveSubscription = UserService.isSubscriptionActive(
+        widget.globalApiClient,
+        authState.user,
+      );
+      if (isUserHaveActiveSubscription && authState.runtimeType != Loading) {
+        // Show success message and close the paywall after a delay
+        _checkPurchaseTimer?.cancel();
+        _checkPurchaseTimer = null;
+        Timer(const Duration(seconds: 5), () {
+          if (!context.mounted) return;
+          getIt<GoRouter>().go('/inbox');
+        });
+      } else if (loopCount >= 60) {
+        _checkPurchaseTimer?.cancel();
+        _checkPurchaseTimer = null;
+        setState(() {});
+        getIt<GoRouter>().go('/paywall?cancelled=true');
+      } else {
+        if (authState.runtimeType != Loading) {
+          context.read<AuthBloc>().add(const RefreshUser());
         }
-      });
+      }
     });
-  }
-
-  // when _purchaseSuccess is true
-  Widget _buildPurchaseSuccess(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-        child: Column(
-          children: [
-            Lottie.asset(
-              'assets/animations/credit_card_success.json',
-              width:
-                  isDesktop(context)
-                      ? getSize(context).width * 0.3
-                      : getSize(context).width,
-            ),
-            SizedBox(height: $constants.insets.sm),
-            Text(
-              context.t.paywall.success,
-              style: getTextTheme(
-                context,
-              ).headlineLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: $constants.insets.sm),
-            const Spacer(),
-            PrimaryButtonSquare(
-              text: context.t.actions.close,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            SizedBox(height: $constants.insets.lg),
-          ],
-        ),
-      ),
-    );
   }
 
   // when _purchaseFailed is true, display the error corresponding to _errorId
