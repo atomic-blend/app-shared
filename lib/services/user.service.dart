@@ -353,6 +353,11 @@ class UserService {
       return false;
     }
 
+    if (user.subscriptionStatus != null &&
+        user.subscriptionStatus != 'cancelled') {
+      return true;
+    }
+
     final nowMs = DateTime.now().millisecondsSinceEpoch;
 
     for (final purchase in user.purchases!) {

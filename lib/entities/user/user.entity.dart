@@ -17,6 +17,9 @@ class UserEntity with _$UserEntity {
     required List<dynamic> roles,
     String? firstName,
     String? lastName,
+    String? stripeCustomerId,
+    String? stripeSubscriptionId,
+    String? subscriptionStatus,
     required EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -28,7 +31,7 @@ class UserEntity with _$UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, name: $firstName, lastName: $lastName, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
+    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, stripeCustomerId: $stripeCustomerId, stripeSubscriptionId: $stripeSubscriptionId, subscriptionStatus: $subscriptionStatus, firstName: $firstName, lastName: $lastName, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
   }
 
   String? displayName() {

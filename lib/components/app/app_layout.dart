@@ -95,7 +95,9 @@ class _AppLayoutState extends State<AppLayout> {
               globalApiClient,
               authState.user,
             )) {
-          PaywallUtils.showPaywall(context, user: authState.user);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            getIt<GoRouter>().go('/paywall');
+          });
         }
 
         return isDesktop(context)
