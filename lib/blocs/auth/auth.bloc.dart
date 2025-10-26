@@ -7,6 +7,7 @@ import 'package:ab_shared/services/config_service.dart';
 import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/services/user.service.dart';
+import 'package:ab_shared/utils/env/env.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -402,7 +403,13 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     final prevState = state;
     emit(CheckoutLoading(prevState.user, prevState.appConfig));
     try {
-      final sessionUrl = await _userService.checkout();
+      final baseUrl = getIt<EnvModel>().publicUrl;
+      final successURL = '$baseUrl/paywall?success=true';
+      final cancelURL = '$baseUrl/paywall?canceled=true';
+      final sessionUrl = await _userService.checkout(
+        successURL: successURL,
+        cancelURL: cancelURL,
+      );
       emit(CheckoutLoaded(sessionUrl, prevState.user, prevState.appConfig));
     } on DioException catch (e) {
       final data = e.response?.data;

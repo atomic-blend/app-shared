@@ -82,17 +82,13 @@ class _LoginScreenState extends State<LoginScreen>
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, authState) {
-            if (authState.user != null &&
-                UserService.isSubscriptionActive(
-                  getIt<ApiClient>(),
-                  authState.user,
-                )) {
-              // User has an active subscription, redirect to home
+            if (authState is LoggedIn) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 getIt<GoRouter>().go('/');
               });
               return Container();
             }
+
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

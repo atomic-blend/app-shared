@@ -14,6 +14,7 @@ _$EnvModelImpl _$$EnvModelImplFromJson(Map<String, dynamic> json) =>
       debugShowMaterialGrid: json['debugShowMaterialGrid'] as bool,
       debugApiClient: json['debugApiClient'] as bool,
       restApiUrl: json['restApiUrl'] as String,
+      publicUrl: json['publicUrl'] as String,
       appleRevenueCatApiKey: json['appleRevenueCatApiKey'] as String,
       googleRevenueCatApiKey: json['googleRevenueCatApiKey'] as String,
     );
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$EnvModelImplToJson(_$EnvModelImpl instance) =>
       'debugShowMaterialGrid': instance.debugShowMaterialGrid,
       'debugApiClient': instance.debugApiClient,
       'restApiUrl': instance.restApiUrl,
+      'publicUrl': instance.publicUrl,
       'appleRevenueCatApiKey': instance.appleRevenueCatApiKey,
       'googleRevenueCatApiKey': instance.googleRevenueCatApiKey,
     };

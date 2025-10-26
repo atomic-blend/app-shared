@@ -18,6 +18,7 @@ class EnvModel with _$EnvModel {
     required bool debugShowMaterialGrid,
     required bool debugApiClient,
     required String restApiUrl,
+    required String publicUrl,
     required String appleRevenueCatApiKey,
     required String googleRevenueCatApiKey,
   }) = _EnvModel;
@@ -33,23 +34,25 @@ class EnvModel with _$EnvModel {
     if (env == null) {
       throw Exception('App flavor not found');
     }
-    final rawEnvData = await rootBundle.loadString(
-      'assets/configs/$env.json',
-    );
+    final rawEnvData = await rootBundle.loadString('assets/configs/$env.json');
     final jsonEnvData = jsonDecode(rawEnvData) as Map<String, dynamic>;
     const restApiUrl = String.fromEnvironment('REST_API_URL', defaultValue: '');
     if (restApiUrl != '') {
       jsonEnvData['restApiUrl'] = restApiUrl;
     }
 
-    const appleRevenueCatApiKey =
-        String.fromEnvironment('APPLE_REVENUE_CAT_API_KEY', defaultValue: '');
+    const appleRevenueCatApiKey = String.fromEnvironment(
+      'APPLE_REVENUE_CAT_API_KEY',
+      defaultValue: '',
+    );
     if (appleRevenueCatApiKey != '') {
       jsonEnvData['appleRevenueCatApiKey'] = appleRevenueCatApiKey;
     }
 
-    const googleRevenueCatApiKey =
-        String.fromEnvironment('GOOGLE_REVENUE_CAT_API_KEY', defaultValue: '');
+    const googleRevenueCatApiKey = String.fromEnvironment(
+      'GOOGLE_REVENUE_CAT_API_KEY',
+      defaultValue: '',
+    );
     if (googleRevenueCatApiKey != '') {
       jsonEnvData['googleRevenueCatApiKey'] = googleRevenueCatApiKey;
     }

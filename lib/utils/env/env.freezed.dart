@@ -27,6 +27,7 @@ mixin _$EnvModel {
   bool get debugShowMaterialGrid => throw _privateConstructorUsedError;
   bool get debugApiClient => throw _privateConstructorUsedError;
   String get restApiUrl => throw _privateConstructorUsedError;
+  String get publicUrl => throw _privateConstructorUsedError;
   String get appleRevenueCatApiKey => throw _privateConstructorUsedError;
   String get googleRevenueCatApiKey => throw _privateConstructorUsedError;
 
@@ -52,6 +53,7 @@ abstract class $EnvModelCopyWith<$Res> {
     bool debugShowMaterialGrid,
     bool debugApiClient,
     String restApiUrl,
+    String publicUrl,
     String appleRevenueCatApiKey,
     String googleRevenueCatApiKey,
   });
@@ -78,6 +80,7 @@ class _$EnvModelCopyWithImpl<$Res, $Val extends EnvModel>
     Object? debugShowMaterialGrid = null,
     Object? debugApiClient = null,
     Object? restApiUrl = null,
+    Object? publicUrl = null,
     Object? appleRevenueCatApiKey = null,
     Object? googleRevenueCatApiKey = null,
   }) {
@@ -113,6 +116,11 @@ class _$EnvModelCopyWithImpl<$Res, $Val extends EnvModel>
                     ? _value.restApiUrl
                     : restApiUrl // ignore: cast_nullable_to_non_nullable
                         as String,
+            publicUrl:
+                null == publicUrl
+                    ? _value.publicUrl
+                    : publicUrl // ignore: cast_nullable_to_non_nullable
+                        as String,
             appleRevenueCatApiKey:
                 null == appleRevenueCatApiKey
                     ? _value.appleRevenueCatApiKey
@@ -145,6 +153,7 @@ abstract class _$$EnvModelImplCopyWith<$Res>
     bool debugShowMaterialGrid,
     bool debugApiClient,
     String restApiUrl,
+    String publicUrl,
     String appleRevenueCatApiKey,
     String googleRevenueCatApiKey,
   });
@@ -170,6 +179,7 @@ class __$$EnvModelImplCopyWithImpl<$Res>
     Object? debugShowMaterialGrid = null,
     Object? debugApiClient = null,
     Object? restApiUrl = null,
+    Object? publicUrl = null,
     Object? appleRevenueCatApiKey = null,
     Object? googleRevenueCatApiKey = null,
   }) {
@@ -205,6 +215,11 @@ class __$$EnvModelImplCopyWithImpl<$Res>
                 ? _value.restApiUrl
                 : restApiUrl // ignore: cast_nullable_to_non_nullable
                     as String,
+        publicUrl:
+            null == publicUrl
+                ? _value.publicUrl
+                : publicUrl // ignore: cast_nullable_to_non_nullable
+                    as String,
         appleRevenueCatApiKey:
             null == appleRevenueCatApiKey
                 ? _value.appleRevenueCatApiKey
@@ -230,6 +245,7 @@ class _$EnvModelImpl extends _EnvModel {
     required this.debugShowMaterialGrid,
     required this.debugApiClient,
     required this.restApiUrl,
+    required this.publicUrl,
     required this.appleRevenueCatApiKey,
     required this.googleRevenueCatApiKey,
   }) : super._();
@@ -250,13 +266,15 @@ class _$EnvModelImpl extends _EnvModel {
   @override
   final String restApiUrl;
   @override
+  final String publicUrl;
+  @override
   final String appleRevenueCatApiKey;
   @override
   final String googleRevenueCatApiKey;
 
   @override
   String toString() {
-    return 'EnvModel(env: $env, debug: $debug, debugShowCheckedModeBanner: $debugShowCheckedModeBanner, debugShowMaterialGrid: $debugShowMaterialGrid, debugApiClient: $debugApiClient, restApiUrl: $restApiUrl, appleRevenueCatApiKey: $appleRevenueCatApiKey, googleRevenueCatApiKey: $googleRevenueCatApiKey)';
+    return 'EnvModel(env: $env, debug: $debug, debugShowCheckedModeBanner: $debugShowCheckedModeBanner, debugShowMaterialGrid: $debugShowMaterialGrid, debugApiClient: $debugApiClient, restApiUrl: $restApiUrl, publicUrl: $publicUrl, appleRevenueCatApiKey: $appleRevenueCatApiKey, googleRevenueCatApiKey: $googleRevenueCatApiKey)';
   }
 
   @override
@@ -278,6 +296,8 @@ class _$EnvModelImpl extends _EnvModel {
                 other.debugApiClient == debugApiClient) &&
             (identical(other.restApiUrl, restApiUrl) ||
                 other.restApiUrl == restApiUrl) &&
+            (identical(other.publicUrl, publicUrl) ||
+                other.publicUrl == publicUrl) &&
             (identical(other.appleRevenueCatApiKey, appleRevenueCatApiKey) ||
                 other.appleRevenueCatApiKey == appleRevenueCatApiKey) &&
             (identical(other.googleRevenueCatApiKey, googleRevenueCatApiKey) ||
@@ -294,6 +314,7 @@ class _$EnvModelImpl extends _EnvModel {
     debugShowMaterialGrid,
     debugApiClient,
     restApiUrl,
+    publicUrl,
     appleRevenueCatApiKey,
     googleRevenueCatApiKey,
   );
@@ -320,6 +341,7 @@ abstract class _EnvModel extends EnvModel {
     required final bool debugShowMaterialGrid,
     required final bool debugApiClient,
     required final String restApiUrl,
+    required final String publicUrl,
     required final String appleRevenueCatApiKey,
     required final String googleRevenueCatApiKey,
   }) = _$EnvModelImpl;
@@ -340,6 +362,8 @@ abstract class _EnvModel extends EnvModel {
   bool get debugApiClient;
   @override
   String get restApiUrl;
+  @override
+  String get publicUrl;
   @override
   String get appleRevenueCatApiKey;
   @override

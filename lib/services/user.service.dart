@@ -485,8 +485,14 @@ class UserService {
     }
   }
 
-  Future<String> checkout() async {
-    final result = await _getIt<ApiClient>().post('/payment/checkout');
+  Future<String> checkout({
+    String? successURL,
+    String? cancelURL,
+  }) async {
+    final result = await _getIt<ApiClient>().post('/payment/checkout', data: {
+      'success_url': successURL,
+      'cancel_url': cancelURL,
+    });
     if (result.statusCode == 200) {
       final sessionUrl = result.data['session'] as String?;
       if (sessionUrl == null) {
