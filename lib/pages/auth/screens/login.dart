@@ -4,6 +4,8 @@ import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:ab_shared/components/modals/edit_self_hosted_url_modal.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
+import 'package:ab_shared/services/user.service.dart';
+import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -80,6 +82,17 @@ class _LoginScreenState extends State<LoginScreen>
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, authState) {
+            if (authState.user != null &&
+                UserService.isSubscriptionActive(
+                  getIt<ApiClient>(),
+                  authState.user,
+                )) {
+              // User has an active subscription, redirect to home
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                getIt<GoRouter>().go('/');
+              });
+              return Container();
+            }
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

@@ -349,14 +349,17 @@ class UserService {
       // Self-hosted instance, no subscription logic
       return true;
     }
+
+    if (user?.subscriptionStatus != null &&
+        user?.subscriptionStatus != 'cancelled') {
+      return true;
+    }
+
     if (user?.purchases == null || user!.purchases!.isEmpty) {
       return false;
     }
 
-    if (user.subscriptionStatus != null &&
-        user.subscriptionStatus != 'cancelled') {
-      return true;
-    }
+    
 
     final nowMs = DateTime.now().millisecondsSinceEpoch;
 

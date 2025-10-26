@@ -9,6 +9,7 @@ import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/services/user.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:ab_shared/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,30 @@ class _PaywallState extends State<Paywall> {
         if (authState is CheckoutLoaded) {
           //TODO: open session url
           print('Open checkout url: ${authState.sessionUrl}');
+          UrlLauncher.launchUrl(
+            authState.sessionUrl,
+            webOnlyWindowName: '_self',
+          );
         }
+
+        if (authState.user != null && UserService.isSubscriptionActive(
+          widget.globalApiClient,
+          authState.user,
+        )) {
+          // User has an active subscription, redirect to home
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            getIt<GoRouter>().go('/');
+          });
+          return Container();
+        }
+
+        // Start checking for purchase after returning from Stripe
+        if (widget.success == true && _checkPurchaseTimer == null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _startCheckingForPurchase(context);
+          });
+        }
+
         if (widget.cancelled == true) {
           return _buildPurchaseFailed(context);
         }
@@ -341,19 +365,19 @@ class _PaywallState extends State<Paywall> {
         authState.user,
       );
       if (isUserHaveActiveSubscription && authState.runtimeType != Loading) {
-        // Show success message and close the paywall after a delay
+        // Subscription is active, redirect to home
         _checkPurchaseTimer?.cancel();
         _checkPurchaseTimer = null;
-        Timer(const Duration(seconds: 5), () {
-          if (!context.mounted) return;
-          getIt<GoRouter>().go('/inbox');
-        });
+        if (!context.mounted) return;
+        getIt<GoRouter>().go('/');
       } else if (loopCount >= 60) {
+        // Timeout after 60 seconds
         _checkPurchaseTimer?.cancel();
         _checkPurchaseTimer = null;
         setState(() {});
         getIt<GoRouter>().go('/paywall?cancelled=true');
       } else {
+        // Keep checking by refreshing user data
         if (authState.runtimeType != Loading) {
           context.read<AuthBloc>().add(const RefreshUser());
         }
