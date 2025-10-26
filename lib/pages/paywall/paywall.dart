@@ -83,6 +83,12 @@ class _PaywallState extends State<Paywall> {
           );
         }
 
+        if (authState.user == null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            getIt<GoRouter>().go('/auth/login');
+          });
+        }
+
         if (authState.user != null &&
             UserService.isSubscriptionActive(
               widget.globalApiClient,
