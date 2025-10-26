@@ -52,6 +52,7 @@ class _AppLayoutState extends State<AppLayout> {
       PaywallUtils.resetPaywall();
     }
 
+    context.read<AuthBloc>().add(RefreshUser());
     context.read<AuthBloc>().add(LoadConfig());
   }
 

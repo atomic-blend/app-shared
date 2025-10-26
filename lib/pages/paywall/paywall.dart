@@ -80,10 +80,11 @@ class _PaywallState extends State<Paywall> {
           );
         }
 
-        if (authState.user != null && UserService.isSubscriptionActive(
-          widget.globalApiClient,
-          authState.user,
-        )) {
+        if (authState.user != null &&
+            UserService.isSubscriptionActive(
+              widget.globalApiClient,
+              authState.user,
+            )) {
           // User has an active subscription, redirect to home
           WidgetsBinding.instance.addPostFrameCallback((_) {
             getIt<GoRouter>().go('/');
@@ -387,52 +388,80 @@ class _PaywallState extends State<Paywall> {
 
   // when _purchaseFailed is true, display the error corresponding to _errorId
   Widget _buildPurchaseFailed(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-        child: Column(
-          children: [
-            SizedBox(height: getSize(context).height * 0.1),
-            SizedBox(
-              width: getSize(context).width * 0.8,
-              height: getSize(context).height * 0.3,
-              child: Transform.scale(
-                scale: 2,
-                child: Lottie.asset(
-                  'assets/animations/failed.json',
-                  width:
-                      isDesktop(context)
-                          ? getSize(context).width * 0.3
-                          : getSize(context).width,
+    return Scaffold(
+      backgroundColor: getTheme(context).surface,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: getSize(context).height * 0.15),
+          Center(
+            child: ElevatedContainer(
+              constraints: BoxConstraints(
+                minWidth: isDesktop(context) ? 500 : 200,
+              ),
+              color: getTheme(context).surface,
+              width:
+                  isDesktop(context)
+                      ? getSize(context).width * 0.2
+                      : getSize(context).width * 0.9,
+              height: getSize(context).height * 0.7,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: $constants.insets.sm,
+                  vertical: $constants.insets.md,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: getSize(context).height * 0.1),
+                      SizedBox(
+                        width: getSize(context).width * 0.8,
+                        height: getSize(context).height * 0.3,
+                        child: Transform.scale(
+                          scale: 2,
+                          child: Lottie.asset(
+                            'assets/animations/failed.json',
+                            width:
+                                isDesktop(context)
+                                    ? getSize(context).width * 0.3
+                                    : getSize(context).width,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: $constants.insets.lg),
+                      Text(
+                        context.t.paywall.validation_failed,
+                        style: getTextTheme(
+                          context,
+                        ).headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: $constants.insets.sm),
+                      Text(
+                        context.t.paywall.validation_failed_description,
+                        textAlign: TextAlign.center,
+                        style: getTextTheme(
+                          context,
+                        ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                      ),
+                      SizedBox(height: $constants.insets.sm),
+                      const Spacer(),
+                      PrimaryButtonSquare(
+                        text: context.t.actions.close,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      SizedBox(height: $constants.insets.lg),
+                    ],
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: $constants.insets.lg),
-            Text(
-              context.t.paywall.validation_failed,
-              style: getTextTheme(
-                context,
-              ).headlineLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: $constants.insets.sm),
-            Text(
-              context.t.paywall.validation_failed_description,
-              textAlign: TextAlign.center,
-              style: getTextTheme(
-                context,
-              ).bodyMedium?.copyWith(color: Colors.grey.shade600),
-            ),
-            SizedBox(height: $constants.insets.sm),
-            const Spacer(),
-            PrimaryButtonSquare(
-              text: context.t.actions.close,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            SizedBox(height: $constants.insets.lg),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -440,34 +469,62 @@ class _PaywallState extends State<Paywall> {
   // when _isMakingPurchase is true, display a "making purchase" loading widget
   // when _checkPurchaseTimer is running, display a "checking purchase" loading widget
   Widget _buildPurchaseLoading(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-        child: Column(
-          children: [
-            SizedBox(height: getSize(context).height * 0.1),
-            Lottie.asset(
-              'assets/animations/apple_pay.json',
+    return Scaffold(
+      backgroundColor: getTheme(context).surface,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: getSize(context).height * 0.15),
+          Center(
+            child: ElevatedContainer(
+              constraints: BoxConstraints(
+                minWidth: isDesktop(context) ? 500 : 200,
+              ),
+              color: getTheme(context).surface,
               width:
                   isDesktop(context)
-                      ? getSize(context).width * 0.3
-                      : getSize(context).width,
+                      ? getSize(context).width * 0.2
+                      : getSize(context).width * 0.9,
+              height: getSize(context).height * 0.7,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: $constants.insets.sm,
+                  vertical: $constants.insets.md,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: getSize(context).height * 0.1),
+                      Lottie.asset(
+                        'assets/animations/apple_pay.json',
+                        width:
+                            isDesktop(context)
+                                ? getSize(context).width * 0.3
+                                : getSize(context).width,
+                      ),
+                      SizedBox(height: $constants.insets.lg),
+                      Text(
+                        context.t.paywall.payment_in_progress,
+                        style: getTextTheme(context).headlineSmall,
+                      ),
+                      SizedBox(height: $constants.insets.sm),
+                      Text(
+                        context.t.paywall.payment_in_progress_description,
+                        textAlign: TextAlign.center,
+                        style: getTextTheme(
+                          context,
+                        ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: $constants.insets.lg),
-            Text(
-              context.t.paywall.payment_in_progress,
-              style: getTextTheme(context).headlineSmall,
-            ),
-            SizedBox(height: $constants.insets.sm),
-            Text(
-              context.t.paywall.payment_in_progress_description,
-              textAlign: TextAlign.center,
-              style: getTextTheme(
-                context,
-              ).bodyMedium?.copyWith(color: Colors.grey.shade600),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
