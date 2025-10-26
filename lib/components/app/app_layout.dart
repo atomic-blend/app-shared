@@ -75,8 +75,7 @@ class _AppLayoutState extends State<AppLayout> {
         final isOnAuthPages = currentLocation.startsWith('/auth');
 
         if (!isOnPaywall && !isOnAuthPages && authState.user != null) {
-          if (authState.appConfig?.paymentEnabled == true &&
-              isPaymentSupported()) {
+          if (authState.appConfig?.paymentEnabled == true) {
             final isSubscriptionActive = UserService.isSubscriptionActive(
               globalApiClient,
               authState.user,

@@ -415,26 +415,16 @@
   "paywall": {
     "title": "Obtenez AtomicBlend Cloud",
     "subtitle": "Profitez d'Atomic Blend sans restrictions et aidez l'initiative open source.",
+    "all_the_apps": "Toutes les applications dont vous avez besoin, dans une seule suite.",
+    "why_choose_atomic_blend": "Pourquoi choisir Atomic Blend Cloud ?",
     "advantages": {
       "all_apps_of_the_suite": {
         "title": "Toutes les applications de la suite",
-        "description": "Accédez à toutes les applications de la suite, y compris Tâches, Habitudes, Calendrier, Notes, et plus encore."
+        "description": "Accédez à toutes les applications de la suite: mail, calendrier, etc..."
       },
       "end_to_end_encrypted": {
         "title": "Chiffrement de bout en bout",
         "description": "Vos données sont à vous, pour toujours."
-      },
-      "unlimited_tasks": {
-        "title": "Tâches Illimitées",
-        "description": "Créez autant de tâches que vous le souhaitez, sans limites."
-      },
-      "unlimited_habits": {
-        "title": "Habitudes Illimitées",
-        "description": "Faites un pas vers une vie plus saine avec des habitudes illimitées."
-      },
-      "unlimited_tags": {
-        "title": "Tags / Dossiers Illimités",
-        "description": "Utilisez autant de tags et de dossiers que nécessaire pour organiser votre vie."
       },
       "sync_across_devices": {
         "title": "Synchronisation entre appareils",
@@ -442,7 +432,7 @@
       },
       "community_backed": {
         "title": "Soutien de la communauté",
-        "description": "100% opensource : rejoignez une communauté d'utilisateurs qui soutiennent le projet."
+        "description": "100% opensource : rejoignez une communauté de contributeurs."
       }
     },
     "pricing(map)": {

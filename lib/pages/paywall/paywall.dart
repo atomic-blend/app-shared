@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ab_shared/components/app/ab_apps_carousel.dart';
 import 'package:ab_shared/services/revenue_cat_service.dart';
 import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
@@ -10,10 +11,12 @@ import 'package:ab_shared/services/user.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:ab_shared/utils/url_launcher.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -111,6 +114,7 @@ class _PaywallState extends State<Paywall> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: getSize(context).height * 0.15),
               Center(
@@ -126,183 +130,91 @@ class _PaywallState extends State<Paywall> {
                   height: getSize(context).height * 0.7,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: $constants.insets.sm,
+                      horizontal: $constants.insets.md,
                       vertical: $constants.insets.md,
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: getSize(context).height * 0.1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                $constants.corners.xl,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: getSize(context).height * 0.1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    $constants.corners.xl,
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/atomic_blend_logo.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                              child: Image.asset(
-                                'assets/images/atomic_blend_logo.png',
-                                fit: BoxFit.cover,
+                              SizedBox(height: $constants.insets.md),
+                              Text(
+                                context.t.paywall.title,
+                                style: getTextTheme(context).headlineLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
-                            ),
+                              Text(
+                                context.t.paywall.subtitle,
+                                textAlign: TextAlign.center,
+                                style: getTextTheme(context).bodyMedium
+                                    ?.copyWith(color: Colors.grey.shade600),
+                              ),
+                              SizedBox(height: $constants.insets.xs),
+                              _buildAdvantages(context),
+                            ],
                           ),
-                          SizedBox(height: $constants.insets.md),
-                          Text(
-                            context.t.paywall.title,
-                            style: getTextTheme(context).headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            context.t.paywall.subtitle,
-                            textAlign: TextAlign.center,
-                            style: getTextTheme(
-                              context,
-                            ).bodyMedium?.copyWith(color: Colors.grey.shade600),
-                          ),
-                          SizedBox(height: $constants.insets.md),
-                          ElevatedContainer(
-                            width: double.infinity,
-                            borderRadius: $constants.corners.sm,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: $constants.insets.md,
-                              vertical: $constants.insets.md,
-                            ),
-                            child: Column(
-                              spacing: $constants.insets.md,
-                              children: [
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .all_apps_of_the_suite
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .all_apps_of_the_suite
-                                          .description,
-                                  icon: CupertinoIcons.square_grid_2x2,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .end_to_end_encrypted
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .end_to_end_encrypted
-                                          .description,
-                                  icon: CupertinoIcons.lock,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tasks
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tasks
-                                          .description,
-                                  icon: CupertinoIcons.checkmark_square,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tags
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_tags
-                                          .description,
-                                  icon: CupertinoIcons.tags,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_habits
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .unlimited_habits
-                                          .description,
-                                  icon: CupertinoIcons.repeat,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .sync_across_devices
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .sync_across_devices
-                                          .description,
-                                  icon: CupertinoIcons.cloud,
-                                ),
-                                _buildAdvantageRow(
-                                  title:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .community_backed
-                                          .title,
-                                  description:
-                                      context
-                                          .t
-                                          .paywall
-                                          .advantages
-                                          .community_backed
-                                          .description,
-                                  icon: CupertinoIcons.person_3,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: $constants.insets.md),
-                          const Divider(),
-                          SizedBox(height: $constants.insets.xs),
-                          PrimaryButtonSquare(
-                            text: "Start 7-day Free Trial",
-                            onPressed: () async {
-                              context.read<AuthBloc>().add(const Checkout());
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Divider(),
+                            SizedBox(height: $constants.insets.xs),
+                            if (kIsWeb) ...[
+                              PrimaryButtonSquare(
+                                text: "Start 7-day Free Trial",
+                                onPressed: () async {
+                                  context.read<AuthBloc>().add(
+                                    const Checkout(),
+                                  );
+                                },
+                              ),
+                            ] else ...[
+                              Text(
+                                "Manage your account",
+                                style: getTextTheme(context).bodyLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Checkout available only on web",
+                                textAlign: TextAlign.center,
+                                style: getTextTheme(context).bodyMedium,
+                              ),
+                              SizedBox(height: $constants.insets.sm),
+                              PrimaryButtonSquare(
+                                icon: CupertinoIcons.globe,
+                                iconColor: Colors.white,
+                                iconSize: 24,
+                                text: "Go to Website",
+                                onPressed:
+                                    () => UrlLauncher.launchUrl(
+                                      'https://atomicblend.com',
+                                    ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -314,45 +226,94 @@ class _PaywallState extends State<Paywall> {
     );
   }
 
+  Widget _buildAdvantages(BuildContext context) {
+    return StaggeredGrid.count(
+      crossAxisCount: 4,
+      mainAxisSpacing: $constants.insets.xs,
+      crossAxisSpacing: $constants.insets.xs,
+      children: [
+        _buildAdvantageRow(
+          title: context.t.paywall.advantages.all_apps_of_the_suite.title,
+          description:
+              context.t.paywall.advantages.all_apps_of_the_suite.description,
+          icon: CupertinoIcons.speedometer,
+        ),
+        _buildAdvantageRow(
+          title: context.t.paywall.advantages.end_to_end_encrypted.title,
+          description:
+              context.t.paywall.advantages.end_to_end_encrypted.description,
+          icon: CupertinoIcons.lock,
+        ),
+        _buildAdvantageRow(
+          title: context.t.paywall.advantages.sync_across_devices.title,
+          description:
+              context.t.paywall.advantages.sync_across_devices.description,
+          icon: CupertinoIcons.cloud,
+        ),
+        _buildAdvantageRow(
+          title: context.t.paywall.advantages.community_backed.title,
+          description:
+              context.t.paywall.advantages.community_backed.description,
+          icon: CupertinoIcons.person_3,
+        ),
+      ],
+    );
+  }
+
   _buildAdvantageRow({
     required String title,
     required String description,
     required IconData icon,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 20,
-          height: 20,
-          child: Icon(icon, color: getTheme(context).primary),
-        ),
-        SizedBox(width: $constants.insets.md),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1.2,
+      child: ElevatedContainer(
+        disableShadow: true,
+        padding: EdgeInsets.all($constants.insets.sm),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              title,
-              style: getTextTheme(
-                context,
-              ).bodyLarge?.copyWith(fontWeight: FontWeight.bold, height: 1),
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: Icon(icon, color: getTheme(context).primary),
             ),
-            Flexible(
-              child: SizedBox(
-                width: getSize(context).width * 0.6,
-                child: Text(
-                  description,
-                  style: getTextTheme(
-                    context,
-                  ).bodyMedium?.copyWith(color: Colors.grey.shade600),
-                ),
+            SizedBox(width: $constants.insets.sm),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: getTextTheme(context).bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: $constants.insets.xxs),
+                  Flexible(
+                    child: SizedBox(
+                      width: getSize(context).width * 0.6,
+                      child: AutoSizeText(
+                        maxLines: 3,
+                        description,
+                        style: getTextTheme(
+                          context,
+                        ).bodyMedium?.copyWith(color: Colors.grey.shade600),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 

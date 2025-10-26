@@ -360,6 +360,8 @@ class _TranslationsPaywallFr implements TranslationsPaywallEn {
 	// Translations
 	@override String get title => 'Obtenez AtomicBlend Cloud';
 	@override String get subtitle => 'Profitez d\'Atomic Blend sans restrictions et aidez l\'initiative open source.';
+	@override String get all_the_apps => 'Toutes les applications dont vous avez besoin, dans une seule suite.';
+	@override String get why_choose_atomic_blend => 'Pourquoi choisir Atomic Blend Cloud ?';
 	@override late final _TranslationsPaywallAdvantagesFr advantages = _TranslationsPaywallAdvantagesFr._(_root);
 	@override Map<String, dynamic> get pricing => {
 		'\$rc_annual': _TranslationsPaywallPricing$rcAnnualFr._(_root),
@@ -701,9 +703,6 @@ class _TranslationsPaywallAdvantagesFr implements TranslationsPaywallAdvantagesE
 	// Translations
 	@override late final _TranslationsPaywallAdvantagesAllAppsOfTheSuiteFr all_apps_of_the_suite = _TranslationsPaywallAdvantagesAllAppsOfTheSuiteFr._(_root);
 	@override late final _TranslationsPaywallAdvantagesEndToEndEncryptedFr end_to_end_encrypted = _TranslationsPaywallAdvantagesEndToEndEncryptedFr._(_root);
-	@override late final _TranslationsPaywallAdvantagesUnlimitedTasksFr unlimited_tasks = _TranslationsPaywallAdvantagesUnlimitedTasksFr._(_root);
-	@override late final _TranslationsPaywallAdvantagesUnlimitedHabitsFr unlimited_habits = _TranslationsPaywallAdvantagesUnlimitedHabitsFr._(_root);
-	@override late final _TranslationsPaywallAdvantagesUnlimitedTagsFr unlimited_tags = _TranslationsPaywallAdvantagesUnlimitedTagsFr._(_root);
 	@override late final _TranslationsPaywallAdvantagesSyncAcrossDevicesFr sync_across_devices = _TranslationsPaywallAdvantagesSyncAcrossDevicesFr._(_root);
 	@override late final _TranslationsPaywallAdvantagesCommunityBackedFr community_backed = _TranslationsPaywallAdvantagesCommunityBackedFr._(_root);
 }
@@ -851,7 +850,7 @@ class _TranslationsPaywallAdvantagesAllAppsOfTheSuiteFr implements TranslationsP
 
 	// Translations
 	@override String get title => 'Toutes les applications de la suite';
-	@override String get description => 'Accédez à toutes les applications de la suite, y compris Tâches, Habitudes, Calendrier, Notes, et plus encore.';
+	@override String get description => 'Accédez à toutes les applications de la suite: mail, calendrier, etc...';
 }
 
 // Path: paywall.advantages.end_to_end_encrypted
@@ -863,39 +862,6 @@ class _TranslationsPaywallAdvantagesEndToEndEncryptedFr implements TranslationsP
 	// Translations
 	@override String get title => 'Chiffrement de bout en bout';
 	@override String get description => 'Vos données sont à vous, pour toujours.';
-}
-
-// Path: paywall.advantages.unlimited_tasks
-class _TranslationsPaywallAdvantagesUnlimitedTasksFr implements TranslationsPaywallAdvantagesUnlimitedTasksEn {
-	_TranslationsPaywallAdvantagesUnlimitedTasksFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Tâches Illimitées';
-	@override String get description => 'Créez autant de tâches que vous le souhaitez, sans limites.';
-}
-
-// Path: paywall.advantages.unlimited_habits
-class _TranslationsPaywallAdvantagesUnlimitedHabitsFr implements TranslationsPaywallAdvantagesUnlimitedHabitsEn {
-	_TranslationsPaywallAdvantagesUnlimitedHabitsFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Habitudes Illimitées';
-	@override String get description => 'Faites un pas vers une vie plus saine avec des habitudes illimitées.';
-}
-
-// Path: paywall.advantages.unlimited_tags
-class _TranslationsPaywallAdvantagesUnlimitedTagsFr implements TranslationsPaywallAdvantagesUnlimitedTagsEn {
-	_TranslationsPaywallAdvantagesUnlimitedTagsFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Tags / Dossiers Illimités';
-	@override String get description => 'Utilisez autant de tags et de dossiers que nécessaire pour organiser votre vie.';
 }
 
 // Path: paywall.advantages.sync_across_devices
@@ -917,7 +883,7 @@ class _TranslationsPaywallAdvantagesCommunityBackedFr implements TranslationsPay
 
 	// Translations
 	@override String get title => 'Soutien de la communauté';
-	@override String get description => '100% opensource : rejoignez une communauté d\'utilisateurs qui soutiennent le projet.';
+	@override String get description => '100% opensource : rejoignez une communauté de contributeurs.';
 }
 
 /// Flat map(s) containing all translations.
@@ -1288,20 +1254,16 @@ extension on TranslationsFr {
 			case 'name_generator.adjectives.98': return 'raffiné';
 			case 'paywall.title': return 'Obtenez AtomicBlend Cloud';
 			case 'paywall.subtitle': return 'Profitez d\'Atomic Blend sans restrictions et aidez l\'initiative open source.';
+			case 'paywall.all_the_apps': return 'Toutes les applications dont vous avez besoin, dans une seule suite.';
+			case 'paywall.why_choose_atomic_blend': return 'Pourquoi choisir Atomic Blend Cloud ?';
 			case 'paywall.advantages.all_apps_of_the_suite.title': return 'Toutes les applications de la suite';
-			case 'paywall.advantages.all_apps_of_the_suite.description': return 'Accédez à toutes les applications de la suite, y compris Tâches, Habitudes, Calendrier, Notes, et plus encore.';
+			case 'paywall.advantages.all_apps_of_the_suite.description': return 'Accédez à toutes les applications de la suite: mail, calendrier, etc...';
 			case 'paywall.advantages.end_to_end_encrypted.title': return 'Chiffrement de bout en bout';
 			case 'paywall.advantages.end_to_end_encrypted.description': return 'Vos données sont à vous, pour toujours.';
-			case 'paywall.advantages.unlimited_tasks.title': return 'Tâches Illimitées';
-			case 'paywall.advantages.unlimited_tasks.description': return 'Créez autant de tâches que vous le souhaitez, sans limites.';
-			case 'paywall.advantages.unlimited_habits.title': return 'Habitudes Illimitées';
-			case 'paywall.advantages.unlimited_habits.description': return 'Faites un pas vers une vie plus saine avec des habitudes illimitées.';
-			case 'paywall.advantages.unlimited_tags.title': return 'Tags / Dossiers Illimités';
-			case 'paywall.advantages.unlimited_tags.description': return 'Utilisez autant de tags et de dossiers que nécessaire pour organiser votre vie.';
 			case 'paywall.advantages.sync_across_devices.title': return 'Synchronisation entre appareils';
 			case 'paywall.advantages.sync_across_devices.description': return 'Accédez à vos données depuis n\'importe quel appareil, n\'importe où.';
 			case 'paywall.advantages.community_backed.title': return 'Soutien de la communauté';
-			case 'paywall.advantages.community_backed.description': return '100% opensource : rejoignez une communauté d\'utilisateurs qui soutiennent le projet.';
+			case 'paywall.advantages.community_backed.description': return '100% opensource : rejoignez une communauté de contributeurs.';
 			case 'paywall.pricing.\$rc_annual.title': return 'Annuel';
 			case 'paywall.pricing.\$rc_annual.price': return '39.99€/an';
 			case 'paywall.pricing.\$rc_annual.billed': return 'soit 3.33€/mois';
