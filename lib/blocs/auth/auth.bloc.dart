@@ -404,8 +404,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(CheckoutLoading(prevState.user, prevState.appConfig));
     try {
       final baseUrl = getIt<EnvModel>().publicUrl;
-      final successURL = '$baseUrl/paywall?success=true';
-      final cancelURL = '$baseUrl/paywall?canceled=true';
+      final successURL = '$baseUrl/#/paywall?success=true';
+      final cancelURL = '$baseUrl/#/paywall?canceled=true';
       final sessionUrl = await _userService.checkout(
         successURL: successURL,
         cancelURL: cancelURL,

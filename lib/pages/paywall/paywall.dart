@@ -144,39 +144,41 @@ class _PaywallState extends State<Paywall> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: getSize(context).height * 0.1,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                    $constants.corners.xl,
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/atomic_blend_logo.png',
-                                    fit: BoxFit.cover,
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: getSize(context).height * 0.1,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      $constants.corners.xl,
+                                    ),
+                                    child: Image.asset(
+                                      'assets/images/atomic_blend_logo.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: $constants.insets.md),
-                              Text(
-                                context.t.paywall.title,
-                                style: getTextTheme(context).headlineLarge
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                context.t.paywall.subtitle,
-                                textAlign: TextAlign.center,
-                                style: getTextTheme(context).bodyMedium
-                                    ?.copyWith(color: Colors.grey.shade600),
-                              ),
-                              SizedBox(height: $constants.insets.xs),
-                              _buildAdvantages(context),
-                            ],
+                                SizedBox(height: $constants.insets.md),
+                                Text(
+                                  context.t.paywall.title,
+                                  style: getTextTheme(context).headlineLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  context.t.paywall.subtitle,
+                                  textAlign: TextAlign.center,
+                                  style: getTextTheme(context).bodyMedium
+                                      ?.copyWith(color: Colors.grey.shade600),
+                                ),
+                                SizedBox(height: $constants.insets.xs),
+                                _buildAdvantages(context),
+                              ],
+                            ),
                           ),
                         ),
                         Column(
@@ -238,6 +240,98 @@ class _PaywallState extends State<Paywall> {
       mainAxisSpacing: $constants.insets.xs,
       crossAxisSpacing: $constants.insets.xs,
       children: [
+        StaggeredGridTile.count(
+          crossAxisCellCount: 4,
+          mainAxisCellCount: 0.8,
+          child: ElevatedContainer(
+            disableShadow: true,
+            color: Colors.blueAccent.withValues(alpha: 0.1),
+            padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+            child: Row(
+              children: [
+                Icon(CupertinoIcons.tag, color: Colors.blueAccent),
+                SizedBox(width: $constants.insets.sm),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "One Plan",
+                          style: getTextTheme(context).bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        SizedBox(width: $constants.insets.xs),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: $constants.insets.xs,
+                            vertical: $constants.insets.xxs,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent.withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(
+                              $constants.corners.md,
+                            ),
+                          ),
+                          child: Text(
+                            "50% off",
+                            style: getTextTheme(context).bodyMedium?.copyWith(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "100Go of storage included",
+                      style: getTextTheme(
+                        context,
+                      ).bodyMedium?.copyWith(color: Colors.blueAccent),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "8€/mo",
+                          style: getTextTheme(context).bodyMedium?.copyWith(
+                            color: Colors.blueAccent,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        SizedBox(width: $constants.insets.xs),
+                        Text(
+                          "4€/mo",
+                          style: getTextTheme(context).bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                    AutoSizeText(
+                      maxLines: 1,
+                      "+ 0.02€/Go/mo over 100Go",
+                      style: getTextTheme(
+                        context,
+                      ).bodySmall?.copyWith(color: Colors.blueAccent),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+
         _buildAdvantageRow(
           title: context.t.paywall.advantages.all_apps_of_the_suite.title,
           description:
