@@ -12,8 +12,6 @@ import 'package:ab_shared/pages/auth/screens/register/register_email_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/waiting_list_code_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/waiting_list_position_step.dart';
 import 'package:ab_shared/pages/auth/screens/register/waiting_list_start_step.dart';
-import 'package:ab_shared/services/user.service.dart';
-import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';

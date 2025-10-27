@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:ab_shared/components/app/ab_apps_carousel.dart';
 import 'package:ab_shared/services/revenue_cat_service.dart';
 import 'package:ab_shared/utils/api_client.dart';
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
@@ -75,8 +74,6 @@ class _PaywallState extends State<Paywall> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
         if (authState is CheckoutLoaded) {
-          //TODO: open session url
-          print('Open checkout url: ${authState.sessionUrl}');
           UrlLauncher.launchUrl(
             authState.sessionUrl,
             webOnlyWindowName: '_self',
