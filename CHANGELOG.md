@@ -2,6 +2,30 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.10.0 - 2025-10-28
+#### Bug Fixes
+- linter - (60fd501) - Brandon Guigo
+- paywall callback - (6302a21) - Brandon Guigo
+- when user is null in paywall, redirect to login - (3d7f633) - Brandon Guigo
+- redirections and some ui stuff - (1e71b8c) - Brandon Guigo
+- layout infinite loop for paywall redirect - (c841900) - Brandon Guigo
+- convert the paywall to go route page - (263b381) - Brandon Guigo
+- add subscribe event + fix login issue - (4e0e846) - Brandon Guigo
+- ui of paywall - (8f495b9) - Brandon Guigo
+#### Features
+- send redirect urls to backend when creating checkout session - (98765e7) - Brandon Guigo
+- update the paywall ui - (3d093ae) - Brandon Guigo
+- make paywall redirections works - (18df995) - Brandon Guigo
+- support callback parameters for after stripe checkout - (745544c) - Brandon Guigo
+- add subscribe_response model - (90f4131) - Brandon Guigo
+- show paywall when payment is enabled and it's on web or desktop - (16ec0de) - Brandon Guigo
+- add back the change self-hosted url button, except on web - (6361825) - Brandon Guigo
+- add banners for no free tier + -50% off - (055d73a) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.9.1 [skip ci] - (81b11d7) - GitHub Actions
+
+- - -
+
 ## v0.9.1 - 2025-10-21
 #### Bug Fixes
 - test gh solution - (9747adf) - Brandon Guigo
