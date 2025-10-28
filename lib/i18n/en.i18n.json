@@ -61,7 +61,11 @@
       "desktop_only_step": "Giddy up Cowboy!",
       "desktop_only_step_description": "Setting up your Atomic Blend account is only available on desktop.",
       "go_on_desktop": "Go on desktop",
-      "web_register_slow": "It may take a few minutes to complete the registration. App might look frozen, but it's working in the background.\nClick once the register button and please wait until the app redirects you to the next step."
+      "web_register_slow": "It may take a few minutes to complete the registration. App might look frozen, but it's working in the background.\nClick once the register button and please wait until the app redirects you to the next step.",
+      "payment_enabled": {
+        "title": "Credit Card Required",
+        "description": "Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier."
+      }
     },
     "delete_account": {
       "title": "Delete your account",
@@ -414,26 +418,16 @@
   "paywall": {
     "title": "Get AtomicBlend Cloud",
     "subtitle": "Enjoy Atomic Blend without restrictions and help the opensource initiative.",
+    "all_the_apps": "All the apps you need, in one suite.",
+    "why_choose_atomic_blend": "Why choose Atomic Blend Cloud?",
     "advantages": {
       "all_apps_of_the_suite": {
         "title": "All Apps of the Suite",
-        "description": "Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more."
+        "description": "Get access to all the apps of the suite: mail, calendar, etc..."
       },
       "end_to_end_encrypted": {
         "title": "End-to-End Encryption",
         "description": "Your data is yours, forever."
-      },
-      "unlimited_tasks": {
-        "title": "Unlimited Tasks",
-        "description": "Create as many tasks as you want, no limits."
-      },
-      "unlimited_habits": {
-        "title": "Unlimited Habits",
-        "description": "Take a step towards a healthier life with unlimited habits."
-      },
-      "unlimited_tags": {
-        "title": "Unlimited Tags / Folders",
-        "description": "Use as many tags and folders as needed to organize your life."
       },
       "sync_across_devices": {
         "title": "Sync Across Devices",
@@ -441,7 +435,7 @@
       },
       "community_backed": {
         "title": "Community Backed",
-        "description": "100% opensource : join a community of users who support the project."
+        "description": "100% opensource : join a community of contributors."
       }
     },
     "pricing(map)": {

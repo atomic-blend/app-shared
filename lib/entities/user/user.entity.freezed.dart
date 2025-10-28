@@ -33,6 +33,12 @@ mixin _$UserEntity {
   set firstName(String? value) => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   set lastName(String? value) => throw _privateConstructorUsedError;
+  String? get stripeCustomerId => throw _privateConstructorUsedError;
+  set stripeCustomerId(String? value) => throw _privateConstructorUsedError;
+  String? get stripeSubscriptionId => throw _privateConstructorUsedError;
+  set stripeSubscriptionId(String? value) => throw _privateConstructorUsedError;
+  String? get subscriptionStatus => throw _privateConstructorUsedError;
+  set subscriptionStatus(String? value) => throw _privateConstructorUsedError;
   EncryptionKeyEntity get keySet => throw _privateConstructorUsedError;
   set keySet(EncryptionKeyEntity value) => throw _privateConstructorUsedError;
   List<UserDeviceEntity>? get devices => throw _privateConstructorUsedError;
@@ -73,6 +79,9 @@ abstract class $UserEntityCopyWith<$Res> {
     List<dynamic> roles,
     String? firstName,
     String? lastName,
+    String? stripeCustomerId,
+    String? stripeSubscriptionId,
+    String? subscriptionStatus,
     EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -106,6 +115,9 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? roles = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? stripeCustomerId = freezed,
+    Object? stripeSubscriptionId = freezed,
+    Object? subscriptionStatus = freezed,
     Object? keySet = null,
     Object? devices = freezed,
     Object? purchases = freezed,
@@ -145,6 +157,21 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
                 freezed == lastName
                     ? _value.lastName
                     : lastName // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            stripeCustomerId:
+                freezed == stripeCustomerId
+                    ? _value.stripeCustomerId
+                    : stripeCustomerId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            stripeSubscriptionId:
+                freezed == stripeSubscriptionId
+                    ? _value.stripeSubscriptionId
+                    : stripeSubscriptionId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            subscriptionStatus:
+                freezed == subscriptionStatus
+                    ? _value.subscriptionStatus
+                    : subscriptionStatus // ignore: cast_nullable_to_non_nullable
                         as String?,
             keySet:
                 null == keySet
@@ -213,6 +240,9 @@ abstract class _$$UserEntityImplCopyWith<$Res>
     List<dynamic> roles,
     String? firstName,
     String? lastName,
+    String? stripeCustomerId,
+    String? stripeSubscriptionId,
+    String? subscriptionStatus,
     EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -246,6 +276,9 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? roles = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? stripeCustomerId = freezed,
+    Object? stripeSubscriptionId = freezed,
+    Object? subscriptionStatus = freezed,
     Object? keySet = null,
     Object? devices = freezed,
     Object? purchases = freezed,
@@ -285,6 +318,21 @@ class __$$UserEntityImplCopyWithImpl<$Res>
             freezed == lastName
                 ? _value.lastName
                 : lastName // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        stripeCustomerId:
+            freezed == stripeCustomerId
+                ? _value.stripeCustomerId
+                : stripeCustomerId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        stripeSubscriptionId:
+            freezed == stripeSubscriptionId
+                ? _value.stripeSubscriptionId
+                : stripeSubscriptionId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        subscriptionStatus:
+            freezed == subscriptionStatus
+                ? _value.subscriptionStatus
+                : subscriptionStatus // ignore: cast_nullable_to_non_nullable
                     as String?,
         keySet:
             null == keySet
@@ -336,6 +384,9 @@ class _$UserEntityImpl extends _UserEntity {
     required this.roles,
     this.firstName,
     this.lastName,
+    this.stripeCustomerId,
+    this.stripeSubscriptionId,
+    this.subscriptionStatus,
     required this.keySet,
     this.devices,
     this.purchases,
@@ -360,6 +411,12 @@ class _$UserEntityImpl extends _UserEntity {
   String? firstName;
   @override
   String? lastName;
+  @override
+  String? stripeCustomerId;
+  @override
+  String? stripeSubscriptionId;
+  @override
+  String? subscriptionStatus;
   @override
   EncryptionKeyEntity keySet;
   @override
@@ -397,6 +454,9 @@ abstract class _UserEntity extends UserEntity {
     required List<dynamic> roles,
     String? firstName,
     String? lastName,
+    String? stripeCustomerId,
+    String? stripeSubscriptionId,
+    String? subscriptionStatus,
     required EncryptionKeyEntity keySet,
     List<UserDeviceEntity>? devices,
     List<Purchase>? purchases,
@@ -428,6 +488,15 @@ abstract class _UserEntity extends UserEntity {
   @override
   String? get lastName;
   set lastName(String? value);
+  @override
+  String? get stripeCustomerId;
+  set stripeCustomerId(String? value);
+  @override
+  String? get stripeSubscriptionId;
+  set stripeSubscriptionId(String? value);
+  @override
+  String? get subscriptionStatus;
+  set subscriptionStatus(String? value);
   @override
   EncryptionKeyEntity get keySet;
   set keySet(EncryptionKeyEntity value);

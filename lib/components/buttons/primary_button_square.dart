@@ -11,6 +11,7 @@ class PrimaryButtonSquare extends StatelessWidget {
     this.emoji,
     this.icon,
     this.iconColor,
+    this.iconSize,
     this.text,
     this.backgroundColor,
     this.trailing,
@@ -26,6 +27,7 @@ class PrimaryButtonSquare extends StatelessWidget {
   final Widget? leading;
   final IconData? icon;
   final Color? iconColor;
+  final double? iconSize;
   final Widget? trailing;
   final String? text;
   final Color? backgroundColor;
@@ -74,7 +76,9 @@ class PrimaryButtonSquare extends StatelessWidget {
                 if (emoji != null) ...[
                   Text(emoji!, style: const TextStyle(fontSize: 23)),
                 ],
-                if (icon != null) ...[Icon(icon, color: iconColor)],
+                if (icon != null) ...[
+                  Icon(icon, color: iconColor, size: iconSize),
+                ],
                 if (text != null) ...[
                   SizedBox(width: $constants.insets.xs),
                   Center(

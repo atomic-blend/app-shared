@@ -402,6 +402,12 @@ class TranslationsPaywallEn {
 	/// en: 'Enjoy Atomic Blend without restrictions and help the opensource initiative.'
 	String get subtitle => 'Enjoy Atomic Blend without restrictions and help the opensource initiative.';
 
+	/// en: 'All the apps you need, in one suite.'
+	String get all_the_apps => 'All the apps you need, in one suite.';
+
+	/// en: 'Why choose Atomic Blend Cloud?'
+	String get why_choose_atomic_blend => 'Why choose Atomic Blend Cloud?';
+
 	late final TranslationsPaywallAdvantagesEn advantages = TranslationsPaywallAdvantagesEn._(_root);
 	Map<String, dynamic> get pricing => {
 		'\$rc_annual': TranslationsPaywallPricing$rcAnnualEn._(_root),
@@ -738,6 +744,8 @@ class TranslationsAuthRegisterEn {
 
 	/// en: 'It may take a few minutes to complete the registration. App might look frozen, but it's working in the background. Click once the register button and please wait until the app redirects you to the next step.'
 	String get web_register_slow => 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
+
+	late final TranslationsAuthRegisterPaymentEnabledEn payment_enabled = TranslationsAuthRegisterPaymentEnabledEn._(_root);
 }
 
 // Path: auth.delete_account
@@ -1056,9 +1064,6 @@ class TranslationsPaywallAdvantagesEn {
 	// Translations
 	late final TranslationsPaywallAdvantagesAllAppsOfTheSuiteEn all_apps_of_the_suite = TranslationsPaywallAdvantagesAllAppsOfTheSuiteEn._(_root);
 	late final TranslationsPaywallAdvantagesEndToEndEncryptedEn end_to_end_encrypted = TranslationsPaywallAdvantagesEndToEndEncryptedEn._(_root);
-	late final TranslationsPaywallAdvantagesUnlimitedTasksEn unlimited_tasks = TranslationsPaywallAdvantagesUnlimitedTasksEn._(_root);
-	late final TranslationsPaywallAdvantagesUnlimitedHabitsEn unlimited_habits = TranslationsPaywallAdvantagesUnlimitedHabitsEn._(_root);
-	late final TranslationsPaywallAdvantagesUnlimitedTagsEn unlimited_tags = TranslationsPaywallAdvantagesUnlimitedTagsEn._(_root);
 	late final TranslationsPaywallAdvantagesSyncAcrossDevicesEn sync_across_devices = TranslationsPaywallAdvantagesSyncAcrossDevicesEn._(_root);
 	late final TranslationsPaywallAdvantagesCommunityBackedEn community_backed = TranslationsPaywallAdvantagesCommunityBackedEn._(_root);
 }
@@ -1207,6 +1212,21 @@ class TranslationsTimeUnitsLongEn {
 	);
 }
 
+// Path: auth.register.payment_enabled
+class TranslationsAuthRegisterPaymentEnabledEn {
+	TranslationsAuthRegisterPaymentEnabledEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Credit Card Required'
+	String get title => 'Credit Card Required';
+
+	/// en: 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.'
+	String get description => 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.';
+}
+
 // Path: settings.app_settings.selfHostedUrl
 class TranslationsSettingsAppSettingsSelfHostedUrlEn {
 	TranslationsSettingsAppSettingsSelfHostedUrlEn._(this._root);
@@ -1278,8 +1298,8 @@ class TranslationsPaywallAdvantagesAllAppsOfTheSuiteEn {
 	/// en: 'All Apps of the Suite'
 	String get title => 'All Apps of the Suite';
 
-	/// en: 'Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more.'
-	String get description => 'Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more.';
+	/// en: 'Get access to all the apps of the suite: mail, calendar, etc...'
+	String get description => 'Get access to all the apps of the suite: mail, calendar, etc...';
 }
 
 // Path: paywall.advantages.end_to_end_encrypted
@@ -1295,51 +1315,6 @@ class TranslationsPaywallAdvantagesEndToEndEncryptedEn {
 
 	/// en: 'Your data is yours, forever.'
 	String get description => 'Your data is yours, forever.';
-}
-
-// Path: paywall.advantages.unlimited_tasks
-class TranslationsPaywallAdvantagesUnlimitedTasksEn {
-	TranslationsPaywallAdvantagesUnlimitedTasksEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Unlimited Tasks'
-	String get title => 'Unlimited Tasks';
-
-	/// en: 'Create as many tasks as you want, no limits.'
-	String get description => 'Create as many tasks as you want, no limits.';
-}
-
-// Path: paywall.advantages.unlimited_habits
-class TranslationsPaywallAdvantagesUnlimitedHabitsEn {
-	TranslationsPaywallAdvantagesUnlimitedHabitsEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Unlimited Habits'
-	String get title => 'Unlimited Habits';
-
-	/// en: 'Take a step towards a healthier life with unlimited habits.'
-	String get description => 'Take a step towards a healthier life with unlimited habits.';
-}
-
-// Path: paywall.advantages.unlimited_tags
-class TranslationsPaywallAdvantagesUnlimitedTagsEn {
-	TranslationsPaywallAdvantagesUnlimitedTagsEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Unlimited Tags / Folders'
-	String get title => 'Unlimited Tags / Folders';
-
-	/// en: 'Use as many tags and folders as needed to organize your life.'
-	String get description => 'Use as many tags and folders as needed to organize your life.';
 }
 
 // Path: paywall.advantages.sync_across_devices
@@ -1368,8 +1343,8 @@ class TranslationsPaywallAdvantagesCommunityBackedEn {
 	/// en: 'Community Backed'
 	String get title => 'Community Backed';
 
-	/// en: '100% opensource : join a community of users who support the project.'
-	String get description => '100% opensource : join a community of users who support the project.';
+	/// en: '100% opensource : join a community of contributors.'
+	String get description => '100% opensource : join a community of contributors.';
 }
 
 /// Flat map(s) containing all translations.
@@ -1432,6 +1407,8 @@ extension on Translations {
 			case 'auth.register.desktop_only_step_description': return 'Setting up your Atomic Blend account is only available on desktop.';
 			case 'auth.register.go_on_desktop': return 'Go on desktop';
 			case 'auth.register.web_register_slow': return 'It may take a few minutes to complete the registration. App might look frozen, but it\'s working in the background.\nClick once the register button and please wait until the app redirects you to the next step.';
+			case 'auth.register.payment_enabled.title': return 'Credit Card Required';
+			case 'auth.register.payment_enabled.description': return 'Atomic Blend is an opensource project. As a solo builder bootstraping the project, I cannot offer a free tier.';
 			case 'auth.delete_account.title': return 'Delete your account';
 			case 'auth.delete_account.description': return 'Are you sure you want to delete your account?';
 			case 'auth.delete_account.cannot_be_undone': return 'This action cannot be undone.';
@@ -1741,20 +1718,16 @@ extension on Translations {
 			case 'name_generator.adjectives.99': return 'fancy';
 			case 'paywall.title': return 'Get AtomicBlend Cloud';
 			case 'paywall.subtitle': return 'Enjoy Atomic Blend without restrictions and help the opensource initiative.';
+			case 'paywall.all_the_apps': return 'All the apps you need, in one suite.';
+			case 'paywall.why_choose_atomic_blend': return 'Why choose Atomic Blend Cloud?';
 			case 'paywall.advantages.all_apps_of_the_suite.title': return 'All Apps of the Suite';
-			case 'paywall.advantages.all_apps_of_the_suite.description': return 'Get access to all the apps of the suite, including Tasks, Habits, Calendar, Notes, and more.';
+			case 'paywall.advantages.all_apps_of_the_suite.description': return 'Get access to all the apps of the suite: mail, calendar, etc...';
 			case 'paywall.advantages.end_to_end_encrypted.title': return 'End-to-End Encryption';
 			case 'paywall.advantages.end_to_end_encrypted.description': return 'Your data is yours, forever.';
-			case 'paywall.advantages.unlimited_tasks.title': return 'Unlimited Tasks';
-			case 'paywall.advantages.unlimited_tasks.description': return 'Create as many tasks as you want, no limits.';
-			case 'paywall.advantages.unlimited_habits.title': return 'Unlimited Habits';
-			case 'paywall.advantages.unlimited_habits.description': return 'Take a step towards a healthier life with unlimited habits.';
-			case 'paywall.advantages.unlimited_tags.title': return 'Unlimited Tags / Folders';
-			case 'paywall.advantages.unlimited_tags.description': return 'Use as many tags and folders as needed to organize your life.';
 			case 'paywall.advantages.sync_across_devices.title': return 'Sync Across Devices';
 			case 'paywall.advantages.sync_across_devices.description': return 'Access your data from any device, anywhere.';
 			case 'paywall.advantages.community_backed.title': return 'Community Backed';
-			case 'paywall.advantages.community_backed.description': return '100% opensource : join a community of users who support the project.';
+			case 'paywall.advantages.community_backed.description': return '100% opensource : join a community of contributors.';
 			case 'paywall.pricing.\$rc_annual.title': return 'Yearly';
 			case 'paywall.pricing.\$rc_annual.price': return '\$39.99/year';
 			case 'paywall.pricing.\$rc_annual.billed': return '1 month free trial';

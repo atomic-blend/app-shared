@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:ab_shared/entities/subscribe_response/subscribe_response.dart';
 import 'package:ab_shared/entities/user/user.entity.dart';
 import 'package:ab_shared/entities/userRole/userRole.entity.dart';
 import 'package:ab_shared/entities/user_device/user_device.dart';
@@ -348,9 +349,17 @@ class UserService {
       // Self-hosted instance, no subscription logic
       return true;
     }
+
+    if (user?.subscriptionStatus != null &&
+        user?.subscriptionStatus != 'cancelled') {
+      return true;
+    }
+
     if (user?.purchases == null || user!.purchases!.isEmpty) {
       return false;
     }
+
+    
 
     final nowMs = DateTime.now().millisecondsSinceEpoch;
 
@@ -404,6 +413,7 @@ class UserService {
           }
         }
       }
+      //TODO: handle stripe purchases
     }
     return false; // No active subscription found
   }
@@ -461,5 +471,36 @@ class UserService {
       expirationTimestamp,
     );
     return expirationDate;
+  }
+
+  Future<SubscribeResponse> subscribe() async {
+    final result = await _getIt<ApiClient>().post('/payment/subscribe');
+    if (result.statusCode == 200) {
+      final subscribeResponse = SubscribeResponse.fromJson(
+        result.data as Map<String, dynamic>,
+      );
+      return subscribeResponse;
+    } else {
+      throw Exception('subscribe_failed');
+    }
+  }
+
+  Future<String> checkout({
+    String? successURL,
+    String? cancelURL,
+  }) async {
+    final result = await _getIt<ApiClient>().post('/payment/checkout', data: {
+      'success_url': successURL,
+      'cancel_url': cancelURL,
+    });
+    if (result.statusCode == 200) {
+      final sessionUrl = result.data['session'] as String?;
+      if (sessionUrl == null) {
+        throw Exception('Invalid session URL');
+      }
+      return sessionUrl;
+    } else {
+      throw Exception('checkout_failed');
+    }
   }
 }

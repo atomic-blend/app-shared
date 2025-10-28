@@ -103,7 +103,7 @@ bool isPaymentSupported() {
   if (kIsWeb || kIsWasm) {
     return true;
   }
-  return !(Platform.isAndroid || Platform.isIOS);
+  return false;
 }
 
 bool isApple(BuildContext context) {

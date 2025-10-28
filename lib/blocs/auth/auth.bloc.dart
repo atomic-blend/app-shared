@@ -7,6 +7,7 @@ import 'package:ab_shared/services/config_service.dart';
 import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
 import 'package:ab_shared/services/user.service.dart';
+import 'package:ab_shared/utils/env/env.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -47,6 +48,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<MnemonicDisplayed>(_onMnemonicDisplayed);
     on<JoinWaitingList>(_onJoinWaitingList);
     on<GetWaitingListPosition>(_onGetWaitingListPosition);
+    on<Checkout>(_onCheckout);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -56,7 +58,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   void _onLogIn(LoginEvent event, Emitter<AuthState> emit) async {
     final prevState = state;
-    emit(Loading(prevState.user, prevState.appConfig));
+    emit(AuthActionLoading(prevState.user, prevState.appConfig));
     try {
       final updatedUser = await _userService.login(event.email, event.password);
       if (updatedUser == null) {
@@ -106,7 +108,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   void _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
     final prevState = state;
-    emit(Loading(prevState.user, prevState.appConfig));
+    emit(AuthActionLoading(prevState.user, prevState.appConfig));
     try {
       final updatedUser = await _userService.register(
         event.email,
@@ -394,6 +396,30 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       emit(
         JoinWaitingListError(e.toString(), prevState.user, prevState.appConfig),
       );
+    }
+  }
+
+  FutureOr<void> _onCheckout(Checkout event, Emitter<AuthState> emit) async {
+    final prevState = state;
+    emit(CheckoutLoading(prevState.user, prevState.appConfig));
+    try {
+      final baseUrl = getIt<EnvModel>().publicUrl;
+      final successURL = '$baseUrl/#/paywall?success=true';
+      final cancelURL = '$baseUrl/#/paywall?canceled=true';
+      final sessionUrl = await _userService.checkout(
+        successURL: successURL,
+        cancelURL: cancelURL,
+      );
+      emit(CheckoutLoaded(sessionUrl, prevState.user, prevState.appConfig));
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      final message =
+          (data is Map && data['error'] != null)
+              ? data['error']
+              : (e.message ?? 'checkout_failed');
+      emit(AuthError(message, prevState.user, prevState.appConfig));
+    } on Exception catch (e) {
+      emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
     }
   }
 }

@@ -107,7 +107,7 @@ class _BackupEmailStepState extends State<BackupEmailStep> {
                 ],
                 PrimaryButtonSquare(
                   leading:
-                      authState is Loading
+                      authState is AuthActionLoading
                           ? const SizedBox(
                             width: 20,
                             height: 20,

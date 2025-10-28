@@ -61,7 +61,11 @@
       "desktop_only_step": "En selle, Cowboy !",
       "desktop_only_step_description": "La création de votre compte Atomic Blend n'est disponible que sur le navigateur web.",
       "go_on_desktop": "Aller sur le navigateur web",
-      "web_register_slow": "Il peut prendre quelques minutes pour compléter l'inscription. L'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d'inscription et attendez que l'application vous redirige vers l'étape suivante."
+      "web_register_slow": "Il peut prendre quelques minutes pour compléter l'inscription. L'application peut sembler figée, mais elle fonctionne en arrière-plan.\nCliquez une fois sur le bouton d'inscription et attendez que l'application vous redirige vers l'étape suivante.",
+      "payment_enabled": {
+        "title": "Carte de crédit requise",
+        "description": "Atomic Blend est un projet opensource. En tant que développeur indépendant finançant le projet, je ne peux pas offrir de version gratuite."
+      }
     },
     "delete_account": {
       "title": "Supprimer mon compte",
@@ -411,26 +415,16 @@
   "paywall": {
     "title": "Obtenez AtomicBlend Cloud",
     "subtitle": "Profitez d'Atomic Blend sans restrictions et aidez l'initiative open source.",
+    "all_the_apps": "Toutes les applications dont vous avez besoin, dans une seule suite.",
+    "why_choose_atomic_blend": "Pourquoi choisir Atomic Blend Cloud ?",
     "advantages": {
       "all_apps_of_the_suite": {
         "title": "Toutes les applications de la suite",
-        "description": "Accédez à toutes les applications de la suite, y compris Tâches, Habitudes, Calendrier, Notes, et plus encore."
+        "description": "Accédez à toutes les applications de la suite: mail, calendrier, etc..."
       },
       "end_to_end_encrypted": {
         "title": "Chiffrement de bout en bout",
         "description": "Vos données sont à vous, pour toujours."
-      },
-      "unlimited_tasks": {
-        "title": "Tâches Illimitées",
-        "description": "Créez autant de tâches que vous le souhaitez, sans limites."
-      },
-      "unlimited_habits": {
-        "title": "Habitudes Illimitées",
-        "description": "Faites un pas vers une vie plus saine avec des habitudes illimitées."
-      },
-      "unlimited_tags": {
-        "title": "Tags / Dossiers Illimités",
-        "description": "Utilisez autant de tags et de dossiers que nécessaire pour organiser votre vie."
       },
       "sync_across_devices": {
         "title": "Synchronisation entre appareils",
@@ -438,7 +432,7 @@
       },
       "community_backed": {
         "title": "Soutien de la communauté",
-        "description": "100% opensource : rejoignez une communauté d'utilisateurs qui soutiennent le projet."
+        "description": "100% opensource : rejoignez une communauté de contributeurs."
       }
     },
     "pricing(map)": {

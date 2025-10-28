@@ -23,6 +23,7 @@ ABConfig _$ABConfigFromJson(Map<String, dynamic> json) {
 mixin _$ABConfig {
   List<String> get domains => throw _privateConstructorUsedError;
   int? get remainingSpots => throw _privateConstructorUsedError;
+  bool? get paymentEnabled => throw _privateConstructorUsedError;
 
   /// Serializes this ABConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $ABConfigCopyWith<$Res> {
   factory $ABConfigCopyWith(ABConfig value, $Res Function(ABConfig) then) =
       _$ABConfigCopyWithImpl<$Res, ABConfig>;
   @useResult
-  $Res call({List<String> domains, int? remainingSpots});
+  $Res call({List<String> domains, int? remainingSpots, bool? paymentEnabled});
 }
 
 /// @nodoc
@@ -56,7 +57,11 @@ class _$ABConfigCopyWithImpl<$Res, $Val extends ABConfig>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? domains = null, Object? remainingSpots = freezed}) {
+  $Res call({
+    Object? domains = null,
+    Object? remainingSpots = freezed,
+    Object? paymentEnabled = freezed,
+  }) {
     return _then(
       _value.copyWith(
             domains:
@@ -69,6 +74,11 @@ class _$ABConfigCopyWithImpl<$Res, $Val extends ABConfig>
                     ? _value.remainingSpots
                     : remainingSpots // ignore: cast_nullable_to_non_nullable
                         as int?,
+            paymentEnabled:
+                freezed == paymentEnabled
+                    ? _value.paymentEnabled
+                    : paymentEnabled // ignore: cast_nullable_to_non_nullable
+                        as bool?,
           )
           as $Val,
     );
@@ -84,7 +94,7 @@ abstract class _$$ABConfigImplCopyWith<$Res>
   ) = __$$ABConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> domains, int? remainingSpots});
+  $Res call({List<String> domains, int? remainingSpots, bool? paymentEnabled});
 }
 
 /// @nodoc
@@ -100,7 +110,11 @@ class __$$ABConfigImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? domains = null, Object? remainingSpots = freezed}) {
+  $Res call({
+    Object? domains = null,
+    Object? remainingSpots = freezed,
+    Object? paymentEnabled = freezed,
+  }) {
     return _then(
       _$ABConfigImpl(
         domains:
@@ -113,6 +127,11 @@ class __$$ABConfigImplCopyWithImpl<$Res>
                 ? _value.remainingSpots
                 : remainingSpots // ignore: cast_nullable_to_non_nullable
                     as int?,
+        paymentEnabled:
+            freezed == paymentEnabled
+                ? _value.paymentEnabled
+                : paymentEnabled // ignore: cast_nullable_to_non_nullable
+                    as bool?,
       ),
     );
   }
@@ -121,8 +140,11 @@ class __$$ABConfigImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ABConfigImpl implements _ABConfig {
-  _$ABConfigImpl({required final List<String> domains, this.remainingSpots})
-    : _domains = domains;
+  _$ABConfigImpl({
+    required final List<String> domains,
+    this.remainingSpots,
+    this.paymentEnabled,
+  }) : _domains = domains;
 
   factory _$ABConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$ABConfigImplFromJson(json);
@@ -137,10 +159,12 @@ class _$ABConfigImpl implements _ABConfig {
 
   @override
   final int? remainingSpots;
+  @override
+  final bool? paymentEnabled;
 
   @override
   String toString() {
-    return 'ABConfig(domains: $domains, remainingSpots: $remainingSpots)';
+    return 'ABConfig(domains: $domains, remainingSpots: $remainingSpots, paymentEnabled: $paymentEnabled)';
   }
 
   @override
@@ -150,7 +174,9 @@ class _$ABConfigImpl implements _ABConfig {
             other is _$ABConfigImpl &&
             const DeepCollectionEquality().equals(other._domains, _domains) &&
             (identical(other.remainingSpots, remainingSpots) ||
-                other.remainingSpots == remainingSpots));
+                other.remainingSpots == remainingSpots) &&
+            (identical(other.paymentEnabled, paymentEnabled) ||
+                other.paymentEnabled == paymentEnabled));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -159,6 +185,7 @@ class _$ABConfigImpl implements _ABConfig {
     runtimeType,
     const DeepCollectionEquality().hash(_domains),
     remainingSpots,
+    paymentEnabled,
   );
 
   /// Create a copy of ABConfig
@@ -179,6 +206,7 @@ abstract class _ABConfig implements ABConfig {
   factory _ABConfig({
     required final List<String> domains,
     final int? remainingSpots,
+    final bool? paymentEnabled,
   }) = _$ABConfigImpl;
 
   factory _ABConfig.fromJson(Map<String, dynamic> json) =
@@ -188,6 +216,8 @@ abstract class _ABConfig implements ABConfig {
   List<String> get domains;
   @override
   int? get remainingSpots;
+  @override
+  bool? get paymentEnabled;
 
   /// Create a copy of ABConfig
   /// with the given fields replaced by the non-null parameter values.

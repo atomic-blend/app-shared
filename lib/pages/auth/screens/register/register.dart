@@ -99,8 +99,8 @@ class _RegisterEmailState extends State<RegisterEmail>
             _errorMessage = authState.message;
           }
 
-          if (authState is LoggedIn && authState.isRegistration == false) {
-            getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");
+          if ((authState is LoggedIn && authState.isRegistration == false)) {
+            getIt<GoRouter>().go(widget.homeRouteLocation ?? "/");  
           }
 
           if (authState is LoggedIn && authState.isRegistration == true) {

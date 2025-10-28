@@ -1,11 +1,13 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/forms/app_text_form_field.dart';
+import 'package:ab_shared/components/modals/edit_self_hosted_url_modal.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,6 +80,13 @@ class _LoginScreenState extends State<LoginScreen>
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, authState) {
+            if (authState is LoggedIn) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                getIt<GoRouter>().go('/');
+              });
+              return Container();
+            }
+
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -275,6 +284,10 @@ class _LoginScreenState extends State<LoginScreen>
                                   ],
                                   if (errorMessage == null)
                                     SizedBox(height: $constants.insets.xl),
+                                  if (!kIsWeb) ...[
+                                    EditSelfHostedUrlButton(),
+                                    SizedBox(height: $constants.insets.xs),
+                                  ],
                                   Animate(
                                     controller: _animationController,
                                     effects: [
@@ -294,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       children: [
                                         PrimaryButtonSquare(
                                           leading:
-                                              authState is Loading
+                                              authState is AuthActionLoading
                                                   ? const SizedBox(
                                                     width: 20,
                                                     height: 20,

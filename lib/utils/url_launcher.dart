@@ -4,8 +4,13 @@ class UrlLauncher {
   static Future<void> launchUrl(
     String url, {
     LaunchMode mode = LaunchMode.externalApplication,
+    String webOnlyWindowName = '_blank',
   }) async {
-    if (!await launchUrlString(url, mode: mode)) {
+    if (!await launchUrlString(
+      url,
+      mode: mode,
+      webOnlyWindowName: webOnlyWindowName,
+    )) {
       throw Exception('Could not launch $url');
     }
   }
