@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.10.1 - 2025-10-30
+#### Bug Fixes
+- emit a logout event when the refresh user request get a 401 - (0d75f52) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.10.0 [skip ci] - (ebce6c5) - GitHub Actions
+
+- - -
+
 ## v0.10.0 - 2025-10-28
 #### Bug Fixes
 - linter - (60fd501) - Brandon Guigo
