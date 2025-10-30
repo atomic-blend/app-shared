@@ -98,12 +98,22 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       emit(LoggedOut(prevState.user, prevState.appConfig));
       return;
     }
-    final user = state.user!;
-    final updatedUser = await _userService.getUser(user);
-    if (updatedUser == null) {
-      return;
+    try {
+      final user = state.user!;
+      final updatedUser = await _userService.getUser(user);
+      if (updatedUser == null) {
+        return;
+      }
+      emit(LoggedIn(updatedUser, false, prevState.appConfig));
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        add(Logout());
+      } else {
+        emit(
+          AuthError("refresh_user_failed", prevState.user, prevState.appConfig),
+        );
+      }
     }
-    emit(LoggedIn(updatedUser, false, prevState.appConfig));
   }
 
   void _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
