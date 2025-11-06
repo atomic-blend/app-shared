@@ -1,23 +1,17 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
-import 'package:ab_shared/components/widgets/elevated_container.dart';
-import 'package:ab_shared/entities/purchase/purchase.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
-import 'package:ab_shared/services/revenue_cat_service.dart';
-import 'package:ab_shared/services/user.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:ab_shared/utils/toast_helper.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:ab_shared/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SubscriptionPayments extends StatefulWidget {
-  SubscriptionPayments({super.key}) {}
+  const SubscriptionPayments({super.key});
 
   @override
   State<SubscriptionPayments> createState() => _SubscriptionPaymentsState();
@@ -72,14 +66,43 @@ class _SubscriptionPaymentsState extends State<SubscriptionPayments> {
                       style: getTextTheme(context).bodyMedium,
                     ),
                   ),
-                if (authState.appConfig?.paymentEnabled == true)
+                if (authState.appConfig?.paymentEnabled == true &&
+                    !isPaymentSupported())
+                  Padding(
+                    padding: EdgeInsets.all($constants.insets.md),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          context
+                              .t
+                              .account
+                              .subscription_payments
+                              .management_url_web_only,
+                          style: getTextTheme(context).bodyMedium,
+                        ),
+                        SizedBox(height: $constants.insets.md),
+                        PrimaryButtonSquare(
+                          onPressed: () {
+                            UrlLauncher.launchUrl(
+                              "https://mail.atomic-blend.com",
+                            );
+                          },
+                          width: getSize(context).width * 0.3,
+                          outlined: true,
+                          text: context.t.auth.register.go_on_desktop,
+                        ),
+                      ],
+                    ),
+                  ),
+                if (authState.appConfig?.paymentEnabled == true &&
+                    isPaymentSupported())
                   Padding(
                     padding: EdgeInsets.all($constants.insets.md),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            //TODO: add stripe logo
                             Image.asset(
                               'assets/images/stripe_logo.png',
                               package: 'ab_shared',

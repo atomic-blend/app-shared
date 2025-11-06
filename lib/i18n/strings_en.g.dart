@@ -1037,8 +1037,8 @@ class TranslationsAccountSubscriptionPaymentsEn {
 	/// en: 'Manage my subscription'
 	String get manage_my_subscription => 'Manage my subscription';
 
-	/// en: 'You can only manage your subscription from the iOS or Android app.'
-	String get management_url_only_mobile => 'You can only manage your subscription from the iOS or Android app.';
+	/// en: 'You can only manage your subscription from the web.'
+	String get management_url_web_only => 'You can only manage your subscription from the web.';
 
 	/// en: 'Payments and subscriptions are disabled for this instance.'
 	String get payment_disabled => 'Payments and subscriptions are disabled for this instance.';
@@ -1500,7 +1500,7 @@ extension on Translations {
 			case 'account.subscription_payments.payment_history': return 'Payment History';
 			case 'account.subscription_payments.no_payments': return 'No payments for now';
 			case 'account.subscription_payments.manage_my_subscription': return 'Manage my subscription';
-			case 'account.subscription_payments.management_url_only_mobile': return 'You can only manage your subscription from the iOS or Android app.';
+			case 'account.subscription_payments.management_url_web_only': return 'You can only manage your subscription from the web.';
 			case 'account.subscription_payments.payment_disabled': return 'Payments and subscriptions are disabled for this instance.';
 			case 'account.subscription_payments.payment_provider': return 'Payment Provider';
 			case 'account.subscription_payments.stripe_description': return 'Payments are handled by Stripe.\nYour payment information is secure and is not stored on our servers.';
