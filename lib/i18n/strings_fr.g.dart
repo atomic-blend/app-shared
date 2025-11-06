@@ -667,6 +667,10 @@ class _TranslationsAccountSubscriptionPaymentsFr implements TranslationsAccountS
 	@override String get no_payments => 'Aucun paiement trouvé';
 	@override String get manage_my_subscription => 'Gérer mon abonnement';
 	@override String get management_url_only_mobile => 'Vous ne pouvez gérer votre abonnement que depuis l\'application iOS ou Android.';
+	@override String get payment_disabled => 'Les paiements et abonnements sont désactivés pour cette instance.';
+	@override String get payment_provider => 'Fournisseur de paiement';
+	@override String get stripe_description => 'Les paiements sont gérés par Stripe.\nVos informations de paiement sont sécurisées et ne sont pas stockées sur nos serveurs.';
+	@override String get cant_load_customer_portal => 'Impossible de charger le portail client';
 }
 
 // Path: account.profile
@@ -1023,6 +1027,10 @@ extension on TranslationsFr {
 			case 'account.subscription_payments.no_payments': return 'Aucun paiement trouvé';
 			case 'account.subscription_payments.manage_my_subscription': return 'Gérer mon abonnement';
 			case 'account.subscription_payments.management_url_only_mobile': return 'Vous ne pouvez gérer votre abonnement que depuis l\'application iOS ou Android.';
+			case 'account.subscription_payments.payment_disabled': return 'Les paiements et abonnements sont désactivés pour cette instance.';
+			case 'account.subscription_payments.payment_provider': return 'Fournisseur de paiement';
+			case 'account.subscription_payments.stripe_description': return 'Les paiements sont gérés par Stripe.\nVos informations de paiement sont sécurisées et ne sont pas stockées sur nos serveurs.';
+			case 'account.subscription_payments.cant_load_customer_portal': return 'Impossible de charger le portail client';
 			case 'account.profile.my_profile': return 'Mon profil';
 			case 'account.profile.email': return 'Adresse e-mail';
 			case 'account.profile.undefined': return 'Non défini';

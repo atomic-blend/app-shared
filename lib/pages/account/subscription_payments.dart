@@ -1,4 +1,5 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/entities/purchase/purchase.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
@@ -16,11 +17,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SubscriptionPayments extends StatefulWidget {
-  final getIt = GetIt.instance;
-  late final RevenueCatService? revenueCatService;
-  SubscriptionPayments({super.key}) {
-    revenueCatService = getIt<RevenueCatService>();
-  }
+  SubscriptionPayments({super.key}) {}
 
   @override
   State<SubscriptionPayments> createState() => _SubscriptionPaymentsState();
@@ -31,279 +28,124 @@ class _SubscriptionPaymentsState extends State<SubscriptionPayments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          context.t.account.subscription_payments.title,
-          style: getTextTheme(context).bodyLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+        title: Row(
+          children: [
+            Icon(CupertinoIcons.creditcard),
+            SizedBox(width: $constants.insets.sm),
+            Text(
+              context.t.account.subscription_payments.title,
+              style: getTextTheme(
+                context,
+              ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
-      body: BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-        final currentSubscription = UserService.getCurrentSubscription(
-          authState.user,
-        );
-    
-        return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: $constants.insets.sm,
-            vertical: $constants.insets.xs,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthError) {
+            ToastHelper.showError(
+              context: context,
+              title:
+                  context
+                      .t
+                      .account
+                      .subscription_payments
+                      .cant_load_customer_portal,
+            );
+          } else if (state is CustomerPortalLoaded) {
+            launchUrl(
+              Uri.parse(state.portalUrl),
+              mode: LaunchMode.inAppWebView,
+            );
+          }
+        },
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, authState) {
+            return Column(
               children: [
-                ElevatedContainer(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    vertical: $constants.insets.md,
-                    horizontal: $constants.insets.md,
+                if (authState.appConfig?.paymentEnabled != true)
+                  Padding(
+                    padding: EdgeInsets.all($constants.insets.md),
+                    child: Text(
+                      context.t.account.subscription_payments.payment_disabled,
+                      style: getTextTheme(context).bodyMedium,
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          context.t.account.subscription_payments.subscription(
-                              subName: context
-                                  .t
-                                  .paywall
-                                  .pricing[currentSubscription
-                                      .purchaseData["product_id"]]
-                                  .title),
-                          style: getTextTheme(context).headlineMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
-                      Text(
-                        context.t.account.subscription_payments
-                            .latest_subscription,
-                        style: getTextTheme(context).bodyMedium!.copyWith(
-                              color: Colors.grey.shade600,
-                            ),
-                      ),
-                      SizedBox(height: $constants.insets.xs),
-                      Divider(
-                        color: Colors.grey.shade300,
-                        thickness: 1,
-                      ),
-                      SizedBox(height: $constants.insets.xs),
-                      _buildIconTextRow(
-                        context,
-                        currentSubscription: currentSubscription,
-                        icon: CupertinoIcons.calendar,
-                        title: context
-                            .t.account.subscription_payments.billing_cycle
-                            .toUpperCase(),
-                        value: context
-                            .t
-                            .paywall
-                            .pricing[
-                                currentSubscription.purchaseData["product_id"]]
-                            .title,
-                      ),
-                      SizedBox(height: $constants.insets.sm),
-                      _buildIconTextRow(
-                        context,
-                        currentSubscription: currentSubscription,
-                        icon: CupertinoIcons.money_euro,
-                        title: context
-                            .t.account.subscription_payments.current_price
-                            .toUpperCase(),
-                        value: context
-                            .t
-                            .paywall
-                            .pricing[
-                                currentSubscription.purchaseData["product_id"]]
-                            .price,
-                      ),
-                      SizedBox(height: $constants.insets.sm),
-                      _buildIconTextRow(
-                        context,
-                        currentSubscription: currentSubscription,
-                        icon: CupertinoIcons.creditcard,
-                        title: context
-                            .t.account.subscription_payments.next_billing_date
-                            .toUpperCase(),
-                        value: Jiffy.parseFromDateTime(
-                                UserService.getNextBillingDate(
-                                    currentSubscription))
-                            .yMMMEdjm
-                            .capitalize,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: $constants.insets.sm),
-                ElevatedContainer(
-                  width: double.infinity,
-                  height: getSize(context).height * 0.4,
-                  padding: EdgeInsets.symmetric(
-                    vertical: $constants.insets.md,
-                    horizontal: $constants.insets.md,
-                  ),
-                  child: SingleChildScrollView(
+                if (authState.appConfig?.paymentEnabled == true)
+                  Padding(
+                    padding: EdgeInsets.all($constants.insets.md),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          context
-                              .t.account.subscription_payments.payment_history,
-                          style: getTextTheme(context).headlineMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        SizedBox(height: $constants.insets.xs),
-                        Divider(
-                          color: Colors.grey.shade300,
-                          thickness: 1,
-                        ),
-                        SizedBox(height: $constants.insets.xs),
-                        if (authState.user?.purchases?.isEmpty ?? true)
-                          Text(
-                            context.t.account.subscription_payments.no_payments,
-                            style: getTextTheme(context).bodyMedium!.copyWith(
-                                  color: Colors.grey.shade600,
+                        Row(
+                          children: [
+                            //TODO: add stripe logo
+                            Image.asset(
+                              'assets/images/stripe_logo.png',
+                              package: 'ab_shared',
+                              height: 70,
+                            ),
+                            SizedBox(width: $constants.insets.md),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context
+                                      .t
+                                      .account
+                                      .subscription_payments
+                                      .payment_provider,
+                                  style: getTextTheme(context).bodyLarge!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
-                          )
-                        else
-                          ...authState.user!.purchases!.map((purchase) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                bottom: $constants.insets.sm,
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: getTheme(context).surface,
-                                      borderRadius: BorderRadius.circular(
-                                          $constants.corners.sm),
+                                SizedBox(height: $constants.insets.sm),
+                                Text(
+                                  context
+                                      .t
+                                      .account
+                                      .subscription_payments
+                                      .stripe_description,
+                                  style: getTextTheme(context).bodyMedium,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: $constants.insets.md),
+                        PrimaryButtonSquare(
+                          leading:
+                              authState is CustomerPortalLoading
+                                  ? SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: getTheme(context).primary,
                                     ),
-                                    child: const Icon(
-                                      CupertinoIcons.money_euro,
-                                      size: 25,
-                                    ),
-                                  ),
-                                  SizedBox(width: $constants.insets.sm),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        Jiffy.parseFromDateTime(
-                                                purchase.createdAt)
-                                            .yMMMEdjm
-                                            .capitalize,
-                                        style: getTextTheme(context)
-                                            .bodyMedium!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                      Text(
-                                        context
-                                            .t
-                                            .paywall
-                                            .pricing[purchase
-                                                .purchaseData["product_id"]]
-                                            .title,
-                                        style: getTextTheme(context)
-                                            .bodyMedium!
-                                            .copyWith(
-                                              color: Colors.grey.shade600,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "${purchase.purchaseData["currency"].toString()} ${purchase.purchaseData["price_in_purchased_currency"].toString()}",
-                                    style: getTextTheme(context)
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                                  )
+                                  : null,
+                          onPressed: () async {
+                            context.read<AuthBloc>().add(
+                              const CustomerPortal(),
                             );
-                          })
+                          },
+                          width: getSize(context).width * 0.3,
+                          outlined: true,
+                          text:
+                              context
+                                  .t
+                                  .account
+                                  .subscription_payments
+                                  .manage_my_subscription,
+                        ),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: $constants.insets.sm),
-                ElevatedContainer(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                      vertical: $constants.insets.sm,
-                      horizontal: $constants.insets.lg),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          final managementUrl =
-                              await widget.revenueCatService?.getManagementUrl();
-                          if (managementUrl != null) {
-                            await launchUrl(Uri.parse(managementUrl));
-                          } else {
-                            if (!context.mounted) return;
-                            ToastHelper.showError(
-                              context: context,
-                              title: context.t.account.subscription_payments
-                                  .management_url_only_mobile,
-                            );
-                          }
-                        },
-                        child: Text(
-                          context.t.account.subscription_payments
-                              .manage_my_subscription,
-                          style: getTextTheme(context).bodyMedium!.copyWith(
-                                color: CupertinoColors.activeBlue,
-                                fontWeight: FontWeight.w400,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  Row _buildIconTextRow(
-    BuildContext context, {
-    required Purchase currentSubscription,
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Row(
-      children: [
-        Icon(
-          icon,
+            );
+          },
         ),
-        SizedBox(width: $constants.insets.sm),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title,
-                style: getTextTheme(context).bodyMedium!.copyWith(
-                      color: Colors.grey.shade600,
-                    )),
-            Text(value)
-          ],
-        )
-      ],
+      ),
     );
   }
 }

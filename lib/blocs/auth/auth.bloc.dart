@@ -49,6 +49,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<JoinWaitingList>(_onJoinWaitingList);
     on<GetWaitingListPosition>(_onGetWaitingListPosition);
     on<Checkout>(_onCheckout);
+    on<CustomerPortal>(_onCustomerPortal);
   }
 
   void _onLogOut(Logout event, Emitter<AuthState> emit) async {
@@ -427,6 +428,29 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
           (data is Map && data['error'] != null)
               ? data['error']
               : (e.message ?? 'checkout_failed');
+      emit(AuthError(message, prevState.user, prevState.appConfig));
+    } on Exception catch (e) {
+      emit(AuthError(e.toString(), prevState.user, prevState.appConfig));
+    }
+  }
+
+  FutureOr<void> _onCustomerPortal(
+    CustomerPortal event,
+    Emitter<AuthState> emit,
+  ) async {
+    final prevState = state;
+    emit(CustomerPortalLoading(prevState.user, prevState.appConfig));
+    try {
+      final portalUrl = await _userService.customerPortal();
+      emit(
+        CustomerPortalLoaded(portalUrl, prevState.user, prevState.appConfig),
+      );
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      final message =
+          (data is Map && data['error'] != null)
+              ? data['error']
+              : (e.message ?? 'customer_portal_failed');
       emit(AuthError(message, prevState.user, prevState.appConfig));
     } on Exception catch (e) {
       emit(AuthError(e.toString(), prevState.user, prevState.appConfig));

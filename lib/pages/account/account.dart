@@ -57,6 +57,7 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     context.read<AuthBloc>().add(const RefreshUser());
+    context.read<AuthBloc>().add(const LoadConfig());
     super.initState();
   }
 
