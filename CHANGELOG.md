@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.11.1 - 2025-11-07
+#### Bug Fixes
+- add a dialog wrapper to the selfhosted dialog - (984e390) - Brandon Guigo
+- merge account and settings page into a single screen - (d01f7dd) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.11.0 [skip ci] - (a2e2637) - GitHub Actions
+
+- - -
+
 ## v0.11.0 - 2025-11-07
 #### Bug Fixes
 - linter - (444db46) - Brandon Guigo
