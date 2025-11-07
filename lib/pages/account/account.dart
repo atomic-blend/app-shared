@@ -5,6 +5,7 @@ import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/modals/delete_account_modal.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:ab_shared/i18n/strings.g.dart';
+import 'package:ab_shared/pages/account/app_settings.dart';
 import 'package:ab_shared/pages/account/profile.dart';
 import 'package:ab_shared/pages/account/security.dart';
 import 'package:ab_shared/pages/account/subscription_payments.dart';
@@ -162,10 +163,31 @@ class _AccountState extends State<Account> {
                         ).labelMedium!.copyWith(color: Colors.grey),
                       ),
                       SizedBox(height: $constants.insets.xs),
+                      IconTextButton(
+                        icon: CupertinoIcons.device_phone_portrait,
+                        iconContainer: true,
+                        iconSize: 20,
+                        iconColor: Colors.grey[700],
+                        text: context.t.account.app_settings.title,
+                        onTap: () {
+                          if (isDesktop(context)) {
+                            setState(() {
+                              selectedItem = AppSettings();
+                            });
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => AppSettings(),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      SizedBox(height: $constants.insets.sm),
                       if (widget.globalApiClient?.getSelfHostedRestApiUrl() ==
                           null) ...[
                         IconTextButton(
-                          icon: CupertinoIcons.star_fill,
+                          icon: CupertinoIcons.creditcard,
                           iconContainer: true,
                           iconSize: 20,
                           iconColor: Colors.grey[700],

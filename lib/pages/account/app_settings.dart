@@ -46,32 +46,37 @@ class _AppSettingsState extends State<AppSettings> {
           spacing: $constants.insets.xs,
           children: [
             const Icon(LineAwesome.mobile_solid),
-            Text(context.t.settings.app_settings.title,
-                style: getTextTheme(context).bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
+            Text(
+              context.t.settings.app_settings.title,
+              style: getTextTheme(
+                context,
+              ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: $constants.insets.sm, vertical: $constants.insets.sm),
+          horizontal: $constants.insets.sm,
+          vertical: $constants.insets.sm,
+        ),
         child: Column(
           children: [
             IconTextButton(
               icon: LineAwesome.link_solid,
               text: context.t.settings.app_settings.selfHostedUrl.title,
-              data: selfHostedUrl == "" || selfHostedUrl == null
-                  ? context.t.settings.app_settings.selfHostedUrl.not_set
-                  : selfHostedUrl,
+              data:
+                  selfHostedUrl == "" || selfHostedUrl == null
+                      ? context.t.settings.app_settings.selfHostedUrl.not_set
+                      : selfHostedUrl,
               onTap: () async {
                 await showDialog(
-                    context: context,
-                    builder: (context) => EditSelfHostedUrlModal(
-                        ));
+                  context: context,
+                  builder: (context) => Dialog(child: EditSelfHostedUrlModal()),
+                );
                 getSelfHostedUrl();
               },
-            )
+            ),
           ],
         ),
       ),

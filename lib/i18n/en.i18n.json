@@ -157,6 +157,9 @@
       "email_missing": "Email is required",
       "email_same": "Email must be different from the current email"
     },
+    "app_settings": {
+      "title": "App Settings"
+    },
     "subscription_payments": {
       "title": "Subscription & Payments",
       "subscription": "${subName} Subscription",
