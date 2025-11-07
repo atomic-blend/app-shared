@@ -118,3 +118,7 @@ final class GetWaitingListPosition extends AuthEvent {
 final class Checkout extends AuthEvent {
   const Checkout();
 }
+
+final class CustomerPortal extends AuthEvent {
+  const CustomerPortal();
+}

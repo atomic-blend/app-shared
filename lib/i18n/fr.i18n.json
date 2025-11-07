@@ -160,7 +160,11 @@
       "payment_history": "Historique des paiements",
       "no_payments": "Aucun paiement trouvé",
       "manage_my_subscription": "Gérer mon abonnement",
-      "management_url_only_mobile": "Vous ne pouvez gérer votre abonnement que depuis l'application iOS ou Android."
+      "management_url_web_only": "Vous ne pouvez gérer votre abonnement que depuis le web.",
+      "payment_disabled": "Les paiements et abonnements sont désactivés pour cette instance.",
+      "payment_provider": "Fournisseur de paiement",
+      "stripe_description": "Les paiements sont gérés par Stripe.\nVos informations de paiement sont sécurisées et ne sont pas stockées sur nos serveurs.",
+      "cant_load_customer_portal": "Impossible de charger le portail client"
     },
     "profile": {
       "my_profile": "Mon profil",

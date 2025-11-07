@@ -2,6 +2,7 @@ name: ab_shared
 description: "A new Flutter package project."
 version: 0.10.1
 homepage: https://github.com/atomic-blend/ab_shared
+publish_to: none
 
 environment:
   sdk: ^3.7.2
@@ -11,7 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_age:
-    git: # ignore: invalid_dependency
+    git:
+      # ignore: invalid_dependency
       url: https://github.com/atomic-blend/flutter_age.git
       ref: v0.0.7
     # path: ../flutter_age
@@ -82,12 +84,14 @@ dev_dependencies:
 #   - images/a_dot_ham.jpeg
 flutter:
   assets:
-    - assets/images/atomic_mail_logo.png
-    - assets/images/atomic_task_logo.png
-    - assets/images/atomic_notes_logo.png
-    - assets/images/atomic_blend_logo.png
-    - assets/images/undraw_sign-up.png
-    - assets/images/capacity.png
+  - assets/images/atomic_mail_logo.png
+  - assets/images/atomic_task_logo.png
+  - assets/images/atomic_notes_logo.png
+  - assets/images/atomic_blend_logo.png
+  - assets/images/undraw_sign-up.png
+  - assets/images/capacity.png
+  - assets/images/stripe_logo.png
+
 #
 # For details regarding assets in packages, see
 # https://flutter.dev/to/asset-from-package

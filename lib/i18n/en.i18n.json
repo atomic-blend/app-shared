@@ -167,7 +167,11 @@
       "payment_history": "Payment History",
       "no_payments": "No payments for now",
       "manage_my_subscription": "Manage my subscription",
-      "management_url_only_mobile": "You can only manage your subscription from the iOS or Android app."
+      "management_url_web_only": "You can only manage your subscription from the web.",
+      "payment_disabled": "Payments and subscriptions are disabled for this instance.",
+      "payment_provider": "Payment Provider",
+      "stripe_description": "Payments are handled by Stripe.\nYour payment information is secure and is not stored on our servers.",
+      "cant_load_customer_portal": "Can't load customer portal"
     },
     "security_and_privacy": {
       "title": "Security & Privacy",

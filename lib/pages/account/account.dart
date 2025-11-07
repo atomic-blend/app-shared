@@ -57,6 +57,7 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     context.read<AuthBloc>().add(const RefreshUser());
+    context.read<AuthBloc>().add(const LoadConfig());
     super.initState();
   }
 
@@ -91,25 +92,16 @@ class _AccountState extends State<Account> {
                               child: Row(
                                 children: [
                                   const Spacer(),
-                                  GestureDetector(
+                                  ABButton(
+                                    icon: CupertinoIcons.person,
+                                    backgroundColor: getTheme(context).error,
+                                    textColor: getTheme(context).onError,
+                                    label: context.t.settings.logout,
                                     onTap: () {
                                       context.read<AuthBloc>().add(
                                         const Logout(),
                                       );
-                                      Navigator.of(context).pop();
                                     },
-                                    child: ABButton(
-                                      icon: CupertinoIcons.person,
-                                      backgroundColor: getTheme(context).error,
-                                      textColor: getTheme(context).onError,
-                                      label: context.t.settings.logout,
-                                      onTap: () {
-                                        context.read<AuthBloc>().add(
-                                          const Logout(),
-                                        );
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
                                   ),
                                 ],
                               ),

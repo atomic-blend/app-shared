@@ -1037,8 +1037,20 @@ class TranslationsAccountSubscriptionPaymentsEn {
 	/// en: 'Manage my subscription'
 	String get manage_my_subscription => 'Manage my subscription';
 
-	/// en: 'You can only manage your subscription from the iOS or Android app.'
-	String get management_url_only_mobile => 'You can only manage your subscription from the iOS or Android app.';
+	/// en: 'You can only manage your subscription from the web.'
+	String get management_url_web_only => 'You can only manage your subscription from the web.';
+
+	/// en: 'Payments and subscriptions are disabled for this instance.'
+	String get payment_disabled => 'Payments and subscriptions are disabled for this instance.';
+
+	/// en: 'Payment Provider'
+	String get payment_provider => 'Payment Provider';
+
+	/// en: 'Payments are handled by Stripe. Your payment information is secure and is not stored on our servers.'
+	String get stripe_description => 'Payments are handled by Stripe.\nYour payment information is secure and is not stored on our servers.';
+
+	/// en: 'Can't load customer portal'
+	String get cant_load_customer_portal => 'Can\'t load customer portal';
 }
 
 // Path: account.security_and_privacy
@@ -1488,7 +1500,11 @@ extension on Translations {
 			case 'account.subscription_payments.payment_history': return 'Payment History';
 			case 'account.subscription_payments.no_payments': return 'No payments for now';
 			case 'account.subscription_payments.manage_my_subscription': return 'Manage my subscription';
-			case 'account.subscription_payments.management_url_only_mobile': return 'You can only manage your subscription from the iOS or Android app.';
+			case 'account.subscription_payments.management_url_web_only': return 'You can only manage your subscription from the web.';
+			case 'account.subscription_payments.payment_disabled': return 'Payments and subscriptions are disabled for this instance.';
+			case 'account.subscription_payments.payment_provider': return 'Payment Provider';
+			case 'account.subscription_payments.stripe_description': return 'Payments are handled by Stripe.\nYour payment information is secure and is not stored on our servers.';
+			case 'account.subscription_payments.cant_load_customer_portal': return 'Can\'t load customer portal';
 			case 'account.security_and_privacy.title': return 'Security & Privacy';
 			case 'account.security_and_privacy.change_password.title': return 'Change Password';
 			case 'account.security_and_privacy.change_password.old_password': return 'Old Password';

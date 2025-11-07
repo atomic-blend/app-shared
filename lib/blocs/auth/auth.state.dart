@@ -43,7 +43,7 @@ class LoggedIn extends AuthState {
   const LoggedIn(UserEntity super.user, this.isRegistration, super.appConfig);
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, isRegistration, appConfig];
 
   @override
   String toString() => 'LoggedIn { user: $user }';
@@ -242,4 +242,19 @@ final class CheckoutLoaded extends AuthState {
 
   @override
   String toString() => 'CheckoutLoaded { sessionUrl: $sessionUrl }';
+}
+
+final class CustomerPortalLoading extends AuthState {
+  const CustomerPortalLoading(super.user, super.appConfig);
+
+  @override
+  String toString() => 'CustomerPortalLoading { }';
+}
+
+final class CustomerPortalLoaded extends AuthState {
+  final String portalUrl;
+  const CustomerPortalLoaded(this.portalUrl, super.user, super.appConfig);
+
+  @override
+  String toString() => 'CustomerPortalLoaded { portalUrl: $portalUrl }';
 }

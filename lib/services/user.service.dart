@@ -493,4 +493,17 @@ class UserService {
       throw Exception('checkout_failed');
     }
   }
+
+  Future<String> customerPortal() async {
+    final result = await _getIt<ApiClient>().post('/payment/customer-portal');
+    if (result.statusCode == 200) {
+      final portalUrl = result.data['url'] as String?;
+      if (portalUrl == null) {
+        throw Exception('Invalid portal URL');
+      }
+      return portalUrl;
+    } else {
+      throw Exception('customer_portal_failed');
+    }
+  }
 }
