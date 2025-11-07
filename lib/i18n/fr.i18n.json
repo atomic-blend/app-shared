@@ -150,6 +150,9 @@
       "security": "Sécurité et confidentialité",
       "delete_account": "Supprimer mon compte"
     },
+    "app_settings": {
+      "title": "Paramètres de l'application"
+    },
     "subscription_payments": {
       "title": "Abonnement & Paiements",
       "subscription": "Abonnement ${subName}",
