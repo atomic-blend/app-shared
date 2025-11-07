@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.11.0 - 2025-11-07
+#### Bug Fixes
+- linter - (444db46) - Brandon Guigo
+- login button didn't work on account page - (63e2640) - Brandon Guigo
+#### Features
+- redirect user to web when payment is not supported - (bc10da6) - Brandon Guigo
+- update the subscription and payment page to open a stripe checkout link - (a4e73ca) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.10.1 [skip ci] - (996ac5f) - GitHub Actions
+
+- - -
+
 ## v0.10.1 - 2025-10-30
 #### Bug Fixes
 - emit a logout event when the refresh user request get a 401 - (0d75f52) - Brandon Guigo
