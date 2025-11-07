@@ -68,43 +68,53 @@ class _ABHeaderState extends State<ABHeader> {
                 ),
             ],
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: getSize(context).width * 0.4),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: ABSearchBar(
-                    controller: controller,
-                    showClearButton: true,
-                    onSubmitted: (value) {
-                      context.go("/search?q=$value");
-                    },
-                    onChanged: (value) {
-                      if (GoRouterState.of(context).uri.path == "/search") {
+          Expanded(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth:
+                    isDesktop(context)
+                        ? getSize(context).width * 0.4
+                        : double.infinity,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: ABSearchBar(
+                      controller: controller,
+                      showClearButton: true,
+                      onSubmitted: (value) {
                         context.go("/search?q=$value");
-                      }
-                    },
+                      },
+                      onChanged: (value) {
+                        if (GoRouterState.of(context).uri.path == "/search") {
+                          context.go("/search?q=$value");
+                        }
+                      },
+                    ),
                   ),
-                ),
-                if (isDesktop(context)) ...[
-                  SizedBox(width: $constants.insets.xs),
-                  AbSyncStatus(
-                    syncElements: widget.syncedElements,
-                    isSyncing: widget.isSyncing,
-                  ),
+                  if (isDesktop(context)) ...[
+                    SizedBox(width: $constants.insets.xs),
+                    AbSyncStatus(
+                      syncElements: widget.syncedElements,
+                      isSyncing: widget.isSyncing,
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (!isDesktop(context))
+              if (!isDesktop(context)) ...[
+                SizedBox(width: $constants.insets.xs),
                 AbSyncStatus(
                   syncElements: widget.syncedElements,
                   isSyncing: widget.isSyncing,
                 ),
+                SizedBox(width: $constants.insets.xs),
+              ],
             ],
           ),
         ],
