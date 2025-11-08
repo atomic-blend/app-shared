@@ -83,7 +83,9 @@ class _ABHeaderState extends State<ABHeader> {
                         ),
                         child: child,
                       ),
-                  child: Expanded(
+                  child: ConditionalParentWidget(
+                    condition: !isDesktop(context),
+                    parentBuilder: (child) => Expanded(child: child),
                     child: ABSearchBar(
                       controller: controller,
                       showClearButton: true,
