@@ -2,6 +2,8 @@ import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/ab_toast.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/ab_sidemenu.dart';
+import 'package:ab_shared/components/app/window_layout/window_layout.dart';
+import 'package:ab_shared/components/app/window_layout/window_layout_controller.dart';
 import 'package:ab_shared/pages/auth/screens/login.dart';
 import 'package:ab_shared/pages/paywall/paywall_utils.dart';
 import 'package:ab_shared/services/device_info.service.dart';
@@ -40,6 +42,7 @@ class _AppLayoutState extends State<AppLayout> {
   late final ApiClient globalApiClient;
   late final SharedPreferences prefs;
   late final EnvModel? env;
+  late final WindowLayoutController windowLayoutController;
 
   @override
   void initState() {
@@ -48,6 +51,7 @@ class _AppLayoutState extends State<AppLayout> {
     globalApiClient = getIt<ApiClient>();
     prefs = getIt<SharedPreferences>();
     env = getIt<EnvModel>();
+    windowLayoutController = getIt<WindowLayoutController>();
     if (isPaymentSupported()) {
       PaywallUtils.resetPaywall();
     }
@@ -60,7 +64,11 @@ class _AppLayoutState extends State<AppLayout> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        if ([LoggedOut, AuthActionLoading, AuthError].contains(authState.runtimeType)) {
+        if ([
+          LoggedOut,
+          AuthActionLoading,
+          AuthError,
+        ].contains(authState.runtimeType)) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             LoginRoute(
               LoginParams(homeRouteLocation: widget.homeRouteLocation),
@@ -126,36 +134,39 @@ class _AppLayoutState extends State<AppLayout> {
   Widget _buildDesktop(BuildContext context) {
     return Stack(
       children: [
-        Scaffold(
-          body: SafeArea(
-            top: isTablet(context),
-            bottom: isTablet(context),
-            left: isTablet(context),
-            right: isTablet(context),
-            child: Row(
-              children: [
-                if (isDesktop(context))
-                  wrapTitlebarSafeArea(
-                    context,
-                    SizedBox(
-                      height: double.infinity,
-                      child: ABSideMenu(
-                        controller: getIt<SideMenuController>(),
-                        items: widget.items,
+        WindowLayout(
+          controller: windowLayoutController,
+          child: Scaffold(
+            body: SafeArea(
+              top: isTablet(context),
+              bottom: isTablet(context),
+              left: isTablet(context),
+              right: isTablet(context),
+              child: Row(
+                children: [
+                  if (isDesktop(context))
+                    wrapTitlebarSafeArea(
+                      context,
+                      SizedBox(
+                        height: double.infinity,
+                        child: ABSideMenu(
+                          controller: getIt<SideMenuController>(),
+                          items: widget.items,
+                        ),
+                      ),
+                    ),
+                  Expanded(
+                    child: Scaffold(
+                      body: Column(
+                        children: [
+                          _getHeader(context),
+                          Expanded(child: widget.child),
+                        ],
                       ),
                     ),
                   ),
-                Expanded(
-                  child: Scaffold(
-                    body: Column(
-                      children: [
-                        _getHeader(context),
-                        Expanded(child: widget.child),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
