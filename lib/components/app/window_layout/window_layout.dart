@@ -25,10 +25,14 @@ class WindowLayout extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: $constants.insets.sm,
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [...controller.windows],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [...controller.windows],
+                    ),
                   ),
                 ),
               ),

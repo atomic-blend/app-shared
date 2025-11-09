@@ -7,12 +7,19 @@ import 'package:flutter/material.dart';
 
 class ABEditorToolbar extends StatelessWidget {
   final FleatherController editorState;
-  const ABEditorToolbar({super.key, required this.editorState});
+  final Color? backgroundColor;
+
+  const ABEditorToolbar({
+    super.key,
+    required this.editorState,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedContainer(
       height: 50,
+      color: backgroundColor,
       child: FleatherToolbar(
         children: [
           _buildToggleStyleButton(
@@ -81,7 +88,7 @@ class ABEditorToolbar extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular($constants.corners.md),
                 color:
-                    isToggled
+                    !isToggled
                         ? getTheme(context).surface
                         : getTheme(context).surfaceContainer,
               ),

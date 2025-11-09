@@ -36,51 +36,65 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
     super.initState();
   }
 
+  void onClose(BuildContext context) {
+    // Override to add custom close behavior
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Material(
-          color: getTheme(context).surface,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular($constants.corners.lg),
-            topRight: Radius.circular($constants.corners.lg),
-          ),
-          elevation: 10,
-          child: Container(
-            height: widget.headerHeight ?? defaultHeaderHeight,
-            width: widget.width ?? defaultWidth,
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: $constants.insets.sm,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _isCollapsed = !(_isCollapsed ?? false);
-                });
-              },
+    return Material(
+      color: getTheme(context).surface,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular($constants.corners.lg),
+        topRight: Radius.circular($constants.corners.lg),
+      ),
+      elevation: 10,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isCollapsed = !(_isCollapsed ?? false);
+              });
+            },
+            child: Container(
+              height: widget.headerHeight ?? defaultHeaderHeight,
+              width: widget.width ?? defaultWidth,
+              padding: EdgeInsetsGeometry.symmetric(
+                horizontal: $constants.insets.sm,
+              ),
               child: Row(
                 children: [
                   Expanded(child: header(context)),
                   InkWell(
+                    child: Icon(CupertinoIcons.minus, size: 20),
+                    onTap: () {
+                      setState(() {
+                        _isCollapsed = !(_isCollapsed ?? false);
+                      });
+                    },
+                  ),
+                  SizedBox(width: $constants.insets.xs),
+                  InkWell(
                     child: Icon(CupertinoIcons.xmark, size: 20),
                     onTap: () {
                       getIt<WindowLayoutController>().removeWindow(widget);
+                      onClose(context);
                     },
                   ),
                 ],
               ),
             ),
           ),
-        ),
-        if (!(_isCollapsed ?? false))
-          SizedBox(
-            height: widget.contentHeight ?? defaultContentHeight,
-            width: widget.width ?? defaultWidth,
-            child: body(context),
-          ),
-      ],
+          if (!(_isCollapsed ?? false))
+            SizedBox(
+              height: widget.contentHeight ?? defaultContentHeight,
+              width: widget.width ?? defaultWidth,
+              child: body(context),
+            ),
+        ],
+      ),
     );
   }
 
