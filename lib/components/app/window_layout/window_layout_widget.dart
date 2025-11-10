@@ -63,14 +63,16 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
             defaultContentHeight)
         .clamp(_minContentHeight, double.infinity);
 
+    final double handleOverlayHeightNow =
+        (_isCollapsed ?? false) ? 0 : _handleOverlayHeight;
+
     final totalHeight =
-        _handleOverlayHeight +
+        handleOverlayHeightNow +
         currentHeaderHeight +
         (!(_isCollapsed ?? false) ? currentContentHeight : 0);
 
     // handle geometry
     final double handleWidth = 18;
-    final double handleHeight = _handleOverlayHeight;
     final double horizontalPadding = $constants.insets.sm;
 
     return Material(
@@ -88,10 +90,10 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
             // Main column positioned below the top handle overlay
             Positioned(
               left: 0,
-              top: _handleOverlayHeight,
+              top: handleOverlayHeightNow,
               child: SizedBox(
                 width: currentWidth,
-                height: totalHeight - _handleOverlayHeight,
+                height: totalHeight - handleOverlayHeightNow,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -116,6 +118,30 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                                 setState(() {
                                   _isCollapsed = !(_isCollapsed ?? false);
                                 });
+                              },
+                            ),
+                            SizedBox(width: $constants.insets.xs),
+                            InkWell(
+                              child: Icon(
+                                CupertinoIcons.arrow_up_left_arrow_down_right,
+                                size: 20,
+                              ),
+                              onTap: () {
+                                final maxWidth = getSize(context).width * 0.97;
+                                if (_width == maxWidth) {
+                                  setState(() {
+                                    _width = widget.width ?? defaultWidth;
+                                    _contentHeight =
+                                        widget.contentHeight ??
+                                        defaultContentHeight;
+                                  });
+                                } else {
+                                  setState(() {
+                                    _contentHeight =
+                                        getSize(context).height * 0.85;
+                                    _width = maxWidth;
+                                  });
+                                }
                               },
                             ),
                             SizedBox(width: $constants.insets.xs),
