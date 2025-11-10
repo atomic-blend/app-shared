@@ -142,51 +142,34 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                             child: body(context),
                           ),
                           // Right-side vertical handle (horizontal resize)
-                          Positioned(
-                            right: 0,
-                            top:
-                                (currentContentHeight / 2) -
-                                20 +
-                                currentHeaderHeight,
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.resizeLeftRight,
-                              child: GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onPanUpdate: (details) {
-                                  setState(() {
-                                    final newWidth = (currentWidth +
-                                            details.delta.dx)
-                                        .clamp(_minWidth, double.infinity);
-                                    _width = newWidth;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    right: $constants.insets.xxs,
-                                  ),
-                                  child: Container(
-                                    width: 4,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      color: getTheme(
-                                        context,
-                                      ).surfaceContainer.darken(10),
-                                      borderRadius: BorderRadius.circular(
-                                        $constants.corners.sm,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Positioned(
+                          //   right: 0,
+                          //   top: (currentContentHeight / 2) - 30,
+                          //   child: MouseRegion(
+                          //     cursor: SystemMouseCursors.resizeLeftRight,
+                          //     child: GestureDetector(
+                          //       behavior: HitTestBehavior.translucent,
+                          //       onPanUpdate: (details) {
+                          //         setState(() {
+                          //           final newWidth = (currentWidth +
+                          //                   details.delta.dx)
+                          //               .clamp(_minWidth, double.infinity);
+                          //           _width = newWidth;
+                          //         });
+                          //       },
+                          //       child: Padding(
+                          //         padding: EdgeInsets.only(
+                          //           right: $constants.insets.xxs,
+                          //         ),
+                          //         child: _buildHandle(context),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           // Left-side vertical handle (horizontal resize)
                           Positioned(
                             left: 0,
-                            top:
-                                (currentContentHeight / 2) -
-                                20 +
-                                currentHeaderHeight,
+                            top: (currentContentHeight / 2) - 30,
                             child: MouseRegion(
                               cursor: SystemMouseCursors.resizeLeftRight,
                               child: GestureDetector(
@@ -199,15 +182,11 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                                     _width = newWidth;
                                   });
                                 },
-                                child: Container(
-                                  width: 12,
-                                  height: 40,
-                                  color: Colors.transparent,
-                                  alignment: Alignment.center,
-                                  child: RotatedBox(
-                                    quarterTurns: 1,
-                                    child: Icon(Icons.drag_handle, size: 14),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: $constants.insets.xxs,
                                   ),
+                                  child: _buildHandle(context),
                                 ),
                               ),
                             ),
@@ -236,12 +215,12 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                         _contentHeight = newHeight;
                       });
                     },
-                    child: Container(
-                      width: 40,
-                      height: handleHeight,
-                      color: Colors.transparent,
-                      alignment: Alignment.center,
-                      child: Icon(Icons.drag_handle, size: 14),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: $constants.insets.xxs),
+                      child: RotatedBox(
+                        quarterTurns: 1,
+                        child: _buildHandle(context),
+                      ),
                     ),
                   ),
                 ),
@@ -267,17 +246,38 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                         _contentHeight = newHeight;
                       });
                     },
-                    child: Container(
-                      width: handleWidth,
-                      height: handleHeight,
-                      alignment: Alignment.center,
-                      child: Icon(Icons.drag_handle, size: 12),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: $constants.insets.xxs + 2,
+                        top: $constants.insets.xxs + 2,
+                      ),
+                      child: Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: getTheme(context).surfaceContainer.darken(10),
+                          borderRadius: BorderRadius.circular(
+                            $constants.corners.sm,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildHandle(BuildContext context) {
+    return Container(
+      width: 4,
+      height: 25,
+      decoration: BoxDecoration(
+        color: getTheme(context).surfaceContainer.darken(10),
+        borderRadius: BorderRadius.circular($constants.corners.sm),
       ),
     );
   }
