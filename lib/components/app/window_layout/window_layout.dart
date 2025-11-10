@@ -123,20 +123,20 @@ class _WindowLayoutState extends State<WindowLayout> {
               margin: EdgeInsets.symmetric(horizontal: $constants.insets.xs),
               // Use the stable entry.key so Flutter can keep the child's State
               // when its position in the Row changes.
-                child: AnimatedOpacity(
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 150),
+                opacity: (_isDragging && _draggingIndex == i) ? 0.95 : 1.0,
+                child: AnimatedScale(
                   duration: const Duration(milliseconds: 150),
-                  opacity: (_isDragging && _draggingIndex == i) ? 0.95 : 1.0,
-                  child: AnimatedScale(
-                    duration: const Duration(milliseconds: 150),
-                    scale: (_isDragging && _draggingIndex == i) ? 1.06 : 1.0,
-                    child: Material(
-                      elevation: (_isDragging && _draggingIndex == i) ? 8.0 : 0.0,
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.transparent,
-                      child: KeyedSubtree(key: entry.key, child: window),
-                    ),
+                  scale: (_isDragging && _draggingIndex == i) ? 1.06 : 1.0,
+                  child: Material(
+                    elevation: (_isDragging && _draggingIndex == i) ? 8.0 : 0.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Colors.transparent,
+                    child: KeyedSubtree(key: entry.key, child: window),
                   ),
                 ),
+              ),
             ),
           );
 
