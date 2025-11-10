@@ -13,7 +13,7 @@ class WindowLayoutWidget extends StatefulWidget {
   final double? width;
 
   const WindowLayoutWidget({
-    super.key,
+    required super.key,
     this.initiallyCollapsed,
     this.contentHeight,
     this.headerHeight,
