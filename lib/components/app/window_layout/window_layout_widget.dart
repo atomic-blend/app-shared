@@ -140,6 +140,7 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                                     _contentHeight =
                                         getSize(context).height * 0.85;
                                     _width = maxWidth;
+                                    _isCollapsed = false;
                                   });
                                 }
                               },
