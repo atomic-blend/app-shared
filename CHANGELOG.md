@@ -2,6 +2,29 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.0 - 2025-11-11
+#### Bug Fixes
+- hide top left handle + redure header size when not collapsed - (825d9ba) - Brandon Guigo
+- linter - (b7c88d6) - Brandon Guigo
+- when user expand, uncollapse automatically - (3b0dc74) - Brandon Guigo
+- window animation when moving - (d1ae08d) - Brandon Guigo
+- ui when drzg drop windows - (0a9cac7) - Brandon Guigo
+- handles ui - (5d44431) - Brandon Guigo
+- add minimize - (cf8dbcf) - Brandon Guigo
+- ui of primary button square - (ca3b242) - Brandon Guigo
+- incorrect parent widget error in header - (0b777d8) - Brandon Guigo
+- header was taking only half the space on mobile - (fd86741) - Brandon Guigo
+- size of the search bar on mobile - (73addea) - Brandon Guigo
+#### Features
+- reordering - (a7de7f9) - Brandon Guigo
+- window maximization - (9413b93) - Brandon Guigo
+- resizing of windows part 1 - (aa52e67) - Brandon Guigo
+- add windowed layout into desktop app - (92cf766) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.11.1 [skip ci] - (cef625c) - GitHub Actions
+
+- - -
+
 ## v0.11.1 - 2025-11-07
 #### Bug Fixes
 - add a dialog wrapper to the selfhosted dialog - (984e390) - Brandon Guigo
