@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.1 - 2025-11-11
+#### Bug Fixes
+- wrong color for toolbar in email composer - (1a09461) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.0 [skip ci] - (ae95fdf) - GitHub Actions
+
+- - -
+
 ## v0.12.0 - 2025-11-11
 #### Bug Fixes
 - hide top left handle + redure header size when not collapsed - (825d9ba) - Brandon Guigo
