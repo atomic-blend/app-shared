@@ -27,7 +27,7 @@ class WindowLayoutWidget extends StatefulWidget {
 class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
   final getIt = GetIt.instance;
   final double defaultWidth = 300;
-  final double defaultHeaderHeight = 50;
+  final double defaultHeaderHeight = 40;
   final double defaultContentHeight = 400;
   bool? _isCollapsed;
   // Resizable state
@@ -104,7 +104,10 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                         });
                       },
                       child: Container(
-                        height: currentHeaderHeight,
+                        height:
+                            _isCollapsed == true
+                                ? currentHeaderHeight
+                                : currentHeaderHeight / 2,
                         width: currentWidth,
                         padding: EdgeInsets.symmetric(
                           horizontal: $constants.insets.sm,
@@ -282,7 +285,8 @@ class WindowLayoutWidgetState extends State<WindowLayoutWidget> {
                         width: 6,
                         height: 6,
                         decoration: BoxDecoration(
-                          color: getTheme(context).surfaceContainer.darken(10),
+                          // color: getTheme(context).surfaceContainer.darken(10),
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(
                             $constants.corners.sm,
                           ),
