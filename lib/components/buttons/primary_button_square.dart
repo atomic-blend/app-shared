@@ -13,6 +13,7 @@ class PrimaryButtonSquare extends StatelessWidget {
     this.iconColor,
     this.iconSize,
     this.text,
+    this.textStyle,
     this.backgroundColor,
     this.trailing,
     this.textColor,
@@ -30,6 +31,7 @@ class PrimaryButtonSquare extends StatelessWidget {
   final double? iconSize;
   final Widget? trailing;
   final String? text;
+  final TextStyle? textStyle;
   final Color? backgroundColor;
   final Color? textColor;
   final Border? border;
@@ -72,27 +74,34 @@ class PrimaryButtonSquare extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (leading != null) ...[leading!],
+                if (leading != null) ...[
+                  leading!,
+                  SizedBox(width: $constants.insets.xs),
+                ],
                 if (emoji != null) ...[
                   Text(emoji!, style: const TextStyle(fontSize: 23)),
+                  SizedBox(width: $constants.insets.xs),
                 ],
                 if (icon != null) ...[
                   Icon(icon, color: iconColor, size: iconSize),
+                  SizedBox(width: $constants.insets.xs),
                 ],
                 if (text != null) ...[
-                  SizedBox(width: $constants.insets.xs),
                   Center(
                     child: AutoSizeText(
                       text!,
                       maxLines: 1,
-                      style: getTextTheme(context).bodyMedium!.copyWith(
-                        color:
-                            outlined == true
-                                ? backgroundColor ?? getTheme(context).primary
-                                : textColor ?? Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                      style:
+                          textStyle ??
+                          getTextTheme(context).bodyMedium!.copyWith(
+                            color:
+                                outlined == true
+                                    ? backgroundColor ??
+                                        getTheme(context).primary
+                                    : textColor ?? Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                     ),
                   ),
                 ],

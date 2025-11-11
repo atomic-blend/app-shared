@@ -1,4 +1,5 @@
 import 'package:ab_shared/components/app/ab_sync_status.dart';
+import 'package:ab_shared/components/app/conditional_parent_wrapper.dart';
 import 'package:ab_shared/components/forms/search_bar.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -68,23 +69,35 @@ class _ABHeaderState extends State<ABHeader> {
                 ),
             ],
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: getSize(context).width * 0.4),
+          Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: ABSearchBar(
-                    controller: controller,
-                    showClearButton: true,
-                    onSubmitted: (value) {
-                      context.go("/search?q=$value");
-                    },
-                    onChanged: (value) {
-                      if (GoRouterState.of(context).uri.path == "/search") {
+                ConditionalParentWidget(
+                  condition: isDesktop(context),
+                  parentBuilder:
+                      (child) => ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: getSize(context).width * 0.4,
+                        ),
+                        child: child,
+                      ),
+                  child: ConditionalParentWidget(
+                    condition: !isDesktop(context),
+                    parentBuilder: (child) => Expanded(child: child),
+                    child: ABSearchBar(
+                      controller: controller,
+                      showClearButton: true,
+                      onSubmitted: (value) {
                         context.go("/search?q=$value");
-                      }
-                    },
+                      },
+                      onChanged: (value) {
+                        if (GoRouterState.of(context).uri.path == "/search") {
+                          context.go("/search?q=$value");
+                        }
+                      },
+                    ),
                   ),
                 ),
                 if (isDesktop(context)) ...[
@@ -100,11 +113,14 @@ class _ABHeaderState extends State<ABHeader> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (!isDesktop(context))
+              if (!isDesktop(context)) ...[
+                SizedBox(width: $constants.insets.xs),
                 AbSyncStatus(
                   syncElements: widget.syncedElements,
                   isSyncing: widget.isSyncing,
                 ),
+                SizedBox(width: $constants.insets.xs),
+              ],
             ],
           ),
         ],
