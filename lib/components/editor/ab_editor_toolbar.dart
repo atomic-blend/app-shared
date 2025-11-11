@@ -88,9 +88,9 @@ class ABEditorToolbar extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular($constants.corners.md),
                 color:
-                    !isToggled
-                        ? getTheme(context).surface
-                        : getTheme(context).surfaceContainer,
+                    isToggled
+                        ? getTheme(context).surfaceContainer
+                        : getTheme(context).surface,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
