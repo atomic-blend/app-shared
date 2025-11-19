@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.2 - 2025-11-19
+#### Bug Fixes
+- ab modal buttons make dialog take whole width - (81b7607) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.1 [skip ci] - (e1b4556) - GitHub Actions
+
+- - -
+
 ## v0.12.1 - 2025-11-11
 #### Bug Fixes
 - wrong color for toolbar in email composer - (1a09461) - Brandon Guigo
