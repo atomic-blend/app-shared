@@ -39,10 +39,10 @@ class ABModal extends StatefulWidget {
 class _ABModalState extends State<ABModal> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      child: Dialog(
-        backgroundColor: getTheme(context).surfaceContainer,
+    return Dialog(
+      backgroundColor: getTheme(context).surfaceContainer,
+      child: SizedBox(
+        width: widget.width,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: $constants.insets.md,
@@ -80,37 +80,33 @@ class _ABModalState extends State<ABModal> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PrimaryButtonSquare(
-                    width:
-                        widget.width != null
-                            ? (widget.width! / 2) - ($constants.insets.md / 2)
-                            : null,
-                    onPressed: () async {
-                      widget.onCancel?.call();
-                      if (widget.onCancel == null) {
-                        Navigator.pop(context, false);
-                      }
-                    },
-                    text: widget.cancelText ?? context.t.actions.cancel,
-                    textColor: Colors.black,
-                    backgroundColor: widget.cancelColor ?? Colors.white,
+                  Expanded(
+                    child: PrimaryButtonSquare(
+                      onPressed: () async {
+                        widget.onCancel?.call();
+                        if (widget.onCancel == null) {
+                          Navigator.pop(context, false);
+                        }
+                      },
+                      text: widget.cancelText ?? context.t.actions.cancel,
+                      textColor: Colors.black,
+                      backgroundColor: widget.cancelColor ?? Colors.white,
+                    ),
                   ),
                   SizedBox(width: $constants.insets.md),
-                  PrimaryButtonSquare(
-                    width:
-                        widget.width != null
-                            ? (widget.width! / 2) - ($constants.insets.md / 2)
-                            : null,
-                    onPressed: () async {
-                      widget.onConfirm?.call();
-                      if (widget.onConfirm == null) {
-                        Navigator.pop(context, true);
-                      }
-                    },
-                    text: widget.confirmText ?? context.t.actions.delete,
-                    backgroundColor:
-                        widget.confirmColor ?? getTheme(context).error,
-                    textColor: widget.confirmTextColor ?? Colors.white,
+                  Expanded(
+                    child: PrimaryButtonSquare(
+                      onPressed: () async {
+                        widget.onConfirm?.call();
+                        if (widget.onConfirm == null) {
+                          Navigator.pop(context, true);
+                        }
+                      },
+                      text: widget.confirmText ?? context.t.actions.delete,
+                      backgroundColor:
+                          widget.confirmColor ?? getTheme(context).error,
+                      textColor: widget.confirmTextColor ?? Colors.white,
+                    ),
                   ),
                 ],
               ),
