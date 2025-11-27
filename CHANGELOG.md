@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.4 - 2025-11-27
+#### Bug Fixes
+- update slang to latest - (5a6e49e) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.3 [skip ci] - (4ae210b) - GitHub Actions
+
+- - -
+
 ## v0.12.3 - 2025-11-23
 #### Bug Fixes
 - make dialog work properly with width arg - (8838ed6) - Brandon Guigo
