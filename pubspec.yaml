@@ -41,8 +41,8 @@ dependencies:
   icons_plus: ^5.0.0
   lottie: ^3.3.1
   toastification: ^3.0.3
-  slang: ^4.8.1
-  slang_flutter: ^4.8.0
+  slang: ^4.11.0
+  slang_flutter: ^4.11.0
   random_avatar: ^0.0.8
   url_launcher: ^6.3.2
   jiffy: ^6.4.3
@@ -71,7 +71,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.14
-  slang_build_runner: ^4.4.0
+  slang_build_runner: ^4.11.0
   go_router_builder: ^3.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
