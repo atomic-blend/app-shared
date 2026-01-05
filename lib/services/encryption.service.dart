@@ -416,10 +416,7 @@ class EncryptionService {
     }
 
     // encrypt with age key
-    final encrypted = age.encryptString(
-      message: data,
-      publicKey: key,
-    );
+    final encrypted = age.encryptString(message: data, publicKey: key);
 
     return encrypted;
   }
@@ -586,13 +583,7 @@ class EncryptionService {
         String jsonValue = json.encode(value);
         return await encryptString(data: jsonValue);
       } else {
-        String decryptedValue = await decryptString(data: value.toString());
-        try {
-          return json.decode(decryptedValue);
-        } catch (e) {
-          // If cannot decode as JSON, return as is (might be a date string or other primitive)
-          return decryptedValue;
-        }
+        return await decryptString(data: value.toString());
       }
     }
     // Handle any other type by converting to JSON
