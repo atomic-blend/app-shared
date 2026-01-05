@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.5 - 2026-01-05
+#### Bug Fixes
+- refactor - (0d8ab86) - Brandon Guigo
+- return the value of the string instead of a json decode - (f32b7bf) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.4 [skip ci] - (dc8b03f) - GitHub Actions
+
+- - -
+
 ## v0.12.4 - 2025-11-27
 #### Bug Fixes
 - update slang to latest - (5a6e49e) - Brandon Guigo
