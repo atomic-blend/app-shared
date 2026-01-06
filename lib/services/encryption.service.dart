@@ -580,8 +580,7 @@ class EncryptionService {
         value is double ||
         value is bool) {
       if (encrypt) {
-        String jsonValue = json.encode(value);
-        return await encryptString(data: jsonValue);
+        return await encryptString(data: value.toString());
       } else {
         return await decryptString(data: value.toString());
       }
