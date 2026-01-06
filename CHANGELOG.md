@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.12.6 - 2026-01-06
+#### Bug Fixes
+- remove wrong json encode - (9ba369c) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.5 [skip ci] - (b409db9) - GitHub Actions
+
+- - -
+
 ## v0.12.5 - 2026-01-05
 #### Bug Fixes
 - refactor - (0d8ab86) - Brandon Guigo
