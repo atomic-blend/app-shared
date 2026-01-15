@@ -27,6 +27,8 @@ mixin _$UserEntity {
   set firebase_id(String? value) => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   set email(String? value) => throw _privateConstructorUsedError;
+  String? get backupEmail => throw _privateConstructorUsedError;
+  set backupEmail(String? value) => throw _privateConstructorUsedError;
   List<dynamic> get roles => throw _privateConstructorUsedError;
   set roles(List<dynamic> value) => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
@@ -76,6 +78,7 @@ abstract class $UserEntityCopyWith<$Res> {
     String? id,
     String? firebase_id,
     String? email,
+    String? backupEmail,
     List<dynamic> roles,
     String? firstName,
     String? lastName,
@@ -112,6 +115,7 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? id = freezed,
     Object? firebase_id = freezed,
     Object? email = freezed,
+    Object? backupEmail = freezed,
     Object? roles = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
@@ -142,6 +146,11 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
                 freezed == email
                     ? _value.email
                     : email // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            backupEmail:
+                freezed == backupEmail
+                    ? _value.backupEmail
+                    : backupEmail // ignore: cast_nullable_to_non_nullable
                         as String?,
             roles:
                 null == roles
@@ -237,6 +246,7 @@ abstract class _$$UserEntityImplCopyWith<$Res>
     String? id,
     String? firebase_id,
     String? email,
+    String? backupEmail,
     List<dynamic> roles,
     String? firstName,
     String? lastName,
@@ -273,6 +283,7 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? firebase_id = freezed,
     Object? email = freezed,
+    Object? backupEmail = freezed,
     Object? roles = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
@@ -303,6 +314,11 @@ class __$$UserEntityImplCopyWithImpl<$Res>
             freezed == email
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        backupEmail:
+            freezed == backupEmail
+                ? _value.backupEmail
+                : backupEmail // ignore: cast_nullable_to_non_nullable
                     as String?,
         roles:
             null == roles
@@ -381,6 +397,7 @@ class _$UserEntityImpl extends _UserEntity {
     this.id,
     this.firebase_id,
     required this.email,
+    required this.backupEmail,
     required this.roles,
     this.firstName,
     this.lastName,
@@ -405,6 +422,8 @@ class _$UserEntityImpl extends _UserEntity {
   String? firebase_id;
   @override
   String? email;
+  @override
+  String? backupEmail;
   @override
   List<dynamic> roles;
   @override
@@ -451,6 +470,7 @@ abstract class _UserEntity extends UserEntity {
     String? id,
     String? firebase_id,
     required String? email,
+    required String? backupEmail,
     required List<dynamic> roles,
     String? firstName,
     String? lastName,
@@ -479,6 +499,9 @@ abstract class _UserEntity extends UserEntity {
   @override
   String? get email;
   set email(String? value);
+  @override
+  String? get backupEmail;
+  set backupEmail(String? value);
   @override
   List<dynamic> get roles;
   set roles(List<dynamic> value);
