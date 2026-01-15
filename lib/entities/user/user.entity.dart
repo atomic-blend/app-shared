@@ -14,6 +14,7 @@ class UserEntity with _$UserEntity {
     String? id,
     String? firebase_id,
     required String? email,
+    required String? backupEmail,
     required List<dynamic> roles,
     String? firstName,
     String? lastName,
@@ -31,7 +32,7 @@ class UserEntity with _$UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, stripeCustomerId: $stripeCustomerId, stripeSubscriptionId: $stripeSubscriptionId, subscriptionStatus: $subscriptionStatus, firstName: $firstName, lastName: $lastName, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
+    return 'UserEntity { id: $id, roles: $roles, firebase_id: $firebase_id, email: $email, backupEmail: $backupEmail, stripeCustomerId: $stripeCustomerId, stripeSubscriptionId: $stripeSubscriptionId, subscriptionStatus: $subscriptionStatus, firstName: $firstName, lastName: $lastName, purchases: $purchases, devices: $devices, createdAt: $createdAt, updatedAt: $updatedAt }';
   }
 
   String? displayName() {
