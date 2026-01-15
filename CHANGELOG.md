@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.13.0 - 2026-01-15
+#### Features
+- add the backupEmail to the user model - (9f6fda1) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** v0.12.6 [skip ci] - (11949e1) - GitHub Actions
+
+- - -
+
 ## v0.12.6 - 2026-01-06
 #### Bug Fixes
 - remove wrong json encode - (9ba369c) - Brandon Guigo
